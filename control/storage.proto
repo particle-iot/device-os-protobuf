@@ -4,26 +4,34 @@ package particle.ctrl;
 import "common.proto";
 
 enum StorageType {
-  INTERNAL = 0; // Internal flash
+  INVALID_STORAGE = 0;
+  INTERNAL = 1; // Internal flash
 }
 
 enum SectionType {
-  BOOTLOADER = 0; // Bootloader
-  SYSTEM_FIRMWARE = 1; // System module
-  USER_FIRMWARE = 2; // User module
-  MONO_FIRMWARE = 3; // Monolithic firmware
-  OTA_BACKUP = 4; // Temporary storage for a firmware module
-  FACTORY_BACKUP = 5; // Factory backup firmware
-  CONFIG = 6; // Device configuration (DCT)
-  EEPROM = 7; // EEPROM-alike memory
+  INVALID_SECTION = 0;
+  FIRMWARE = 1; // Firmware module
+  OTA_BACKUP = 2; // OTA backup
+  FACTORY_BACKUP = 3; // Factory backup
+  CONFIG = 4; // Device configuration
+  EEPROM = 5; // Emulated EEPROM
+}
+
+enum FirmwareModuleType {
+  INVALID_FIRMWARE_MODULE = 0;
+  BOOTLOADER = 1; // Bootloader
+  SYSTEM_PART = 2; // System part
+  USER_PART = 3; // User part
+  MONO_FIRMWARE = 4; // Monolithic firmware
 }
 
 enum SectionFlag {
-  NO_SECTION_FLAGS = 0; // Required by proto3
-  READABLE = 0x01; // Section data is readable
-  WRITABLE = 0x02; // Section data is writable
-  CLEARABLE = 0x04; // Section can be cleared
-  NEED_CLEAR = 0x08; // Section needs to be cleared before writing
+  NO_SECTION_FLAGS = 0;
+  CAN_READ = 0x01; // Section data is readable
+  CAN_WRITE = 0x02; // Section data is writable
+  CAN_CLEAR = 0x04; // Section can be cleared
+  CAN_GET_SIZE = 0x08; // Actual size of the section data can be determined
+  NEED_CLEAR = 0x10; // Section needs to be cleared before writing
 }
 
 // CTRL_REQUEST_START_FIRMWARE_UPDATE (250)
@@ -50,12 +58,12 @@ message CancelFirmwareUpdateRequest {
 message CancelFirmwareUpdateReply {
 }
 
-// CTRL_REQUEST_SAVE_FIRMWARE_DATA (253)
-message SaveFirmwareDataRequest {
+// CTRL_REQUEST_FIRMWARE_UPDATE_DATA (253)
+message FirmwareUpdateDataRequest {
   bytes data = 1;
 }
 
-message SaveFirmwareDataReply {
+message FirmwareUpdateDataReply {
 }
 
 // CTRL_REQUEST_DESCRIBE_STORAGE (260)
@@ -64,48 +72,61 @@ message DescribeStorageRequest {
 
 message DescribeStorageReply {
   message Section {
+    message FirmwareModule {
+      FirmwareModuleType type = 1;
+      uint32 index = 2;
+    }
     SectionType type = 1;
-    uint32 index = 2;
-    uint32 size = 3;
-    uint32 flags = 4;
+    uint32 size = 2;
+    uint32 flags = 3;
+    FirmwareModule firmware_module = 4;
   }
   message Storage {
     StorageType type = 1;
-    uint32 index = 2;
-    uint32 flags = 3;
-    repeated Section sections = 4;
+    uint32 flags = 2;
+    repeated Section sections = 3;
   }
   repeated Storage storage = 1;
 }
 
-// CTRL_REQUEST_LOAD_STORAGE_DATA (261)
-message LoadStorageDataRequest {
+// CTRL_REQUEST_READ_SECTION_DATA (261)
+message ReadSectionDataRequest {
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
   uint32 offset = 3;
   uint32 size = 4;
 }
 
-message LoadStorageDataReply {
+message ReadSectionDataReply {
   bytes data = 1;
 }
 
-// CTRL_REQUEST_SAVE_STORAGE_DATA (262)
-message SaveStorageDataRequest {
+// CTRL_REQUEST_WRITE_SECTION_DATA (262)
+message WriteSectionDataRequest {
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
   uint32 offset = 3;
   bytes data = 4;
 }
 
-message SaveStorageDataReply {
+message WriteSectionDataReply {
 }
 
-// CTRL_REQUEST_CLEAR_STORAGE_SECTION (263)
-message ClearStorageSectionRequest {
+// CTRL_REQUEST_CLEAR_SECTION_DATA (263)
+message ClearSectionDataRequest {
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
 }
 
-message ClearStorageSectionReply {
+message ClearSectionDataReply {
+}
+
+// CTRL_REQUEST_GET_SECTION_DATA_SIZE (264)
+message GetSectionDataSizeRequest {
+  uint32 storage = 1; // Storage index
+  uint32 section = 2; // Section index
+}
+
+message GetSectionDataSizeReply {
+  uint32 size = 1;
 }
