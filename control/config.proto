@@ -29,6 +29,14 @@ message SetClaimCodeRequest {
 message SetClaimCodeReply {
 }
 
+// CTRL_REQUEST_IS_CLAIMED: 201
+message IsClaimedRequest {
+}
+
+message IsClaimedReply {
+  bool claimed = 1;
+}
+
 // CTRL_REQUEST_SET_SECURITY_KEY: 210
 message SetSecurityKeyRequest {
   SecurityKeyType type = 1; // Key type
