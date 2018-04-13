@@ -31,6 +31,8 @@ message NetworkInfo {
   string ext_pan = 2;
   // PAN ID
   string pan = 3;
+  // Channel
+  int32 channel = 4;
 }
 
 // Authenticate the client as a commissioner
@@ -51,7 +53,7 @@ message AuthReply {
 message CreateNetworkRequest {
   // Network name
   string name = 1;
-  // New commissioning credential
+  // Commissioning credential for this network
   string password = 2;
 }
 
@@ -83,8 +85,24 @@ message StopCommissionerRequest {
 message StopCommissionerReply {
 }
 
-// Add a joiner device
+// Prepare the device to join a network
 // Message type: 1005
+message PrepareJoinerRequest {
+  NetworkInfo network = 1;
+}
+
+// Result codes:
+// ALREADY_EXIST: The device is already a member of a network
+// NOT_ALLOWED: The client is not authenticated
+message PrepareJoinerReply {
+  // EUI-64
+  string eui64 = 1;
+  // Newly generated joining device credential
+  string password = 2;
+}
+
+// Add a joiner device
+// Message type: 1006
 message AddJoinerRequest {
   // EUI-64 of the joiner device
   string eui64 = 1;
@@ -100,7 +118,7 @@ message AddJoinerReply {
 }
 
 // Remove the joiner device
-// Message type: 1006
+// Message type: 1007
 message RemoveJoinerRequest {
   // EUI-64 of the joiner device
   string eui64 = 1;
@@ -114,10 +132,8 @@ message RemoveJoinerReply {
 }
 
 // Join the network
-// Message type: 1007
+// Message type: 1008
 message JoinNetworkRequest {
-  // Joining device credential
-  string password = 1;
 }
 
 // Result codes:
@@ -128,7 +144,7 @@ message JoinNetworkReply {
 }
 
 // Leave the network
-// Message type: 1008
+// Message type: 1009
 message LeaveNetworkRequest {
 }
 
@@ -139,20 +155,19 @@ message LeaveNetworkReply {
 }
 
 // Get the info about current network
-// Message type: 1009
+// Message type: 1010
 message GetNetworkInfoRequest {
 }
 
 // Result codes:
 // NOT_FOUND: The device is not a member of a network
-// NOT_ALLOWED: The client is not authenticated
 message GetNetworkInfoReply {
   // Network info
   NetworkInfo network = 1;
 }
 
 // Scan networks
-// Message type: 1010
+// Message type: 1011
 message ScanNetworksRequest {
 }
 
