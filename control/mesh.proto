@@ -12,16 +12,35 @@ import "common.proto";
 // EUI-64: 16 characters, hex-encoded
 // Joining device credential: 6 to 32 characters, base32-thread encoded
 
-// Result codes:
-//
-// OK: 0
-// NOT_ALLOWED: -130
-// TIMEOUT: -160
-// NOT_FOUND: -170
-// ALREADY_EXIST: -180
-// INVALID_STATE: -210
-// NO_MEMORY: -260
-// INVALID_PARAM: -270
+
+// This message option lets us annotate each Message description with a runtime-accessible 
+// option value which corresponds this this message's corresponding type in the
+// `ctrl_request_type` enum from the firmware code.
+extend google.protobuf.MessageOptions {
+  optional int32 type_id = 50001;
+}
+
+// see the ResultCode enum below for how this is used
+extend google.protobuf.EnumValueOptions {
+  optional int32 int_value = 50002;
+}
+
+
+// The field numbers here are just protobuf details.  The value to pay attention to 
+// is the "int_value" option, which corresponds to the numeric value that will 
+// be set in reply frames (which itself ultimately comes from the numeric values
+// in the system_error_t enum in the firmware code).
+enum ResultCode {
+  OK = 0 [(int_value) = 0];
+  NOT_ALLOWED = 1 [(int_value) = -130];
+  TIMEOUT = 2 [(int_value) = -160];
+  NOT_FOUND = 3 [(int_value) = -170];
+  ALREADY_EXIST = 4 [(int_value) = -180];
+  INVALID_STATE = 5 [(int_value) = -210];
+  NO_MEMORY = 6 [(int_value) = -260];
+  INVALID_PARAM = 7 [(int_value) = -270];
+}
+
 
 // Network info
 message NetworkInfo {
@@ -36,8 +55,8 @@ message NetworkInfo {
 }
 
 // Authenticate the client as a commissioner
-// Message type: 1001
 message AuthRequest {
+  option (type_id) = 1001;
   // Commissioning credential
   string password = 1;
 }
@@ -49,8 +68,9 @@ message AuthReply {
 }
 
 // Create a new network
-// Message type: 1002
 message CreateNetworkRequest {
+  option (type_id) = 1002;
+  
   // Network name
   string name = 1;
   // Commissioning credential for this network
@@ -66,8 +86,8 @@ message CreateNetworkReply {
 }
 
 // Start the commissioner role
-// Message type: 1003
 message StartCommissionerRequest {
+  option (type_id) = 1003;
 }
 
 // Result codes:
@@ -76,8 +96,8 @@ message StartCommissionerReply {
 }
 
 // Stop the commissioner role
-// Message type: 1004
 message StopCommissionerRequest {
+  option (type_id) = 1004;
 }
 
 // Result codes:
@@ -86,8 +106,9 @@ message StopCommissionerReply {
 }
 
 // Prepare the device to join a network
-// Message type: 1005
 message PrepareJoinerRequest {
+  option (type_id) = 1005;
+  
   NetworkInfo network = 1;
 }
 
@@ -102,8 +123,9 @@ message PrepareJoinerReply {
 }
 
 // Add a joiner device
-// Message type: 1006
 message AddJoinerRequest {
+  option (type_id) = 1006;
+
   // EUI-64 of the joiner device
   string eui64 = 1;
   // Joining device credential
@@ -118,8 +140,9 @@ message AddJoinerReply {
 }
 
 // Remove the joiner device
-// Message type: 1007
 message RemoveJoinerRequest {
+  option (type_id) = 1007;
+
   // EUI-64 of the joiner device
   string eui64 = 1;
 }
@@ -132,8 +155,8 @@ message RemoveJoinerReply {
 }
 
 // Join the network
-// Message type: 1008
 message JoinNetworkRequest {
+  option (type_id) = 1008;
 }
 
 // Result codes:
@@ -144,8 +167,8 @@ message JoinNetworkReply {
 }
 
 // Leave the network
-// Message type: 1009
 message LeaveNetworkRequest {
+  option (type_id) = 1009;
 }
 
 // Result codes:
@@ -155,8 +178,8 @@ message LeaveNetworkReply {
 }
 
 // Get the info about current network
-// Message type: 1010
 message GetNetworkInfoRequest {
+  option (type_id) = 1010;
 }
 
 // Result codes:
@@ -167,8 +190,8 @@ message GetNetworkInfoReply {
 }
 
 // Scan networks
-// Message type: 1011
 message ScanNetworksRequest {
+  option (type_id) = 1011;
 }
 
 message ScanNetworksReply {
