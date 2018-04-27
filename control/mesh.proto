@@ -1,7 +1,8 @@
 syntax = "proto3";
 package particle.ctrl.mesh;
 
-import "google/protobuf/descriptor.proto";
+import "extensions.proto";
+
 
 
 // Common fields:
@@ -12,35 +13,6 @@ import "google/protobuf/descriptor.proto";
 // PAN ID: 4 characters, hex-encoded
 // EUI-64: 16 characters, hex-encoded
 // Joining device credential: 6 to 32 characters, base32-thread encoded
-
-
-// This message option lets us annotate each Message description with a runtime-accessible 
-// option value which corresponds this this message's corresponding type in the
-// `ctrl_request_type` enum from the firmware code.
-extend google.protobuf.MessageOptions {
-  int32 type_id = 50001;
-}
-
-// see the ResultCode enum below for how this is used
-extend google.protobuf.EnumValueOptions {
-  int32 int_value = 50002;
-}
-
-
-// The field numbers here are just protobuf details.  The value to pay attention to 
-// is the "int_value" option, which corresponds to the numeric value that will 
-// be set in reply frames (which itself ultimately comes from the numeric values
-// in the system_error_t enum in the firmware code).
-enum ResultCode {
-  OK = 0 [(int_value) = 0];
-  NOT_ALLOWED = 1 [(int_value) = -130];
-  TIMEOUT = 2 [(int_value) = -160];
-  NOT_FOUND = 3 [(int_value) = -170];
-  ALREADY_EXIST = 4 [(int_value) = -180];
-  INVALID_STATE = 5 [(int_value) = -210];
-  NO_MEMORY = 6 [(int_value) = -260];
-  INVALID_PARAM = 7 [(int_value) = -270];
-}
 
 
 // Network info
