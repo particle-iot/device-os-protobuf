@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
+
+
+// This message option lets us annotate each Message description with a runtime-accessible 
+// option value which corresponds this this message's corresponding type in the
+// `ctrl_request_type` enum from the firmware code.
+extend google.protobuf.MessageOptions {
+  int32 type_id = 50001;
+}
+
+// see the ResultCode enum below for how this is used
+extend google.protobuf.EnumValueOptions {
+  int32 int_value = 50002;
+}
+
