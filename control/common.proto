@@ -4,6 +4,8 @@ package particle.ctrl;
 import public "nanopb.proto";
 import "extensions.proto";
 
+option java_package = "io.particle.firmwareprotos.ctrl";
+
 
 // The field numbers here are just protobuf details.  The value to pay attention to 
 // is the "int_value" option, which corresponds to the numeric value that will 

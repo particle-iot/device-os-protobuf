@@ -3,6 +3,7 @@ package particle.ctrl.mesh;
 
 import "extensions.proto";
 
+option java_package = "io.particle.firmwareprotos.ctrl.mesh";
 
 
 // Common fields:
