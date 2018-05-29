@@ -5,27 +5,25 @@ import "extensions.proto";
 
 option java_package = "io.particle.firmwareprotos.ctrl.mesh";
 
-
 // Common fields:
 //
 // Network name: up to 16 characters, UTF-8 encoded
 // Commissioning credential: 6 to 255 characters, UTF-8 encoded
+// PAN ID: 16-bit unsigned integer
 // Extended PAN ID: 16 characters, hex-encoded
-// PAN ID: 4 characters, hex-encoded
 // EUI-64: 16 characters, hex-encoded
 // Joining device credential: 6 to 32 characters, base32-thread encoded
-
 
 // Network info
 message NetworkInfo {
   // Network name
   string name = 1;
   // Extended PAN ID
-  string ext_pan = 2;
+  string ext_pan_id = 2;
   // PAN ID
-  string pan = 3;
-  // Channel
-  int32 channel = 4;
+  uint32 pan_id = 3;
+  // Channel number
+  uint32 channel = 4;
 }
 
 // Authenticate the client as a commissioner
@@ -44,11 +42,13 @@ message AuthReply {
 // Create a new network
 message CreateNetworkRequest {
   option (type_id) = 1002;
-  
+
   // Network name
   string name = 1;
   // Commissioning credential for this network
   string password = 2;
+  // Channel number
+  uint32 channel = 3;
 }
 
 // Result codes:
@@ -82,7 +82,7 @@ message StopCommissionerReply {
 // Prepare the device to join a network
 message PrepareJoinerRequest {
   option (type_id) = 1005;
-  
+
   NetworkInfo network = 1;
 }
 
