@@ -1,6 +1,7 @@
 syntax = "proto3";
 package particle.ctrl;
 
+import "extensions.proto";
 import "common.proto";
 
 // Note: Use the same values as defined by the security_key_type enum
@@ -19,6 +20,16 @@ enum ServerProtocolType {
   INVALID_PROTOCOL = 0;
   TCP_PROTOCOL = 1;
   UDP_PROTOCOL = 2;
+}
+
+// Get the device ID
+message GetDeviceIdRequest {
+  option (type_id) = 20;
+}
+
+message GetDeviceIdReply {
+  // Device ID (hex-encoded)
+  string id = 1 [(nanopb).max_size = 24];
 }
 
 // CTRL_REQUEST_SET_CLAIM_CODE: 200
