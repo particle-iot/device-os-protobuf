@@ -24,12 +24,21 @@ enum ServerProtocolType {
 
 // Get the device ID
 message GetDeviceIdRequest {
-  option (type_id) = 20;
+  option (type_id) = 20; // CTRL_REQUEST_DEVICE_ID
 }
 
 message GetDeviceIdReply {
   // Device ID (hex-encoded)
   string id = 1 [(nanopb).max_size = 24];
+}
+
+// Get the device's serial number
+message GetSerialNumberRequest {
+  option (type_id) = 21; // CTRL_REQUEST_SERIAL_NUMBER
+}
+
+message GetSerialNumberReply {
+  string serial = 1 [(nanopb).max_size = 16];
 }
 
 // CTRL_REQUEST_SET_CLAIM_CODE: 200
