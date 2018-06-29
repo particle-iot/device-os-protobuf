@@ -41,24 +41,24 @@ message GetSerialNumberReply {
   string serial = 1 [(nanopb).max_size = 16];
 }
 
-// CTRL_REQUEST_SET_CLAIM_CODE: 200
 message SetClaimCodeRequest {
+  option (type_id) = 200; // CTRL_REQUEST_SET_CLAIM_CODE
   string code = 1 [(nanopb).max_size = 64]; // Claim code
 }
 
 message SetClaimCodeReply {
 }
 
-// CTRL_REQUEST_IS_CLAIMED: 201
 message IsClaimedRequest {
+  option (type_id) = 201; // CTRL_REQUEST_IS_CLAIMED
 }
 
 message IsClaimedReply {
   bool claimed = 1;
 }
 
-// CTRL_REQUEST_SET_SECURITY_KEY: 210
 message SetSecurityKeyRequest {
+  option (type_id) = 210; // CTRL_REQUEST_SET_SECURITY_KEY
   SecurityKeyType type = 1; // Key type
   bytes data = 2; // Key data in DER format
 }
@@ -66,8 +66,9 @@ message SetSecurityKeyRequest {
 message SetSecurityKeyReply {
 }
 
-// CTRL_REQUEST_GET_SECURITY_KEY: 211
+
 message GetSecurityKeyRequest {
+  option (type_id) = 211; // CTRL_REQUEST_GET_SECURITY_KEY
   SecurityKeyType type = 1; // Key type
 }
 
@@ -75,8 +76,8 @@ message GetSecurityKeyReply {
   bytes data = 1; // Key data in DER format
 }
 
-// CTRL_REQUEST_SET_SERVER_ADDRESS: 220
 message SetServerAddressRequest {
+  option (type_id) = 220; // CTRL_REQUEST_SET_SERVER_ADDRESS
   ServerProtocolType protocol = 1; // Protocol type
   string address = 2 [(nanopb).max_size = 64]; // Server address
   int32 port = 3; // Port number
@@ -85,8 +86,8 @@ message SetServerAddressRequest {
 message SetServerAddressReply {
 }
 
-// CTRL_REQUEST_GET_SERVER_ADDRESS: 221
 message GetServerAddressRequest {
+  option (type_id) = 221; // CTRL_REQUEST_GET_SERVER_ADDRESS
   ServerProtocolType protocol = 1; // Protocol type
 }
 
@@ -95,24 +96,24 @@ message GetServerAddressReply {
   int32 port = 2; // Port number
 }
 
-// CTRL_REQUEST_SET_SERVER_PROTOCOL: 222
 message SetServerProtocolRequest {
+  option (type_id) = 222;  // CTRL_REQUEST_SET_SERVER_PROTOCOL
   ServerProtocolType protocol = 1; // Protocol type
 }
 
 message SetServerProtocolReply {
 }
 
-// CTRL_REQUEST_GET_SERVER_PROTOCOL: 223
 message GetServerProtocolRequest {
+  option (type_id) = 223;  // CTRL_REQUEST_GET_SERVER_PROTOCOL
 }
 
 message GetServerProtocolReply {
   ServerProtocolType protocol = 1; // Protocol type
 }
 
-// CTRL_REQUEST_SET_SOFTAP_SSID: 240
 message SetSoftApSsidRequest {
+  option (type_id) = 240;  // CTRL_REQUEST_SET_SOFTAP_SSID
   string prefix = 1 [(nanopb).max_size = 32];
   string suffix = 2 [(nanopb).max_size = 16];
 }

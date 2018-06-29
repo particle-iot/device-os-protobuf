@@ -1,6 +1,7 @@
 syntax = "proto3";
 package particle.ctrl;
 
+import "extensions.proto";
 import "common.proto";
 
 enum StorageType {
@@ -34,8 +35,8 @@ enum SectionFlag {
   NEED_CLEAR = 0x10; // Section needs to be cleared before writing
 }
 
-// CTRL_REQUEST_START_FIRMWARE_UPDATE (250)
 message StartFirmwareUpdateRequest {
+  option (type_id) = 250; // CTRL_REQUEST_START_FIRMWARE_UPDATE
   uint32 size = 1; // Size of the firmware data
 }
 
@@ -43,31 +44,31 @@ message StartFirmwareUpdateReply {
   uint32 chunk_size = 1; // Maximum chunk size
 }
 
-// CTRL_REQUEST_FINISH_FIRMWARE_UPDATE (251)
 message FinishFirmwareUpdateRequest {
+  option (type_id) = 251;  // CTRL_REQUEST_FINISH_FIRMWARE_UPDATE
   bool validate_only = 1;
 }
 
 message FinishFirmwareUpdateReply {
 }
 
-// CTRL_REQUEST_CANCEL_FIRMWARE_UPDATE (252)
 message CancelFirmwareUpdateRequest {
+  option (type_id) = 252;  // CTRL_REQUEST_CANCEL_FIRMWARE_UPDATE
 }
 
 message CancelFirmwareUpdateReply {
 }
 
-// CTRL_REQUEST_FIRMWARE_UPDATE_DATA (253)
 message FirmwareUpdateDataRequest {
+  option (type_id) = 253;  // CTRL_REQUEST_FIRMWARE_UPDATE_DATA
   bytes data = 1;
 }
 
 message FirmwareUpdateDataReply {
 }
 
-// CTRL_REQUEST_DESCRIBE_STORAGE (260)
 message DescribeStorageRequest {
+  option (type_id) = 260; // CTRL_REQUEST_DESCRIBE_STORAGE
 }
 
 message DescribeStorageReply {
@@ -89,8 +90,8 @@ message DescribeStorageReply {
   repeated Storage storage = 1;
 }
 
-// CTRL_REQUEST_READ_SECTION_DATA (261)
 message ReadSectionDataRequest {
+  option (type_id) = 261;  // CTRL_REQUEST_READ_SECTION_DATA
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
   uint32 offset = 3;
@@ -101,8 +102,8 @@ message ReadSectionDataReply {
   bytes data = 1;
 }
 
-// CTRL_REQUEST_WRITE_SECTION_DATA (262)
 message WriteSectionDataRequest {
+  option (type_id) = 262;  // CTRL_REQUEST_WRITE_SECTION_DATA
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
   uint32 offset = 3;
@@ -112,8 +113,8 @@ message WriteSectionDataRequest {
 message WriteSectionDataReply {
 }
 
-// CTRL_REQUEST_CLEAR_SECTION_DATA (263)
 message ClearSectionDataRequest {
+  option (type_id) = 263;  // CTRL_REQUEST_CLEAR_SECTION_DATA
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
 }
@@ -121,8 +122,8 @@ message ClearSectionDataRequest {
 message ClearSectionDataReply {
 }
 
-// CTRL_REQUEST_GET_SECTION_DATA_SIZE (264)
 message GetSectionDataSizeRequest {
+  option (type_id) = 264;  // CTRL_REQUEST_GET_SECTION_DATA_SIZE
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
 }

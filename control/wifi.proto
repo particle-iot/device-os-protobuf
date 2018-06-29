@@ -1,54 +1,55 @@
 syntax = "proto3";
 package particle.ctrl;
 
+import "extensions.proto";
 import "common.proto";
 
 //
 // Requests
 //
 
-// CTRL_REQUEST_WIFI_GET_ANTENNA = 111
 message WiFiGetAntennaRequest {
+    option (type_id) = 111;  // CTRL_REQUEST_WIFI_GET_ANTENNA
 }
 
 message WiFiGetAntennaReply {
     WiFiAntenna antenna = 1;
 }
 
-// CTRL_REQUEST_WIFI_SET_ANTENNA = 110
 message WiFiSetAntennaRequest {
+    option (type_id) = 110; // CTRL_REQUEST_WIFI_SET_ANTENNA
     WiFiAntenna antenna = 1;
 }
 
 message WiFiSetAntennaReply {
 }
 
-// CTRL_REQUEST_WIFI_SCAN = 112
 message WiFiScanRequest {
+    option (type_id) = 112;  // CTRL_REQUEST_WIFI_SCAN
 }
 
 message WiFiScanReply {
     WiFiAccessPointList list = 1;
 }
 
-// CTRL_REQUEST_WIFI_GET_CREDENTIALS = 114
 message WiFiGetCredentialsRequest {
+    option (type_id) = 114;  // CTRL_REQUEST_WIFI_GET_CREDENTIALS
 }
 
 message WiFiGetCredentialsReply {
     WiFiAccessPointList list = 1;
 }
 
-// CTRL_REQUEST_WIFI_SET_CREDENTIALS = 113
 message WiFiSetCredentialsRequest {
-    WiFiAccessPoint ap = 1;
+    option (type_id) = 113;  // CTRL_REQUEST_WIFI_SET_CREDENTIALS
+    WiFiAccessPoint ap = 1;  
 }
 
 message WiFiSetCredentialsReply {
 }
 
-// CTRL_REQUEST_WIFI_CLEAR_CREDENTIALS = 115
 message WiFiClearCredentialsRequest {
+    option (type_id) = 115; // CTRL_REQUEST_WIFI_CLEAR_CREDENTIALS
 }
 
 message WiFiClearCredentialsReply {
