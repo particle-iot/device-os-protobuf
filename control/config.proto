@@ -4,6 +4,8 @@ package particle.ctrl;
 import "extensions.proto";
 import "common.proto";
 
+option java_package = "io.particle.firmwareprotos.ctrl";
+
 // Note: Use the same values as defined by the security_key_type enum
 enum SecurityKeyType {
   INVALID_SECURITY_KEY = 0;

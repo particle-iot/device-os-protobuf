@@ -3,6 +3,8 @@ package particle.ctrl.cloud;
 
 import "extensions.proto";
 
+option java_package = "io.particle.firmwareprotos.ctrl.cloud";
+
 // Make sure values of this enum match the values defined for the diagnostic info
 enum ConnectionStatus {
   DISCONNECTED = 0;

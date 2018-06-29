@@ -4,6 +4,8 @@ package particle.ctrl;
 import "extensions.proto";
 import "common.proto";
 
+option java_package = "io.particle.firmwareprotos.ctrl";
+
 enum StorageType {
   INVALID_STORAGE = 0;
   INTERNAL = 1; // Internal flash
