@@ -1,14 +1,17 @@
 syntax = "proto3";
 package particle.ctrl;
 
+import "extensions.proto";
 import "common.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
 
 //
 // Requests
 //
 
-// CTRL_REQUEST_NETWORK_GET_STATUS = 122
 message NetworkGetStatusRequest {
+    option (type_id) = 122;  // CTRL_REQUEST_NETWORK_GET_STATUS
     int32 interface = 1;
 }
 
@@ -16,8 +19,8 @@ message NetworkGetStatusReply {
     NetworkConfiguration config = 1;
 }
 
-// CTRL_REQUEST_NETWORK_GET_CONFIGURATION = 120
 message NetworkGetConfigurationRequest {
+    option (type_id) = 120; // CTRL_REQUEST_NETWORK_GET_CONFIGURATION
     int32 interface = 1;
 }
 
@@ -25,8 +28,8 @@ message NetworkGetConfigurationReply {
     NetworkConfiguration config = 1;
 }
 
-// CTRL_REQUEST_NETWORK_SET_CONFIGURATION = 121
 message NetworkSetConfigurationRequest {
+    option (type_id) = 121;  // CTRL_REQUEST_NETWORK_SET_CONFIGURATION
     NetworkConfiguration config = 1;
 }
 
