@@ -43,6 +43,15 @@ message GetSerialNumberReply {
   string serial = 1 [(nanopb).max_size = 16];
 }
 
+// Get the firmware version
+message GetSystemVersionRequest {
+  option (type_id) = 30; // CTRL_REQUEST_SYSTEM_VERSION
+}
+
+message GetSystemVersionReply {
+  string version = 1;
+}
+
 message SetClaimCodeRequest {
   option (type_id) = 200; // CTRL_REQUEST_SET_CLAIM_CODE
   string code = 1 [(nanopb).max_size = 64]; // Claim code
