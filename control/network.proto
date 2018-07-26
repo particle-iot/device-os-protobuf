@@ -140,10 +140,11 @@ enum InterfaceExtFlag {
 
 enum InterfaceType {
   INVALID_INTERFACE_TYPE = 0;
-  THREAD = 1;
-  ETHERNET = 2;
-  WIFI = 3;
-  PPP = 4;
+  LOOPBACK = 0x01;
+  THREAD = 0x02;
+  ETHERNET = 0x04;
+  WIFI = 0x08;
+  PPP = 0x10;
 }
 
 // Operation state of the interface
