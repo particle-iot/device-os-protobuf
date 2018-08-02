@@ -24,6 +24,12 @@ enum ServerProtocolType {
   UDP_PROTOCOL = 2;
 }
 
+// Device mode
+enum DeviceMode {
+  DEVICE_MODE_OTHER = 0;
+  LISTENING_MODE = 1;
+}
+
 // Get the device ID
 message GetDeviceIdRequest {
   option (type_id) = 20; // CTRL_REQUEST_DEVICE_ID
@@ -130,4 +136,42 @@ message SetSoftApSsidRequest {
 }
 
 message SetSoftApSsidReply {
+}
+
+message StartListeningModeRequest {
+  option (type_id) = 70; // CTRL_REQUEST_START_LISTENING
+}
+
+message StartListeningModeReply {
+}
+
+message StopListeningModeRequest {
+  option (type_id) = 71; // CTRL_REQUEST_STOP_LISTENING
+}
+
+message StopListeningModeReply {
+}
+
+message GetDeviceModeRequest {
+  option (type_id) = 72; // CTRL_REQUEST_GET_DEVICE_MODE
+}
+
+message GetDeviceModeReply {
+  DeviceMode mode = 1;
+}
+
+message SetDeviceSetupDoneRequest {
+  option (type_id) = 73; // CTRL_REQUEST_SET_DEVICE_SETUP_DONE
+  bool done = 1;
+}
+
+message SetDeviceSetupDoneReply {
+}
+
+message IsDeviceSetupDoneRequest {
+  option (type_id) = 74; // CTRL_REQUEST_IS_DEVICE_SETUP_DONE
+}
+
+message IsDeviceSetupDoneReply {
+  bool done = 1;
 }
