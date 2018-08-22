@@ -58,6 +58,16 @@ message GetSystemVersionReply {
   string version = 1;
 }
 
+// Get the NCP firmware version
+message GetNcpFirmwareVersionRequest {
+  option (type_id) = 31; // CTRL_REQUEST_NCP_FIRMWARE_VERSION
+}
+
+message GetNcpFirmwareVersionReply {
+  string version = 1;
+  uint32 module_version = 2;
+}
+
 message SetClaimCodeRequest {
   option (type_id) = 200; // CTRL_REQUEST_SET_CLAIM_CODE
   string code = 1 [(nanopb).max_size = 64]; // Claim code
