@@ -3,9 +3,14 @@ package particle.ctrl.wifi;
 
 import "extensions.proto";
 
-// Make sure the values of this enum match the values defined by the `WifiSecurity` enum in the firmware
+/**
+ * WiFi security types.
+ *
+ * Note: The values of this enum should match the values defined by the `WifiSecurity` enum in
+ * the firmware.
+ */
 enum Security {
-  NONE = 0;
+  NO_SECURITY = 0;
   WEP = 1;
   WPA_PSK = 2;
   WPA2_PSK = 3;
@@ -13,34 +18,125 @@ enum Security {
   WPA2_ENT = 5;
 }
 
-message ScanResult {
+/**
+ * Network credential types.
+ */
+enum CredentialsType {
+  NO_CREDENTIALS = 0;
+  PASSWORD = 1;
+}
+
+/**
+ * Network credentials.
+ */
+message Credentials {
+  CredentialsType type = 1;
+  string password = 2;
+}
+
+/**
+ * Join a new network.
+ *
+ * On success, the credentials get saved to a persistent storage and the network becomes a
+ * preferred one.
+ */
+message JoinNetworkRequest {
+  option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NETWORK
   string ssid = 1;
   string bssid = 2;
-  Security security = 3;
-  int32 channel = 4;
-  int32 rssi = 5;
+  Credentials credentials = 3;
 }
 
-message ScanRequest {
-  option (type_id) = 500; // CTRL_REQUEST_WIFI_SCAN
+message JoinNetworkReply {
 }
 
-message ScanReply {
-  repeated ScanResult results = 1;
+/**
+ * Get the current network.
+ *
+ * This request gets the network which the device is currently connected to.
+ */
+message GetCurrentNetworkRequest {
+  option (type_id) = 501; // CTRL_REQUEST_WIFI_GET_CURRENT_NETWORK
 }
 
-message ConnectRequest {
-  option (type_id) = 501; // CTRL_REQUEST_WIFI_CONNECT
-  string bssid = 1;
-  string password = 2; // FIXME
+message GetCurrentNetworkReply {
+  string ssid = 1;
+  string bssid = 2;
+  int32 channel = 3;
+  int32 rssi = 4;
 }
 
-message ConnectReply {
+/**
+ * Update the network credentials.
+ */
+message SetNetworkCredentialsRequest {
+  option (type_id) = 502; // CTRL_REQUEST_WIFI_SET_NETWORK_CREDENTIALS
+  string ssid = 1;
+  string bssid = 2;
+  Credentials credentials = 3;
 }
 
-message DisconnectRequest {
-  option (type_id) = 502; // CTRL_REQUEST_WIFI_DISCONNECT
+message SetNetworkCredentialsReply {
 }
 
-message DisconnectReply {
+/**
+ * Forget the network.
+ */
+message ForgetNetworkRequest {
+  option (type_id) = 503; // CTRL_REQUEST_WIFI_FORGET_NETWORK
+  string ssid = 1;
+  string bssid = 2;
+}
+
+message ForgetNetworkReply {
+}
+
+/**
+ * Get the list of known networks.
+ *
+ * The networks are reported in the order of their preference.
+ */
+message GetKnownNetworksRequest {
+  option (type_id) = 504; // CTRL_REQUEST_WIFI_GET_KNOWN_NETWORKS
+}
+
+message GetKnownNetworksReply {
+  message Network {
+    string ssid = 1;
+    string bssid = 2;
+    CredentialsType credentials_type = 3;
+  }
+
+  repeated Network networks = 1;
+}
+
+/**
+ * Set the preferred network.
+ */
+message SetPreferredNetworkRequest {
+  option (type_id) = 505; // CTRL_REQUEST_WIFI_SET_PREFERRED_NETWORK
+  string ssid = 1;
+  string bssid = 2;
+}
+
+message SetPreferredNetworkReply {
+}
+
+/**
+ * Scan for networks.
+ */
+message ScanNetworksRequest {
+  option (type_id) = 506; // CTRL_REQUEST_WIFI_SCAN_NETWORKS
+}
+
+message ScanNetworksReply {
+  message Network {
+    string ssid = 1;
+    string bssid = 2;
+    Security security = 3;
+    int32 channel = 4;
+    int32 rssi = 5;
+  }
+
+  repeated Network networks = 1;
 }
