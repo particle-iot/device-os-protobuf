@@ -1,0 +1,46 @@
+syntax = "proto3";
+package particle.ctrl.wifi;
+
+import "extensions.proto";
+
+// Make sure the values of this enum match the values defined by the `WifiSecurity` enum in the firmware
+enum Security {
+  NONE = 0;
+  WEP = 1;
+  WPA_PSK = 2;
+  WPA2_PSK = 3;
+  WPA_WPA2_PSK = 4;
+  WPA2_ENT = 5;
+}
+
+message ScanResult {
+  string ssid = 1;
+  string bssid = 2;
+  Security security = 3;
+  int32 channel = 4;
+  int32 rssi = 5;
+}
+
+message ScanRequest {
+  option (type_id) = 500; // CTRL_REQUEST_WIFI_SCAN
+}
+
+message ScanReply {
+  repeated ScanResult results = 1;
+}
+
+message ConnectRequest {
+  option (type_id) = 501; // CTRL_REQUEST_WIFI_CONNECT
+  string bssid = 1;
+  string password = 2; // FIXME
+}
+
+message ConnectReply {
+}
+
+message DisconnectRequest {
+  option (type_id) = 502; // CTRL_REQUEST_WIFI_DISCONNECT
+}
+
+message DisconnectReply {
+}
