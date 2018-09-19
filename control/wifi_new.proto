@@ -1,7 +1,10 @@
 syntax = "proto3";
+
 package particle.ctrl.wifi;
+option java_package = "io.particle.firmwareprotos.ctrl.wifi";
 
 import "extensions.proto";
+import "common.proto";
 
 /**
  * WiFi security types.
@@ -15,11 +18,13 @@ enum Security {
   WPA_PSK = 2;
   WPA2_PSK = 3;
   WPA_WPA2_PSK = 4;
-  WPA2_ENT = 5;
 }
 
 /**
  * Network credential types.
+ *
+ * Note: The values of this enum should match the values defined by the `WiFiCredentialsType` enum
+ * in the firmware.
  */
 enum CredentialsType {
   NO_CREDENTIALS = 0;
@@ -37,17 +42,66 @@ message Credentials {
 /**
  * Join a new network.
  *
- * On success, the credentials get saved to a persistent storage and the network becomes a
- * preferred one.
+ * On success, the network credentials get saved to a persistent storage.
  */
-message JoinNetworkRequest {
-  option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NETWORK
+message JoinNewNetworkRequest {
+  option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NEW_NETWORK
   string ssid = 1;
-  string bssid = 2;
-  Credentials credentials = 3;
+  bytes bssid = 2 [(nanopb).max_size = 6];
+  Security security = 3;
+  Credentials credentials = 4;
 }
 
-message JoinNetworkReply {
+message JoinNewNetworkReply {
+}
+
+/**
+ * Join a known network.
+ */
+message JoinKnownNetworkRequest {
+  option (type_id) = 501; // CTRL_REQUEST_WIFI_JOIN_KNOWN_NETWORK
+  string ssid = 1;
+}
+
+message JoinKnownNetworkReply {
+}
+
+/**
+ * Get the list of known networks.
+ */
+message GetKnownNetworksRequest {
+  option (type_id) = 502; // CTRL_REQUEST_WIFI_GET_KNOWN_NETWORKS
+}
+
+message GetKnownNetworksReply {
+  message Network {
+    string ssid = 1;
+    Security security = 2;
+    CredentialsType credentials_type = 3;
+  }
+
+  repeated Network networks = 1;
+}
+
+/**
+ * Remove the network from the list of known networks.
+ */
+message RemoveKnownNetworkRequest {
+  option (type_id) = 503; // CTRL_REQUEST_WIFI_REMOVE_KNOWN_NETWORK
+  string ssid = 1;
+}
+
+message RemoveKnownNetworkReply {
+}
+
+/**
+ * Remove all known networks.
+ */
+message ClearKnownNetworksRequest {
+  option (type_id) = 504; // CTRL_REQUEST_WIFI_CLEAR_KNOWN_NETWORKS
+}
+
+message ClearKnownNetworksReply {
 }
 
 /**
@@ -56,70 +110,14 @@ message JoinNetworkReply {
  * This request gets the network which the device is currently connected to.
  */
 message GetCurrentNetworkRequest {
-  option (type_id) = 501; // CTRL_REQUEST_WIFI_GET_CURRENT_NETWORK
+  option (type_id) = 505; // CTRL_REQUEST_WIFI_GET_CURRENT_NETWORK
 }
 
 message GetCurrentNetworkReply {
   string ssid = 1;
-  string bssid = 2;
+  bytes bssid = 2 [(nanopb).max_size = 6];
   int32 channel = 3;
   int32 rssi = 4;
-}
-
-/**
- * Update the network credentials.
- */
-message SetNetworkCredentialsRequest {
-  option (type_id) = 502; // CTRL_REQUEST_WIFI_SET_NETWORK_CREDENTIALS
-  string ssid = 1;
-  string bssid = 2;
-  Credentials credentials = 3;
-}
-
-message SetNetworkCredentialsReply {
-}
-
-/**
- * Forget the network.
- */
-message ForgetNetworkRequest {
-  option (type_id) = 503; // CTRL_REQUEST_WIFI_FORGET_NETWORK
-  string ssid = 1;
-  string bssid = 2;
-}
-
-message ForgetNetworkReply {
-}
-
-/**
- * Get the list of known networks.
- *
- * The networks are reported in the order of their preference.
- */
-message GetKnownNetworksRequest {
-  option (type_id) = 504; // CTRL_REQUEST_WIFI_GET_KNOWN_NETWORKS
-}
-
-message GetKnownNetworksReply {
-  message Network {
-    string ssid = 1;
-    string bssid = 2;
-    CredentialsType credentials_type = 3;
-  }
-
-  repeated Network networks = 1;
-}
-
-/**
- * Set the preferred network.
- */
-message SetPreferredNetworkRequest {
-  option (type_id) = 505; // CTRL_REQUEST_WIFI_SET_PREFERRED_NETWORK
-  string ssid = 1;
-  string bssid = 2;
-}
-
-message SetPreferredNetworkReply {
 }
 
 /**
@@ -132,7 +130,7 @@ message ScanNetworksRequest {
 message ScanNetworksReply {
   message Network {
     string ssid = 1;
-    string bssid = 2;
+    bytes bssid = 2 [(nanopb).max_size = 6];
     Security security = 3;
     int32 channel = 4;
     int32 rssi = 5;
