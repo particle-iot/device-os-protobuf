@@ -23,7 +23,7 @@ enum Security {
 /**
  * Network credential types.
  *
- * Note: The values of this enum should match the values defined by the `WiFiCredentialsType` enum
+ * Note: The values of this enum should match the values defined by the `WiFiCredentials::Type` enum
  * in the firmware.
  */
 enum CredentialsType {
@@ -36,7 +36,8 @@ enum CredentialsType {
  */
 message Credentials {
   CredentialsType type = 1;
-  string password = 2;
+  Security security = 2;
+  string password = 3;
 }
 
 /**
@@ -48,8 +49,7 @@ message JoinNewNetworkRequest {
   option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NEW_NETWORK
   string ssid = 1;
   bytes bssid = 2 [(nanopb).max_size = 6];
-  Security security = 3;
-  Credentials credentials = 4;
+  Credentials credentials = 3;
 }
 
 message JoinNewNetworkReply {
