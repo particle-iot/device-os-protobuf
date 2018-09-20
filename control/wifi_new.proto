@@ -36,8 +36,7 @@ enum CredentialsType {
  */
 message Credentials {
   CredentialsType type = 1;
-  Security security = 2;
-  string password = 3;
+  string password = 2;
 }
 
 /**
@@ -49,7 +48,8 @@ message JoinNewNetworkRequest {
   option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NEW_NETWORK
   string ssid = 1;
   bytes bssid = 2 [(nanopb).max_size = 6];
-  Credentials credentials = 3;
+  Security security = 3;
+  Credentials credentials = 4;
 }
 
 message JoinNewNetworkReply {
