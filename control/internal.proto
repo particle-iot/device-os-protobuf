@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package particle.firmware;
+
+import "wifi_new.proto";
+
+message WifiConfig {
+  message Network {
+    string ssid = 1;
+    ctrl.wifi.Security security = 2;
+    ctrl.wifi.Credentials credentials = 3;
+  }
+
+  repeated Network networks = 1;
+}
