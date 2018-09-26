@@ -62,6 +62,7 @@ message CreateNetworkReply {
 // Start the commissioner role
 message StartCommissionerRequest {
   option (type_id) = 1003;
+
   // Time is seconds after which the role is automatically stopped
   uint32 timeout = 1;
 }
@@ -135,6 +136,9 @@ message RemoveJoinerReply {
 // Join the network
 message JoinNetworkRequest {
   option (type_id) = 1008;
+
+  // Time in seconds after which the attempt to join is cancelled
+  uint32 timeout = 1;
 }
 
 // Result codes:
