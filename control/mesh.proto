@@ -62,6 +62,8 @@ message CreateNetworkReply {
 // Start the commissioner role
 message StartCommissionerRequest {
   option (type_id) = 1003;
+  // Time is seconds after which the role is automatically stopped
+  uint32 timeout = 1;
 }
 
 // Result codes:
@@ -104,6 +106,8 @@ message AddJoinerRequest {
   string eui64 = 1;
   // Joining device credential
   string password = 2;
+  // Time is seconds after which the joiner is automatically removed from the commissioner dataset
+  uint32 timeout = 3;
 }
 
 // Result codes:
