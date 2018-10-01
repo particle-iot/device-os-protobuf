@@ -24,6 +24,8 @@ message NetworkInfo {
   uint32 pan_id = 3;
   // Channel number
   uint32 channel = 4;
+  // network ID
+  string network_id = 5;
 }
 
 // Authenticate the client as a commissioner
@@ -49,6 +51,8 @@ message CreateNetworkRequest {
   string password = 2;
   // Channel number
   uint32 channel = 3;
+  // Network ID
+  string network_id = 4;
 }
 
 // Result codes:
