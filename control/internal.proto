@@ -3,13 +3,22 @@ syntax = "proto3";
 package particle.firmware;
 
 import "wifi_new.proto";
+import "common.proto";
 
 message WifiConfig {
   message Network {
     string ssid = 1;
-    ctrl.wifi.Security security = 2;
-    ctrl.wifi.Credentials credentials = 3;
+    bytes bssid = 2 [(nanopb).max_size = 6];
+    ctrl.wifi.Security security = 3;
+    ctrl.wifi.Credentials credentials = 4;
   }
 
   repeated Network networks = 1;
+}
+
+message CellularConfig {
+  string user = 1;
+  string password = 2;
+  string apn = 3;
+  bool use_custom_apn = 4;
 }
