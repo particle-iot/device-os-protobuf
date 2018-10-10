@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package particle.ctrl.cellular;
+option java_package = "io.particle.firmwareprotos.ctrl.cellular";
+
+import "extensions.proto";
+import "common.proto";
+
+/**
+ * SIM card types.
+ *
+ * Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
+ */
+enum SimType {
+  INVALID_SIM_TYPE = 0;
+  INTERNAL = 1;
+  EXTERNAL = 2;
+}
+
+/**
+ * Access point settings.
+ */
+message AccessPoint {
+  string apn = 1;
+  string user = 2;
+  string password = 3;
+  bool use_defaults = 4;
+}
