@@ -329,7 +329,7 @@ message DiagnosticInfo {
     message Prefix {
       uint32 domain_id = 1;
       uint32 prefix_length = 2;
-      Ipv6Address prefix = 3;
+      bytes prefix = 3 [(nanopb).max_size = 16];
 
       // Sub-TLVs
       repeated Context context = 4;
