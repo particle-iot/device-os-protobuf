@@ -257,7 +257,7 @@ message DiagnosticInfo {
     // Originally this is represented as bitmask, we are simplifying
     // representation here a bit
     message RouteData {
-      uint32 router_id = 1;
+      uint32 router_rloc = 1;
       uint32 link_quality_out = 2;
       uint32 link_quality_in = 3;
       uint32 route_cost = 4;
@@ -275,7 +275,7 @@ message DiagnosticInfo {
     uint32 weighting = 2;
     uint32 data_version = 3;
     uint32 stable_data_version = 4;
-    uint32 leader_router_id = 5;
+    uint32 leader_rloc = 5;
   }
 
   enum RoutePreference {
