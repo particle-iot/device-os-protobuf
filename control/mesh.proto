@@ -269,13 +269,102 @@ message DiagnosticInfo {
   // Route64: Route64 TLV
   Route64 route64 = 6;
 
-  // Network Data TLV
-  message NetworkData {
-    // TODO
+  // Leader Data TLV
+  message LeaderData {
+    uint32 partition_id = 1;
+    uint32 weighting = 2;
+    uint32 data_version = 3;
+    uint32 stable_data_version = 4;
+    uint32 leader_router_id = 5;
   }
 
-  // Leader Data: Network Data TLV
-  NetworkData leader_data = 7;
+  enum RoutePreference {
+    MEDIUM = 0;
+    HIGH = 1;
+    LOW = -1;
+  }
+
+  // Network Data TLV
+  message NetworkData {
+    // Has Route TLV
+    message HasRoute {
+      message HasRouteEntry {
+        uint32 rloc = 1;
+        RoutePreference preference = 2;
+      }
+
+      repeated HasRouteEntry entries = 1;
+    }
+
+    // Border Router TLV
+    message BorderRouter {
+      message BorderRouterEntry {
+        enum Flags {
+          NONE = 0x00;
+          PREFERRED = 0x01;
+          SLAAC = 0x02;
+          DHCP = 0x04;
+          CONFIGURE = 0x08;
+          DEFAULT_ROUTE = 0x10;
+          ON_MESH = 0x20;
+          ND_DNS = 0x40;
+        }
+
+        uint32 rloc = 1;
+        RoutePreference preference = 2;
+        uint32 flags = 3;
+      }
+
+      repeated BorderRouterEntry entries = 1;
+    }
+
+    // 6LoWPAN ID TLV
+    message Context {
+      uint32 cid = 1;
+      bool compress = 2;
+      uint32 context_length = 3;
+    }
+
+    // Prefix TLV
+    message Prefix {
+      uint32 domain_id = 1;
+      uint32 prefix_length = 2;
+      Ipv6Address prefix = 3;
+
+      // Sub-TLVs
+      repeated Context context = 4;
+      HasRoute has_route = 5;
+      BorderRouter border_router = 6;
+    }
+
+    // Server TLV
+    message Server {
+      uint32 rloc = 1;
+      bytes data = 2;
+    }
+
+    // Service TLV
+    message Service {
+      // NOTE: THREAD_ENTERPRISE_NUMBER = 44970
+      uint32 sid = 1;
+      uint32 enterprise_number = 2;
+      bytes data = 3;
+
+      repeated Server servers = 4;
+    }
+
+    message Data {
+      repeated Prefix prefixes = 1;
+      repeated Service services = 2;
+      // TODO: Commissioning Data TLV?
+    }
+
+    Data stable = 1;
+    Data temporary = 2;
+  }
+
+  // Leader Data: Leader Data TLV
+  LeaderData leader_data = 7;
   // Network Data: Network Data TLV
   NetworkData network_data = 8;
 
