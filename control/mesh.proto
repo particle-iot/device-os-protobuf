@@ -419,9 +419,8 @@ message DiagnosticInfo {
   // Max Child Timeout: Timeout TLV
   uint32 max_child_timeout = 20;
 
-  // TODO:
   // Particle-specific Device Id
-  // bytes device_id = 128 [(nanopb).max_size = 12];
+  bytes device_id = 100 [(nanopb).max_size = 12];
 }
 
 message GetNetworkDiagnosticsRequest {
@@ -430,8 +429,7 @@ message GetNetworkDiagnosticsRequest {
   enum Flags {
     INVALID = 0x00;
     QUERY_CHILDREN = 0x01;
-    // TODO:
-    // RESOLVE_DEVICE_ID = 0x02;
+    RESOLVE_DEVICE_ID = 0x02;
   }
 
   // Bitmask of Flags
