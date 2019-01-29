@@ -211,7 +211,7 @@ enum DiagnosticType {
 // Mapping of Diagnostic TLVs
 message DiagnosticInfo {
   // MAC Extended Address (64-bit): MAC Extended Address TLV
-  bytes ext_mac_address = 1 [(nanopb).max_size = 8, (nanopb).fixed_length = true];
+  bytes ext_mac_address = 1 [(nanopb).max_size = 8];
   // MAC Address (16-bit): Address16 TLV (RLOC)
   uint32 rloc = 2;
 
