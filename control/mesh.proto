@@ -188,6 +188,7 @@ message ScanNetworksReply {
 // Diagnostics
 
 enum DiagnosticType {
+  // IMPORTANT: values here should match ot::NetworkDiagnostic::NetworkDiagnosticTlv::Type (network_diagnostic_tlvs.hpp)
   option allow_alias = true;
   MAC_EXTENDED_ADDRESS = 0;
   RLOC = 1;
