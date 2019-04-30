@@ -179,6 +179,10 @@ message GetNetworkInfoReply {
 // Scan networks
 message ScanNetworksRequest {
   option (type_id) = 1011;
+
+  // Time in milliseconds to spend scanning each channel. A value of 0 sets the default OpenThread
+  // timeout (300 ms)
+  uint32 duration = 1;
 }
 
 message ScanNetworksReply {
