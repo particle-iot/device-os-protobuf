@@ -1,0 +1,108 @@
+syntax = "proto3";
+package particle.ctrl.logging;
+
+import "extensions.proto";
+import "common.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl.logging";
+
+/**
+ * Logging levels.
+ */
+enum LogLevel {
+  option allow_alias = true;
+
+  // Note: The values here should match the values of the `LogLevel` enum defined in the Device OS
+  // code (see services/inc/logging.h)
+  INVALID_LOG_LEVEL = 0;
+  ALL = 1;
+  TRACE = 1;
+  INFO = 30;
+  WARN = 40;
+  ERROR = 50;
+  NONE = 70;
+}
+
+/**
+ * Log handler types.
+ */
+enum LogHandlerType {
+  // Note: The values here should match the values of the `log_config_handler_type` enum defined in
+  // the Device OS code (system/inc/system_logging.h)
+  INVALID_LOG_HANDLER_TYPE = 0;
+  DEFAULT_STREAM_HANDLER = 1; // StreamLogHandler
+  JSON_STREAM_HANDLER = 2; // JSONStreamLogHandler
+}
+
+/**
+ * Stream types.
+ */
+enum StreamType {
+  // Note: The values here should match the values of the `log_config_stream_type` enum defined in
+  // the Device OS code (system/inc/system_logging.h)
+  INVALID_STREAM_TYPE = 0;
+  USB_SERIAL_STREAM = 1; // USB serial (Serial, USBSerial1, etc.)
+  HW_SERIAL_STREAM = 2; // Hardware serial (Serial1, Serial2, etc.)
+}
+
+/**
+ * Category filter.
+ */
+message LogFilter {
+  string category = 1; // Category name
+  LogLevel level = 2; // Logging level
+}
+
+/**
+ * Serial stream parameters.
+ */
+message SerialStreamParams {
+  uint32 index = 1; // Interface index
+  uint32 baud_rate = 2; // Baud rate
+}
+
+/**
+ * Add a log handler.
+ */
+message AddLogHandlerRequest {
+  option (type_id) = 1100; // CTRL_REQUEST_ADD_LOG_HANDLER
+
+  string id = 1; // Handler ID
+  LogHandlerType handler_type = 2; // Handler type
+  LogLevel level = 3; // Default logging level
+  repeated LogFilter filters = 4; // Category filters
+  StreamType stream_type = 5; // Stream type
+  oneof stream_params {
+    SerialStreamParams serial = 6; // Serial stream parameters
+  }
+}
+
+message AddLogHandlerReply {
+}
+
+/**
+ * Remove a log handler.
+ */
+message RemoveLogHandlerRequest {
+  option (type_id) = 1101; // CTRL_REQUEST_REMOVE_LOG_HANDLER
+
+  string id = 1; // Handler ID
+}
+
+message RemoveLogHandlerReply {
+}
+
+/**
+ * Get the list of active log handlers.
+ */
+message GetLogHandlersRequest {
+  option (type_id) = 1102; // CTRL_REQUEST_GET_LOG_HANDLERS
+}
+
+message GetLogHandlersReply {
+  message Handler {
+    string id = 1; // Handler ID
+  }
+
+  repeated Handler handlers = 1; // Active handlers
+}
