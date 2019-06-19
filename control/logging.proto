@@ -43,6 +43,7 @@ enum StreamType {
   INVALID_STREAM_TYPE = 0;
   USB_SERIAL_STREAM = 1; // USB serial (Serial, USBSerial1, etc.)
   HW_SERIAL_STREAM = 2; // Hardware serial (Serial1, Serial2, etc.)
+  LOG_FILE_STREAM = 3; // Log file
 }
 
 /**
@@ -105,4 +106,42 @@ message GetLogHandlersReply {
   }
 
   repeated Handler handlers = 1; // Active handlers
+}
+
+/**
+ * Get log file info.
+ */
+message GetLogFileInfoRequest {
+  option (type_id) = 1103; // CTRL_REQUEST_GET_LOG_FILE_INFO
+}
+
+message GetLogFileInfoReply {
+  uint32 trunc_count = 1; // Number of times the file was rotated since the last reset
+  uint32 file_size = 2; // Current size of the file
+  uint32 max_file_size = 3; // Maximum size of the file
+  uint32 max_read_size = 4; // Maximum chunk size (see ReadLogFileRequest)
+}
+
+/**
+ * Read the log file.
+ */
+message ReadLogFileRequest {
+  option (type_id) = 1104; // CTRL_REQUEST_READ_LOG_FILE
+
+  uint32 offset = 1; // Chunk offset
+  uint32 size = 2; // Chunk size
+}
+
+message ReadLogFileReply {
+  bytes data = 1; // Chunk data
+}
+
+/**
+ * Clear the log file.
+ */
+message ClearLogFileRequest {
+  option (type_id) = 1105; // CTRL_REQUEST_CLEAR_LOG_FILE
+}
+
+message ClearLogFileReply {
 }
