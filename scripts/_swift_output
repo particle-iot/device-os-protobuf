@@ -1,0 +1,31 @@
+#!/bin/bash
+# A sample Bash script, by Raimundas Sakalauskas
+
+#1. install protobuf binary
+#1a. make sure to use ~Users/USER_NAME/include for include path rather than ~usr/local/include
+#2. install swifth extension
+#3. run ./_swift_output 
+
+protoc --swift_out=. --proto_path=../control/ wifi_new.proto
+touch ../control/wifi_new.proto
+
+protoc --swift_out=. --proto_path=../control/ cloud.proto
+touch ../control/cloud.proto
+
+protoc --swift_out=. --proto_path=../control/ common.proto
+touch ../control/common.proto
+
+protoc --swift_out=. --proto_path=../control/ config.proto
+touch ../control/config.proto
+
+protoc --swift_out=. --proto_path=../control/ network.proto
+touch ../control/network.proto
+
+protoc --swift_out=. --proto_path=../control/ storage.proto
+touch ../control/storage.proto
+
+protoc --swift_out=. --proto_path=../control/ mesh.proto
+touch ../control/mesh.proto
+
+protoc --swift_out=. --proto_path=../control/ cellular.proto
+touch ../control/cellular.proto
