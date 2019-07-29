@@ -27,6 +27,7 @@ enum FirmwareModuleType {
   USER_PART = 3; // User part
   MONO_FIRMWARE = 4; // Monolithic firmware
   NCP_FIRMWARE = 5; // NCP firmware
+  RADIO_STACK = 6; // Radio stack binary
 }
 
 enum FirmwareModuleValidityFlag {
