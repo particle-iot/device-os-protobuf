@@ -1,25 +1,113 @@
 syntax = "proto3";
 
-package particle.cloud;
+package particle.deviceos.cloud;
+
+import public "system_defs.proto";
 
 //
-// Application state
+// Common message definitions
+//
+
+message ErrorResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+//
+// Handshake
+//
+
+enum ClientDisconnectReason {
+    CLOUD_DISCONNECT_REASON_NONE = 0;
+    CLOUD_DISCONNECT_REASON_PLANNED = 1;
+    CLOUD_DISCONNECT_REASON_NETWORK_DISCONNECT = 2;
+    CLOUD_DISCONNECT_REASON_NETWORK_ERROR = 3;
+    CLOUD_DISCONNECT_REASON_LISTENING_MODE = 4;
+    CLOUD_DISCONNECT_REASON_SYSTEM_RESET = 5;
+    CLOUD_DISCONNECT_REASON_SYSTEM_SLEEP = 6;
+    CLOUD_DISCONNECT_REASON_SYSTEM_PANIC = 7;
+    CLOUD_DISCONNECT_REASON_FIRMWARE_UPDATE = 8;
+    CLOUD_DISCONNECT_REASON_ACK_TIMEOUT = 9;
+    CLOUD_DISCONNECT_REASON_ERROR = 10;
+}
+
+enum ServerDisconnectReason {
+  SERVER_DISCONNECT_REASON_NONE = 0;
+  // TBD
+}
+
+message ClientDisconnectInfo {
+  ClientDisconnectReason reason = 1;
+  bool requested_by_user = 2;
+  string message = 3;
+  uint32 sleep_duration = 4; // Expected sleep duration in seconds
+}
+
+message ServerDisconnectInfo {
+  ServerDisconnectReason reason = 1;
+  string message = 2;
+}
+
+message HelloRequest { // Client to server
+  bytes device_id = 1; // Optional if the client session is resumed
+  bytes client_state_checksum = 2; // SHA-256 checksum of the current client state (see ClientState)
+  ClientDisconnectInfo last_disconnect_info = 3;
+  bool safe_mode = 4;
+}
+
+message HelloResponse {
+  uint64 unix_time = 1;
+  uint32 requested_client_state_flags = 2; // Combination of flags defined by the ClientStateFlag enum
+}
+
+message ClientGoodbyeRequest { // Client to server
+  ClientDisconnectInfo disconnect_info = 1;
+}
+
+message ClientGoodbyeResponse {
+}
+
+message ServerGoodbyeRequest { // Server to client
+  ServerDisconnectInfo disconnect_info = 1;
+  bool invalidate_session = 2; // Whether the client has to invalidate the session
+}
+
+message ServerGoodbyeResponse {
+}
+
+//
+// System/application state
 //
 
 enum VariableType {
   VARIABLE_TYPE_INVALID = 0;
-  VARIABLE_TYPE_BOOL = 1,
-  VARIABLE_TYPE_INT = 2,
-  VARIABLE_TYPE_DOUBLE = 3,
-  VARIABLE_TYPE_STRING = 4
+  VARIABLE_TYPE_BOOL = 1;
+  VARIABLE_TYPE_INT = 2;
+  VARIABLE_TYPE_DOUBLE = 3;
+  VARIABLE_TYPE_STRING = 4;
+}
+
+enum FirmwareModuleType {
+  FIRMWARE_MODULE_TYPE_INVALID = 0;
+  FIRMWARE_MODULE_TYPE_SYSTEM_PART = 1;
+  FIRMWARE_MODULE_TYPE_USER_PART = 2;
+  FIRMWARE_MODULE_TYPE_BOOTLOADER = 3;
+  FIRMWARE_MODULE_TYPE_RADIO_STACK = 4;
+  FIRMWARE_MODULE_TYPE_NCP_FIRMWARE = 5;
+}
+
+enum ClientStateFlag {
+  CLIENT_STATE_FLAG_NONE = 0;
+  CLIENT_STATE_FLAG_FUNCTIONS = 0x01;
+  CLIENT_STATE_FLAG_VARIABLES = 0x02;
+  CLIENT_STATE_FLAG_SUBSCRIPTIONS = 0x04;
+  CLIENT_STATE_FLAG_FIRMWARE_MODULES = 0x08;
+  CLIENT_STATE_FLAG_CAPABILITIES = 0x10;
+  CLIENT_STATE_FLAG_CONFIG = 0x20;
 }
 
 message Function {
   string name = 1;
-}
-
-message Functions {
-  repeated Function functions = 1;
 }
 
 message Variable {
@@ -27,41 +115,15 @@ message Variable {
   VariableType type = 2;
 }
 
-message Variables {
-  repeated Variable variables = 1;
-}
-
 message Subscription {
   string prefix = 1;
-}
-
-message Subscriptions {
-  repeated Subscription subscriptions = 1;
+  bool blockwise_transfer = 2;
 }
 
 message ApplicationState {
-  Functions functions = 1;
-  Variables variables = 2;
-  Subscriptions subscriptions = 3;
-}
-
-//
-// System state
-//
-
-message FirmwareModuleType {
-  FIRMWARE_MODULE_TYPE_INVALID = 0;
-  FIRMWARE_MODULE_TYPE_SYSTEM_PART = 1;
-  FIRMWARE_MODULE_TYPE_USER_PART = 2;
-  FIRMWARE_MODULE_TYPE_BOOTLOADER = 3;
-  FIRMWARE_MODULE_TYPE_RADIO_STACK = 4;
-  FIRMWARE_MODULE_TYPE_NCP = 5;
-}
-
-message FirmwareModuleValidationFlag {
-  FIRMWARE_MODULE_VALIDATION_FLAG_NONE = 0;
-  FIRMWARE_MODULE_VALIDATION_FLAG_CRC32_VALID = 0x01;
-  FIRMWARE_MODULE_VALIDATION_FLAG_SHA256_VALID = 0x02;
+  repeated Function functions = 1;
+  repeated Variable variables = 2;
+  repeated Subscription subscriptions = 3;
 }
 
 message FirmwareModuleDependency {
@@ -70,73 +132,229 @@ message FirmwareModuleDependency {
   uint32 version = 3;
 }
 
-message FirmwareModuleInfo {
+message FirmwareModule {
   FirmwareModuleType type = 1;
   uint32 index = 2;
   uint32 version = 3;
   repeated FirmwareModuleDependency dependencies = 4;
-  bytes crc32 = 5;
-  bytes sha256 = 6;
-  uint32 validation_flags = 7;
+  bytes checksum = 5;
+  bool checksum_valid = 6;
 }
 
-message ClientConfig {
+// System capabilities can't change without starting a new session
+message SystemCapabilities {
+  uint32 max_message_size = 1;
+  uint32 max_update_chunk_size = 2;
+  uint32 max_update_file_size = 3;
+}
+
+message SystemConfig {
   uint32 keepalive_interval = 1;
   bool firmware_updates_enabled = 2;
 }
 
-message SystemState {
-  repeated FirmwareModuleInfo firmware_modules = 1;
-  ClientConfig config = 2;
+message AdditionalSystemInfo {
+  string iccid = 1;
 }
 
-//
-// Client state
-//
-
-enum ClientStateFlag {
-  CLIENT_STATE_FLAG_NONE = 0;
-  CLIENT_STATE_FLAG_FUNCTIONS = 0x01;
-  CLIENT_STATE_FLAG_VARIABLES = 0x02;
-  CLIENT_STATE_FLAG_SUBSCRIPTIONS = 0x04;
-  CLIENT_STATE_FLAG_FIRMWARE_MODULES = 0x08;
-  CLIENT_STATE_FLAG_CONFIG = 0x10;
-  CLIENT_STATE_FLAG_ALL = CLIENT_STATE_FLAG_FUNCTIONS | CLIENT_STATE_FLAG_VARIABLES |
-      CLIENT_STATE_FLAG_SUBSCRIPTIONS | CLIENT_STATE_FLAG_FIRMWARE_MODULES |
-      CLIENT_STATE_FLAG_CONFIG;
+message SystemState {
+  repeated FirmwareModule firmware_modules = 1;
+  SystemCapabilities capabilities = 2;
+  AdditionalSystemInfo info = 3;
+  SystemConfig config = 4;
 }
 
 message ClientState {
-  SystemState system_state = 1;
-  ApplicationState app_state = 2;
-  uint32 state_flags = 3;
+  ApplicationState app_state = 1;
+  SystemState system_state = 2;
+  uint32 state_flags = 3; // Combination of flags defined by the ClientStateFlag enum
   uint32 rev_num = 4; // Incremented every time the client state changes
   bytes checksum = 5; // SHA-256 checksum of the current client state
 }
 
-//
-// Request and response messages
-//
-
-message HelloRequest {
-  bytes device_id = 1;
-  bytes client_state_checksum = 2;
-}
-
-message HelloResponse {
-  uint64 unix_time = 1;
-  bool client_state_request_pending = 2;
-}
-
-message ClientStateRequest {
-  uint32 state_flags = 1;
+message ClientStateRequest { // Server to client
+  uint32 state_flags = 1; // Combination of flags defined by the ClientStateFlag enum
 }
 
 message ClientStateResponse {
   ClientState state = 1;
 }
 
-message ClientStateChanged {
+message ClientStateChangedRequest { // Client to server
   ClientState state = 1;
-  bytes checksum_before = 2;
+  bytes checksum_before = 2; // Checksum of the client state before this change
+}
+
+message ClientStateChangedResponse {
+  bool client_state_request_pending = 1;
+}
+
+//
+// Function calls
+//
+
+message FunctionCallArgument {
+  oneof value {
+    string string = 1;
+  }
+}
+
+message FunctionCallRequest { // Server to client
+  string name = 1;
+  repeated FunctionCallArgument args = 2;
+}
+
+message FunctionCallResponse {
+  oneof result {
+    int32 int32 = 1;
+  }
+}
+
+//
+// Variable requests
+//
+
+message VariableValueRequest { // Server to client
+  string name = 1;
+}
+
+message VariableValueResponse {
+  oneof value {
+    bool bool = 1;
+    int32 int32 = 2;
+    double double = 3;
+    string string = 4;
+  }
+}
+
+//
+// Events
+//
+
+enum EventContentType {
+  EVENT_CONTENT_TYPE_INVALID = 0;
+  EVENT_CONTENT_TYPE_TEXT = 1;
+}
+
+message EventRequest {
+  bytes data = 1;
+  string name = 2;
+  EventContentType content_type = 3;
+  uint64 timestamp = 4;
+}
+
+message EventResponse {
+}
+
+//
+// Diagnostics
+//
+
+enum DiagnosticValueType {
+  DIAGNOSTIC_VALUE_TYPE_INVALID = 0;
+  DIAGNOSTIC_VALUE_TYPE_INT32 = 1;
+}
+
+message DiagnosticId {
+  oneof id {
+    uint32 uint32 = 1;
+    // TODO: We should start using strings as diagnostic identifiers, at least for user diagnostics
+    string string = 2;
+  }
+}
+
+message DiagnosticIdValue {
+  DiagnosticId id = 1;
+  oneof value {
+    int32 int32 = 3;
+  }
+}
+
+message DiagnosticInfo {
+  DiagnosticId id = 1;
+  DiagnosticValueType type = 2;
+}
+
+message ListDiagnosticsRequest { // Server to client
+  bool list_system_diagnostics = 1;
+  bool list_user_diagnostics = 2;
+}
+
+message ListDiagnosticsResponse {
+  repeated DiagnosticInfo system_diagnostics = 1;
+  repeated DiagnosticInfo user_diagnostics = 2;
+}
+
+message GetDiagnosticsRequest { // Server to client
+  repeated DiagnosticId ids = 1;
+}
+
+message GetDiagnosticsResponse {
+  repeated DiagnosticIdValue values = 1;
+}
+
+//
+// Firmware updates
+//
+
+message UpdateStats {
+  uint32 received_chunks = 1;
+  uint32 duplicate_chunks = 2;
+  uint32 out_of_order_chunks = 3;
+  uint32 sent_acks = 4;
+  uint32 processing_time = 5;
+}
+
+message StartUpdateRequest { // Server to client
+  uint32 file_size = 1;
+  bytes file_checksum = 2; // SHA-256 checksum of the file contents
+  uint32 chunk_size = 3;
+  bool discard_data = 4; // Whether to discard any previously cached firmware update state
+}
+
+message StartUpdateResponse {
+  uint32 window_size = 1;
+  uint32 start_offset = 2;
+}
+
+message FinishUpdateRequest { // Server to client
+  bool cancel_update = 1;
+  bool discard_data = 2;
+}
+
+message FinishUpdateResponse {
+  UpdateStats stats = 1;
+}
+
+message UpdateChunkDataRequest { // Server to client (response is not sent)
+  uint32 index = 1;
+  bytes data = 2;
+}
+
+message UpdateChunkAckRequest { // Client to server (response is not sent)
+  uint32 cumul_ack_index = 1;
+  uint32 last_ack_index = 2;
+  repeated uint32 gap_indices = 3; // Bitmask of chunk indices
+}
+
+//
+// Miscellaneous
+//
+
+message PingRequest {
+}
+
+message PingResponse {
+}
+
+message StartSignalRequest {
+}
+
+message StartSignalResponse {
+}
+
+message StopSignalRequest {
+}
+
+message StopSignalResponse {
 }
