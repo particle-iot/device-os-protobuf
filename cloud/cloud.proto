@@ -18,17 +18,16 @@ message ErrorResponse {
 //
 
 enum ClientDisconnectReason {
-    CLOUD_DISCONNECT_REASON_NONE = 0;
-    CLOUD_DISCONNECT_REASON_PLANNED = 1;
-    CLOUD_DISCONNECT_REASON_NETWORK_DISCONNECT = 2;
-    CLOUD_DISCONNECT_REASON_NETWORK_ERROR = 3;
-    CLOUD_DISCONNECT_REASON_LISTENING_MODE = 4;
-    CLOUD_DISCONNECT_REASON_SYSTEM_RESET = 5;
-    CLOUD_DISCONNECT_REASON_SYSTEM_SLEEP = 6;
-    CLOUD_DISCONNECT_REASON_SYSTEM_PANIC = 7;
-    CLOUD_DISCONNECT_REASON_FIRMWARE_UPDATE = 8;
-    CLOUD_DISCONNECT_REASON_ACK_TIMEOUT = 9;
-    CLOUD_DISCONNECT_REASON_ERROR = 10;
+    CLIENT_DISCONNECT_REASON_NONE = 0;
+    CLIENT_DISCONNECT_REASON_PLANNED = 1;
+    CLIENT_DISCONNECT_REASON_CONNECTION_ERROR = 2; // Cloud connection error
+    CLIENT_DISCONNECT_REASON_NETWORK_ERROR = 3; // Network connection error
+    CLIENT_DISCONNECT_REASON_NETWORK_DISCONNECT = 4;
+    CLIENT_DISCONNECT_REASON_LISTENING_MODE = 5;
+    CLIENT_DISCONNECT_REASON_SYSTEM_RESET = 6;
+    CLIENT_DISCONNECT_REASON_SYSTEM_SLEEP = 7;
+    CLIENT_DISCONNECT_REASON_FIRMWARE_UPDATE = 8;
+    CLIENT_DISCONNECT_REASON_OTHER = 9; // A message string must present in the payload if this code is used
 }
 
 enum ServerDisconnectReason {
@@ -36,11 +35,23 @@ enum ServerDisconnectReason {
   // TBD
 }
 
+message ClientDisconnectSystemResetInfo {
+  SystemResetReason reset_reason = 1;
+  PanicCode panic_code = 2;
+}
+
+message ClientDisconnectSystemSleepInfo {
+  uint32 sleep_duration = 4; // Expected sleep duration in seconds
+}
+
 message ClientDisconnectInfo {
   ClientDisconnectReason reason = 1;
   bool requested_by_user = 2;
   string message = 3;
-  uint32 sleep_duration = 4; // Expected sleep duration in seconds
+  oneof info {
+    ClientDisconnectSystemResetInfo system_reset = 4; // reason == CLIENT_DISCONNECT_REASON_SYSTEM_RESET
+    ClientDisconnectSystemSleepInfo system_sleep = 5; // reason == CLIENT_DISCONNECT_REASON_SYSTEM_SLEEP
+  }
 }
 
 message ServerDisconnectInfo {
@@ -104,6 +115,7 @@ enum ClientStateFlag {
   CLIENT_STATE_FLAG_FIRMWARE_MODULES = 0x08;
   CLIENT_STATE_FLAG_CAPABILITIES = 0x10;
   CLIENT_STATE_FLAG_CONFIG = 0x20;
+  CLIENT_STATE_FLAG_ADDITIONAL_INFO = 0x40;
 }
 
 message Function {
