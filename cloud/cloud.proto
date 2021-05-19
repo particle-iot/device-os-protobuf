@@ -68,15 +68,17 @@ message ServerDisconnectInfo {
 
 message HelloRequest { // Client to server
   bytes device_id = 1; // Optional if the client session is resumed
-  bytes app_state_checksum = 2; // // SHA-256 checksum of the current application state (see ApplicationState)
-  bytes system_state_checksum = 3; // SHA-256 checksum of the current system state (see SystemState)
-  ClientDisconnectInfo last_disconnect_info = 4;
-  bool safe_mode = 5;
+  uint32 product_id = 2; // ditto
+  uint32 system_version = 3; // ditto
+  bytes app_state_checksum = 4; // // SHA-256 checksum of the current application state (see AppState)
+  bytes system_state_checksum = 5; // SHA-256 checksum of the current system state (see SystemState)
+  ClientDisconnectInfo last_disconnect_info = 6;
+  bool safe_mode = 7;
 }
 
 message HelloResponse {
-  fixed64 request_time = 1; // Number of milliseconds passed since the epoch when the HelloRequest was received
-  uint32 response_delay = 2; // Number of milliseconds passed between receiving the request and sending this response
+  fixed64 request_time = 1; // Time, in milliseconds since the epoch, when the HelloRequest was received
+  uint32 response_delay = 2; // Time, in milliseconds, between when the HelloRequest was received and when this response was sent
   bool client_state_request_pending = 3; // Whether the server is about to send a ClientStateRequest to the client
   bool update_pending = 4;
 }
@@ -107,14 +109,8 @@ enum ClientStateFlag {
   CLIENT_STATE_FLAG_SUBSCRIPTIONS = 0x04;
   CLIENT_STATE_FLAG_FIRMWARE_MODULES = 0x08;
   CLIENT_STATE_FLAG_CAPABILITIES = 0x10;
-  CLIENT_STATE_FLAG_CONFIG = 0x20;
-  CLIENT_STATE_FLAG_ADDITIONAL_INFO = 0x40;
-}
-
-enum SystemConfigParamId {
-  SYSTEM_CONFIG_PARAM_ID_INVALID = 0;
-  SYSTEM_CONFIG_PARAM_ID_PING_INTERVAL = 1;
-  SYSTEM_CONFIG_PARAM_ID_UPDATES_ENABLED = 2;
+  CLIENT_STATE_FLAG_ADDITIONAL_INFO = 0x20;
+  CLIENT_STATE_FLAG_CONFIG = 0x40;
 }
 
 enum FirmwareModuleType {
@@ -124,6 +120,12 @@ enum FirmwareModuleType {
   FIRMWARE_MODULE_TYPE_BOOTLOADER = 3;
   FIRMWARE_MODULE_TYPE_RADIO_STACK = 4;
   FIRMWARE_MODULE_TYPE_NCP_FIRMWARE = 5;
+}
+
+enum SystemConfigParamId {
+  SYSTEM_CONFIG_PARAM_ID_INVALID = 0;
+  SYSTEM_CONFIG_PARAM_ID_PING_INTERVAL = 1; // int32
+  SYSTEM_CONFIG_PARAM_ID_UPDATES_ENABLED = 2; // bool
 }
 
 message FunctionInfo {
@@ -137,16 +139,52 @@ message VariableInfo {
 
 message SubscriptionInfo {
   string prefix = 1;
-  bool blockwise_transfer = 2; // Whether the client chose to use blockwise transfer to receive these events
+  bool blockwise_transfer = 2; // Whether the client opted to use blockwise transfer to receive these events
 }
 
-message ApplicationState {
+message ConfigParamId {
+  oneof value {
+    uint32 uint32 = 1; // SystemConfigParamId
+    string string = 2; // Application-specific parameter ID
+  }
+}
+
+message ConfigParamInfo {
+  ConfigParamId id = 1;
+  ValueType type = 2;
+}
+
+message ConfigParam {
+  ConfigParamId id = 1;
+  Value value = 2;
+}
+
+message DiagnosticId {
+  oneof value {
+    uint32 uint32 = 1; // SystemDiagnosticId or legacy application-specific diagnostic ID
+    string string = 2; // Application-specific diagnostic ID
+  }
+}
+
+message DiagnosticInfo {
+  DiagnosticId id = 1;
+  ValueType type = 2;
+}
+
+// Application capabilities can't be changed without starting a new session
+message AppCapabilities {
+  repeated ConfigParamInfo config_params = 1; // Supported configuration parameters
+  repeated DiagnosticInfo diagnostics = 2; // Supported diagnostics
+}
+
+message AppState {
   repeated FunctionInfo functions = 1;
   repeated VariableInfo variables = 2;
   repeated SubscriptionInfo subscriptions = 3;
-  // The tag 4 is reserved for application config
-  uint32 rev_num = 5; // Incremented every time the application state changes
-  bytes checksum = 6; // SHA-256 checksum of the current application state
+  AppCapabilities capabilities = 4;
+  repeated ConfigParam config = 5;
+  uint32 rev_num = 6; // Incremented every time the application state changes (1-based)
+  bytes checksum = 7; // SHA-256 checksum of the current application state
 }
 
 message FirmwareModuleDependencyInfo {
@@ -164,38 +202,30 @@ message FirmwareModuleInfo {
   bool checksum_valid = 6;
 }
 
-// System capabilities can't change without starting a new session
+// System capabilities can't be changed without starting a new session
 message SystemCapabilities {
-  uint32 max_message_size = 1;
-  uint32 max_update_chunk_size = 2;
-  uint32 max_update_file_size = 3;
-  repeated SystemDiagnosticId diagnostics = 4; // Supported diagnostics
-}
-
-message SystemConfigParam {
-  SystemConfigParamId id = 1;
-  Value value = 2;
-}
-
-message SystemConfig {
-  repeated SystemConfigParam params = 1;
+  uint32 max_message_size = 1; // Maximum supported size of a CoAP message
+  uint32 max_update_chunk_size = 2; // Maximum supported size of a firmware update chunk
+  uint32 max_update_file_size = 3; // Maximum supported size of a firmware update file
 }
 
 message AdditionalSystemInfo {
   string iccid = 1;
+  string imei = 2;
+  string modem_firmware_version = 3;
 }
 
 message SystemState {
   repeated FirmwareModuleInfo firmware_modules = 1;
   SystemCapabilities capabilities = 2;
   AdditionalSystemInfo info = 3;
-  SystemConfig config = 4;
-  uint32 rev_num = 5; // Incremented every time the system state changes
+  repeated ConfigParam config = 4;
+  uint32 rev_num = 5; // Incremented every time the system state changes (1-based)
   bytes checksum = 6; // SHA-256 checksum of the current system state
 }
 
 message ClientState {
-  ApplicationState app_state = 1;
+  AppState app_state = 1;
   SystemState system_state = 2;
   uint32 state_flags = 3; // Flags defined by the ClientStateFlag enum
 }
@@ -218,14 +248,22 @@ message ClientStateChangedResponse {
   bool client_state_request_pending = 1; // Whether the server is about to send a ClientStateRequest to the client
 }
 
-message SetSystemConfigRequest { // Server to client
-  repeated SystemConfigParam params = 1;
+message SetConfigParamRequest { // Server to client
+  repeated ConfigParam params = 1;
 }
 
-message SetSystemConfigResponse {
-  bytes system_state_checksum_now = 1; // Checksum of the current system state
-  bytes system_state_checksum_before = 2; // Checksum of the system state before this change
-  uint32 system_state_rev_num = 3;
+message SetConfigParamResponse {
+  ClientState state = 1;
+  bytes app_state_checksum_before = 2; // Checksum of the application state before this change
+  bytes system_state_checksum_before = 3; // Checksum of the system state before this change
+}
+
+message GetConfigParamRequest { // Server to client
+  repeated ConfigParamId ids = 1;
+}
+
+message GetConfigParamResponse {
+  repeated ConfigParam params = 1;
 }
 
 message ClaimDeviceRequest { // Device to server
@@ -286,14 +324,6 @@ message EventResponse {
 // Diagnostics
 //
 
-message DiagnosticId {
-  oneof value {
-    uint32 uint32 = 1;
-    // TODO: We should start using strings as diagnostic identifiers, at least for user diagnostics
-    string string = 2;
-  }
-}
-
 message DiagnosticError {
   int32 code = 1;
   string message = 2;
@@ -307,17 +337,12 @@ message DiagnosticValue {
   }
 }
 
-message DiagnosticInfo {
-  DiagnosticId id = 1;
-  ValueType type = 2;
-}
-
 message GetDiagnosticsRequest { // Server to client
   repeated DiagnosticId ids = 1;
 }
 
 message GetDiagnosticsResponse {
-  repeated DiagnosticValue values = 1;
+  repeated DiagnosticValue diagnostics = 1;
 }
 
 //
@@ -373,20 +398,16 @@ message UpdateChunkAckRequest { // Client to server (response is not sent)
 }
 
 //
-// Time synchronization
+// Miscellaneous
 //
 
 message TimeRequest { // Device to server
 }
 
 message TimeResponse {
-  fixed64 request_time = 1; // Number of milliseconds passed since the epoch when the TimeRequest was received
-  uint32 response_delay = 2; // Number of milliseconds passed between receiving the request and sending this response
+  fixed64 request_time = 1; // Time, in milliseconds since the epoch, when the TimeRequest was received
+  uint32 response_delay = 2; // Time, in milliseconds, between when the TimeRequest was received and when this response was sent
 }
-
-//
-// Miscellaneous
-//
 
 message PingRequest {
 }
