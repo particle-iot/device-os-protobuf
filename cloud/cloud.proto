@@ -207,6 +207,8 @@ message SystemCapabilities {
   uint32 max_message_size = 1; // Maximum supported size of a CoAP message
   uint32 max_update_chunk_size = 2; // Maximum supported size of a firmware update chunk
   uint32 max_update_file_size = 3; // Maximum supported size of a firmware update file
+  uint32 ack_timeout = 4; // Value of the CoAP's ACK_TIMEOUT parameter used by the client
+  uint32 exchange_lifetime = 5; // Value of the CoAP's EXCHANGE_LIFETIME parameter used by the client
 }
 
 message AdditionalSystemInfo {
