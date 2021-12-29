@@ -6,24 +6,6 @@ import "common.proto";
 
 option java_package = "io.particle.firmwareprotos.ctrl";
 
-// Note: Use the same values as defined by the security_key_type enum
-enum SecurityKeyType {
-  INVALID_SECURITY_KEY = 0;
-  TCP_DEVICE_PRIVATE_KEY = 1;
-  TCP_DEVICE_PUBLIC_KEY = 2;
-  TCP_SERVER_PUBLIC_KEY = 3;
-  UDP_DEVICE_PRIVATE_KEY = 4;
-  UDP_DEVICE_PUBLIC_KEY = 5;
-  UDP_SERVER_PUBLIC_KEY = 6;
-}
-
-// Note: Use the same values as defined by the server_protocol_type enum
-enum ServerProtocolType {
-  INVALID_PROTOCOL = 0;
-  TCP_PROTOCOL = 1;
-  UDP_PROTOCOL = 2;
-}
-
 // Device mode
 enum DeviceMode {
   NORMAL_MODE = 0;
@@ -105,28 +87,9 @@ message IsClaimedReply {
   bool claimed = 1;
 }
 
-message SetSecurityKeyRequest {
-  option (type_id) = 210; // CTRL_REQUEST_SET_SECURITY_KEY
-  SecurityKeyType type = 1; // Key type
-  bytes data = 2; // Key data in DER format
-}
-
-message SetSecurityKeyReply {
-}
-
-
-message GetSecurityKeyRequest {
-  option (type_id) = 211; // CTRL_REQUEST_GET_SECURITY_KEY
-  SecurityKeyType type = 1; // Key type
-}
-
-message GetSecurityKeyReply {
-  bytes data = 1; // Key data in DER format
-}
-
 message SetServerAddressRequest {
   option (type_id) = 220; // CTRL_REQUEST_SET_SERVER_ADDRESS
-  ServerProtocolType protocol = 1; // Protocol type
+  reserved 1;
   string address = 2 [(nanopb).max_size = 64]; // Server address
   int32 port = 3; // Port number
 }
@@ -136,28 +99,12 @@ message SetServerAddressReply {
 
 message GetServerAddressRequest {
   option (type_id) = 221; // CTRL_REQUEST_GET_SERVER_ADDRESS
-  ServerProtocolType protocol = 1; // Protocol type
+  reserved 1;
 }
 
 message GetServerAddressReply {
   string address = 1; // Server address
   int32 port = 2; // Port number
-}
-
-message SetServerProtocolRequest {
-  option (type_id) = 222;  // CTRL_REQUEST_SET_SERVER_PROTOCOL
-  ServerProtocolType protocol = 1; // Protocol type
-}
-
-message SetServerProtocolReply {
-}
-
-message GetServerProtocolRequest {
-  option (type_id) = 223;  // CTRL_REQUEST_GET_SERVER_PROTOCOL
-}
-
-message GetServerProtocolReply {
-  ServerProtocolType protocol = 1; // Protocol type
 }
 
 message SetSoftApSsidRequest {
@@ -252,4 +199,44 @@ message StopNyanSignalRequest {
 }
 
 message StopNyanSignalReply {
+}
+
+message SetDevicePrivateKeyRequest {
+  option (type_id) = 600; // CTRL_REQUEST_SET_DEVICE_PRIVATE_KEY
+  bytes data = 1; // Key data in DER format
+}
+
+message SetDevicePrivateKeyReply {
+}
+
+message GetDevicePrivateKeyRequest {
+  option (type_id) = 601; // CTRL_REQUEST_GET_DEVICE_PRIVATE_KEY
+}
+
+message GetDevicePrivateKeyReply {
+  bytes data = 1; // Key data in DER format
+}
+
+message GetDevicePublicKeyRequest {
+  option (type_id) = 602; // CTRL_REQUEST_GET_DEVICE_PUBLIC_KEY
+}
+
+message GetDevicePublicKeyReply {
+  bytes data = 1; // Key data in DER format
+}
+
+message SetServerPublicKeyRequest {
+  option (type_id) = 603; // CTRL_REQUEST_SET_SERVER_PUBLIC_KEY
+  bytes data = 1; // Key data in DER format
+}
+
+message SetServerPublicKeyReply {
+}
+
+message GetServerPublicKeyRequest {
+  option (type_id) = 604; // CTRL_REQUEST_GET_SERVER_PUBLIC_KEY
+}
+
+message GetServerPublicKeyReply {
+  bytes data = 1; // Key data in DER format
 }
