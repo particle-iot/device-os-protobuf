@@ -4,7 +4,10 @@
   "description": "Particle Device OS Protobuf Definitions",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "mkdir -p dist && pbjs control/*.proto -t static-module -o dist/index.js --no-beautify --no-comments --no-delimited --no-convert --no-verify",
+    "docs": "todo",
+    "prepublish": "npm run build",
+    "test": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/particle-iot/firmware-protobuf/issues"
   },
-  "homepage": "https://github.com/particle-iot/firmware-protobuf#readme"
+  "homepage": "https://github.com/particle-iot/firmware-protobuf#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "protobufjs": "^6.11.2"
+  }
 }
