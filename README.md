@@ -22,11 +22,11 @@ Auto-generated documentation can be found at https://docs.particle.io/reference/
 
 ### Usage
 
-Install package with `npm install @particle/firmware-protobuf`
+Install package with `npm install @particle/device-os-protobuf`
 
 
 ```
-const proto = require('@particle/firmware-protobuf');
+const proto = require('@particle/device-os-protobuf');
 const controlProto = proto.particle.ctrl;
 
 // Encode message
