@@ -1,0 +1,25 @@
+{
+  "name": "@particle/firmware-protobuf",
+  "version": "1.0.0",
+  "description": "Particle Device OS Protobuf Definitions",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/particle-iot/firmware-protobuf.git"
+  },
+  "keywords": [
+    "particle",
+    "firmware",
+    "deviceos",
+    "protobuf"
+  ],
+  "author": "Sergey Polyakov <sergeuz@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/particle-iot/firmware-protobuf/issues"
+  },
+  "homepage": "https://github.com/particle-iot/firmware-protobuf#readme"
+}
