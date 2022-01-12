@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Node
+node_modules
+
+# Generated files
+dist/
