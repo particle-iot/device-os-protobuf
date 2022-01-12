@@ -2,9 +2,21 @@
 
 Particle devices expose Control Requests over USB and BLE for functionality like device information and Wi-Fi setup. This repo contains the definition for all these control requests in Protobuf format.
 
+<!--
 ## Documentation
 
+Goal would be to have auto-generated documentation in docs.particle.io
+
+```
+npm run build
+npm run docs
+```
+Then parse dist/index-docs.json in the Particle docs build to generate a page describing the control requests
+
+
 Auto-generated documentation can be found at https://docs.particle.io/reference/device-os/control-requests/
+
+-->
 
 ## Node.js
 
