@@ -25,10 +25,11 @@
     "url": "https://github.com/particle-iot/firmware-protobuf/issues"
   },
   "homepage": "https://github.com/particle-iot/firmware-protobuf#readme",
-  "dependencies": {},
+  "dependencies": {
+    "protobufjs": "^6.11.2"
+  },
   "devDependencies": {
     "jsdoc": "^3.6.7",
-    "mkdirp": "^1.0.4",
-    "protobufjs": "^6.11.2"
+    "mkdirp": "^1.0.4"
   }
 }
