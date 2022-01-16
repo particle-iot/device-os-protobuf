@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/particle-iot/device-os-protobuf/tree/main.svg?style=svg)](https://circleci.com/gh/particle-iot/device-os-protobuf/tree/main)
+
 # Particle Device OS Protobuf Definitions
 
 Particle devices expose Control Requests over USB and BLE for functionality like device information and Wi-Fi setup. This repo contains the definition for all these control requests in Protobuf format.
