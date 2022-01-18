@@ -1,62 +1,62 @@
 const expect = require('chai').expect;
+const sinon = require('sinon');
 const DeviceOSProtobuf = require('./');
 
 describe('deviceOSProtobuf', () => {
-    let protobufName, requestID, requestPBJSName;
-    describe('getDefinition("SERIAL_NUMBER")', () => {
+    let protobufMessageName, requestID;
+
+    afterEach(() => {
+        sinon.restore();
+    });
+
+    describe('protobufMessageName(protobufMessageName) without namespace and generalized usage', () => {
         beforeEach(() => {
-            protobufName = 'SERIAL_NUMBER'
+            protobufMessageName = 'GetSerialNumberRequest'
             requestID = 21;
-            requestPBJSName = 'GetSerialNumberRequest';
-            replyPBJSName = 'GetSerialNumberReply';
-        });
-        it('provides getDefinition(name)', () => {
-            const protobufDefinition = DeviceOSProtobuf.getDefinition(protobufName);
+        });        
+        it('provides getDefinition(protobufMessageName)', () => {
+            const stubID = 47;
+            sinon.stub(DeviceOSProtobuf, '_getIDFromJSON').returns(stubID);
+            const stubMessage = function() {};
+            stubMessage.create = sinon.stub();
+            stubMessage.encode = sinon.stub();
+            stubMessage.decode = sinon.stub();
+            sinon.stub(DeviceOSProtobuf, '_getProtobufMessage').returns(stubMessage);
+            const protobufDefinition = DeviceOSProtobuf.getDefinition(protobufMessageName);
             expect(protobufDefinition).to.have.haveOwnProperty('id');
-            expect(protobufDefinition.id).to.eql(requestID);
-            expect(protobufDefinition).to.have.haveOwnProperty('request');
-            expect(protobufDefinition.request).to.be.a('Function');
-            expect(protobufDefinition).to.have.haveOwnProperty('reply');
-            expect(protobufDefinition.reply).to.be.a('Function');
+            expect(protobufDefinition).to.have.haveOwnProperty('message');
+            expect(DeviceOSProtobuf._getIDFromJSON).to.have.property('callCount', 1);
+            expect(DeviceOSProtobuf._getProtobufMessage).to.have.property('callCount', 1);
         });
 
-        it('has a corresponding pbjs generated Javascript request object', () => {
-            const GetSerialNumberRequest = DeviceOSProtobuf.pbjsObjects[requestPBJSName];
-            expect(GetSerialNumberRequest.create).to.be.a('Function');
-            expect(GetSerialNumberRequest.encode).to.be.a('Function');
-            expect(GetSerialNumberRequest.decode).to.be.a('Function');
+        it('implements _getIDFromJSON(protobufMessageName) correctly', () => {
+            const result = DeviceOSProtobuf._getIDFromJSON(protobufMessageName);
+            expect(result).to.eql(requestID);
         });
 
-        it('has a corresponding pbjs generated Javascript reply object', () => {
-            const GetSerialNumberReply = DeviceOSProtobuf.pbjsObjects[replyPBJSName];
-            expect(GetSerialNumberReply.create).to.be.a('Function');
-            expect(GetSerialNumberReply.encode).to.be.a('Function');
-            expect(GetSerialNumberReply.decode).to.be.a('Function');
-        });
-
-        it('provides _nameToRequestObject(name)', () => {
-            const pbjsRequestObject = DeviceOSProtobuf._nameToRequestObject(protobufName);
-            expect(pbjsRequestObject).to.be.a('Function');
-            expect(pbjsRequestObject.create).to.be.a('Function');
-            expect(pbjsRequestObject.encode).to.be.a('Function');
-            expect(pbjsRequestObject.decode).to.be.a('Function');
-        });
-
-        it('provides _nameToReplyObject(name)', () => {
-            const pbjsReplyObject = DeviceOSProtobuf._nameToReplyObject(protobufName);
-            expect(pbjsReplyObject).to.be.a('Function');
-            expect(pbjsReplyObject.create).to.be.a('Function');
-            expect(pbjsReplyObject.encode).to.be.a('Function');
-            expect(pbjsReplyObject.decode).to.be.a('Function');
+        it('implements _getProtobufMessage(protobufMessageName) correctly', () => {
+            const result = DeviceOSProtobuf._getProtobufMessage(protobufMessageName);
+            assertValidProtobufMessage(result);
         });
     })
 	
-    it('provides pbjsJSON (parsed JSON rendered via `npm run build:json` command)', () => {
-        expect(DeviceOSProtobuf.pbjsJSON).to.be.an('object');
+    it('provides _pbjsJSON (parsed JSON rendered via `npm run build:json` command)', () => {
+        expect(DeviceOSProtobuf._pbjsJSON).to.be.an('object');
     });
 
-    it('provides pbjsObjects (generated Javascript via `npm run build` command)', () => {
-        expect(DeviceOSProtobuf.pbjsObjects).to.be.an('object');
-        expect(DeviceOSProtobuf.pbjsObjects).to.have.property('GetSerialNumberRequest');
+    it('provides _pbjsObjects (generated Javascript via `npm run build` command)', () => {
+        expect(DeviceOSProtobuf._pbjsObjects).to.be.an('object');
+        expect(DeviceOSProtobuf._pbjsObjects).to.have.property('GetSerialNumberRequest');
     });
 });
+
+/**
+ * Test helper function that validates the pbjs generated JS code returns an
+ * object with the structure we expect.
+ */
+function assertValidProtobufMessage(message) {
+    expect(message).to.be.a('Function');
+    expect(message.create).to.be.a('Function');
+    expect(message.encode).to.be.a('Function');
+    expect(message.decode).to.be.a('Function');
+}
