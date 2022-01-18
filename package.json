@@ -9,6 +9,7 @@
     "docs": "jsdoc -X dist/index.js > dist/index-docs.json",
     "prepublish": "npm run build",
     "test": "mocha './src/**/*.test.js' --color",
+    "coverage": "nyc --check-coverage mocha --forbid-only \"src/**/*.test.js\" --exclude src/pbjs-generated/*.js",
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -33,11 +34,12 @@
     "protobufjs": "^6.11.2"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.7",
     "chai": "^4.3.4",
     "eslint": "^8.6.0",
     "eslint-config-particle": "^2.5.0",
+    "jsdoc": "^3.6.7",
     "mocha": "^9.1.4",
+    "nyc": "^15.1.0",
     "sinon": "^12.0.1"
   }
 }
