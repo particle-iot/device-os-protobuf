@@ -3,14 +3,6 @@ const path = require('path');
 const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
 
 class DeviceOSProtobuf {
-
-	/**
-	 * @typedef {Object} ProtobufDefinition
-	 * @property {Function} message - protobufjs generated Javascript function that includes encode and decode methods.
-	 * @property {(number|null)} id - integer request ID of the message for "Request" protobuf definitions, null otherwise.
-	 * @property {(Function | null)} replyMessage The corresponding reply message to a given "Request" message, null otherwise.
-   */
-	
 	/**
 	 * @param {string} protobufMessageName - Protobuf definition from *.proto files (messages and enums) like "GetSerialNumberRequest". To access definitions in a namespace, prefix with "<namespace>."
 	 * @returns {ProtobufDefinition} protobufDefinition An object containing key data/code to encode & decode protobufjs messages from Device OS
@@ -24,6 +16,13 @@ class DeviceOSProtobuf {
 			id
 		};
 	}
+
+	/**
+	 * @typedef {Object} ProtobufDefinition
+	 * @property {Function} message - protobufjs generated Javascript function that includes encode and decode methods.
+	 * @property {(number|null)} id - integer request ID of the message for "Request" protobuf definitions, null otherwise.
+	 * @property {(Function | null)} replyMessage The corresponding reply message to a given "Request" message, null otherwise.
+   */
 
 	/**
 	 *
