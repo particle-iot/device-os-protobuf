@@ -359,6 +359,27 @@ describe('deviceOSProtobuf', () => {
 		expect(DeviceOSProtobuf._pbjsObjects).to.be.an('object');
 		expect(DeviceOSProtobuf._pbjsObjects).to.have.property('GetSerialNumberRequest');
 	});
+
+	describe('Usage of getDefinition() result', () => {
+		it('demonstrates how to use the request and replyMessage', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('GetSerialNumberRequest');
+			assertValidProtobufMessage(protobufDefinition.message);
+			const msg = protobufDefinition.message.create({});
+			expect(msg).to.be.an.instanceOf(protobufDefinition.message);
+			const buffer = protobufDefinition.message.encode(msg).finish();
+			expect(buffer).to.be.an.instanceOf(Buffer);
+
+			// Nuance: We don't know how to stub the reply in these tests yet
+			// Normally, Device OS is responsible for creating the buffer representing
+			// the replyMsg.
+			// This code does not work because bufferFromDeviceOS is invalid
+			// It's unclear how to produce valid byutes to mock this for now
+			// const bufferFromDeviceOS = Buffer.alloc(15, '1');
+			// const reply = protobufDefinition.replyMessage;
+			// const replyMsg = reply.decode(bufferFromDeviceOS);
+
+		});
+	});
 });
 
 
