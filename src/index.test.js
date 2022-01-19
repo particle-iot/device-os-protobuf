@@ -29,10 +29,11 @@ describe('deviceOSProtobuf', () => {
 			// expect(DeviceOSProtobuf._getProtobufMessage).to.have.property('callCount', 1);
 		});
 
-		it('implements _getIDFromJSON(protobufMessageName) correctly', () => {
+		it('implements _getIDFromJSON(protobufMessageName) correctly with valid input', () => {
 			const result = DeviceOSProtobuf._getIDFromJSON(protobufMessageName);
 			expect(result).to.eql(requestID);
-
+		});
+		it('implements _getIDFromJSON(protobufMessageName) correctly with invalid input', () => {
 			let error;
 			try {
 				DeviceOSProtobuf._getIDFromJSON('foobar');
@@ -48,7 +49,15 @@ describe('deviceOSProtobuf', () => {
 		it('implements _getProtobufMessage(protobufMessageName) correctly', () => {
 			const result = DeviceOSProtobuf._getProtobufMessage(protobufMessageName);
 			assertValidProtobufMessage(result);
+		});
 
+		it('implements _getProtobufMessage(protobufMessageName) correctly when message name includes "."', () => {
+			protobufMessageName = 'cellular.GetIccidRequest';
+			const result = DeviceOSProtobuf._getProtobufMessage(protobufMessageName);
+			assertValidProtobufMessage(result);
+		});
+
+		it('implements _getProtobufMessage(protobufMessageName) correctly with invalid', () => {
 			let error;
 			try {
 				DeviceOSProtobuf._getProtobufMessage('foobar');
@@ -61,19 +70,6 @@ describe('deviceOSProtobuf', () => {
 			);
 		});
 	});
-
-	describe('getDefinition(protobufMessageName) with protobuf namespace', () => {
-		beforeEach(() => {
-			protobufMessageName = 'cellular.GetIccidRequest';
-			requestID = 99; // TODO
-		});
-
-		it('provides getDefinition(namespace.protobufMessageName)', () => {
-			// TODO
-			expect(true).to.eql(true);
-		});
-	});
-
 
 	describe('getDefinitions()', () => {
 		it('provides getDefinitions()', () => {

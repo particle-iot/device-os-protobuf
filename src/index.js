@@ -58,10 +58,19 @@ class DeviceOSProtobuf {
 	}
 
 	static _getProtobufMessage(protobufMessageName) {
-		if (!(protobufMessageName in this._pbjsObjects)) {
+		let rootObject;
+		if (protobufMessageName.includes('.')) {
+			const dotSeparatedArray = protobufMessageName.split('.');
+			const namespace = dotSeparatedArray[0];
+			protobufMessageName = dotSeparatedArray[1];
+			rootObject = this._pbjsObjects[namespace];
+		} else {
+			rootObject = this._pbjsObjects;
+		}
+		if (!(protobufMessageName in rootObject)) {
 			throw new Error(`There is no pbjs generated protobuf Function for protobufMessageName=${protobufMessageName}`);
 		}
-		return this._pbjsObjects[protobufMessageName];
+		return rootObject[protobufMessageName];
 	}
 }
 
