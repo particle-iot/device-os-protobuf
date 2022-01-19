@@ -29,8 +29,8 @@ Generate the JavaScript files with `npm run build` and `npm run build:json`
 
 Ensure `npm run test:ci` is passing
 
-## Release
+Update the documentation before PR reviews with `npm run build:docs`
 
-Update the documentation: `npm run build:docs`
+## Release
 
 Tag a new version with `npm version` push `git push --follow-tags`. CircleCI will publish the package to npm.
