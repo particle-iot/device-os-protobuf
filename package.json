@@ -4,8 +4,9 @@
   "description": "Particle Device OS Protobuf Definitions",
   "main": "src/index.js",
   "scripts": {
-    "build": "pbjs control/*.proto -t static-module -o src/pbjs-generated/index.js --no-delimited --no-convert --no-verify",
-    "build:json": "pbjs control/*.proto -t json -o src/pbjs-generated/index.json --no-delimited --no-convert --no-verify",
+    "build": "npm run build:pbjs:module && npm run build:pbjs:json && npm run build:docs",
+    "build:pbjs:module": "pbjs control/*.proto -t static-module -o src/pbjs-generated/index.js --no-delimited --no-convert --no-verify",
+    "build:pbjs:json": "pbjs control/*.proto -t json -o src/pbjs-generated/index.json --no-delimited --no-convert --no-verify",
     "build:docs": "documentation build src/index.js --github --format md --shallow --output docs/reference.md",
     "prepublish": "npm run build",
     "test": "mocha './src/**/*.test.js' --color",
@@ -24,7 +25,10 @@
     "deviceos",
     "protobuf"
   ],
-  "author": "Sergey Polyakov <sergeuz@gmail.com>",
+  "contributors": [
+    "Sergey Polyakov <sergey@particle.io>",
+    "Joe Goggins <joe@particle.io>"
+  ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/particle-iot/firmware-protobuf/issues"

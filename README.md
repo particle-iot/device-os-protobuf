@@ -27,12 +27,9 @@ Ensure you have installed dependencies via `npm install`.
 
 Edit the protocol buffer definitions in [`proto`](proto).
 
-Generate the JavaScript files with `npm run build` and `npm run build:json`
+Generate the JavaScript, JSON files, and documentation with `npm run build`
 
 Ensure `npm run test:ci` is passing
-
-Update the documentation before PR reviews with `npm run build:docs`
-
 ## Release
 
 Tag a new version with `npm version` push `git push --follow-tags`. CircleCI will publish the package to npm.
