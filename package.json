@@ -2,7 +2,7 @@
   "name": "@particle/device-os-protobuf",
   "version": "1.1.0-0",
   "description": "Particle Device OS Protobuf Definitions",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "pbjs control/*.proto -t static-module -o src/pbjs-generated/index.js --no-delimited --no-convert --no-verify",
     "build:json": "pbjs control/*.proto -t json -o src/pbjs-generated/index.json --no-delimited --no-convert --no-verify",
