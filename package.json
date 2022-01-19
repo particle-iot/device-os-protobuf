@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pbjs control/*.proto -t static-module -o src/pbjs-generated/index.js --no-delimited --no-convert --no-verify",
     "build:json": "pbjs control/*.proto -t json -o src/pbjs-generated/index.json --no-delimited --no-convert --no-verify",
-    "docs": "jsdoc -X dist/index.js > dist/index-docs.json",
+    "build:docs": "documentation build src/index.js --github --format md --shallow --output docs/reference.md",
     "prepublish": "npm run build",
     "test": "mocha './src/**/*.test.js' --color",
     "test:ci": "npm run lint && npm run test && npm run coverage",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "documentation": "^13.2.5",
     "eslint": "^8.6.0",
     "eslint-config-particle": "^2.5.0",
     "jsdoc": "^3.6.7",
