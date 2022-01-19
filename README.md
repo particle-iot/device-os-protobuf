@@ -27,9 +27,10 @@ Ensure you have installed dependencies via `npm install`.
 
 Edit the protocol buffer definitions in [`proto`](proto).
 
-Generate the JavaScript, JSON files, and documentation with `npm run build`
+Generate the [protobufjs JavaScript & JSON](https://www.npmjs.com/package/protobufjs) files and markdown documentation with `npm run build`
 
 Ensure `npm run test:ci` is passing
+
 ## Release
 
 Tag a new version with `npm version` push `git push --follow-tags`. CircleCI will publish the package to npm.

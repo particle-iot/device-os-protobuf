@@ -75,23 +75,23 @@ Type: [Object][18]
 
 [8]: #properties
 
-[9]: https://github.com/particle-iot/device-os-protobuf/blob/881d054face1833ccf6310dd995f877d605df1c9/src/index.js#L8-L25 "Source code on GitHub"
+[9]: https://github.com/particle-iot/device-os-protobuf/blob/7a184ff625010eb9ffac37b8fa33bd3f4f529cfd/src/index.js#L8-L25 "Source code on GitHub"
 
 [10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [11]: #protobufdefinition
 
-[12]: https://github.com/particle-iot/device-os-protobuf/blob/881d054face1833ccf6310dd995f877d605df1c9/src/index.js#L37-L51 "Source code on GitHub"
+[12]: https://github.com/particle-iot/device-os-protobuf/blob/7a184ff625010eb9ffac37b8fa33bd3f4f529cfd/src/index.js#L37-L51 "Source code on GitHub"
 
 [13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[14]: https://github.com/particle-iot/device-os-protobuf/blob/881d054face1833ccf6310dd995f877d605df1c9/src/index.js#L56-L64 "Source code on GitHub"
+[14]: https://github.com/particle-iot/device-os-protobuf/blob/7a184ff625010eb9ffac37b8fa33bd3f4f529cfd/src/index.js#L56-L64 "Source code on GitHub"
 
-[15]: https://github.com/particle-iot/device-os-protobuf/blob/881d054face1833ccf6310dd995f877d605df1c9/src/index.js#L117-L117 "Source code on GitHub"
+[15]: https://github.com/particle-iot/device-os-protobuf/blob/7a184ff625010eb9ffac37b8fa33bd3f4f529cfd/src/index.js#L117-L117 "Source code on GitHub"
 
-[16]: https://github.com/particle-iot/device-os-protobuf/blob/881d054face1833ccf6310dd995f877d605df1c9/src/index.js#L123-L123 "Source code on GitHub"
+[16]: https://github.com/particle-iot/device-os-protobuf/blob/7a184ff625010eb9ffac37b8fa33bd3f4f529cfd/src/index.js#L123-L123 "Source code on GitHub"
 
-[17]: https://github.com/particle-iot/device-os-protobuf/blob/881d054face1833ccf6310dd995f877d605df1c9/src/index.js#L27-L32 "Source code on GitHub"
+[17]: https://github.com/particle-iot/device-os-protobuf/blob/7a184ff625010eb9ffac37b8fa33bd3f4f529cfd/src/index.js#L27-L32 "Source code on GitHub"
 
 [18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 

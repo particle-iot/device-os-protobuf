@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:pbjs:module && npm run build:pbjs:json && npm run build:docs",
     "build:pbjs:module": "pbjs control/*.proto -t static-module -o src/pbjs-generated/index.js --no-delimited --no-convert --no-verify",
-    "build:pbjs:json": "pbjs control/*.proto -t json -o src/pbjs-generated/index.json --no-delimited --no-convert --no-verify",
+    "build:pbjs:json": "pbjs control/*.proto -t json -o src/pbjs-generated/definitions.json --no-delimited --no-convert --no-verify",
     "build:docs": "documentation build src/index.js --github --format md --shallow --output docs/reference.md",
     "prepublish": "npm run build",
     "test": "mocha './src/**/*.test.js' --color",

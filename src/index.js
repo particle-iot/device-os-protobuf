@@ -114,14 +114,12 @@ class DeviceOSProtobuf {
  * Parsed JSON object generated via `npm run build:json`; this is how we get the type id associated with
  * a given ctrl request
  */
-DeviceOSProtobuf._pbjsJSON = require('./pbjs-generated/index.json');
+DeviceOSProtobuf._pbjsJSON = require('./pbjs-generated/definitions.json');
 
 /**
  * All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this _pbjsObjects object
  * (which is keyed by protobuf message name)
  */
 DeviceOSProtobuf._pbjsObjects = pbjsGeneratedProtobufCode.particle.ctrl;
-
-
 
 module.exports = DeviceOSProtobuf;
