@@ -5,23 +5,29 @@ const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
 class DeviceOSProtobuf {
 
 	/**
-	 *
-	 * @param {String} protobufMessageName Name of the Protobuf, enum, etc from *.proto file
-	 * @returns {Function} protobufjs jbjs generated Function with encode, create, decode methods
+	 * @typedef {Object} ProtobufDefinition
+	 * @property {Function} message - protobufjs generated Javascript function that includes encode and decode methods.
+	 * @property {(number|null)} id - integer request ID of the message for "Request" protobuf definitions, null otherwise.
+	 * @property {(Function | null)} replyMessage The corresponding reply message to a given "Request" message, null otherwise.
+   */
+	
+	/**
+	 * @param {string} protobufMessageName - Protobuf definition from *.proto files (messages and enums) like "GetSerialNumberRequest". To access definitions in a namespace, prefix with "<namespace>."
+	 * @returns {ProtobufDefinition} protobufDefinition An object containing key data/code to encode & decode protobufjs messages from Device OS
 	 */
 	static getDefinition(protobufMessageName) {
-		const id = this._getIDFromJSON(protobufMessageName);
 		const message = this._getProtobufMessage(protobufMessageName);
+		const id = this._getIDFromJSON(protobufMessageName);
 
 		return {
-			id,
-			message
+			message,
+			id
 		};
 	}
 
 	/**
 	 *
-	 * @returns {Array} all valid arguments to getDefinition()
+	 * @returns {Array} valid strings that can be passed to getDefinition()
 	 */
 	static getDefinitions() {
 		const namespaces = this.getNamespaces();
@@ -39,6 +45,9 @@ class DeviceOSProtobuf {
 		return returnThis;
 	}
 
+	/**
+	 * @returns {Array} valid dot prefixes to getDefinition() arguments (i.e. the "cellular" from "cellular".GetIccidRequest, etc)
+	 */
 	static getNamespaces() {
 		return [
 			'wifi',
