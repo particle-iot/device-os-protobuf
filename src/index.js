@@ -4,7 +4,7 @@ const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
 
 class DeviceOSProtobuf {
 	/**
-	 * @param {string} protobufMessageName - Protobuf definition from *.proto files (messages and enums) like "GetSerialNumberRequest". To access definitions in a namespace, prefix with "<namespace>."
+	 * @param {string} protobufMessageName - Protobuf definition from *.proto files like "GetSerialNumberRequest". To access definitions in a namespace, prefix with "<namespace>."
 	 * @returns {ProtobufDefinition} protobufDefinition An object containing key data/code to encode & decode protobufjs messages from Device OS
 	 */
 	static getDefinition(protobufMessageName) {
@@ -34,8 +34,7 @@ class DeviceOSProtobuf {
    */
 
 	/**
-	 *
-	 * @returns {Array} valid strings that can be passed to getDefinition()
+	 * @returns {Array} valid strings that can be passed to getDefinition(). Includes all Request/Reply style messages as well as non request messages and enums.
 	 */
 	static getDefinitions() {
 		const namespaces = this.getNamespaces();
@@ -92,7 +91,7 @@ class DeviceOSProtobuf {
 		return protobufMessageName.split('.');
 	}
 
-	// Get's a protobuf by name (supports namespaces)
+	// Get's a pbjs generated Function by name or namespace.name
 	static _getProtobufMessage(protobufMessageName) {
 		let rootObject;
 		if (protobufMessageName.includes('.')) {
@@ -121,7 +120,7 @@ const pbjsJSONString = fs.readFileSync(`${path.resolve(__dirname)}/pbjs-generate
 DeviceOSProtobuf._pbjsJSON = JSON.parse(pbjsJSONString);
 
 /**
- * All of the interesting auto-generated Javascript objects from *.protofiles live in this _pbjsObjects object
+ * All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this _pbjsObjects object
  * (which is keyed by protobuf message name)
  */
 DeviceOSProtobuf._pbjsObjects = pbjsGeneratedProtobufCode.particle.ctrl;
