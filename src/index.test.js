@@ -14,7 +14,7 @@ describe('deviceOSProtobuf', () => {
 			protobufMessageName = 'GetSerialNumberRequest';
 			requestID = 21;
 		});
-		it('provides getDefinition(protobufMessageName)', () => {
+		it('provides getDefinition(protobufMessageName) with non null id and replyMessage properties', () => {
 			const stubID = 47;
 			sinon.stub(DeviceOSProtobuf, '_getIDFromJSON').returns(stubID);
 			const stubMessage = () => {};
@@ -25,8 +25,9 @@ describe('deviceOSProtobuf', () => {
 			const protobufDefinition = DeviceOSProtobuf.getDefinition(protobufMessageName);
 			expect(protobufDefinition).to.have.haveOwnProperty('id');
 			expect(protobufDefinition).to.have.haveOwnProperty('message');
+			expect(protobufDefinition).to.have.haveOwnProperty('replyMessage');
 			expect(DeviceOSProtobuf._getIDFromJSON).to.have.property('callCount', 1);
-			// expect(DeviceOSProtobuf._getProtobufMessage).to.have.property('callCount', 1);
+			expect(DeviceOSProtobuf._getProtobufMessage).to.have.property('callCount', 2);
 		});
 
 		it('implements _getIDFromJSON(protobufMessageName) correctly with valid input', () => {
@@ -71,11 +72,81 @@ describe('deviceOSProtobuf', () => {
 		});
 	});
 
+	describe('getDefinition(protobufMessageName) real world examples of definitions with id, request message, and reply message', () => {
+		it('works with wifi.ScanNetworksRequest', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('wifi.ScanNetworksRequest');
+			expect(protobufDefinition.id).to.eql(506);
+			assertValidProtobufMessage(protobufDefinition.message);
+			// console.log('Request',protobufDefinition.message);
+			assertValidProtobufMessage(protobufDefinition.replyMessage);
+			// Note that replyMessages can have what appears to be message nesting,
+			// `console.log('Reply',protobufDefinition.replyMessage);` shows:
+			//
+			// Reply [Function: ScanNetworksReply] {
+			// 	create: [Function: create],
+			// 	encode: [Function: encode],
+			// 	decode: [Function: decode],
+			// 	Network: [Function: Network] {
+			// 	  create: [Function: create],
+			// 	  encode: [Function: encode],
+			// 	  decode: [Function: decode]
+			// 	}
+			//   }
+		});
+
+		it('works with wifi.JoinNewNetworkRequest', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('wifi.JoinNewNetworkRequest');
+			expect(protobufDefinition.id).to.eql(500);
+			assertValidProtobufMessage(protobufDefinition.message);
+			assertValidProtobufMessage(protobufDefinition.replyMessage);
+		});
+
+		it('works with GetSystemVersionRequest', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('GetSystemVersionRequest');
+			expect(protobufDefinition.id).to.eql(30);
+			assertValidProtobufMessage(protobufDefinition.message);
+			assertValidProtobufMessage(protobufDefinition.replyMessage);
+		});
+
+		it('works with GetSecurityKeyRequest', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('GetSecurityKeyRequest');
+			expect(protobufDefinition.id).to.eql(211);
+			assertValidProtobufMessage(protobufDefinition.message);
+			assertValidProtobufMessage(protobufDefinition.replyMessage);
+		});
+
+		it('works with StartNyanSignalRequest', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('StartNyanSignalRequest');
+			expect(protobufDefinition.id).to.eql(230);
+			assertValidProtobufMessage(protobufDefinition.message);
+			assertValidProtobufMessage(protobufDefinition.replyMessage);
+		});
+
+		it('works with StopNyanSignalRequest', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('StopNyanSignalRequest');
+			expect(protobufDefinition.id).to.eql(231);
+			assertValidProtobufMessage(protobufDefinition.message);
+			assertValidProtobufMessage(protobufDefinition.replyMessage);
+		});
+	});
+
+	describe('getDefinition(protobufMessageName) real world examples of definitions without id or replyMessage', () => {
+		it('works with logging.SerialStreamParams', () => {
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('logging.SerialStreamParams');
+			expect(protobufDefinition.id).to.eql(null);
+			expect(protobufDefinition.replyMessage).to.eql(null);
+			assertValidProtobufMessage(protobufDefinition.message);
+		});
+
+		// Note: There are lots of other options of things we could test, but don't, see https://app.shortcut.com/particle/story/95530/introduce-deviceosprotobuf-getdefinition-name-to-device-os-protobuf#activity-95768
+	});
+
 	describe('getDefinitions()', () => {
 		it('provides getDefinitions()', () => {
 			const definitions = DeviceOSProtobuf.getDefinitions();
 			expect(definitions).to.be.an('Array');
-			expect(definitions).to.eql([
+
+			expect(definitions).to.have.members([
 				'cellular.SimType',
 				'cellular.AccessPoint',
 				'cellular.SetAccessPointRequest',

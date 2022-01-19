@@ -9,11 +9,20 @@ class DeviceOSProtobuf {
 	 */
 	static getDefinition(protobufMessageName) {
 		const message = this._getProtobufMessage(protobufMessageName);
-		const id = this._getIDFromJSON(protobufMessageName);
+
+		let id, replyMessage;
+		if (protobufMessageName.match(/Request$/)) {
+			id = this._getIDFromJSON(protobufMessageName);
+			replyMessage = this._getProtobufReplyMessage(protobufMessageName);
+		} else {
+			id = null;
+			replyMessage = null;
+		}
 
 		return {
 			message,
-			id
+			id,
+			replyMessage
 		};
 	}
 
@@ -58,19 +67,37 @@ class DeviceOSProtobuf {
 	}
 
 	static _getIDFromJSON(protobufMessageName) {
+		let rootJSONObject;
+		if (this._isNamespaced(protobufMessageName)) {
+			const [namespace, nonNamespacedName] = this._getNamespaceAndMessageName(protobufMessageName);
+			rootJSONObject = DeviceOSProtobuf._pbjsJSON.nested.particle.nested.ctrl
+				.nested[namespace].nested[nonNamespacedName];
+		} else {
+			rootJSONObject = DeviceOSProtobuf._pbjsJSON.nested.particle.nested.ctrl
+				.nested[protobufMessageName];
+		}
+
 		try {
-			return DeviceOSProtobuf._pbjsJSON.nested.particle.nested.ctrl.nested[protobufMessageName].options['(type_id)'];
+			return rootJSONObject.options['(type_id)'];
 		} catch (e) {
 			throw new Error(`Could not extract request type id from pbjs json where protobufMessageName=${protobufMessageName}`);
 		}
 	}
 
+	static _isNamespaced(protobufMessageName) {
+		return protobufMessageName.includes('.');
+	}
+
+	static _getNamespaceAndMessageName(protobufMessageName) {
+		return protobufMessageName.split('.');
+	}
+
+	// Get's a protobuf by name (supports namespaces)
 	static _getProtobufMessage(protobufMessageName) {
 		let rootObject;
 		if (protobufMessageName.includes('.')) {
-			const dotSeparatedArray = protobufMessageName.split('.');
-			const namespace = dotSeparatedArray[0];
-			protobufMessageName = dotSeparatedArray[1];
+			const [namespace, nonNamespacedName] = this._getNamespaceAndMessageName(protobufMessageName);
+			protobufMessageName = nonNamespacedName;
 			rootObject = this._pbjsObjects[namespace];
 		} else {
 			rootObject = this._pbjsObjects;
@@ -79,6 +106,10 @@ class DeviceOSProtobuf {
 			throw new Error(`There is no pbjs generated protobuf Function for protobufMessageName=${protobufMessageName}`);
 		}
 		return rootObject[protobufMessageName];
+	}
+
+	static _getProtobufReplyMessage(protobufMessageName) {
+		return this._getProtobufMessage(protobufMessageName.replace('Request','Reply'));
 	}
 }
 
