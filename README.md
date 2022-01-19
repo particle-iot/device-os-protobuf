@@ -15,9 +15,11 @@ iOS and Android applications also depend on `control/*.proto` files directly via
 
 Install package with `npm install @particle/device-os-protobuf`
 
-See [docs/reference.md](/docs/reference.md).
+See [docs/reference.md](/docs/reference.md) for public api documentation
 
-See how `particle-usb` relies on this module for more specific production usage examples.
+See `src/*.test.js` files for basic usage examples.
+
+See `particle-usb` for production usage examples.
 
 ### Development
 

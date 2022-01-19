@@ -361,23 +361,24 @@ describe('deviceOSProtobuf', () => {
 	});
 
 	describe('Usage of getDefinition() result', () => {
-		it('demonstrates how to use the request and replyMessage', () => {
+		it('demonstrates how to use ProtobufDefinition .message', () => {
 			const protobufDefinition = DeviceOSProtobuf.getDefinition('GetSerialNumberRequest');
 			assertValidProtobufMessage(protobufDefinition.message);
 			const msg = protobufDefinition.message.create({});
 			expect(msg).to.be.an.instanceOf(protobufDefinition.message);
 			const buffer = protobufDefinition.message.encode(msg).finish();
 			expect(buffer).to.be.an.instanceOf(Buffer);
+		});
 
-			// Nuance: We don't know how to stub the reply in these tests yet
-			// Normally, Device OS is responsible for creating the buffer representing
-			// the replyMsg.
-			// This code does not work because bufferFromDeviceOS is invalid
-			// It's unclear how to produce valid byutes to mock this for now
-			// const bufferFromDeviceOS = Buffer.alloc(15, '1');
-			// const reply = protobufDefinition.replyMessage;
-			// const replyMsg = reply.decode(bufferFromDeviceOS);
-
+		it('demonstrates how to use ProtobufDefinition .replyMessage', () => {
+			// Normally, Device OS creates and encodes Reply messages rather than protobufjs
+			// However, this same process is also doable in pure JavaScript illustrated below
+			const protobufDefinition = DeviceOSProtobuf.getDefinition('GetSerialNumberRequest');
+			const mockExpectedSerialNumber = 'P046AF1450000FC';
+			const replyMsg = protobufDefinition.replyMessage.create({ serial: mockExpectedSerialNumber });
+			const replyBuffer = protobufDefinition.replyMessage.encode(replyMsg).finish();
+			const decodedReplyMsg = protobufDefinition.replyMessage.decode(replyBuffer);
+			expect(decodedReplyMsg.serial).to.eql(mockExpectedSerialNumber);
 		});
 	});
 });
