@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
 
 class DeviceOSProtobuf {
@@ -112,12 +110,11 @@ class DeviceOSProtobuf {
 	}
 }
 
-const pbjsJSONString = fs.readFileSync(`${path.resolve(__dirname)}/pbjs-generated/index.json`);
 /**
  * Parsed JSON object generated via `npm run build:json`; this is how we get the type id associated with
  * a given ctrl request
  */
-DeviceOSProtobuf._pbjsJSON = JSON.parse(pbjsJSONString);
+DeviceOSProtobuf._pbjsJSON = require('./pbjs-generated/index.json');
 
 /**
  * All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this _pbjsObjects object
