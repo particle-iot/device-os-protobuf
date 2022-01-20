@@ -15,7 +15,7 @@ jobs:
           command: npm ci
       - run:
           name: Run tests
-          command: npm run test
+          command: npm run test:ci
       - persist_to_workspace:
           root: ~/repo
           paths: .

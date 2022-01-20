@@ -34,5 +34,10 @@
 # Node
 node_modules
 
+# Automated tests
+.nyc_output
+
 # Generated files
 dist/
+
+
