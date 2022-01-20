@@ -2,7 +2,7 @@ const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
 
 class DeviceOSProtobuf {
 	/**
-	 * Create a valid Buffer of bytes that can be sent to Device, typically used with "Request" messages.
+	 * Create a valid Buffer of bytes that can be sent to DeviceOS, typically used with "Request" messages.
 	 *
 	 * @example <caption>Encoding a request to get serial number</caption>
 	 * // returns a zero length Buffer because there is no properties for this message, just the option type_id
