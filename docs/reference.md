@@ -16,17 +16,19 @@
 *   [\_pbjsObjects][12]
 *   [ProtobufDefinition][13]
     *   [Properties][14]
+*   [ProtobufMessage][15]
+    *   [Properties][16]
 
 ## encode
 
-[src/index.js:15-20][15]
+[src/index.js:15-20][17]
 
-Create a valid Buffer of bytes that can be sent to Device, typically used with "Request" messages.
+Create a valid Buffer of bytes that can be sent to DeviceOS, typically used with "Request" messages.
 
 ### Parameters
 
-*   `protobufMessageName` **[string][16]** Protobuf message name. See getDefinitions() to valid options.
-*   `protobufMessageData` **[Object][17]** An object containing key data/code to encode & decode protobufjs messages from Device OS (optional, default `null`)
+*   `protobufMessageNameOrMessage` **([string][18] | [ProtobufMessage][19])** Protobuf message name or actual message object. See getDefinitions() to valid options.
+*   `protobufMessageData` **[Object][20]** An object containing key data/code to encode & decode protobufjs messages from Device OS (optional, default `null`)
 
 ### Examples
 
@@ -37,18 +39,18 @@ Encoding a request to get serial number
 const buffer = DeviceOSProtobuf.encode('GetSerialNumberRequest');
 ```
 
-Returns **[Buffer][18]** A Buffer of bytes representing a valid protobuf message that Device OS can interpret
+Returns **[Buffer][21]** A Buffer of bytes representing a valid protobuf message that Device OS can interpret
 
 ## decode
 
-[src/index.js:34-37][19]
+[src/index.js:45-48][22]
 
 Create a JavaScript object by decoding a Buffer representing a protobuf message from DeviceOS; typically used with "Reply" messages"
 
 ### Parameters
 
-*   `protobufMessageName` **[string][16]** Protobuf message name. See getDefinitions() to valid options.
-*   `buffer` **[Buffer][18]** Buffer from DeviceOS representing valid non-decoded Protobuf message
+*   `protobufMessageNameOrMessage` **([string][18] | [ProtobufMessage][19])** Protobuf message name or actual message object. See getDefinitions() to valid options.
+*   `buffer` **[Buffer][21]** Buffer from DeviceOS representing valid non-decoded Protobuf message
 
 ### Examples
 
@@ -61,55 +63,69 @@ const object = DeviceOSProtobuf.decode('GetSerialNumberReply', buffer);
 console.log(object.serial);
 ```
 
-Returns **[Object][17]** A JavaScript object with properties for each data item declared in the \*.proto file
+Returns **[Object][20]** A JavaScript object with properties for each data item declared in the \*.proto file
 
 ## getDefinition
 
-[src/index.js:43-60][20]
+[src/index.js:54-71][23]
 
 ### Parameters
 
-*   `protobufMessageName` **[string][16]** Protobuf definition from \*.proto files like "GetSerialNumberRequest". To access definitions in a namespace, prefix with "<namespace>."
+*   `protobufMessageName` **[string][18]** Protobuf definition from \*.proto files like "GetSerialNumberRequest". To access definitions in a namespace, prefix with "<namespace>."
 
-Returns **[ProtobufDefinition][21]** protobufDefinition An object containing code to encode & decode protobufjs messages from Device OS
+Returns **[ProtobufDefinition][24]** protobufDefinition An object containing code to encode & decode protobufjs messages from Device OS
 
 ## getDefinitions
 
-[src/index.js:72-86][22]
+[src/index.js:93-107][25]
 
-Returns **[Array][23]** valid strings that can be passed to getDefinition(). Includes all Request/Reply style messages as well as non request messages and enums.
+Returns **[Array][26]** valid strings that can be passed to getDefinition(). Includes all Request/Reply style messages as well as non request messages and enums.
 
 ## getNamespaces
 
-[src/index.js:91-99][24]
+[src/index.js:112-120][27]
 
-Returns **[Array][23]** valid dot prefixes to getDefinition() arguments (i.e. the "cellular" from "cellular".GetIccidRequest, etc)
+Returns **[Array][26]** valid dot prefixes to getDefinition() arguments (i.e. the "cellular" from "cellular".GetIccidRequest, etc)
 
 ## \_pbjsJSON
 
-[src/index.js:152-152][25]
+[src/index.js:173-173][28]
 
 Parsed JSON object generated via `npm run build:json`; this is how we get the type id associated with
 a given ctrl request
 
 ## \_pbjsObjects
 
-[src/index.js:158-158][26]
+[src/index.js:179-179][29]
 
 All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this \_pbjsObjects object
 (which is keyed by protobuf message name)
 
 ## ProtobufDefinition
 
-[src/index.js:72-86][27]
+[src/index.js:93-107][30]
 
-Type: [Object][17]
+Type: [Object][20]
 
 ### Properties
 
-*   `message` **[Function][28]** protobufjs generated Javascript function that includes encode and decode methods.
-*   `id` **([number][29] | null)** integer request ID of the message for "Request" protobuf definitions, null otherwise.
-*   `replyMessage` **([Function][28] | null)** The corresponding reply message to a given "Request" message, null otherwise.
+*   `message` **[Function][31]** protobufjs generated Javascript function that includes encode and decode methods.
+*   `id` **([number][32] | null)** integer request ID of the message for "Request" protobuf definitions, null otherwise.
+*   `replyMessage` **([Function][31] | null)** The corresponding reply message to a given "Request" message, null otherwise.
+
+## ProtobufMessage
+
+[src/index.js:93-107][33]
+
+This is typedef describing the auto-generated code that pbjs generates
+
+Type: [Object][20]
+
+### Properties
+
+*   `create` **[Function][31]** 
+*   `encode` **[Function][31]** 
+*   `decode` **[Function][31]** 
 
 [1]: #encode
 
@@ -139,32 +155,40 @@ Type: [Object][17]
 
 [14]: #properties
 
-[15]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L15-L20 "Source code on GitHub"
+[15]: #protobufmessage
 
-[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[16]: #properties-1
 
-[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[17]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L15-L20 "Source code on GitHub"
 
-[18]: https://nodejs.org/api/buffer.html
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[19]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L34-L37 "Source code on GitHub"
+[19]: #protobufmessage
 
-[20]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L43-L60 "Source code on GitHub"
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[21]: #protobufdefinition
+[21]: https://nodejs.org/api/buffer.html
 
-[22]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L72-L86 "Source code on GitHub"
+[22]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L45-L48 "Source code on GitHub"
 
-[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[23]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L54-L71 "Source code on GitHub"
 
-[24]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L91-L99 "Source code on GitHub"
+[24]: #protobufdefinition
 
-[25]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L152-L152 "Source code on GitHub"
+[25]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L93-L107 "Source code on GitHub"
 
-[26]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L158-L158 "Source code on GitHub"
+[26]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[27]: https://github.com/particle-iot/device-os-protobuf/blob/1f7266d03f4f188fcb8f08ac910b17451eddff21/src/index.js#L62-L67 "Source code on GitHub"
+[27]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L112-L120 "Source code on GitHub"
 
-[28]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[28]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L173-L173 "Source code on GitHub"
 
-[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[29]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L179-L179 "Source code on GitHub"
+
+[30]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L73-L78 "Source code on GitHub"
+
+[31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[32]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[33]: https://github.com/particle-iot/device-os-protobuf/blob/8303d38e4fa67a08ab08624ac3b6c4d04f36d1bd/src/index.js#L81-L87 "Source code on GitHub"
