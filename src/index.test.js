@@ -3,10 +3,55 @@ const sinon = require('sinon');
 const DeviceOSProtobuf = require('./');
 
 describe('deviceOSProtobuf', () => {
+	// valid 15 char serial number
+	const mockExpectedSerialNumber = 'P046AF1450000FC';
+
 	let protobufMessageName, requestID;
 
 	afterEach(() => {
 		sinon.restore();
+	});
+
+	describe('encode(protobufMessageName, object)', () => {
+		it('works for GetSerialNumberRequest', () => {
+			const buffer = DeviceOSProtobuf.encode('GetSerialNumberRequest');
+			expect(buffer).to.be.an.instanceOf(Buffer);
+			expect(buffer.length).to.eql(0);
+		});
+
+		it('works for GetSerialNumberReply', () => {
+			const buffer = DeviceOSProtobuf.encode('GetSerialNumberReply', { serial: mockExpectedSerialNumber });
+			expect(buffer).to.be.an.instanceOf(Buffer);
+			expect(buffer.length).to.eql(17);
+		});
+
+		it('works for wifi.JoinNewNetworkRequest; which has embedded messages/enums within the request', () => {
+			// TODO: Validate that this is the right way to send Credentials within another message
+			// Nuance: our encode method does .finish(), will that be a problem?
+			const mockWifiSSID = 'mock-ssid';
+			const mockWifiPassword = 'wifi-password';
+			const buffer = DeviceOSProtobuf.encode('wifi.JoinNewNetworkRequest', {
+				ssid: mockWifiSSID,
+				// TODO: Figure out how to set bssid, does it come from  'wifi.ScanNetworksRequest'?
+				// bytes bssid = 2 [(nanopb).max_size = 6];
+				security: 2, // WPA_PSK
+				credentials: {
+					type: 1, // PASSWORD mode
+					password: mockWifiPassword
+				}
+			});
+			expect(buffer).to.be.an.instanceOf(Buffer);
+			expect(buffer.length).to.eql(32);
+		});
+	});
+
+	describe('decode(protobufMessageName, object)', () => {
+		it('works for GetSerialNumberReply', () => {
+			const buffer = DeviceOSProtobuf.encode('GetSerialNumberReply', { serial: mockExpectedSerialNumber });
+			const replyObject = DeviceOSProtobuf.decode('GetSerialNumberReply', buffer);
+			expect(replyObject).to.be.an('object');
+			expect(replyObject.serial).to.eql(mockExpectedSerialNumber);
+		});
 	});
 
 	describe('getDefinition(protobufMessageName) without protobuf namespace', () => {
@@ -17,7 +62,7 @@ describe('deviceOSProtobuf', () => {
 		it('provides getDefinition(protobufMessageName) with non null id and replyMessage properties', () => {
 			const stubID = 47;
 			sinon.stub(DeviceOSProtobuf, '_getIDFromJSON').returns(stubID);
-			const stubMessage = () => {};
+			const stubMessage = () => { };
 			stubMessage.create = sinon.stub();
 			stubMessage.encode = sinon.stub();
 			stubMessage.decode = sinon.stub();
@@ -374,7 +419,6 @@ describe('deviceOSProtobuf', () => {
 			// Normally, Device OS creates and encodes Reply messages rather than protobufjs
 			// However, this same process is also doable in pure JavaScript illustrated below
 			const protobufDefinition = DeviceOSProtobuf.getDefinition('GetSerialNumberRequest');
-			const mockExpectedSerialNumber = 'P046AF1450000FC';
 			const replyMsg = protobufDefinition.replyMessage.create({ serial: mockExpectedSerialNumber });
 			const replyBuffer = protobufDefinition.replyMessage.encode(replyMsg).finish();
 			const decodedReplyMsg = protobufDefinition.replyMessage.decode(replyBuffer);
