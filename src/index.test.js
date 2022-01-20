@@ -13,8 +13,15 @@ describe('deviceOSProtobuf', () => {
 	});
 
 	describe('encode(protobufMessageName, object)', () => {
-		it('works for GetSerialNumberRequest', () => {
+		it('works for string "GetSerialNumberRequest"', () => {
 			const buffer = DeviceOSProtobuf.encode('GetSerialNumberRequest');
+			expect(buffer).to.be.an.instanceOf(Buffer);
+			expect(buffer.length).to.eql(0);
+		});
+
+		it('works for object GetSerialNumberRequest', () => {
+			const obj = DeviceOSProtobuf.getDefinition('GetSerialNumberRequest');
+			const buffer = DeviceOSProtobuf.encode(obj.message);
 			expect(buffer).to.be.an.instanceOf(Buffer);
 			expect(buffer.length).to.eql(0);
 		});
@@ -26,13 +33,13 @@ describe('deviceOSProtobuf', () => {
 		});
 
 		it('works for wifi.JoinNewNetworkRequest; which has embedded messages/enums within the request', () => {
-			// TODO: Validate that this is the right way to send Credentials within another message
+			// TODO (goggins): Validate that this is the right way to send Credentials within another message
 			// Nuance: our encode method does .finish(), will that be a problem?
 			const mockWifiSSID = 'mock-ssid';
 			const mockWifiPassword = 'wifi-password';
 			const buffer = DeviceOSProtobuf.encode('wifi.JoinNewNetworkRequest', {
 				ssid: mockWifiSSID,
-				// TODO: Figure out how to set bssid, does it come from  'wifi.ScanNetworksRequest'?
+				// TODO (goggins): Figure out how to set bssid, does it come from  'wifi.ScanNetworksRequest'?
 				// bytes bssid = 2 [(nanopb).max_size = 6];
 				security: 2, // WPA_PSK
 				credentials: {
@@ -46,9 +53,17 @@ describe('deviceOSProtobuf', () => {
 	});
 
 	describe('decode(protobufMessageName, object)', () => {
-		it('works for GetSerialNumberReply', () => {
+		it('works for string "GetSerialNumberReply"', () => {
 			const buffer = DeviceOSProtobuf.encode('GetSerialNumberReply', { serial: mockExpectedSerialNumber });
 			const replyObject = DeviceOSProtobuf.decode('GetSerialNumberReply', buffer);
+			expect(replyObject).to.be.an('object');
+			expect(replyObject.serial).to.eql(mockExpectedSerialNumber);
+		});
+
+		it('works for object GetSerialNumberReply', () => {
+			const buffer = DeviceOSProtobuf.encode('GetSerialNumberReply', { serial: mockExpectedSerialNumber });
+			const obj = DeviceOSProtobuf.getDefinition('GetSerialNumberReply');
+			const replyObject = DeviceOSProtobuf.decode(obj.message, buffer);
 			expect(replyObject).to.be.an('object');
 			expect(replyObject.serial).to.eql(mockExpectedSerialNumber);
 		});

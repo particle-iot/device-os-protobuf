@@ -8,15 +8,26 @@ class DeviceOSProtobuf {
 	 * // returns a zero length Buffer because there is no properties for this message, just the option type_id
 	 * const buffer = DeviceOSProtobuf.encode('GetSerialNumberRequest');
 	 *
-	 * @param {string} protobufMessageName - Protobuf message name. See getDefinitions() to valid options.
+	 * @param {string|ProtobufMessage} protobufMessageNameOrMessage - Protobuf message name or actual message object. See getDefinitions() to valid options.
 	 * @param {Object} protobufMessageData - An object containing key data/code to encode & decode protobufjs messages from Device OS
 	 * @returns {Buffer} - A Buffer of bytes representing a valid protobuf message that Device OS can interpret
 	 */
-	static encode(protobufMessageName, protobufMessageData = null) {
-		const protobufDefinition = this.getDefinition(protobufMessageName);
-		const msg = protobufDefinition.message.create(protobufMessageData);
-		const buffer = protobufDefinition.message.encode(msg).finish();
+	static encode(protobufMessageNameOrMessage, protobufMessageData = null) {
+		const message = this._resolveProtobufMessageNameOrMessageToMessage(protobufMessageNameOrMessage);
+		const msg = message.create(protobufMessageData);
+		const buffer = message.encode(msg).finish();
 		return buffer;
+	}
+
+	static _resolveProtobufMessageNameOrMessageToMessage(protobufMessageNameOrMessage) {
+		let message;
+		if (typeof protobufMessageNameOrMessage === 'string') {
+			const protobufDefinition = this.getDefinition(protobufMessageNameOrMessage);
+			message = protobufDefinition.message;
+		} else {
+			message = protobufMessageNameOrMessage;
+		}
+		return message;
 	}
 
 	/**
@@ -27,13 +38,13 @@ class DeviceOSProtobuf {
 	 * const object = DeviceOSProtobuf.decode('GetSerialNumberReply', buffer);
 	 * // shows the serial number as a string
 	 * console.log(object.serial);
-	 * @param {string} protobufMessageName - Protobuf message name. See getDefinitions() to valid options.
+	 * @param {string|ProtobufMessage} protobufMessageNameOrMessage - Protobuf message name or actual message object. See getDefinitions() to valid options.
 	 * @param {Buffer} buffer - Buffer from DeviceOS representing valid non-decoded Protobuf message
 	 * @returns {Object} - A JavaScript object with properties for each data item declared in the *.proto file
 	 */
-	static decode(protobufMessageName, buffer) {
-		const protobufDefinition = this.getDefinition(protobufMessageName);
-		return protobufDefinition.message.decode(buffer);
+	static decode(protobufMessageNameOrMessage, buffer) {
+		const message = this._resolveProtobufMessageNameOrMessageToMessage(protobufMessageNameOrMessage);
+		return message.decode(buffer);
 	}
 
 	/**
@@ -65,6 +76,16 @@ class DeviceOSProtobuf {
 	 * @property {(number|null)} id - integer request ID of the message for "Request" protobuf definitions, null otherwise.
 	 * @property {(Function | null)} replyMessage The corresponding reply message to a given "Request" message, null otherwise.
    */
+
+
+	/**
+	 * This is typedef describing the auto-generated code that pbjs generates
+	 * @typedef {Object} ProtobufMessage
+	 * @property {Function} create
+	 * @property {Function} encode
+	 * @property {Function} decode
+   */
+
 
 	/**
 	 * @returns {Array} valid strings that can be passed to getDefinition(). Includes all Request/Reply style messages as well as non request messages and enums.
