@@ -1,4 +1,4 @@
-const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
+const pbjsGeneratedProtobufCode = require('./pbjs-generated/definitions');
 
 class DeviceOSProtobuf {
 	/**
