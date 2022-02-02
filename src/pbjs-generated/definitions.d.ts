@@ -11731,23 +11731,56 @@ export namespace google {
     }
 }
 
-/** FieldType enum. */
-export enum FieldType {
-    FT_DEFAULT = 0,
-    FT_CALLBACK = 1,
-    FT_POINTER = 4,
-    FT_STATIC = 2,
-    FT_IGNORE = 3,
-    FT_INLINE = 5
-}
+/** Properties of a NanoPBOptions. */
+export interface INanoPBOptions {
 
-/** IntSize enum. */
-export enum IntSize {
-    IS_DEFAULT = 0,
-    IS_8 = 8,
-    IS_16 = 16,
-    IS_32 = 32,
-    IS_64 = 64
+    /** NanoPBOptions maxSize */
+    maxSize?: (number|null);
+
+    /** NanoPBOptions maxLength */
+    maxLength?: (number|null);
+
+    /** NanoPBOptions maxCount */
+    maxCount?: (number|null);
+
+    /** NanoPBOptions intSize */
+    intSize?: (IntSize|null);
+
+    /** NanoPBOptions type */
+    type?: (FieldType|null);
+
+    /** NanoPBOptions longNames */
+    longNames?: (boolean|null);
+
+    /** NanoPBOptions packedStruct */
+    packedStruct?: (boolean|null);
+
+    /** NanoPBOptions packedEnum */
+    packedEnum?: (boolean|null);
+
+    /** NanoPBOptions skipMessage */
+    skipMessage?: (boolean|null);
+
+    /** NanoPBOptions noUnions */
+    noUnions?: (boolean|null);
+
+    /** NanoPBOptions msgid */
+    msgid?: (number|null);
+
+    /** NanoPBOptions anonymousOneof */
+    anonymousOneof?: (boolean|null);
+
+    /** NanoPBOptions proto3 */
+    proto3?: (boolean|null);
+
+    /** NanoPBOptions enumToString */
+    enumToString?: (boolean|null);
+
+    /** NanoPBOptions fixedLength */
+    fixedLength?: (boolean|null);
+
+    /** NanoPBOptions fixedCount */
+    fixedCount?: (boolean|null);
 }
 
 /** Represents a NanoPBOptions. */
@@ -11831,4 +11864,23 @@ export class NanoPBOptions implements INanoPBOptions {
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
     public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): NanoPBOptions;
+}
+
+/** FieldType enum. */
+export enum FieldType {
+    FT_DEFAULT = 0,
+    FT_CALLBACK = 1,
+    FT_POINTER = 4,
+    FT_STATIC = 2,
+    FT_IGNORE = 3,
+    FT_INLINE = 5
+}
+
+/** IntSize enum. */
+export enum IntSize {
+    IS_DEFAULT = 0,
+    IS_8 = 8,
+    IS_16 = 16,
+    IS_32 = 32,
+    IS_64 = 64
 }

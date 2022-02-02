@@ -24769,48 +24769,6 @@
         return google;
     })();
     
-    /**
-     * FieldType enum.
-     * @exports FieldType
-     * @enum {number}
-     * @property {number} FT_DEFAULT=0 FT_DEFAULT value
-     * @property {number} FT_CALLBACK=1 FT_CALLBACK value
-     * @property {number} FT_POINTER=4 FT_POINTER value
-     * @property {number} FT_STATIC=2 FT_STATIC value
-     * @property {number} FT_IGNORE=3 FT_IGNORE value
-     * @property {number} FT_INLINE=5 FT_INLINE value
-     */
-    $root.FieldType = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "FT_DEFAULT"] = 0;
-        values[valuesById[1] = "FT_CALLBACK"] = 1;
-        values[valuesById[4] = "FT_POINTER"] = 4;
-        values[valuesById[2] = "FT_STATIC"] = 2;
-        values[valuesById[3] = "FT_IGNORE"] = 3;
-        values[valuesById[5] = "FT_INLINE"] = 5;
-        return values;
-    })();
-    
-    /**
-     * IntSize enum.
-     * @exports IntSize
-     * @enum {number}
-     * @property {number} IS_DEFAULT=0 IS_DEFAULT value
-     * @property {number} IS_8=8 IS_8 value
-     * @property {number} IS_16=16 IS_16 value
-     * @property {number} IS_32=32 IS_32 value
-     * @property {number} IS_64=64 IS_64 value
-     */
-    $root.IntSize = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "IS_DEFAULT"] = 0;
-        values[valuesById[8] = "IS_8"] = 8;
-        values[valuesById[16] = "IS_16"] = 16;
-        values[valuesById[32] = "IS_32"] = 32;
-        values[valuesById[64] = "IS_64"] = 64;
-        return values;
-    })();
-    
     $root.NanoPBOptions = (function() {
     
         /**
@@ -25112,6 +25070,48 @@
         };
     
         return NanoPBOptions;
+    })();
+    
+    /**
+     * FieldType enum.
+     * @exports FieldType
+     * @enum {number}
+     * @property {number} FT_DEFAULT=0 FT_DEFAULT value
+     * @property {number} FT_CALLBACK=1 FT_CALLBACK value
+     * @property {number} FT_POINTER=4 FT_POINTER value
+     * @property {number} FT_STATIC=2 FT_STATIC value
+     * @property {number} FT_IGNORE=3 FT_IGNORE value
+     * @property {number} FT_INLINE=5 FT_INLINE value
+     */
+    $root.FieldType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "FT_DEFAULT"] = 0;
+        values[valuesById[1] = "FT_CALLBACK"] = 1;
+        values[valuesById[4] = "FT_POINTER"] = 4;
+        values[valuesById[2] = "FT_STATIC"] = 2;
+        values[valuesById[3] = "FT_IGNORE"] = 3;
+        values[valuesById[5] = "FT_INLINE"] = 5;
+        return values;
+    })();
+    
+    /**
+     * IntSize enum.
+     * @exports IntSize
+     * @enum {number}
+     * @property {number} IS_DEFAULT=0 IS_DEFAULT value
+     * @property {number} IS_8=8 IS_8 value
+     * @property {number} IS_16=16 IS_16 value
+     * @property {number} IS_32=32 IS_32 value
+     * @property {number} IS_64=64 IS_64 value
+     */
+    $root.IntSize = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "IS_DEFAULT"] = 0;
+        values[valuesById[8] = "IS_8"] = 8;
+        values[valuesById[16] = "IS_16"] = 16;
+        values[valuesById[32] = "IS_32"] = 32;
+        values[valuesById[64] = "IS_64"] = 64;
+        return values;
     })();
 
     return $root;

@@ -3377,25 +3377,6 @@
         }
       }
     },
-    "FieldType": {
-      "values": {
-        "FT_DEFAULT": 0,
-        "FT_CALLBACK": 1,
-        "FT_POINTER": 4,
-        "FT_STATIC": 2,
-        "FT_IGNORE": 3,
-        "FT_INLINE": 5
-      }
-    },
-    "IntSize": {
-      "values": {
-        "IS_DEFAULT": 0,
-        "IS_8": 8,
-        "IS_16": 16,
-        "IS_32": 32,
-        "IS_64": 64
-      }
-    },
     "NanoPBOptions": {
       "fields": {
         "maxSize": {
@@ -3519,6 +3500,25 @@
       "type": "NanoPBOptions",
       "id": 1010,
       "extend": "google.protobuf.FieldOptions"
+    },
+    "FieldType": {
+      "values": {
+        "FT_DEFAULT": 0,
+        "FT_CALLBACK": 1,
+        "FT_POINTER": 4,
+        "FT_STATIC": 2,
+        "FT_IGNORE": 3,
+        "FT_INLINE": 5
+      }
+    },
+    "IntSize": {
+      "values": {
+        "IS_DEFAULT": 0,
+        "IS_8": 8,
+        "IS_16": 16,
+        "IS_32": 32,
+        "IS_64": 64
+      }
     }
   }
 }
