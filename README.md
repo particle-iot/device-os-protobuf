@@ -27,10 +27,23 @@ Ensure you have installed dependencies via `npm install`.
 
 Edit the protocol buffer definitions in [`proto`](proto).
 
-Generate the [protobufjs JavaScript & JSON](https://www.npmjs.com/package/protobufjs) files and markdown documentation with `npm run build`
+Generate the [protobufjs JavaScript & JSON](https://www.npmjs.com/package/protobufjs) files and markdown documentation with `npm run build`. Make sure to do this before asking for PR reviews/merging.
 
 Ensure `npm run test:ci` is passing
 
 ## Release
 
-Tag a new version with `npm version` push `git push --follow-tags`. CircleCI will publish the package to npm.
+Packages are only released from the `main` branch after peer review via the following process.
+
+1. make sure you have the latest:
+	* `$ git checkout main`
+	* `$ git pull`
+1. make sure tests pass
+	* `$ npm test:ci`
+1. Tag a new version:
+    * `npm version` 
+    * `$ git add` + `commit`
+1. Cut the release:
+    * `$ git push origin main --follow-tags`
+    * CircleCI will publish the package to npm.
+
