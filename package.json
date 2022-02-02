@@ -4,8 +4,9 @@
   "description": "Particle Device OS Protobuf Definitions",
   "main": "src/index.js",
   "scripts": {
-    "build": "npm run build:pbjs:module && npm run build:pbjs:json && npm run build:docs",
+    "build": "npm run build:pbjs:module && npm run build:pbjs:ts && npm run build:pbjs:json && npm run build:docs",
     "build:pbjs:module": "pbjs control/*.proto -t static-module -o src/pbjs-generated/definitions.js --no-delimited --no-convert --no-verify",
+    "build:pbjs:ts": "pbts src/pbjs-generated/definitions.js -o src/pbjs-generated/definitions.d.ts",
     "build:pbjs:json": "pbjs control/*.proto -t json -o src/pbjs-generated/definitions.json --no-delimited --no-convert --no-verify",
     "build:docs": "documentation build src/index.js --github --format md --shallow --output docs/reference.md",
     "prepublish": "npm run build",
