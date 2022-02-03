@@ -415,9 +415,9 @@ describe('deviceOSProtobuf', () => {
 		expect(DeviceOSProtobuf._pbjsJSON).to.be.an('object');
 	});
 
-	it('provides _pbjsObjects (generated Javascript via `npm run build` command)', () => {
-		expect(DeviceOSProtobuf._pbjsObjects).to.be.an('object');
-		expect(DeviceOSProtobuf._pbjsObjects).to.have.property('GetSerialNumberRequest');
+	it('provides definitions (generated Javascript via `npm run build` command)', () => {
+		expect(DeviceOSProtobuf.definitions).to.be.an('object');
+		expect(DeviceOSProtobuf.definitions).to.have.property('GetSerialNumberRequest');
 	});
 
 	describe('Usage of getDefinition() result', () => {

@@ -1,4 +1,4 @@
-const pbjsGeneratedProtobufCode = require('./pbjs-generated/index');
+const pbjsGeneratedProtobufCode = require('./pbjs-generated/definitions');
 
 class DeviceOSProtobuf {
 	/**
@@ -93,10 +93,10 @@ class DeviceOSProtobuf {
 	static getDefinitions() {
 		const namespaces = this.getNamespaces();
 		const returnThis = [];
-		for (const key of Object.keys(this._pbjsObjects)) {
+		for (const key of Object.keys(this.definitions)) {
 			if (namespaces.includes(key)) {
 				const namespace = namespaces[namespaces.indexOf(key)];
-				for (const namespacedKey of Object.keys(this._pbjsObjects[namespace])) {
+				for (const namespacedKey of Object.keys(this.definitions[namespace])) {
 					returnThis.push(`${namespace}.${namespacedKey}`);
 				}
 			} else {
@@ -151,9 +151,9 @@ class DeviceOSProtobuf {
 		if (protobufMessageName.includes('.')) {
 			const [namespace, nonNamespacedName] = this._getNamespaceAndMessageName(protobufMessageName);
 			protobufMessageName = nonNamespacedName;
-			rootObject = this._pbjsObjects[namespace];
+			rootObject = this.definitions[namespace];
 		} else {
-			rootObject = this._pbjsObjects;
+			rootObject = this.definitions;
 		}
 		if (!(protobufMessageName in rootObject)) {
 			throw new Error(`There is no pbjs generated protobuf Function for protobufMessageName=${protobufMessageName}`);
@@ -173,9 +173,9 @@ class DeviceOSProtobuf {
 DeviceOSProtobuf._pbjsJSON = require('./pbjs-generated/definitions.json');
 
 /**
- * All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this _pbjsObjects object
+ * All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this definitions object
  * (which is keyed by protobuf message name)
  */
-DeviceOSProtobuf._pbjsObjects = pbjsGeneratedProtobufCode.particle.ctrl;
+DeviceOSProtobuf.definitions = pbjsGeneratedProtobufCode.particle.ctrl;
 
 module.exports = DeviceOSProtobuf;
