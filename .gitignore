@@ -39,5 +39,3 @@ node_modules
 
 # Generated files
 dist/
-*.d.ts
-
