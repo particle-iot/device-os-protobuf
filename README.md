@@ -10,6 +10,8 @@ Device OS declares all control request IDs in [system-control.h](https://github.
 
 iOS and Android applications also depend on `control/*.proto` files directly via a `git submodule`.
 
+See the [protobuf definitions reference](/docs/protobuf.md) for more details about specific requests.
+
 ## Usage
 ### Node.js
 
@@ -30,6 +32,8 @@ Edit the protocol buffer definitions in [`proto`](proto).
 Generate the [protobufjs JavaScript & JSON](https://www.npmjs.com/package/protobufjs) files and markdown documentation with `npm run build`. Make sure to do this before asking for PR reviews/merging.
 
 Ensure `npm run test:ci` is passing
+
+Building the [protobuf definitions reference](/docs/protobuf.md) is done with `npm run build:docs:protobuf`. This command uses Docker to remove the dependency on [`protoc-gen-doc`](https://github.com/pseudomuto/protoc-gen-doc) tool.
 
 ## Release
 
