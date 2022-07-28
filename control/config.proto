@@ -8,26 +8,26 @@ option java_package = "io.particle.firmwareprotos.ctrl";
 
 // Note: Use the same values as defined by the security_key_type enum
 enum SecurityKeyType {
-  INVALID_SECURITY_KEY = 0;
-  TCP_DEVICE_PRIVATE_KEY = 1;
-  TCP_DEVICE_PUBLIC_KEY = 2;
-  TCP_SERVER_PUBLIC_KEY = 3;
-  UDP_DEVICE_PRIVATE_KEY = 4;
-  UDP_DEVICE_PUBLIC_KEY = 5;
-  UDP_SERVER_PUBLIC_KEY = 6;
+  INVALID_SECURITY_KEY = 0; // Invalid key
+  TCP_DEVICE_PRIVATE_KEY = 1; // TCP device private key
+  TCP_DEVICE_PUBLIC_KEY = 2; // TCP device public key
+  TCP_SERVER_PUBLIC_KEY = 3; // TCP server public key
+  UDP_DEVICE_PRIVATE_KEY = 4; // UDP device private key
+  UDP_DEVICE_PUBLIC_KEY = 5; // UDP device public key
+  UDP_SERVER_PUBLIC_KEY = 6; // UDP server public key
 }
 
 // Note: Use the same values as defined by the server_protocol_type enum
 enum ServerProtocolType {
   INVALID_PROTOCOL = 0;
-  TCP_PROTOCOL = 1;
-  UDP_PROTOCOL = 2;
+  TCP_PROTOCOL = 1; // TCP
+  UDP_PROTOCOL = 2; // UDP
 }
 
 // Device mode
 enum DeviceMode {
-  NORMAL_MODE = 0;
-  LISTENING_MODE = 1;
+  NORMAL_MODE = 0;  // Normal mode
+  LISTENING_MODE = 1; // Listening mode
 }
 
 // System capability flags
@@ -38,8 +38,8 @@ enum SystemCapabilityFlag {
 
 // System features
 enum Feature {
-  INVALID_FEATURE = 0;
-  ETHERNET_DETECTION = 1;
+  INVALID_FEATURE = 0; // Invalid feature
+  ETHERNET_DETECTION = 1; // Ethernet FeatherWing detection on boot
 }
 
 // Get the device ID
@@ -58,6 +58,7 @@ message GetSerialNumberRequest {
 }
 
 message GetSerialNumberReply {
+  // Device serial ID
   string serial = 1 [(nanopb).max_size = 16];
 }
 
@@ -67,16 +68,19 @@ message GetSystemVersionRequest {
 }
 
 message GetSystemVersionReply {
+  // Device OS version in SemVer format
   string version = 1;
 }
 
-// Get the NCP firmware version
+// Get the NCP (network coprocessor) firmware version
 message GetNcpFirmwareVersionRequest {
   option (type_id) = 31; // CTRL_REQUEST_NCP_FIRMWARE_VERSION
 }
 
 message GetNcpFirmwareVersionReply {
+  // NCP version in SemVer format
   string version = 1;
+  // NCP module version
   uint32 module_version = 2;
 }
 
@@ -86,6 +90,7 @@ message GetSystemCapabilitiesRequest {
 }
 
 message GetSystemCapabilitiesReply {
+  // SystemCapabilityFlag flags
   fixed32 flags = 1;
 }
 
@@ -102,6 +107,7 @@ message IsClaimedRequest {
 }
 
 message IsClaimedReply {
+  // `true` if device is claimed
   bool claimed = 1;
 }
 
@@ -160,15 +166,17 @@ message GetServerProtocolReply {
   ServerProtocolType protocol = 1; // Protocol type
 }
 
+// Set the SoftAP SSID prefix and suffix
 message SetSoftApSsidRequest {
   option (type_id) = 240;  // CTRL_REQUEST_SET_SOFTAP_SSID
-  string prefix = 1 [(nanopb).max_size = 32];
-  string suffix = 2 [(nanopb).max_size = 16];
+  string prefix = 1 [(nanopb).max_size = 32]; // SSID prefix
+  string suffix = 2 [(nanopb).max_size = 16]; // SSID sufix
 }
 
 message SetSoftApSsidReply {
 }
 
+// Put the device into listening mode
 message StartListeningModeRequest {
   option (type_id) = 70; // CTRL_REQUEST_START_LISTENING
 }
@@ -176,6 +184,7 @@ message StartListeningModeRequest {
 message StartListeningModeReply {
 }
 
+// Put the device into normal mode
 message StopListeningModeRequest {
   option (type_id) = 71; // CTRL_REQUEST_STOP_LISTENING
 }
@@ -183,6 +192,7 @@ message StopListeningModeRequest {
 message StopListeningModeReply {
 }
 
+// Get the current device mode
 message GetDeviceModeRequest {
   option (type_id) = 72; // CTRL_REQUEST_GET_DEVICE_MODE
 }
@@ -191,6 +201,7 @@ message GetDeviceModeReply {
   DeviceMode mode = 1;
 }
 
+// Set flag for setup being done
 message SetDeviceSetupDoneRequest {
   option (type_id) = 73; // CTRL_REQUEST_SET_DEVICE_SETUP_DONE
   bool done = 1;
@@ -199,6 +210,7 @@ message SetDeviceSetupDoneRequest {
 message SetDeviceSetupDoneReply {
 }
 
+// Get the flag indicating if the device has been set up
 message IsDeviceSetupDoneRequest {
   option (type_id) = 74; // CTRL_REQUEST_IS_DEVICE_SETUP_DONE
 }
@@ -207,6 +219,7 @@ message IsDeviceSetupDoneReply {
   bool done = 1;
 }
 
+// Set the mode to enter when in safe mode
 message SetStartupModeRequest {
   option (type_id) = 75; // CTRL_REQUEST_SET_STARTUP_MODE
   DeviceMode mode = 1;
@@ -215,6 +228,7 @@ message SetStartupModeRequest {
 message SetStartupModeReply {
 }
 
+// Resets the device, just like hitting the reset button or powering down and back up
 message SystemResetRequest {
   option (type_id) = 40; // CTRL_REQUEST_RESET
 }
@@ -222,6 +236,7 @@ message SystemResetRequest {
 message SystemResetReply {
 }
 
+// Enable/disable system features
 message SetFeatureRequest {
   option (type_id) = 33; // CTRL_REQUEST_SET_FEATURE
   Feature feature = 1;
@@ -231,6 +246,7 @@ message SetFeatureRequest {
 message SetFeatureReply {
 }
 
+// Check if the system feature is enabled or disabled
 message GetFeatureRequest {
   option (type_id) = 34; // CTRL_REQUEST_GET_FEATURE
   Feature feature = 1;
@@ -240,6 +256,7 @@ message GetFeatureReply {
   bool enabled = 1;
 }
 
+// Make the device's status LED display a rainbow pattern aka Nyan mode
 message StartNyanSignalRequest {
   option (type_id) = 230; // CTRL_REQUEST_START_NYAN_SIGNAL
 }
@@ -247,6 +264,7 @@ message StartNyanSignalRequest {
 message StartNyanSignalReply {
 }
 
+// Exit the Nyan mode
 message StopNyanSignalRequest {
   option (type_id) = 231; // CTRL_REQUEST_STOP_NYAN_SIGNAL
 }

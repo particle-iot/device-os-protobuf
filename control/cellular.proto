@@ -9,22 +9,24 @@ import "common.proto";
 /**
  * SIM card types.
  *
+ * The Boron 2G/3G and Boron LTE can use either the built-in MFF2 embedded Particle SIM card or an external nano SIM card in the SIM card connector.
+ *
  * Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
  */
 enum SimType {
-  INVALID_SIM_TYPE = 0;
-  INTERNAL = 1;
-  EXTERNAL = 2;
+  INVALID_SIM_TYPE = 0; // Invalid
+  INTERNAL = 1; // Built-in MFF2 embedded Particle SIM
+  EXTERNAL = 2; // External nano SIM card
 }
 
 /**
- * Access point settings.
+ * Access point settings for 3rd party SIM credentials for the Cellular network.
  */
 message AccessPoint {
-  string apn = 1;
-  string user = 2;
-  string password = 3;
-  bool use_defaults = 4;
+  string apn = 1; // APN
+  string user = 2; // Username
+  string password = 3; // Password
+  bool use_defaults = 4; // If `true`, it will restore the defaules
 }
 
 /**
@@ -83,5 +85,5 @@ message GetIccidRequest {
 }
 
 message GetIccidReply {
-  string iccid = 1;
+  string iccid = 1; // SIM ICCID
 }

@@ -32,8 +32,8 @@ message Ipv6Address {
 
 message IpAddress {
   oneof address {
-    Ipv4Address v4 = 1;
-    Ipv6Address v6 = 2;
+    Ipv4Address v4 = 1; // IP v4 address
+    Ipv6Address v6 = 2; // IP v6 address
   }
 }
 

@@ -46,10 +46,11 @@ enum SectionFlag {
 }
 
 enum FileFormat {
-  BIN = 0;
-  MINIZ = 1;
+  BIN = 0; // Binary
+  MINIZ = 1; // miniz compressed
 }
 
+// Start the firmware update process
 message StartFirmwareUpdateRequest {
   option (type_id) = 250; // CTRL_REQUEST_START_FIRMWARE_UPDATE
   uint32 size = 1; // Size of the firmware binary
@@ -60,14 +61,16 @@ message StartFirmwareUpdateReply {
   uint32 chunk_size = 1; // Maximum chunk size
 }
 
+// Finish the firmware update process
 message FinishFirmwareUpdateRequest {
   option (type_id) = 251;  // CTRL_REQUEST_FINISH_FIRMWARE_UPDATE
-  bool validate_only = 1;
+  bool validate_only = 1; // When `true` it will only validate the integity of the update but won't write it to flash
 }
 
 message FinishFirmwareUpdateReply {
 }
 
+// Cancel the firmware update
 message CancelFirmwareUpdateRequest {
   option (type_id) = 252;  // CTRL_REQUEST_CANCEL_FIRMWARE_UPDATE
 }
@@ -75,6 +78,7 @@ message CancelFirmwareUpdateRequest {
 message CancelFirmwareUpdateReply {
 }
 
+// Send the firmware update file
 message FirmwareUpdateDataRequest {
   option (type_id) = 253;  // CTRL_REQUEST_FIRMWARE_UPDATE_DATA
   bytes data = 1;
@@ -83,6 +87,7 @@ message FirmwareUpdateDataRequest {
 message FirmwareUpdateDataReply {
 }
 
+// Describe the built-in storage
 message DescribeStorageRequest {
   option (type_id) = 260; // CTRL_REQUEST_DESCRIBE_STORAGE
 }
@@ -90,40 +95,40 @@ message DescribeStorageRequest {
 message DescribeStorageReply {
   message Section {
     message FirmwareModule {
-      FirmwareModuleType type = 1;
-      uint32 index = 2;
+      FirmwareModuleType type = 1; // Firmware module type
+      uint32 index = 2; // Section index
     }
-    SectionType type = 1;
-    uint32 size = 2;
-    uint32 flags = 3;
-    FirmwareModule firmware_module = 4;
+    SectionType type = 1; // Section type
+    uint32 size = 2; // Section size
+    uint32 flags = 3; // SectionFlag flags
+    FirmwareModule firmware_module = 4; // Firmware module
   }
   message Storage {
-    StorageType type = 1;
-    uint32 flags = 2;
-    repeated Section sections = 3;
+    StorageType type = 1; // Storage type
+    uint32 flags = 2; // SectionFlag flags
+    repeated Section sections = 3; // Storage sections
   }
-  repeated Storage storage = 1;
+  repeated Storage storage = 1; // Storages
 }
 
 message ReadSectionDataRequest {
   option (type_id) = 261;  // CTRL_REQUEST_READ_SECTION_DATA
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
-  uint32 offset = 3;
-  uint32 size = 4;
+  uint32 offset = 3; // Offset
+  uint32 size = 4; // Size
 }
 
 message ReadSectionDataReply {
-  bytes data = 1;
+  bytes data = 1; // Section data
 }
 
 message WriteSectionDataRequest {
   option (type_id) = 262;  // CTRL_REQUEST_WRITE_SECTION_DATA
   uint32 storage = 1; // Storage index
   uint32 section = 2; // Section index
-  uint32 offset = 3;
-  bytes data = 4;
+  uint32 offset = 3; // Offset
+  bytes data = 4; // Size
 }
 
 message WriteSectionDataReply {
@@ -145,7 +150,7 @@ message GetSectionDataSizeRequest {
 }
 
 message GetSectionDataSizeReply {
-  uint32 size = 1;
+  uint32 size = 1; // Section data size
 }
 
 /**

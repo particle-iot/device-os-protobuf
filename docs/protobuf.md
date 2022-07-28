@@ -195,15 +195,15 @@
 <a name="particle-ctrl-cellular-AccessPoint"></a>
 
 ### AccessPoint
-Access point settings.
+Access point settings for 3rd party SIM credentials for the Cellular network.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| apn | [string](#string) |  |  |
-| user | [string](#string) |  |  |
-| password | [string](#string) |  |  |
-| use_defaults | [bool](#bool) |  |  |
+| apn | [string](#string) |  | APN |
+| user | [string](#string) |  | Username |
+| password | [string](#string) |  | Password |
+| use_defaults | [bool](#bool) |  | If `true`, it will restore the defaules |
 
 
 
@@ -273,7 +273,7 @@ Get active SIM card.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| iccid | [string](#string) |  |  |
+| iccid | [string](#string) |  | SIM ICCID |
 
 
 
@@ -350,13 +350,15 @@ Note: The device needs to be reset in order for the settings to take effect.
 ### SimType
 SIM card types.
 
+The Boron 2G/3G and Boron LTE can use either the built-in MFF2 embedded Particle SIM card or an external nano SIM card in the SIM card connector.
+
 Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| INVALID_SIM_TYPE | 0 |  |
-| INTERNAL | 1 |  |
-| EXTERNAL | 2 |  |
+| INVALID_SIM_TYPE | 0 | Invalid |
+| INTERNAL | 1 | Built-in MFF2 embedded Particle SIM |
+| EXTERNAL | 2 | External nano SIM card |
 
 
  
@@ -493,8 +495,8 @@ Deprecated, IpAddress should be used instead
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| v4 | [Ipv4Address](#particle-ctrl-Ipv4Address) |  |  |
-| v6 | [Ipv6Address](#particle-ctrl-Ipv6Address) |  |  |
+| v4 | [Ipv4Address](#particle-ctrl-Ipv4Address) |  | IP v4 address |
+| v6 | [Ipv6Address](#particle-ctrl-Ipv6Address) |  | IP v6 address |
 
 
 
@@ -624,7 +626,7 @@ Get the device ID
 <a name="particle-ctrl-GetDeviceModeRequest"></a>
 
 ### GetDeviceModeRequest
-
+Get the current device mode
 
 
 
@@ -649,7 +651,7 @@ Get the device ID
 <a name="particle-ctrl-GetFeatureRequest"></a>
 
 ### GetFeatureRequest
-
+Check if the system feature is enabled or disabled
 
 
 | Field | Type | Label | Description |
@@ -669,8 +671,8 @@ Get the device ID
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| version | [string](#string) |  |  |
-| module_version | [uint32](#uint32) |  |  |
+| version | [string](#string) |  | NCP version in SemVer format |
+| module_version | [uint32](#uint32) |  | NCP module version |
 
 
 
@@ -680,7 +682,7 @@ Get the device ID
 <a name="particle-ctrl-GetNcpFirmwareVersionRequest"></a>
 
 ### GetNcpFirmwareVersionRequest
-Get the NCP firmware version
+Get the NCP (network coprocessor) firmware version
 
 
 
@@ -725,7 +727,7 @@ Get the NCP firmware version
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| serial | [string](#string) |  |  |
+| serial | [string](#string) |  | Device serial ID |
 
 
 
@@ -806,7 +808,7 @@ Get the device&#39;s serial number
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| flags | [fixed32](#fixed32) |  |  |
+| flags | [fixed32](#fixed32) |  | SystemCapabilityFlag flags |
 
 
 
@@ -831,7 +833,7 @@ Get system capabilities
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| version | [string](#string) |  |  |
+| version | [string](#string) |  | Device OS version in SemVer format |
 
 
 
@@ -856,7 +858,7 @@ Get the firmware version
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| claimed | [bool](#bool) |  |  |
+| claimed | [bool](#bool) |  | `true` if device is claimed |
 
 
 
@@ -891,7 +893,7 @@ Get the firmware version
 <a name="particle-ctrl-IsDeviceSetupDoneRequest"></a>
 
 ### IsDeviceSetupDoneRequest
-
+Get the flag indicating if the device has been set up
 
 
 
@@ -936,7 +938,7 @@ Get the firmware version
 <a name="particle-ctrl-SetDeviceSetupDoneRequest"></a>
 
 ### SetDeviceSetupDoneRequest
-
+Set flag for setup being done
 
 
 | Field | Type | Label | Description |
@@ -961,7 +963,7 @@ Get the firmware version
 <a name="particle-ctrl-SetFeatureRequest"></a>
 
 ### SetFeatureRequest
-
+Enable/disable system features
 
 
 | Field | Type | Label | Description |
@@ -1065,13 +1067,13 @@ Get the firmware version
 <a name="particle-ctrl-SetSoftApSsidRequest"></a>
 
 ### SetSoftApSsidRequest
-
+Set the SoftAP SSID prefix and suffix
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| prefix | [string](#string) |  |  |
-| suffix | [string](#string) |  |  |
+| prefix | [string](#string) |  | SSID prefix |
+| suffix | [string](#string) |  | SSID sufix |
 
 
 
@@ -1091,7 +1093,7 @@ Get the firmware version
 <a name="particle-ctrl-SetStartupModeRequest"></a>
 
 ### SetStartupModeRequest
-
+Set the mode to enter when in safe mode
 
 
 | Field | Type | Label | Description |
@@ -1116,7 +1118,7 @@ Get the firmware version
 <a name="particle-ctrl-StartListeningModeRequest"></a>
 
 ### StartListeningModeRequest
-
+Put the device into listening mode
 
 
 
@@ -1136,7 +1138,7 @@ Get the firmware version
 <a name="particle-ctrl-StartNyanSignalRequest"></a>
 
 ### StartNyanSignalRequest
-
+Make the device&#39;s status LED display a rainbow pattern aka Nyan mode
 
 
 
@@ -1156,7 +1158,7 @@ Get the firmware version
 <a name="particle-ctrl-StopListeningModeRequest"></a>
 
 ### StopListeningModeRequest
-
+Put the device into normal mode
 
 
 
@@ -1176,7 +1178,7 @@ Get the firmware version
 <a name="particle-ctrl-StopNyanSignalRequest"></a>
 
 ### StopNyanSignalRequest
-
+Exit the Nyan mode
 
 
 
@@ -1196,7 +1198,7 @@ Get the firmware version
 <a name="particle-ctrl-SystemResetRequest"></a>
 
 ### SystemResetRequest
-
+Resets the device, just like hitting the reset button or powering down and back up
 
 
 
@@ -1212,8 +1214,8 @@ Device mode
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| NORMAL_MODE | 0 |  |
-| LISTENING_MODE | 1 |  |
+| NORMAL_MODE | 0 | Normal mode |
+| LISTENING_MODE | 1 | Listening mode |
 
 
 
@@ -1224,8 +1226,8 @@ System features
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| INVALID_FEATURE | 0 |  |
-| ETHERNET_DETECTION | 1 |  |
+| INVALID_FEATURE | 0 | Invalid feature |
+| ETHERNET_DETECTION | 1 | Ethernet FeatherWing detection on boot |
 
 
 
@@ -1236,13 +1238,13 @@ Note: Use the same values as defined by the security_key_type enum
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| INVALID_SECURITY_KEY | 0 |  |
-| TCP_DEVICE_PRIVATE_KEY | 1 |  |
-| TCP_DEVICE_PUBLIC_KEY | 2 |  |
-| TCP_SERVER_PUBLIC_KEY | 3 |  |
-| UDP_DEVICE_PRIVATE_KEY | 4 |  |
-| UDP_DEVICE_PUBLIC_KEY | 5 |  |
-| UDP_SERVER_PUBLIC_KEY | 6 |  |
+| INVALID_SECURITY_KEY | 0 | Invalid key |
+| TCP_DEVICE_PRIVATE_KEY | 1 | TCP device private key |
+| TCP_DEVICE_PUBLIC_KEY | 2 | TCP device public key |
+| TCP_SERVER_PUBLIC_KEY | 3 | TCP server public key |
+| UDP_DEVICE_PRIVATE_KEY | 4 | UDP device private key |
+| UDP_DEVICE_PUBLIC_KEY | 5 | UDP device public key |
+| UDP_SERVER_PUBLIC_KEY | 6 | UDP server public key |
 
 
 
@@ -1254,8 +1256,8 @@ Note: Use the same values as defined by the server_protocol_type enum
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | INVALID_PROTOCOL | 0 |  |
-| TCP_PROTOCOL | 1 |  |
-| UDP_PROTOCOL | 2 |  |
+| TCP_PROTOCOL | 1 | TCP |
+| UDP_PROTOCOL | 2 | UDP |
 
 
 
@@ -1704,7 +1706,7 @@ Direct mapping to if_flags_t
 <a name="particle-ctrl-CancelFirmwareUpdateRequest"></a>
 
 ### CancelFirmwareUpdateRequest
-
+Cancel the firmware update
 
 
 
@@ -1745,7 +1747,7 @@ Direct mapping to if_flags_t
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| storage | [DescribeStorageReply.Storage](#particle-ctrl-DescribeStorageReply-Storage) | repeated |  |
+| storage | [DescribeStorageReply.Storage](#particle-ctrl-DescribeStorageReply-Storage) | repeated | Storages |
 
 
 
@@ -1760,10 +1762,10 @@ Direct mapping to if_flags_t
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| type | [SectionType](#particle-ctrl-SectionType) |  |  |
-| size | [uint32](#uint32) |  |  |
-| flags | [uint32](#uint32) |  |  |
-| firmware_module | [DescribeStorageReply.Section.FirmwareModule](#particle-ctrl-DescribeStorageReply-Section-FirmwareModule) |  |  |
+| type | [SectionType](#particle-ctrl-SectionType) |  | Section type |
+| size | [uint32](#uint32) |  | Section size |
+| flags | [uint32](#uint32) |  | SectionFlag flags |
+| firmware_module | [DescribeStorageReply.Section.FirmwareModule](#particle-ctrl-DescribeStorageReply-Section-FirmwareModule) |  | Firmware module |
 
 
 
@@ -1778,8 +1780,8 @@ Direct mapping to if_flags_t
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| type | [FirmwareModuleType](#particle-ctrl-FirmwareModuleType) |  |  |
-| index | [uint32](#uint32) |  |  |
+| type | [FirmwareModuleType](#particle-ctrl-FirmwareModuleType) |  | Firmware module type |
+| index | [uint32](#uint32) |  | Section index |
 
 
 
@@ -1794,9 +1796,9 @@ Direct mapping to if_flags_t
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| type | [StorageType](#particle-ctrl-StorageType) |  |  |
-| flags | [uint32](#uint32) |  |  |
-| sections | [DescribeStorageReply.Section](#particle-ctrl-DescribeStorageReply-Section) | repeated |  |
+| type | [StorageType](#particle-ctrl-StorageType) |  | Storage type |
+| flags | [uint32](#uint32) |  | SectionFlag flags |
+| sections | [DescribeStorageReply.Section](#particle-ctrl-DescribeStorageReply-Section) | repeated | Storage sections |
 
 
 
@@ -1806,7 +1808,7 @@ Direct mapping to if_flags_t
 <a name="particle-ctrl-DescribeStorageRequest"></a>
 
 ### DescribeStorageRequest
-
+Describe the built-in storage
 
 
 
@@ -1826,12 +1828,12 @@ Direct mapping to if_flags_t
 <a name="particle-ctrl-FinishFirmwareUpdateRequest"></a>
 
 ### FinishFirmwareUpdateRequest
-
+Finish the firmware update process
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| validate_only | [bool](#bool) |  |  |
+| validate_only | [bool](#bool) |  | When `true` it will only validate the integity of the update but won&#39;t write it to flash |
 
 
 
@@ -1851,7 +1853,7 @@ Direct mapping to if_flags_t
 <a name="particle-ctrl-FirmwareUpdateDataRequest"></a>
 
 ### FirmwareUpdateDataRequest
-
+Send the firmware update file
 
 
 | Field | Type | Label | Description |
@@ -1933,7 +1935,7 @@ Get firmware module info.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| size | [uint32](#uint32) |  |  |
+| size | [uint32](#uint32) |  | Section data size |
 
 
 
@@ -1964,7 +1966,7 @@ Get firmware module info.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| data | [bytes](#bytes) |  |  |
+| data | [bytes](#bytes) |  | Section data |
 
 
 
@@ -1981,8 +1983,8 @@ Get firmware module info.
 | ----- | ---- | ----- | ----------- |
 | storage | [uint32](#uint32) |  | Storage index |
 | section | [uint32](#uint32) |  | Section index |
-| offset | [uint32](#uint32) |  |  |
-| size | [uint32](#uint32) |  |  |
+| offset | [uint32](#uint32) |  | Offset |
+| size | [uint32](#uint32) |  | Size |
 
 
 
@@ -2007,7 +2009,7 @@ Get firmware module info.
 <a name="particle-ctrl-StartFirmwareUpdateRequest"></a>
 
 ### StartFirmwareUpdateRequest
-
+Start the firmware update process
 
 
 | Field | Type | Label | Description |
@@ -2040,8 +2042,8 @@ Get firmware module info.
 | ----- | ---- | ----- | ----------- |
 | storage | [uint32](#uint32) |  | Storage index |
 | section | [uint32](#uint32) |  | Section index |
-| offset | [uint32](#uint32) |  |  |
-| data | [bytes](#bytes) |  |  |
+| offset | [uint32](#uint32) |  | Offset |
+| data | [bytes](#bytes) |  | Size |
 
 
 
@@ -2057,8 +2059,8 @@ Get firmware module info.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| BIN | 0 |  |
-| MINIZ | 1 |  |
+| BIN | 0 | Binary |
+| MINIZ | 1 | miniz compressed |
 
 
 
@@ -2194,10 +2196,10 @@ Network credentials.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ssid | [string](#string) |  |  |
-| bssid | [bytes](#bytes) |  |  |
-| channel | [int32](#int32) |  |  |
-| rssi | [int32](#int32) |  |  |
+| ssid | [string](#string) |  | Network SSID |
+| bssid | [bytes](#bytes) |  | Network address |
+| channel | [int32](#int32) |  | Network channel |
+| rssi | [int32](#int32) |  | Network signal strength |
 
 
 
@@ -2224,7 +2226,7 @@ This request gets the network which the device is currently connected to.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| networks | [GetKnownNetworksReply.Network](#particle-ctrl-wifi-GetKnownNetworksReply-Network) | repeated |  |
+| networks | [GetKnownNetworksReply.Network](#particle-ctrl-wifi-GetKnownNetworksReply-Network) | repeated | All known networks |
 
 
 
@@ -2239,9 +2241,9 @@ This request gets the network which the device is currently connected to.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ssid | [string](#string) |  |  |
-| security | [Security](#particle-ctrl-wifi-Security) |  |  |
-| credentials_type | [CredentialsType](#particle-ctrl-wifi-CredentialsType) |  |  |
+| ssid | [string](#string) |  | Network SSID |
+| security | [Security](#particle-ctrl-wifi-Security) |  | Network security |
+| credentials_type | [CredentialsType](#particle-ctrl-wifi-CredentialsType) |  | Network credentials |
 
 
 
@@ -2276,7 +2278,7 @@ Join a known network.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ssid | [string](#string) |  |  |
+| ssid | [string](#string) |  | Network SSID |
 
 
 
@@ -2303,10 +2305,10 @@ On success, the network credentials get saved to a persistent storage.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ssid | [string](#string) |  |  |
-| bssid | [bytes](#bytes) |  |  |
-| security | [Security](#particle-ctrl-wifi-Security) |  |  |
-| credentials | [Credentials](#particle-ctrl-wifi-Credentials) |  |  |
+| ssid | [string](#string) |  | Network SSID |
+| bssid | [bytes](#bytes) |  | Network address |
+| security | [Security](#particle-ctrl-wifi-Security) |  | Network security |
+| credentials | [Credentials](#particle-ctrl-wifi-Credentials) |  | Network credentials |
 
 
 
@@ -2331,7 +2333,7 @@ Remove the network from the list of known networks.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ssid | [string](#string) |  |  |
+| ssid | [string](#string) |  | Network SSID |
 
 
 
@@ -2346,7 +2348,7 @@ Remove the network from the list of known networks.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| networks | [ScanNetworksReply.Network](#particle-ctrl-wifi-ScanNetworksReply-Network) | repeated |  |
+| networks | [ScanNetworksReply.Network](#particle-ctrl-wifi-ScanNetworksReply-Network) | repeated | All found networks |
 
 
 
@@ -2361,11 +2363,11 @@ Remove the network from the list of known networks.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| ssid | [string](#string) |  |  |
-| bssid | [bytes](#bytes) |  |  |
-| security | [Security](#particle-ctrl-wifi-Security) |  |  |
-| channel | [int32](#int32) |  |  |
-| rssi | [int32](#int32) |  |  |
+| ssid | [string](#string) |  | Network SSID |
+| bssid | [bytes](#bytes) |  | Network address |
+| security | [Security](#particle-ctrl-wifi-Security) |  | Network security |
+| channel | [int32](#int32) |  | Network channel |
+| rssi | [int32](#int32) |  | Network signal strength |
 
 
 
@@ -2394,8 +2396,8 @@ in the firmware.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| NO_CREDENTIALS | 0 |  |
-| PASSWORD | 1 |  |
+| NO_CREDENTIALS | 0 | No WiFi credentials |
+| PASSWORD | 1 | WiFi password |
 
 
 
@@ -2409,11 +2411,11 @@ the firmware.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| NO_SECURITY | 0 |  |
-| WEP | 1 |  |
-| WPA_PSK | 2 |  |
-| WPA2_PSK | 3 |  |
-| WPA_WPA2_PSK | 4 |  |
+| NO_SECURITY | 0 | No security |
+| WEP | 1 | WEP |
+| WPA_PSK | 2 | WPA PSK |
+| WPA2_PSK | 3 | WPA2 PSK |
+| WPA_WPA2_PSK | 4 | WPA/WPA2 PSK |
 
 
  
