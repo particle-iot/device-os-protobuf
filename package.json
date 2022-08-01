@@ -10,6 +10,8 @@
     "build:pbjs:ts": "pbts src/pbjs-generated/definitions.js -o src/pbjs-generated/definitions.d.ts",
     "build:pbjs:json": "pbjs control/*.proto -t json -o src/pbjs-generated/definitions.json --no-delimited --no-convert --no-verify",
     "build:types": "npm run clean:types && npm run build:pbjs:ts && tsc --project ./tsconfig.json",
+    "build:java": "cd control && protoc --java_out=../java/ cellular.proto cloud.proto common.proto config.proto extensions.proto network.proto storage.proto wifi_new.proto",
+    "build:docs:protobuf": "docker run --rm -v $(pwd)/docs:/out -v $(pwd)/control:/protos pseudomuto/protoc-gen-doc --doc_opt=markdown,protobuf.md cellular.proto cloud.proto common.proto config.proto extensions.proto network.proto storage.proto wifi_new.proto",
     "build:docs": "documentation build src/index.js --github --format md --shallow --output docs/reference.md",
     "clean:types": "rm ./src/index.d.ts || true",
     "prepublish": "npm run build",

@@ -13,11 +13,11 @@ import "common.proto";
  * the firmware.
  */
 enum Security {
-  NO_SECURITY = 0;
-  WEP = 1;
-  WPA_PSK = 2;
-  WPA2_PSK = 3;
-  WPA_WPA2_PSK = 4;
+  NO_SECURITY = 0; // No security
+  WEP = 1; // WEP
+  WPA_PSK = 2; // WPA PSK
+  WPA2_PSK = 3; // WPA2 PSK
+  WPA_WPA2_PSK = 4; // WPA/WPA2 PSK
 }
 
 /**
@@ -27,8 +27,8 @@ enum Security {
  * in the firmware.
  */
 enum CredentialsType {
-  NO_CREDENTIALS = 0;
-  PASSWORD = 1;
+  NO_CREDENTIALS = 0; // No WiFi credentials
+  PASSWORD = 1; // WiFi password
 }
 
 /**
@@ -46,10 +46,10 @@ message Credentials {
  */
 message JoinNewNetworkRequest {
   option (type_id) = 500; // CTRL_REQUEST_WIFI_JOIN_NEW_NETWORK
-  string ssid = 1;
-  bytes bssid = 2 [(nanopb).max_size = 6];
-  Security security = 3;
-  Credentials credentials = 4;
+  string ssid = 1; // Network SSID
+  bytes bssid = 2 [(nanopb).max_size = 6]; // Network address
+  Security security = 3; // Network security
+  Credentials credentials = 4; // Network credentials
 }
 
 message JoinNewNetworkReply {
@@ -60,7 +60,7 @@ message JoinNewNetworkReply {
  */
 message JoinKnownNetworkRequest {
   option (type_id) = 501; // CTRL_REQUEST_WIFI_JOIN_KNOWN_NETWORK
-  string ssid = 1;
+  string ssid = 1; // Network SSID
 }
 
 message JoinKnownNetworkReply {
@@ -75,12 +75,12 @@ message GetKnownNetworksRequest {
 
 message GetKnownNetworksReply {
   message Network {
-    string ssid = 1;
-    Security security = 2;
-    CredentialsType credentials_type = 3;
+    string ssid = 1; // Network SSID
+    Security security = 2; // Network security
+    CredentialsType credentials_type = 3; // Network credentials
   }
 
-  repeated Network networks = 1;
+  repeated Network networks = 1; // All known networks
 }
 
 /**
@@ -88,7 +88,7 @@ message GetKnownNetworksReply {
  */
 message RemoveKnownNetworkRequest {
   option (type_id) = 503; // CTRL_REQUEST_WIFI_REMOVE_KNOWN_NETWORK
-  string ssid = 1;
+  string ssid = 1; // Network SSID
 }
 
 message RemoveKnownNetworkReply {
@@ -114,10 +114,10 @@ message GetCurrentNetworkRequest {
 }
 
 message GetCurrentNetworkReply {
-  string ssid = 1;
-  bytes bssid = 2 [(nanopb).max_size = 6];
-  int32 channel = 3;
-  int32 rssi = 4;
+  string ssid = 1; // Network SSID
+  bytes bssid = 2 [(nanopb).max_size = 6]; // Network address
+  int32 channel = 3; // Network channel
+  int32 rssi = 4; // Network signal strength
 }
 
 /**
@@ -129,12 +129,12 @@ message ScanNetworksRequest {
 
 message ScanNetworksReply {
   message Network {
-    string ssid = 1;
-    bytes bssid = 2 [(nanopb).max_size = 6];
-    Security security = 3;
-    int32 channel = 4;
-    int32 rssi = 5;
+    string ssid = 1; // Network SSID
+    bytes bssid = 2 [(nanopb).max_size = 6]; // Network address
+    Security security = 3; // Network security
+    int32 channel = 4; // Network channel
+    int32 rssi = 5; // Network signal strength
   }
 
-  repeated Network networks = 1;
+  repeated Network networks = 1; // All found networks
 }
