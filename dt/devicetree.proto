@@ -1,0 +1,91 @@
+syntax = "proto3";
+package particle.dt;
+
+import public "nanopb.proto";
+
+// NOTE: [(nanopb).proto3=false] on fields forces creation of has_xxx members in
+// nanopb-generated struct, which simplifies parsing a lot
+
+message AddressTuple {
+    repeated uint32 address = 1;
+    repeated uint32 size = 2;
+    repeated uint32 parent_address = 3;
+    repeated uint32 reserved = 4;
+}
+
+enum Status {
+    OK = 0;
+    DISABLED = 1;
+    RESERVED = 2;
+    FAIL = 3;
+    FAIL_SSS = 4;
+}
+
+message StringRef {
+    // Index into hash array in DeviceTree
+    uint32 hash_index = 1;
+    // Index into strings array in DeviceTree
+    uint32 string_index = 2;
+    // Inline hash
+    uint32 hash_inline = 3;
+    // Inline string
+    string string_inline = 4;
+}
+
+message Reference {
+    uint32 phandle = 1 [(nanopb).proto3=false];
+    StringRef labelref = 2 [(nanopb).proto3=false];
+    // '/'-separated path as an array
+    repeated StringRef pathref = 3 [(nanopb).proto3=false];
+}
+
+message PropertyValue {
+    bool boolean = 2 [(nanopb).proto3=false];
+    uint32 u32 = 3 [(nanopb).proto3=false];
+    uint64 u64 = 4 [(nanopb).proto3=false];
+    StringRef string = 5 [(nanopb).proto3=false];
+    bytes bytes = 6 [(nanopb).proto3=false];
+    Reference ref = 7 [(nanopb).proto3=false];
+    // A type optimization on cells type
+    AddressTuple address_tuple = 8;
+}
+
+message PropertyList {
+    StringRef property = 1;
+    PropertyValue value = 2;
+    // Just an optimization for single-value properties
+    repeated PropertyValue multi = 3;
+    bool deleted = 4;
+}
+
+message Node {
+    repeated Node children = 1;
+    repeated PropertyList properties = 2;
+
+    // <Standard DT properties
+    StringRef name = 3 [(nanopb).proto3=false];
+    repeated AddressTuple reg = 4;
+    repeated StringRef compatible = 5 [(nanopb).proto3=false];
+    uint32 phandle = 6 [(nanopb).proto3=false];
+    Status status = 7 [(nanopb).proto3=false];
+    // Label, to avoid having a separate __symbols__ node
+    // for overlay resolution
+    repeated StringRef label = 8 [(nanopb).proto3=false];
+    Reference target = 9 [(nanopb).proto3=false];
+    bool deleted = 10 [(nanopb).proto3=false];
+
+    // Unused for now
+    // repeated AddressTuple ranges = 10;
+    // repeated AddressTuple dma_ranges = 11;
+    // </Standard DT properties
+}
+
+message StringMap {
+    repeated uint32 hashed = 1;
+    repeated string strings = 2;
+}
+
+message DeviceTree {
+    Node root = 1 [(nanopb).type = FT_CALLBACK];
+    StringMap strings = 2;
+}
