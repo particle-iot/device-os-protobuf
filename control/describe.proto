@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package particle.cloud;
+
+/**
+ * Firmware module types.
+ */
+enum FirmwareModuleType {
+  INVALID_MODULE = 0; ///< Invalid
+  BOOTLOADER_MODULE = 1; ///< Bootloader module
+  MONO_FIRMWARE_MODULE = 2; ///< Monolithic firmware module
+  SYSTEM_PART_MODULE = 3; ///< System part module
+  USER_PART_MODULE = 4; ///< User part module
+  NCP_FIRMWARE_MODULE = 5; ///< NCP firmware module
+  RADIO_STACK_MODULE = 6; ///< Radio stack module
+}
+
+/**
+ * Firmware module store.
+ */
+enum FirmwareModuleStore {
+  INVALID_MODULE_STORE = 0; ///< Invalid
+  MAIN_MODULE_STORE = 1; ///< Main store
+  FACTORY_MODULE_STORE = 2; ///< Factory store
+}
+
+/**
+ * Firmware module validation flags.
+ */
+enum FirmwareModuleValidityFlag {
+  MODULE_NO_VALID_FLAGS = 0; // The first enum value must be zero in proto3
+  MODULE_INTEGRITY_VALID_FLAG = 0x02; ///< Module integrity
+  MODULE_DEPENDENCIES_VALID_FLAG = 0x04; ///< Module dependencies
+  MODULE_RANGE_VALID_FLAG = 0x08; ///< Module address and size
+  MODULE_PLATFORM_VALID_FLAG = 0x10; ///< Module platform
+}
+
+/**
+ * Firmware module dependency.
+ */
+message FirmwareModuleDependency {
+  FirmwareModuleType type = 1; ///< Module type
+  uint32 index = 2; ///< Module index
+  uint32 version = 3; ///< Module version
+}
+
+/**
+ * Firmware module info.
+ */
+message FirmwareModule {
+  FirmwareModuleType type = 1; ///< Module type
+  uint32 index = 2; ///< Module index
+  uint32 version = 3; ///< Module version
+  FirmwareModuleStore store = 4; ///< Module store
+  uint32 max_size = 5; ///< Maximum module size
+  fixed32 checked_flags = 6; ///< Performed validation checks (see FirmwareModuleValidityFlag)
+  fixed32 passed_flags = 7; ///< Passed validation checks (see FirmwareModuleValidityFlag)
+  bytes hash = 8; ///< SHA-256 hash
+  repeated FirmwareModuleDependency dependencies = 9; ///< Module dependencies
+}
+
+/**
+ * System describe.
+ */
+message SystemDescribe {
+  repeated FirmwareModule firmware_modules = 1; ///< Firmware modules
+  string imei = 2; ///< IMEI (cellular platforms only)
+  string iccid = 3; ///< ICCID (cellular platforms only)
+  string modem_firmware_version = 4; ///< Modem firmware version (cellular platforms only)
+}
