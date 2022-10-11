@@ -12177,40 +12177,92 @@ export namespace google {
     }
 }
 
-/** FieldType enum. */
-export enum FieldType {
-    FT_DEFAULT = 0,
-    FT_CALLBACK = 1,
-    FT_POINTER = 4,
-    FT_STATIC = 2,
-    FT_IGNORE = 3,
-    FT_INLINE = 5
-}
+/** Properties of a NanoPBOptions. */
+export interface INanoPBOptions {
 
-/** IntSize enum. */
-export enum IntSize {
-    IS_DEFAULT = 0,
-    IS_8 = 8,
-    IS_16 = 16,
-    IS_32 = 32,
-    IS_64 = 64
-}
+    /** NanoPBOptions maxSize */
+    maxSize?: (number|null);
 
-/** TypenameMangling enum. */
-export enum TypenameMangling {
-    M_NONE = 0,
-    M_STRIP_PACKAGE = 1,
-    M_FLATTEN = 2,
-    M_PACKAGE_INITIALS = 3
-}
+    /** NanoPBOptions maxLength */
+    maxLength?: (number|null);
 
-/** DescriptorSize enum. */
-export enum DescriptorSize {
-    DS_AUTO = 0,
-    DS_1 = 1,
-    DS_2 = 2,
-    DS_4 = 4,
-    DS_8 = 8
+    /** NanoPBOptions maxCount */
+    maxCount?: (number|null);
+
+    /** NanoPBOptions intSize */
+    intSize?: (IntSize|null);
+
+    /** NanoPBOptions type */
+    type?: (FieldType|null);
+
+    /** NanoPBOptions longNames */
+    longNames?: (boolean|null);
+
+    /** NanoPBOptions packedStruct */
+    packedStruct?: (boolean|null);
+
+    /** NanoPBOptions packedEnum */
+    packedEnum?: (boolean|null);
+
+    /** NanoPBOptions skipMessage */
+    skipMessage?: (boolean|null);
+
+    /** NanoPBOptions noUnions */
+    noUnions?: (boolean|null);
+
+    /** NanoPBOptions msgid */
+    msgid?: (number|null);
+
+    /** NanoPBOptions anonymousOneof */
+    anonymousOneof?: (boolean|null);
+
+    /** NanoPBOptions proto3 */
+    proto3?: (boolean|null);
+
+    /** NanoPBOptions proto3SingularMsgs */
+    proto3SingularMsgs?: (boolean|null);
+
+    /** NanoPBOptions enumToString */
+    enumToString?: (boolean|null);
+
+    /** NanoPBOptions fixedLength */
+    fixedLength?: (boolean|null);
+
+    /** NanoPBOptions fixedCount */
+    fixedCount?: (boolean|null);
+
+    /** NanoPBOptions submsgCallback */
+    submsgCallback?: (boolean|null);
+
+    /** NanoPBOptions mangleNames */
+    mangleNames?: (TypenameMangling|null);
+
+    /** NanoPBOptions callbackDatatype */
+    callbackDatatype?: (string|null);
+
+    /** NanoPBOptions callbackFunction */
+    callbackFunction?: (string|null);
+
+    /** NanoPBOptions descriptorsize */
+    descriptorsize?: (DescriptorSize|null);
+
+    /** NanoPBOptions defaultHas */
+    defaultHas?: (boolean|null);
+
+    /** NanoPBOptions include */
+    include?: (string[]|null);
+
+    /** NanoPBOptions exclude */
+    exclude?: (string[]|null);
+
+    /** NanoPBOptions package */
+    "package"?: (string|null);
+
+    /** NanoPBOptions typeOverride */
+    typeOverride?: (google.protobuf.FieldDescriptorProto.Type|null);
+
+    /** NanoPBOptions sortByTag */
+    sortByTag?: (boolean|null);
 }
 
 /** Represents a NanoPBOptions. */
@@ -12330,4 +12382,40 @@ export class NanoPBOptions implements INanoPBOptions {
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
     public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): NanoPBOptions;
+}
+
+/** FieldType enum. */
+export enum FieldType {
+    FT_DEFAULT = 0,
+    FT_CALLBACK = 1,
+    FT_POINTER = 4,
+    FT_STATIC = 2,
+    FT_IGNORE = 3,
+    FT_INLINE = 5
+}
+
+/** IntSize enum. */
+export enum IntSize {
+    IS_DEFAULT = 0,
+    IS_8 = 8,
+    IS_16 = 16,
+    IS_32 = 32,
+    IS_64 = 64
+}
+
+/** TypenameMangling enum. */
+export enum TypenameMangling {
+    M_NONE = 0,
+    M_STRIP_PACKAGE = 1,
+    M_FLATTEN = 2,
+    M_PACKAGE_INITIALS = 3
+}
+
+/** DescriptorSize enum. */
+export enum DescriptorSize {
+    DS_AUTO = 0,
+    DS_1 = 1,
+    DS_2 = 2,
+    DS_4 = 4,
+    DS_8 = 8
 }

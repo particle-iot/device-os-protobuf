@@ -3556,42 +3556,6 @@
         }
       }
     },
-    "FieldType": {
-      "values": {
-        "FT_DEFAULT": 0,
-        "FT_CALLBACK": 1,
-        "FT_POINTER": 4,
-        "FT_STATIC": 2,
-        "FT_IGNORE": 3,
-        "FT_INLINE": 5
-      }
-    },
-    "IntSize": {
-      "values": {
-        "IS_DEFAULT": 0,
-        "IS_8": 8,
-        "IS_16": 16,
-        "IS_32": 32,
-        "IS_64": 64
-      }
-    },
-    "TypenameMangling": {
-      "values": {
-        "M_NONE": 0,
-        "M_STRIP_PACKAGE": 1,
-        "M_FLATTEN": 2,
-        "M_PACKAGE_INITIALS": 3
-      }
-    },
-    "DescriptorSize": {
-      "values": {
-        "DS_AUTO": 0,
-        "DS_1": 1,
-        "DS_2": 2,
-        "DS_4": 4,
-        "DS_8": 8
-      }
-    },
     "NanoPBOptions": {
       "fields": {
         "maxSize": {
@@ -3789,6 +3753,42 @@
       "type": "NanoPBOptions",
       "id": 1010,
       "extend": "google.protobuf.FieldOptions"
+    },
+    "FieldType": {
+      "values": {
+        "FT_DEFAULT": 0,
+        "FT_CALLBACK": 1,
+        "FT_POINTER": 4,
+        "FT_STATIC": 2,
+        "FT_IGNORE": 3,
+        "FT_INLINE": 5
+      }
+    },
+    "IntSize": {
+      "values": {
+        "IS_DEFAULT": 0,
+        "IS_8": 8,
+        "IS_16": 16,
+        "IS_32": 32,
+        "IS_64": 64
+      }
+    },
+    "TypenameMangling": {
+      "values": {
+        "M_NONE": 0,
+        "M_STRIP_PACKAGE": 1,
+        "M_FLATTEN": 2,
+        "M_PACKAGE_INITIALS": 3
+      }
+    },
+    "DescriptorSize": {
+      "values": {
+        "DS_AUTO": 0,
+        "DS_1": 1,
+        "DS_2": 2,
+        "DS_4": 4,
+        "DS_8": 8
+      }
     }
   }
 }
