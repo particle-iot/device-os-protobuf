@@ -46,6 +46,8 @@
                 /**
                  * SIM card types.
                  * 
+                 * The Boron 2G/3G and Boron LTE can use either the built-in MFF2 embedded Particle SIM card or an external nano SIM card in the SIM card connector.
+                 * 
                  * Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
                  * @name particle.ctrl.cellular.SimType
                  * @enum {number}
@@ -76,7 +78,7 @@
                     /**
                      * Constructs a new AccessPoint.
                      * @memberof particle.ctrl.cellular
-                     * @classdesc Access point settings.
+                     * @classdesc Access point settings for 3rd party SIM credentials for the Cellular network.
                      * @implements IAccessPoint
                      * @constructor
                      * @param {particle.ctrl.cellular.IAccessPoint=} [properties] Properties to set
@@ -10112,6 +10114,13 @@
                  * @property {number} WPA_PSK=2 WPA_PSK value
                  * @property {number} WPA2_PSK=3 WPA2_PSK value
                  * @property {number} WPA_WPA2_PSK=4 WPA_WPA2_PSK value
+                 * @property {number} WPA_ENTERPRISE=5 WPA_ENTERPRISE value
+                 * @property {number} WPA2_ENTERPRISE=6 WPA2_ENTERPRISE value
+                 * @property {number} WPA_WPA2_ENTERPRISE=7 WPA_WPA2_ENTERPRISE value
+                 * @property {number} WPA3_PSK=8 WPA3_PSK value
+                 * @property {number} WPA2_WPA3_PSK=9 WPA2_WPA3_PSK value
+                 * @property {number} WPA3_ENTERPRISE=10 WPA3_ENTERPRISE value
+                 * @property {number} WPA2_WPA3_ENTERPRISE=11 WPA2_WPA3_ENTERPRISE value
                  */
                 wifi.Security = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
@@ -10120,6 +10129,13 @@
                     values[valuesById[2] = "WPA_PSK"] = 2;
                     values[valuesById[3] = "WPA2_PSK"] = 3;
                     values[valuesById[4] = "WPA_WPA2_PSK"] = 4;
+                    values[valuesById[5] = "WPA_ENTERPRISE"] = 5;
+                    values[valuesById[6] = "WPA2_ENTERPRISE"] = 6;
+                    values[valuesById[7] = "WPA_WPA2_ENTERPRISE"] = 7;
+                    values[valuesById[8] = "WPA3_PSK"] = 8;
+                    values[valuesById[9] = "WPA2_WPA3_PSK"] = 9;
+                    values[valuesById[10] = "WPA3_ENTERPRISE"] = 10;
+                    values[valuesById[11] = "WPA2_WPA3_ENTERPRISE"] = 11;
                     return values;
                 })();
     
@@ -10132,12 +10148,898 @@
                  * @enum {number}
                  * @property {number} NO_CREDENTIALS=0 NO_CREDENTIALS value
                  * @property {number} PASSWORD=1 PASSWORD value
+                 * @property {number} EAP=2 EAP value
                  */
                 wifi.CredentialsType = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
                     values[valuesById[0] = "NO_CREDENTIALS"] = 0;
                     values[valuesById[1] = "PASSWORD"] = 1;
+                    values[valuesById[2] = "EAP"] = 2;
                     return values;
+                })();
+    
+                /**
+                 * EAP types.
+                 * 
+                 * Note: The values of this enum should match the values defined by the `WiFiCredentials::EapType` enum
+                 * in the firmware.
+                 * @name particle.ctrl.wifi.EapType
+                 * @enum {number}
+                 * @property {number} INVALID=0 INVALID value
+                 * @property {number} IDENTITY=1 IDENTITY value
+                 * @property {number} NOTIFICATION=2 NOTIFICATION value
+                 * @property {number} NAK=3 NAK value
+                 * @property {number} MD5=4 MD5 value
+                 * @property {number} OTP=5 OTP value
+                 * @property {number} GTC=6 GTC value
+                 * @property {number} TLS=13 TLS value
+                 * @property {number} LEAP=17 LEAP value
+                 * @property {number} SIM=18 SIM value
+                 * @property {number} TTLS=21 TTLS value
+                 * @property {number} AKA=23 AKA value
+                 * @property {number} PEAP=25 PEAP value
+                 * @property {number} MSCHAPV2=26 MSCHAPV2 value
+                 * @property {number} TLV=33 TLV value
+                 * @property {number} FAST=43 FAST value
+                 * @property {number} PAX=46 PAX value
+                 * @property {number} EXPANDED_NAK=253 EXPANDED_NAK value
+                 * @property {number} WPS=254 WPS value
+                 * @property {number} PSK=255 PSK value
+                 * @property {number} NON_EAP=1000 NON_EAP value
+                 */
+                wifi.EapType = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "INVALID"] = 0;
+                    values[valuesById[1] = "IDENTITY"] = 1;
+                    values[valuesById[2] = "NOTIFICATION"] = 2;
+                    values[valuesById[3] = "NAK"] = 3;
+                    values[valuesById[4] = "MD5"] = 4;
+                    values[valuesById[5] = "OTP"] = 5;
+                    values[valuesById[6] = "GTC"] = 6;
+                    values[valuesById[13] = "TLS"] = 13;
+                    values[valuesById[17] = "LEAP"] = 17;
+                    values[valuesById[18] = "SIM"] = 18;
+                    values[valuesById[21] = "TTLS"] = 21;
+                    values[valuesById[23] = "AKA"] = 23;
+                    values[valuesById[25] = "PEAP"] = 25;
+                    values[valuesById[26] = "MSCHAPV2"] = 26;
+                    values[valuesById[33] = "TLV"] = 33;
+                    values[valuesById[43] = "FAST"] = 43;
+                    values[valuesById[46] = "PAX"] = 46;
+                    values[valuesById[253] = "EXPANDED_NAK"] = 253;
+                    values[valuesById[254] = "WPS"] = 254;
+                    values[valuesById[255] = "PSK"] = 255;
+                    values[valuesById[1000] = "NON_EAP"] = 1000;
+                    return values;
+                })();
+    
+                /**
+                 * Non-EAP authentication protocols.
+                 * 
+                 * Note: The values of this enum should match the values defined by the `WiFiCredentials::AuthenticationProtocol` enum
+                 * in the firmware.
+                 * @name particle.ctrl.wifi.AuthenticationProtocol
+                 * @enum {number}
+                 * @property {number} AUTH_INVALID=0 AUTH_INVALID value
+                 * @property {number} AUTH_EAP=1 AUTH_EAP value
+                 * @property {number} AUTH_PAP=2 AUTH_PAP value
+                 * @property {number} AUTH_CHAP=3 AUTH_CHAP value
+                 * @property {number} AUTH_MSCHAP=4 AUTH_MSCHAP value
+                 * @property {number} AUTH_MSCHAPV2=5 AUTH_MSCHAPV2 value
+                 */
+                wifi.AuthenticationProtocol = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "AUTH_INVALID"] = 0;
+                    values[valuesById[1] = "AUTH_EAP"] = 1;
+                    values[valuesById[2] = "AUTH_PAP"] = 2;
+                    values[valuesById[3] = "AUTH_CHAP"] = 3;
+                    values[valuesById[4] = "AUTH_MSCHAP"] = 4;
+                    values[valuesById[5] = "AUTH_MSCHAPV2"] = 5;
+                    return values;
+                })();
+    
+                wifi.EapCredentials = (function() {
+    
+                    /**
+                     * Properties of an EapCredentials.
+                     * @memberof particle.ctrl.wifi
+                     * @interface IEapCredentials
+                     * @property {particle.ctrl.wifi.EapType|null} [type] EapCredentials type
+                     * @property {particle.ctrl.wifi.AuthenticationProtocol|null} [protocol] EapCredentials protocol
+                     * @property {particle.ctrl.wifi.IEapCredentialsPeap|null} [peap] EapCredentials peap
+                     * @property {particle.ctrl.wifi.IEapCredentialsTls|null} [tls] EapCredentials tls
+                     * @property {particle.ctrl.wifi.IEapCredentialsTtls|null} [ttls] EapCredentials ttls
+                     * @property {particle.ctrl.wifi.IEapCredentialsFast|null} [fast] EapCredentials fast
+                     * @property {particle.ctrl.wifi.IEapCredentialsIdentityPassword|null} [identityPassword] EapCredentials identityPassword
+                     * @property {particle.ctrl.wifi.IEapCredentials|null} [inner] EapCredentials inner
+                     */
+    
+                    /**
+                     * Constructs a new EapCredentials.
+                     * @memberof particle.ctrl.wifi
+                     * @classdesc Common EAP credentials.
+                     * @implements IEapCredentials
+                     * @constructor
+                     * @param {particle.ctrl.wifi.IEapCredentials=} [properties] Properties to set
+                     */
+                    function EapCredentials(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * EapCredentials type.
+                     * @member {particle.ctrl.wifi.EapType} type
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.type = 0;
+    
+                    /**
+                     * EapCredentials protocol.
+                     * @member {particle.ctrl.wifi.AuthenticationProtocol} protocol
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.protocol = 0;
+    
+                    /**
+                     * EapCredentials peap.
+                     * @member {particle.ctrl.wifi.IEapCredentialsPeap|null|undefined} peap
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.peap = null;
+    
+                    /**
+                     * EapCredentials tls.
+                     * @member {particle.ctrl.wifi.IEapCredentialsTls|null|undefined} tls
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.tls = null;
+    
+                    /**
+                     * EapCredentials ttls.
+                     * @member {particle.ctrl.wifi.IEapCredentialsTtls|null|undefined} ttls
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.ttls = null;
+    
+                    /**
+                     * EapCredentials fast.
+                     * @member {particle.ctrl.wifi.IEapCredentialsFast|null|undefined} fast
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.fast = null;
+    
+                    /**
+                     * EapCredentials identityPassword.
+                     * @member {particle.ctrl.wifi.IEapCredentialsIdentityPassword|null|undefined} identityPassword
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.identityPassword = null;
+    
+                    /**
+                     * EapCredentials inner.
+                     * @member {particle.ctrl.wifi.IEapCredentials|null|undefined} inner
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    EapCredentials.prototype.inner = null;
+    
+                    // OneOf field names bound to virtual getters and setters
+                    var $oneOfFields;
+    
+                    /**
+                     * EapCredentials credentials.
+                     * @member {"peap"|"tls"|"ttls"|"fast"|"identityPassword"|undefined} credentials
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @instance
+                     */
+                    Object.defineProperty(EapCredentials.prototype, "credentials", {
+                        get: $util.oneOfGetter($oneOfFields = ["peap", "tls", "ttls", "fast", "identityPassword"]),
+                        set: $util.oneOfSetter($oneOfFields)
+                    });
+    
+                    /**
+                     * Creates a new EapCredentials instance using the specified properties.
+                     * @function create
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentials=} [properties] Properties to set
+                     * @returns {particle.ctrl.wifi.EapCredentials} EapCredentials instance
+                     */
+                    EapCredentials.create = function create(properties) {
+                        return new EapCredentials(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified EapCredentials message. Does not implicitly {@link particle.ctrl.wifi.EapCredentials.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentials} message EapCredentials message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EapCredentials.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                        if (message.protocol != null && Object.hasOwnProperty.call(message, "protocol"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.protocol);
+                        if (message.peap != null && Object.hasOwnProperty.call(message, "peap"))
+                            $root.particle.ctrl.wifi.EapCredentialsPeap.encode(message.peap, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                        if (message.tls != null && Object.hasOwnProperty.call(message, "tls"))
+                            $root.particle.ctrl.wifi.EapCredentialsTls.encode(message.tls, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        if (message.ttls != null && Object.hasOwnProperty.call(message, "ttls"))
+                            $root.particle.ctrl.wifi.EapCredentialsTtls.encode(message.ttls, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                        if (message.fast != null && Object.hasOwnProperty.call(message, "fast"))
+                            $root.particle.ctrl.wifi.EapCredentialsFast.encode(message.fast, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                        if (message.identityPassword != null && Object.hasOwnProperty.call(message, "identityPassword"))
+                            $root.particle.ctrl.wifi.EapCredentialsIdentityPassword.encode(message.identityPassword, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                        if (message.inner != null && Object.hasOwnProperty.call(message, "inner"))
+                            $root.particle.ctrl.wifi.EapCredentials.encode(message.inner, writer.uint32(/* id 50, wireType 2 =*/402).fork()).ldelim();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes an EapCredentials message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.ctrl.wifi.EapCredentials
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.ctrl.wifi.EapCredentials} EapCredentials
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EapCredentials.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.wifi.EapCredentials();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.type = reader.int32();
+                                break;
+                            case 2:
+                                message.protocol = reader.int32();
+                                break;
+                            case 3:
+                                message.peap = $root.particle.ctrl.wifi.EapCredentialsPeap.decode(reader, reader.uint32());
+                                break;
+                            case 4:
+                                message.tls = $root.particle.ctrl.wifi.EapCredentialsTls.decode(reader, reader.uint32());
+                                break;
+                            case 5:
+                                message.ttls = $root.particle.ctrl.wifi.EapCredentialsTtls.decode(reader, reader.uint32());
+                                break;
+                            case 6:
+                                message.fast = $root.particle.ctrl.wifi.EapCredentialsFast.decode(reader, reader.uint32());
+                                break;
+                            case 7:
+                                message.identityPassword = $root.particle.ctrl.wifi.EapCredentialsIdentityPassword.decode(reader, reader.uint32());
+                                break;
+                            case 50:
+                                message.inner = $root.particle.ctrl.wifi.EapCredentials.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return EapCredentials;
+                })();
+    
+                wifi.EapCredentialsIdentityPassword = (function() {
+    
+                    /**
+                     * Properties of an EapCredentialsIdentityPassword.
+                     * @memberof particle.ctrl.wifi
+                     * @interface IEapCredentialsIdentityPassword
+                     * @property {string|null} [identity] EapCredentialsIdentityPassword identity
+                     * @property {string|null} [password] EapCredentialsIdentityPassword password
+                     */
+    
+                    /**
+                     * Constructs a new EapCredentialsIdentityPassword.
+                     * @memberof particle.ctrl.wifi
+                     * @classdesc Common credentials structure for username/password EAP/non-EAP methods.
+                     * @implements IEapCredentialsIdentityPassword
+                     * @constructor
+                     * @param {particle.ctrl.wifi.IEapCredentialsIdentityPassword=} [properties] Properties to set
+                     */
+                    function EapCredentialsIdentityPassword(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * EapCredentialsIdentityPassword identity.
+                     * @member {string} identity
+                     * @memberof particle.ctrl.wifi.EapCredentialsIdentityPassword
+                     * @instance
+                     */
+                    EapCredentialsIdentityPassword.prototype.identity = "";
+    
+                    /**
+                     * EapCredentialsIdentityPassword password.
+                     * @member {string} password
+                     * @memberof particle.ctrl.wifi.EapCredentialsIdentityPassword
+                     * @instance
+                     */
+                    EapCredentialsIdentityPassword.prototype.password = "";
+    
+                    /**
+                     * Creates a new EapCredentialsIdentityPassword instance using the specified properties.
+                     * @function create
+                     * @memberof particle.ctrl.wifi.EapCredentialsIdentityPassword
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsIdentityPassword=} [properties] Properties to set
+                     * @returns {particle.ctrl.wifi.EapCredentialsIdentityPassword} EapCredentialsIdentityPassword instance
+                     */
+                    EapCredentialsIdentityPassword.create = function create(properties) {
+                        return new EapCredentialsIdentityPassword(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified EapCredentialsIdentityPassword message. Does not implicitly {@link particle.ctrl.wifi.EapCredentialsIdentityPassword.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.ctrl.wifi.EapCredentialsIdentityPassword
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsIdentityPassword} message EapCredentialsIdentityPassword message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EapCredentialsIdentityPassword.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
+                        if (message.password != null && Object.hasOwnProperty.call(message, "password"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.password);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes an EapCredentialsIdentityPassword message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.ctrl.wifi.EapCredentialsIdentityPassword
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.ctrl.wifi.EapCredentialsIdentityPassword} EapCredentialsIdentityPassword
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EapCredentialsIdentityPassword.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.wifi.EapCredentialsIdentityPassword();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.identity = reader.string();
+                                break;
+                            case 2:
+                                message.password = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return EapCredentialsIdentityPassword;
+                })();
+    
+                wifi.EapCredentialsPeap = (function() {
+    
+                    /**
+                     * Properties of an EapCredentialsPeap.
+                     * @memberof particle.ctrl.wifi
+                     * @interface IEapCredentialsPeap
+                     * @property {string|null} [identity] EapCredentialsPeap identity
+                     * @property {string|null} [caCertificate] EapCredentialsPeap caCertificate
+                     */
+    
+                    /**
+                     * Constructs a new EapCredentialsPeap.
+                     * @memberof particle.ctrl.wifi
+                     * @classdesc EAP-PEAP credentials
+                     * 
+                     * draft-josefsson-pppext-eap-tls-eap-06.txt
+                     * @implements IEapCredentialsPeap
+                     * @constructor
+                     * @param {particle.ctrl.wifi.IEapCredentialsPeap=} [properties] Properties to set
+                     */
+                    function EapCredentialsPeap(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * EapCredentialsPeap identity.
+                     * @member {string} identity
+                     * @memberof particle.ctrl.wifi.EapCredentialsPeap
+                     * @instance
+                     */
+                    EapCredentialsPeap.prototype.identity = "";
+    
+                    /**
+                     * EapCredentialsPeap caCertificate.
+                     * @member {string} caCertificate
+                     * @memberof particle.ctrl.wifi.EapCredentialsPeap
+                     * @instance
+                     */
+                    EapCredentialsPeap.prototype.caCertificate = "";
+    
+                    /**
+                     * Creates a new EapCredentialsPeap instance using the specified properties.
+                     * @function create
+                     * @memberof particle.ctrl.wifi.EapCredentialsPeap
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsPeap=} [properties] Properties to set
+                     * @returns {particle.ctrl.wifi.EapCredentialsPeap} EapCredentialsPeap instance
+                     */
+                    EapCredentialsPeap.create = function create(properties) {
+                        return new EapCredentialsPeap(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified EapCredentialsPeap message. Does not implicitly {@link particle.ctrl.wifi.EapCredentialsPeap.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.ctrl.wifi.EapCredentialsPeap
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsPeap} message EapCredentialsPeap message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EapCredentialsPeap.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
+                        if (message.caCertificate != null && Object.hasOwnProperty.call(message, "caCertificate"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.caCertificate);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes an EapCredentialsPeap message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.ctrl.wifi.EapCredentialsPeap
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.ctrl.wifi.EapCredentialsPeap} EapCredentialsPeap
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EapCredentialsPeap.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.wifi.EapCredentialsPeap();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.identity = reader.string();
+                                break;
+                            case 2:
+                                message.caCertificate = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return EapCredentialsPeap;
+                })();
+    
+                wifi.EapCredentialsTls = (function() {
+    
+                    /**
+                     * Properties of an EapCredentialsTls.
+                     * @memberof particle.ctrl.wifi
+                     * @interface IEapCredentialsTls
+                     * @property {string|null} [identity] EapCredentialsTls identity
+                     * @property {string|null} [userCertificate] EapCredentialsTls userCertificate
+                     * @property {string|null} [privateKey] EapCredentialsTls privateKey
+                     * @property {string|null} [privateKeyPassword] EapCredentialsTls privateKeyPassword
+                     * @property {string|null} [caCertificate] EapCredentialsTls caCertificate
+                     */
+    
+                    /**
+                     * Constructs a new EapCredentialsTls.
+                     * @memberof particle.ctrl.wifi
+                     * @classdesc EAP-TLS credentials
+                     * 
+                     * RFC 2716
+                     * @implements IEapCredentialsTls
+                     * @constructor
+                     * @param {particle.ctrl.wifi.IEapCredentialsTls=} [properties] Properties to set
+                     */
+                    function EapCredentialsTls(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * EapCredentialsTls identity.
+                     * @member {string} identity
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @instance
+                     */
+                    EapCredentialsTls.prototype.identity = "";
+    
+                    /**
+                     * EapCredentialsTls userCertificate.
+                     * @member {string} userCertificate
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @instance
+                     */
+                    EapCredentialsTls.prototype.userCertificate = "";
+    
+                    /**
+                     * EapCredentialsTls privateKey.
+                     * @member {string} privateKey
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @instance
+                     */
+                    EapCredentialsTls.prototype.privateKey = "";
+    
+                    /**
+                     * EapCredentialsTls privateKeyPassword.
+                     * @member {string} privateKeyPassword
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @instance
+                     */
+                    EapCredentialsTls.prototype.privateKeyPassword = "";
+    
+                    /**
+                     * EapCredentialsTls caCertificate.
+                     * @member {string} caCertificate
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @instance
+                     */
+                    EapCredentialsTls.prototype.caCertificate = "";
+    
+                    /**
+                     * Creates a new EapCredentialsTls instance using the specified properties.
+                     * @function create
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsTls=} [properties] Properties to set
+                     * @returns {particle.ctrl.wifi.EapCredentialsTls} EapCredentialsTls instance
+                     */
+                    EapCredentialsTls.create = function create(properties) {
+                        return new EapCredentialsTls(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified EapCredentialsTls message. Does not implicitly {@link particle.ctrl.wifi.EapCredentialsTls.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsTls} message EapCredentialsTls message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EapCredentialsTls.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
+                        if (message.userCertificate != null && Object.hasOwnProperty.call(message, "userCertificate"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.userCertificate);
+                        if (message.privateKey != null && Object.hasOwnProperty.call(message, "privateKey"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.privateKey);
+                        if (message.privateKeyPassword != null && Object.hasOwnProperty.call(message, "privateKeyPassword"))
+                            writer.uint32(/* id 4, wireType 2 =*/34).string(message.privateKeyPassword);
+                        if (message.caCertificate != null && Object.hasOwnProperty.call(message, "caCertificate"))
+                            writer.uint32(/* id 5, wireType 2 =*/42).string(message.caCertificate);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes an EapCredentialsTls message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.ctrl.wifi.EapCredentialsTls
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.ctrl.wifi.EapCredentialsTls} EapCredentialsTls
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EapCredentialsTls.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.wifi.EapCredentialsTls();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.identity = reader.string();
+                                break;
+                            case 2:
+                                message.userCertificate = reader.string();
+                                break;
+                            case 3:
+                                message.privateKey = reader.string();
+                                break;
+                            case 4:
+                                message.privateKeyPassword = reader.string();
+                                break;
+                            case 5:
+                                message.caCertificate = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return EapCredentialsTls;
+                })();
+    
+                wifi.EapCredentialsTtls = (function() {
+    
+                    /**
+                     * Properties of an EapCredentialsTtls.
+                     * @memberof particle.ctrl.wifi
+                     * @interface IEapCredentialsTtls
+                     * @property {string|null} [identity] EapCredentialsTtls identity
+                     * @property {string|null} [domain] EapCredentialsTtls domain
+                     * @property {string|null} [caCertificate] EapCredentialsTtls caCertificate
+                     */
+    
+                    /**
+                     * Constructs a new EapCredentialsTtls.
+                     * @memberof particle.ctrl.wifi
+                     * @classdesc EAP-TTLS credentials
+                     * 
+                     * draft-ietf-pppext-eap-ttls-02.txt
+                     * @implements IEapCredentialsTtls
+                     * @constructor
+                     * @param {particle.ctrl.wifi.IEapCredentialsTtls=} [properties] Properties to set
+                     */
+                    function EapCredentialsTtls(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * EapCredentialsTtls identity.
+                     * @member {string} identity
+                     * @memberof particle.ctrl.wifi.EapCredentialsTtls
+                     * @instance
+                     */
+                    EapCredentialsTtls.prototype.identity = "";
+    
+                    /**
+                     * EapCredentialsTtls domain.
+                     * @member {string} domain
+                     * @memberof particle.ctrl.wifi.EapCredentialsTtls
+                     * @instance
+                     */
+                    EapCredentialsTtls.prototype.domain = "";
+    
+                    /**
+                     * EapCredentialsTtls caCertificate.
+                     * @member {string} caCertificate
+                     * @memberof particle.ctrl.wifi.EapCredentialsTtls
+                     * @instance
+                     */
+                    EapCredentialsTtls.prototype.caCertificate = "";
+    
+                    /**
+                     * Creates a new EapCredentialsTtls instance using the specified properties.
+                     * @function create
+                     * @memberof particle.ctrl.wifi.EapCredentialsTtls
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsTtls=} [properties] Properties to set
+                     * @returns {particle.ctrl.wifi.EapCredentialsTtls} EapCredentialsTtls instance
+                     */
+                    EapCredentialsTtls.create = function create(properties) {
+                        return new EapCredentialsTtls(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified EapCredentialsTtls message. Does not implicitly {@link particle.ctrl.wifi.EapCredentialsTtls.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.ctrl.wifi.EapCredentialsTtls
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsTtls} message EapCredentialsTtls message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EapCredentialsTtls.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
+                        if (message.domain != null && Object.hasOwnProperty.call(message, "domain"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.domain);
+                        if (message.caCertificate != null && Object.hasOwnProperty.call(message, "caCertificate"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.caCertificate);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes an EapCredentialsTtls message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.ctrl.wifi.EapCredentialsTtls
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.ctrl.wifi.EapCredentialsTtls} EapCredentialsTtls
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EapCredentialsTtls.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.wifi.EapCredentialsTtls();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.identity = reader.string();
+                                break;
+                            case 2:
+                                message.domain = reader.string();
+                                break;
+                            case 3:
+                                message.caCertificate = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return EapCredentialsTtls;
+                })();
+    
+                wifi.EapCredentialsFast = (function() {
+    
+                    /**
+                     * Properties of an EapCredentialsFast.
+                     * @memberof particle.ctrl.wifi
+                     * @interface IEapCredentialsFast
+                     * @property {string|null} [identity] EapCredentialsFast identity
+                     * @property {Uint8Array|null} [pac] EapCredentialsFast pac
+                     */
+    
+                    /**
+                     * Constructs a new EapCredentialsFast.
+                     * @memberof particle.ctrl.wifi
+                     * @classdesc EAP-FAST credentials
+                     * 
+                     * draft-cam-winget-eap-fast-00.txt
+                     * @implements IEapCredentialsFast
+                     * @constructor
+                     * @param {particle.ctrl.wifi.IEapCredentialsFast=} [properties] Properties to set
+                     */
+                    function EapCredentialsFast(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * EapCredentialsFast identity.
+                     * @member {string} identity
+                     * @memberof particle.ctrl.wifi.EapCredentialsFast
+                     * @instance
+                     */
+                    EapCredentialsFast.prototype.identity = "";
+    
+                    /**
+                     * EapCredentialsFast pac.
+                     * @member {Uint8Array} pac
+                     * @memberof particle.ctrl.wifi.EapCredentialsFast
+                     * @instance
+                     */
+                    EapCredentialsFast.prototype.pac = $util.newBuffer([]);
+    
+                    /**
+                     * Creates a new EapCredentialsFast instance using the specified properties.
+                     * @function create
+                     * @memberof particle.ctrl.wifi.EapCredentialsFast
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsFast=} [properties] Properties to set
+                     * @returns {particle.ctrl.wifi.EapCredentialsFast} EapCredentialsFast instance
+                     */
+                    EapCredentialsFast.create = function create(properties) {
+                        return new EapCredentialsFast(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified EapCredentialsFast message. Does not implicitly {@link particle.ctrl.wifi.EapCredentialsFast.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.ctrl.wifi.EapCredentialsFast
+                     * @static
+                     * @param {particle.ctrl.wifi.IEapCredentialsFast} message EapCredentialsFast message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EapCredentialsFast.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.identity != null && Object.hasOwnProperty.call(message, "identity"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.identity);
+                        if (message.pac != null && Object.hasOwnProperty.call(message, "pac"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.pac);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes an EapCredentialsFast message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.ctrl.wifi.EapCredentialsFast
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.ctrl.wifi.EapCredentialsFast} EapCredentialsFast
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EapCredentialsFast.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.wifi.EapCredentialsFast();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.identity = reader.string();
+                                break;
+                            case 2:
+                                message.pac = reader.bytes();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return EapCredentialsFast;
                 })();
     
                 wifi.Credentials = (function() {
@@ -10148,6 +11050,7 @@
                      * @interface ICredentials
                      * @property {particle.ctrl.wifi.CredentialsType|null} [type] Credentials type
                      * @property {string|null} [password] Credentials password
+                     * @property {particle.ctrl.wifi.IEapCredentials|null} [eap] Credentials eap
                      */
     
                     /**
@@ -10182,6 +11085,14 @@
                     Credentials.prototype.password = "";
     
                     /**
+                     * Credentials eap.
+                     * @member {particle.ctrl.wifi.IEapCredentials|null|undefined} eap
+                     * @memberof particle.ctrl.wifi.Credentials
+                     * @instance
+                     */
+                    Credentials.prototype.eap = null;
+    
+                    /**
                      * Creates a new Credentials instance using the specified properties.
                      * @function create
                      * @memberof particle.ctrl.wifi.Credentials
@@ -10209,6 +11120,8 @@
                             writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
                         if (message.password != null && Object.hasOwnProperty.call(message, "password"))
                             writer.uint32(/* id 2, wireType 2 =*/18).string(message.password);
+                        if (message.eap != null && Object.hasOwnProperty.call(message, "eap"))
+                            $root.particle.ctrl.wifi.EapCredentials.encode(message.eap, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                         return writer;
                     };
     
@@ -10235,6 +11148,9 @@
                                 break;
                             case 2:
                                 message.password = reader.string();
+                                break;
+                            case 3:
+                                message.eap = $root.particle.ctrl.wifi.EapCredentials.decode(reader, reader.uint32());
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -24769,6 +25685,86 @@
         return google;
     })();
     
+    /**
+     * FieldType enum.
+     * @exports FieldType
+     * @enum {number}
+     * @property {number} FT_DEFAULT=0 FT_DEFAULT value
+     * @property {number} FT_CALLBACK=1 FT_CALLBACK value
+     * @property {number} FT_POINTER=4 FT_POINTER value
+     * @property {number} FT_STATIC=2 FT_STATIC value
+     * @property {number} FT_IGNORE=3 FT_IGNORE value
+     * @property {number} FT_INLINE=5 FT_INLINE value
+     */
+    $root.FieldType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "FT_DEFAULT"] = 0;
+        values[valuesById[1] = "FT_CALLBACK"] = 1;
+        values[valuesById[4] = "FT_POINTER"] = 4;
+        values[valuesById[2] = "FT_STATIC"] = 2;
+        values[valuesById[3] = "FT_IGNORE"] = 3;
+        values[valuesById[5] = "FT_INLINE"] = 5;
+        return values;
+    })();
+    
+    /**
+     * IntSize enum.
+     * @exports IntSize
+     * @enum {number}
+     * @property {number} IS_DEFAULT=0 IS_DEFAULT value
+     * @property {number} IS_8=8 IS_8 value
+     * @property {number} IS_16=16 IS_16 value
+     * @property {number} IS_32=32 IS_32 value
+     * @property {number} IS_64=64 IS_64 value
+     */
+    $root.IntSize = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "IS_DEFAULT"] = 0;
+        values[valuesById[8] = "IS_8"] = 8;
+        values[valuesById[16] = "IS_16"] = 16;
+        values[valuesById[32] = "IS_32"] = 32;
+        values[valuesById[64] = "IS_64"] = 64;
+        return values;
+    })();
+    
+    /**
+     * TypenameMangling enum.
+     * @exports TypenameMangling
+     * @enum {number}
+     * @property {number} M_NONE=0 M_NONE value
+     * @property {number} M_STRIP_PACKAGE=1 M_STRIP_PACKAGE value
+     * @property {number} M_FLATTEN=2 M_FLATTEN value
+     * @property {number} M_PACKAGE_INITIALS=3 M_PACKAGE_INITIALS value
+     */
+    $root.TypenameMangling = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "M_NONE"] = 0;
+        values[valuesById[1] = "M_STRIP_PACKAGE"] = 1;
+        values[valuesById[2] = "M_FLATTEN"] = 2;
+        values[valuesById[3] = "M_PACKAGE_INITIALS"] = 3;
+        return values;
+    })();
+    
+    /**
+     * DescriptorSize enum.
+     * @exports DescriptorSize
+     * @enum {number}
+     * @property {number} DS_AUTO=0 DS_AUTO value
+     * @property {number} DS_1=1 DS_1 value
+     * @property {number} DS_2=2 DS_2 value
+     * @property {number} DS_4=4 DS_4 value
+     * @property {number} DS_8=8 DS_8 value
+     */
+    $root.DescriptorSize = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "DS_AUTO"] = 0;
+        values[valuesById[1] = "DS_1"] = 1;
+        values[valuesById[2] = "DS_2"] = 2;
+        values[valuesById[4] = "DS_4"] = 4;
+        values[valuesById[8] = "DS_8"] = 8;
+        return values;
+    })();
+    
     $root.NanoPBOptions = (function() {
     
         /**
@@ -24788,9 +25784,21 @@
          * @property {number|null} [msgid] NanoPBOptions msgid
          * @property {boolean|null} [anonymousOneof] NanoPBOptions anonymousOneof
          * @property {boolean|null} [proto3] NanoPBOptions proto3
+         * @property {boolean|null} [proto3SingularMsgs] NanoPBOptions proto3SingularMsgs
          * @property {boolean|null} [enumToString] NanoPBOptions enumToString
          * @property {boolean|null} [fixedLength] NanoPBOptions fixedLength
          * @property {boolean|null} [fixedCount] NanoPBOptions fixedCount
+         * @property {boolean|null} [submsgCallback] NanoPBOptions submsgCallback
+         * @property {TypenameMangling|null} [mangleNames] NanoPBOptions mangleNames
+         * @property {string|null} [callbackDatatype] NanoPBOptions callbackDatatype
+         * @property {string|null} [callbackFunction] NanoPBOptions callbackFunction
+         * @property {DescriptorSize|null} [descriptorsize] NanoPBOptions descriptorsize
+         * @property {boolean|null} [defaultHas] NanoPBOptions defaultHas
+         * @property {Array.<string>|null} [include] NanoPBOptions include
+         * @property {Array.<string>|null} [exclude] NanoPBOptions exclude
+         * @property {string|null} ["package"] NanoPBOptions package
+         * @property {google.protobuf.FieldDescriptorProto.Type|null} [typeOverride] NanoPBOptions typeOverride
+         * @property {boolean|null} [sortByTag] NanoPBOptions sortByTag
          */
     
         /**
@@ -24802,6 +25810,8 @@
          * @param {INanoPBOptions=} [properties] Properties to set
          */
         function NanoPBOptions(properties) {
+            this.include = [];
+            this.exclude = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -24913,6 +25923,14 @@
         NanoPBOptions.prototype.proto3 = false;
     
         /**
+         * NanoPBOptions proto3SingularMsgs.
+         * @member {boolean} proto3SingularMsgs
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.proto3SingularMsgs = false;
+    
+        /**
          * NanoPBOptions enumToString.
          * @member {boolean} enumToString
          * @memberof NanoPBOptions
@@ -24935,6 +25953,94 @@
          * @instance
          */
         NanoPBOptions.prototype.fixedCount = false;
+    
+        /**
+         * NanoPBOptions submsgCallback.
+         * @member {boolean} submsgCallback
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.submsgCallback = false;
+    
+        /**
+         * NanoPBOptions mangleNames.
+         * @member {TypenameMangling} mangleNames
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.mangleNames = 0;
+    
+        /**
+         * NanoPBOptions callbackDatatype.
+         * @member {string} callbackDatatype
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.callbackDatatype = "pb_callback_t";
+    
+        /**
+         * NanoPBOptions callbackFunction.
+         * @member {string} callbackFunction
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.callbackFunction = "pb_default_field_callback";
+    
+        /**
+         * NanoPBOptions descriptorsize.
+         * @member {DescriptorSize} descriptorsize
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.descriptorsize = 0;
+    
+        /**
+         * NanoPBOptions defaultHas.
+         * @member {boolean} defaultHas
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.defaultHas = false;
+    
+        /**
+         * NanoPBOptions include.
+         * @member {Array.<string>} include
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.include = $util.emptyArray;
+    
+        /**
+         * NanoPBOptions exclude.
+         * @member {Array.<string>} exclude
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.exclude = $util.emptyArray;
+    
+        /**
+         * NanoPBOptions package.
+         * @member {string} package
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype["package"] = "";
+    
+        /**
+         * NanoPBOptions typeOverride.
+         * @member {google.protobuf.FieldDescriptorProto.Type} typeOverride
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.typeOverride = 1;
+    
+        /**
+         * NanoPBOptions sortByTag.
+         * @member {boolean} sortByTag
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.sortByTag = true;
     
         /**
          * Creates a new NanoPBOptions instance using the specified properties.
@@ -24992,6 +26098,32 @@
                 writer.uint32(/* id 15, wireType 0 =*/120).bool(message.fixedLength);
             if (message.fixedCount != null && Object.hasOwnProperty.call(message, "fixedCount"))
                 writer.uint32(/* id 16, wireType 0 =*/128).bool(message.fixedCount);
+            if (message.mangleNames != null && Object.hasOwnProperty.call(message, "mangleNames"))
+                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.mangleNames);
+            if (message.callbackDatatype != null && Object.hasOwnProperty.call(message, "callbackDatatype"))
+                writer.uint32(/* id 18, wireType 2 =*/146).string(message.callbackDatatype);
+            if (message.callbackFunction != null && Object.hasOwnProperty.call(message, "callbackFunction"))
+                writer.uint32(/* id 19, wireType 2 =*/154).string(message.callbackFunction);
+            if (message.descriptorsize != null && Object.hasOwnProperty.call(message, "descriptorsize"))
+                writer.uint32(/* id 20, wireType 0 =*/160).int32(message.descriptorsize);
+            if (message.proto3SingularMsgs != null && Object.hasOwnProperty.call(message, "proto3SingularMsgs"))
+                writer.uint32(/* id 21, wireType 0 =*/168).bool(message.proto3SingularMsgs);
+            if (message.submsgCallback != null && Object.hasOwnProperty.call(message, "submsgCallback"))
+                writer.uint32(/* id 22, wireType 0 =*/176).bool(message.submsgCallback);
+            if (message.defaultHas != null && Object.hasOwnProperty.call(message, "defaultHas"))
+                writer.uint32(/* id 23, wireType 0 =*/184).bool(message.defaultHas);
+            if (message.include != null && message.include.length)
+                for (var i = 0; i < message.include.length; ++i)
+                    writer.uint32(/* id 24, wireType 2 =*/194).string(message.include[i]);
+            if (message["package"] != null && Object.hasOwnProperty.call(message, "package"))
+                writer.uint32(/* id 25, wireType 2 =*/202).string(message["package"]);
+            if (message.exclude != null && message.exclude.length)
+                for (var i = 0; i < message.exclude.length; ++i)
+                    writer.uint32(/* id 26, wireType 2 =*/210).string(message.exclude[i]);
+            if (message.typeOverride != null && Object.hasOwnProperty.call(message, "typeOverride"))
+                writer.uint32(/* id 27, wireType 0 =*/216).int32(message.typeOverride);
+            if (message.sortByTag != null && Object.hasOwnProperty.call(message, "sortByTag"))
+                writer.uint32(/* id 28, wireType 0 =*/224).bool(message.sortByTag);
             return writer;
         };
     
@@ -25052,6 +26184,9 @@
                 case 12:
                     message.proto3 = reader.bool();
                     break;
+                case 21:
+                    message.proto3SingularMsgs = reader.bool();
+                    break;
                 case 13:
                     message.enumToString = reader.bool();
                     break;
@@ -25060,6 +26195,43 @@
                     break;
                 case 16:
                     message.fixedCount = reader.bool();
+                    break;
+                case 22:
+                    message.submsgCallback = reader.bool();
+                    break;
+                case 17:
+                    message.mangleNames = reader.int32();
+                    break;
+                case 18:
+                    message.callbackDatatype = reader.string();
+                    break;
+                case 19:
+                    message.callbackFunction = reader.string();
+                    break;
+                case 20:
+                    message.descriptorsize = reader.int32();
+                    break;
+                case 23:
+                    message.defaultHas = reader.bool();
+                    break;
+                case 24:
+                    if (!(message.include && message.include.length))
+                        message.include = [];
+                    message.include.push(reader.string());
+                    break;
+                case 26:
+                    if (!(message.exclude && message.exclude.length))
+                        message.exclude = [];
+                    message.exclude.push(reader.string());
+                    break;
+                case 25:
+                    message["package"] = reader.string();
+                    break;
+                case 27:
+                    message.typeOverride = reader.int32();
+                    break;
+                case 28:
+                    message.sortByTag = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -25070,48 +26242,6 @@
         };
     
         return NanoPBOptions;
-    })();
-    
-    /**
-     * FieldType enum.
-     * @exports FieldType
-     * @enum {number}
-     * @property {number} FT_DEFAULT=0 FT_DEFAULT value
-     * @property {number} FT_CALLBACK=1 FT_CALLBACK value
-     * @property {number} FT_POINTER=4 FT_POINTER value
-     * @property {number} FT_STATIC=2 FT_STATIC value
-     * @property {number} FT_IGNORE=3 FT_IGNORE value
-     * @property {number} FT_INLINE=5 FT_INLINE value
-     */
-    $root.FieldType = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "FT_DEFAULT"] = 0;
-        values[valuesById[1] = "FT_CALLBACK"] = 1;
-        values[valuesById[4] = "FT_POINTER"] = 4;
-        values[valuesById[2] = "FT_STATIC"] = 2;
-        values[valuesById[3] = "FT_IGNORE"] = 3;
-        values[valuesById[5] = "FT_INLINE"] = 5;
-        return values;
-    })();
-    
-    /**
-     * IntSize enum.
-     * @exports IntSize
-     * @enum {number}
-     * @property {number} IS_DEFAULT=0 IS_DEFAULT value
-     * @property {number} IS_8=8 IS_8 value
-     * @property {number} IS_16=16 IS_16 value
-     * @property {number} IS_32=32 IS_32 value
-     * @property {number} IS_64=64 IS_64 value
-     */
-    $root.IntSize = (function() {
-        var valuesById = {}, values = Object.create(valuesById);
-        values[valuesById[0] = "IS_DEFAULT"] = 0;
-        values[valuesById[8] = "IS_8"] = 8;
-        values[valuesById[16] = "IS_16"] = 16;
-        values[valuesById[32] = "IS_32"] = 32;
-        values[valuesById[64] = "IS_64"] = 64;
-        return values;
     })();
 
     return $root;
