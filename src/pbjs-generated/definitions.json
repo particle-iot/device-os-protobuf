@@ -1179,185 +1179,13 @@
                     "WEP": 1,
                     "WPA_PSK": 2,
                     "WPA2_PSK": 3,
-                    "WPA_WPA2_PSK": 4,
-                    "WPA_ENTERPRISE": 5,
-                    "WPA2_ENTERPRISE": 6,
-                    "WPA_WPA2_ENTERPRISE": 7,
-                    "WPA3_PSK": 8,
-                    "WPA2_WPA3_PSK": 9,
-                    "WPA3_ENTERPRISE": 10,
-                    "WPA2_WPA3_ENTERPRISE": 11
+                    "WPA_WPA2_PSK": 4
                   }
                 },
                 "CredentialsType": {
                   "values": {
                     "NO_CREDENTIALS": 0,
-                    "PASSWORD": 1,
-                    "EAP": 2
-                  }
-                },
-                "EapType": {
-                  "values": {
-                    "INVALID": 0,
-                    "IDENTITY": 1,
-                    "NOTIFICATION": 2,
-                    "NAK": 3,
-                    "MD5": 4,
-                    "OTP": 5,
-                    "GTC": 6,
-                    "TLS": 13,
-                    "LEAP": 17,
-                    "SIM": 18,
-                    "TTLS": 21,
-                    "AKA": 23,
-                    "PEAP": 25,
-                    "MSCHAPV2": 26,
-                    "TLV": 33,
-                    "FAST": 43,
-                    "PAX": 46,
-                    "EXPANDED_NAK": 253,
-                    "WPS": 254,
-                    "PSK": 255,
-                    "NON_EAP": 1000
-                  }
-                },
-                "AuthenticationProtocol": {
-                  "values": {
-                    "AUTH_INVALID": 0,
-                    "AUTH_EAP": 1,
-                    "AUTH_PAP": 2,
-                    "AUTH_CHAP": 3,
-                    "AUTH_MSCHAP": 4,
-                    "AUTH_MSCHAPV2": 5
-                  }
-                },
-                "EapCredentials": {
-                  "options": {
-                    "(nanopb_msgopt).submsg_callback": true
-                  },
-                  "oneofs": {
-                    "credentials": {
-                      "oneof": [
-                        "peap",
-                        "tls",
-                        "ttls",
-                        "fast",
-                        "identityPassword"
-                      ]
-                    }
-                  },
-                  "fields": {
-                    "type": {
-                      "type": "EapType",
-                      "id": 1
-                    },
-                    "protocol": {
-                      "type": "AuthenticationProtocol",
-                      "id": 2
-                    },
-                    "peap": {
-                      "type": "EapCredentialsPeap",
-                      "id": 3
-                    },
-                    "tls": {
-                      "type": "EapCredentialsTls",
-                      "id": 4
-                    },
-                    "ttls": {
-                      "type": "EapCredentialsTtls",
-                      "id": 5
-                    },
-                    "fast": {
-                      "type": "EapCredentialsFast",
-                      "id": 6
-                    },
-                    "identityPassword": {
-                      "type": "EapCredentialsIdentityPassword",
-                      "id": 7
-                    },
-                    "inner": {
-                      "type": "EapCredentials",
-                      "id": 50,
-                      "options": {
-                        "(nanopb).type": "FT_CALLBACK"
-                      }
-                    }
-                  }
-                },
-                "EapCredentialsIdentityPassword": {
-                  "fields": {
-                    "identity": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "password": {
-                      "type": "string",
-                      "id": 2
-                    }
-                  }
-                },
-                "EapCredentialsPeap": {
-                  "fields": {
-                    "identity": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "caCertificate": {
-                      "type": "string",
-                      "id": 2
-                    }
-                  }
-                },
-                "EapCredentialsTls": {
-                  "fields": {
-                    "identity": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "userCertificate": {
-                      "type": "string",
-                      "id": 2
-                    },
-                    "privateKey": {
-                      "type": "string",
-                      "id": 3
-                    },
-                    "privateKeyPassword": {
-                      "type": "string",
-                      "id": 4
-                    },
-                    "caCertificate": {
-                      "type": "string",
-                      "id": 5
-                    }
-                  }
-                },
-                "EapCredentialsTtls": {
-                  "fields": {
-                    "identity": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "domain": {
-                      "type": "string",
-                      "id": 2
-                    },
-                    "caCertificate": {
-                      "type": "string",
-                      "id": 3
-                    }
-                  }
-                },
-                "EapCredentialsFast": {
-                  "fields": {
-                    "identity": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "pac": {
-                      "type": "bytes",
-                      "id": 2
-                    }
+                    "PASSWORD": 1
                   }
                 },
                 "Credentials": {
@@ -1369,13 +1197,6 @@
                     "password": {
                       "type": "string",
                       "id": 2
-                    },
-                    "eap": {
-                      "type": "EapCredentials",
-                      "id": 3,
-                      "options": {
-                        "(nanopb).type": "FT_CALLBACK"
-                      }
                     }
                   }
                 },

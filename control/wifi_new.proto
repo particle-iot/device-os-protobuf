@@ -18,13 +18,6 @@ enum Security {
   WPA_PSK = 2; // WPA PSK
   WPA2_PSK = 3; // WPA2 PSK
   WPA_WPA2_PSK = 4; // WPA/WPA2 PSK
-  WPA_ENTERPRISE = 5;
-  WPA2_ENTERPRISE = 6;
-  WPA_WPA2_ENTERPRISE = 7;
-  WPA3_PSK = 8;
-  WPA2_WPA3_PSK = 9;
-  WPA3_ENTERPRISE = 10;
-  WPA2_WPA3_ENTERPRISE = 11;
 }
 
 /**
@@ -36,131 +29,6 @@ enum Security {
 enum CredentialsType {
   NO_CREDENTIALS = 0; // No WiFi credentials
   PASSWORD = 1; // WiFi password
-  EAP = 2;
-}
-
-/**
- * EAP types.
- *
- * Note: The values of this enum should match the values defined by the `WiFiCredentials::EapType` enum
- * in the firmware.
- */
-enum EapType {
-  INVALID      = 0;   /* Invalid */
-  IDENTITY     = 1;   /* RFC 3748 */
-  NOTIFICATION = 2;   /* RFC 3748 */
-  NAK          = 3;   /* Response only, RFC 3748 */
-  MD5          = 4;   /* RFC 3748 */
-  OTP          = 5;   /* RFC 3748 */
-  GTC          = 6;   /* RFC 3748 */
-  TLS          = 13;  /* RFC 2716 */
-  LEAP         = 17;  /* Cisco proprietary */
-  SIM          = 18;  /* draft-haverinen-pppext-eap-sim-12.txt */
-  TTLS         = 21;  /* draft-ietf-pppext-eap-ttls-02.txt */
-  AKA          = 23;  /* draft-arkko-pppext-eap-aka-12.txt */
-  PEAP         = 25;  /* draft-josefsson-pppext-eap-tls-eap-06.txt */
-  MSCHAPV2     = 26;  /* draft-kamath-pppext-eap-mschapv2-00.txt */
-  TLV          = 33;  /* draft-josefsson-pppext-eap-tls-eap-07.txt */
-  FAST         = 43;  /* draft-cam-winget-eap-fast-00.txt */
-  PAX          = 46;  /* draft-clancy-eap-pax-04.txt */
-  EXPANDED_NAK = 253; /* RFC 3748 */
-  WPS          = 254; /* Wireless Simple Config */
-  PSK          = 255; /* EXPERIMENTAL - type not yet allocated draft-bersani-eap-psk-09 */
-  NON_EAP      = 1000;/* Non-EAP authentication protocol e.g. CHAP, PAP etc */
-}
-
-/**
- * Non-EAP authentication protocols.
- *
- * Note: The values of this enum should match the values defined by the `WiFiCredentials::AuthenticationProtocol` enum
- * in the firmware.
- */
-enum AuthenticationProtocol {
-  AUTH_INVALID = 0;
-  AUTH_EAP = 1;
-  AUTH_PAP = 2;
-  AUTH_CHAP = 3;
-  AUTH_MSCHAP = 4;
-  AUTH_MSCHAPV2 = 5;
-  AUTH_AUTO = 100;
-}
-
-/**
- * Common EAP credentials.
- */
-message EapCredentials {
-  option (nanopb_msgopt).submsg_callback = true;
-
-  EapType type = 1;
-  /* Defines the non-EAP authentication protocol when type == NON_EAP */
-  AuthenticationProtocol protocol = 2;
-  oneof credentials {
-    EapCredentialsPeap peap = 3;
-    EapCredentialsTls tls = 4;
-    EapCredentialsTtls ttls = 5;
-    EapCredentialsFast fast = 6;
-    EapCredentialsIdentityPassword identity_password = 7;
-  }
-
-  EapCredentials inner = 50 [(nanopb).type = FT_CALLBACK]; /* For tunneled types */
-}
-
-/**
- * Common credentials structure for username/password EAP/non-EAP methods.
- */
-message EapCredentialsIdentityPassword {
-  string identity = 1;
-  string password = 2;
-}
-
-/**
- * EAP-PEAP credentials
- *
- * draft-josefsson-pppext-eap-tls-eap-06.txt
- */
-message EapCredentialsPeap {
-  string identity = 1; /* This is the outer (PEAP) identity, optional */
-  string ca_certificate = 2; /* optional */
-}
-
-/**
- * EAP-TLS credentials
- *
- * RFC 2716
- */
-message EapCredentialsTls {
-  string identity = 1; /* optional */
-  string user_certificate = 2;
-  string private_key = 3;
-  string private_key_password = 4; /* optional */
-  string ca_certificate = 5; /* optional */
-}
-
-/**
- * EAP-TTLS credentials
- *
- * draft-ietf-pppext-eap-ttls-02.txt
- */
-message EapCredentialsTtls {
-  string identity = 1; /* This is the outer tunnel identity, optional */
-  string ca_certificate = 2; /* optional */
-}
-
-/**
- * EAP-FAST credentials
- *
- * draft-cam-winget-eap-fast-00.txt
- */
-message EapCredentialsFast {
-  /* Protected Access Credential */
-  string identity = 1;
-  bytes pac = 2; /* normally provisioned by peer */
-  enum ProvisioningFlags {
-    DISABLED = 0;
-    ANONYMOUS = 0x01;
-    AUTHENTICATED = 0x02;
-  }
-  uint32 provisioning_flags = 3;
 }
 
 /**
@@ -168,10 +36,7 @@ message EapCredentialsFast {
  */
 message Credentials {
   CredentialsType type = 1;
-  /* oneof? */
   string password = 2;
-  // Using FT_CALLBACK to simplify parsing across various messages that include Credentials
-  EapCredentials eap = 3 [(nanopb).type = FT_CALLBACK];
 }
 
 /**
