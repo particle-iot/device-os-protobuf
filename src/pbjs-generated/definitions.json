@@ -3458,6 +3458,13 @@
             "default": false
           }
         },
+        "proto3SingularMsgs": {
+          "type": "bool",
+          "id": 21,
+          "options": {
+            "default": false
+          }
+        },
         "enumToString": {
           "type": "bool",
           "id": 13,
@@ -3477,6 +3484,73 @@
           "id": 16,
           "options": {
             "default": false
+          }
+        },
+        "submsgCallback": {
+          "type": "bool",
+          "id": 22,
+          "options": {
+            "default": false
+          }
+        },
+        "mangleNames": {
+          "type": "TypenameMangling",
+          "id": 17,
+          "options": {
+            "default": "M_NONE"
+          }
+        },
+        "callbackDatatype": {
+          "type": "string",
+          "id": 18,
+          "options": {
+            "default": "pb_callback_t"
+          }
+        },
+        "callbackFunction": {
+          "type": "string",
+          "id": 19,
+          "options": {
+            "default": "pb_default_field_callback"
+          }
+        },
+        "descriptorsize": {
+          "type": "DescriptorSize",
+          "id": 20,
+          "options": {
+            "default": "DS_AUTO"
+          }
+        },
+        "defaultHas": {
+          "type": "bool",
+          "id": 23,
+          "options": {
+            "default": false
+          }
+        },
+        "include": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 24
+        },
+        "exclude": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 26
+        },
+        "package": {
+          "type": "string",
+          "id": 25
+        },
+        "typeOverride": {
+          "type": "google.protobuf.FieldDescriptorProto.Type",
+          "id": 27
+        },
+        "sortByTag": {
+          "type": "bool",
+          "id": 28,
+          "options": {
+            "default": true
           }
         }
       }
@@ -3518,6 +3592,23 @@
         "IS_16": 16,
         "IS_32": 32,
         "IS_64": 64
+      }
+    },
+    "TypenameMangling": {
+      "values": {
+        "M_NONE": 0,
+        "M_STRIP_PACKAGE": 1,
+        "M_FLATTEN": 2,
+        "M_PACKAGE_INITIALS": 3
+      }
+    },
+    "DescriptorSize": {
+      "values": {
+        "DS_AUTO": 0,
+        "DS_1": 1,
+        "DS_2": 2,
+        "DS_4": 4,
+        "DS_8": 8
       }
     }
   }

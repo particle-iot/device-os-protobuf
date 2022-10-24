@@ -46,6 +46,8 @@
                 /**
                  * SIM card types.
                  * 
+                 * The Boron 2G/3G and Boron LTE can use either the built-in MFF2 embedded Particle SIM card or an external nano SIM card in the SIM card connector.
+                 * 
                  * Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
                  * @name particle.ctrl.cellular.SimType
                  * @enum {number}
@@ -76,7 +78,7 @@
                     /**
                      * Constructs a new AccessPoint.
                      * @memberof particle.ctrl.cellular
-                     * @classdesc Access point settings.
+                     * @classdesc Access point settings for 3rd party SIM credentials for the Cellular network.
                      * @implements IAccessPoint
                      * @constructor
                      * @param {particle.ctrl.cellular.IAccessPoint=} [properties] Properties to set
@@ -24788,9 +24790,21 @@
          * @property {number|null} [msgid] NanoPBOptions msgid
          * @property {boolean|null} [anonymousOneof] NanoPBOptions anonymousOneof
          * @property {boolean|null} [proto3] NanoPBOptions proto3
+         * @property {boolean|null} [proto3SingularMsgs] NanoPBOptions proto3SingularMsgs
          * @property {boolean|null} [enumToString] NanoPBOptions enumToString
          * @property {boolean|null} [fixedLength] NanoPBOptions fixedLength
          * @property {boolean|null} [fixedCount] NanoPBOptions fixedCount
+         * @property {boolean|null} [submsgCallback] NanoPBOptions submsgCallback
+         * @property {TypenameMangling|null} [mangleNames] NanoPBOptions mangleNames
+         * @property {string|null} [callbackDatatype] NanoPBOptions callbackDatatype
+         * @property {string|null} [callbackFunction] NanoPBOptions callbackFunction
+         * @property {DescriptorSize|null} [descriptorsize] NanoPBOptions descriptorsize
+         * @property {boolean|null} [defaultHas] NanoPBOptions defaultHas
+         * @property {Array.<string>|null} [include] NanoPBOptions include
+         * @property {Array.<string>|null} [exclude] NanoPBOptions exclude
+         * @property {string|null} ["package"] NanoPBOptions package
+         * @property {google.protobuf.FieldDescriptorProto.Type|null} [typeOverride] NanoPBOptions typeOverride
+         * @property {boolean|null} [sortByTag] NanoPBOptions sortByTag
          */
     
         /**
@@ -24802,6 +24816,8 @@
          * @param {INanoPBOptions=} [properties] Properties to set
          */
         function NanoPBOptions(properties) {
+            this.include = [];
+            this.exclude = [];
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -24913,6 +24929,14 @@
         NanoPBOptions.prototype.proto3 = false;
     
         /**
+         * NanoPBOptions proto3SingularMsgs.
+         * @member {boolean} proto3SingularMsgs
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.proto3SingularMsgs = false;
+    
+        /**
          * NanoPBOptions enumToString.
          * @member {boolean} enumToString
          * @memberof NanoPBOptions
@@ -24935,6 +24959,94 @@
          * @instance
          */
         NanoPBOptions.prototype.fixedCount = false;
+    
+        /**
+         * NanoPBOptions submsgCallback.
+         * @member {boolean} submsgCallback
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.submsgCallback = false;
+    
+        /**
+         * NanoPBOptions mangleNames.
+         * @member {TypenameMangling} mangleNames
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.mangleNames = 0;
+    
+        /**
+         * NanoPBOptions callbackDatatype.
+         * @member {string} callbackDatatype
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.callbackDatatype = "pb_callback_t";
+    
+        /**
+         * NanoPBOptions callbackFunction.
+         * @member {string} callbackFunction
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.callbackFunction = "pb_default_field_callback";
+    
+        /**
+         * NanoPBOptions descriptorsize.
+         * @member {DescriptorSize} descriptorsize
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.descriptorsize = 0;
+    
+        /**
+         * NanoPBOptions defaultHas.
+         * @member {boolean} defaultHas
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.defaultHas = false;
+    
+        /**
+         * NanoPBOptions include.
+         * @member {Array.<string>} include
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.include = $util.emptyArray;
+    
+        /**
+         * NanoPBOptions exclude.
+         * @member {Array.<string>} exclude
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.exclude = $util.emptyArray;
+    
+        /**
+         * NanoPBOptions package.
+         * @member {string} package
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype["package"] = "";
+    
+        /**
+         * NanoPBOptions typeOverride.
+         * @member {google.protobuf.FieldDescriptorProto.Type} typeOverride
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.typeOverride = 1;
+    
+        /**
+         * NanoPBOptions sortByTag.
+         * @member {boolean} sortByTag
+         * @memberof NanoPBOptions
+         * @instance
+         */
+        NanoPBOptions.prototype.sortByTag = true;
     
         /**
          * Creates a new NanoPBOptions instance using the specified properties.
@@ -24992,6 +25104,32 @@
                 writer.uint32(/* id 15, wireType 0 =*/120).bool(message.fixedLength);
             if (message.fixedCount != null && Object.hasOwnProperty.call(message, "fixedCount"))
                 writer.uint32(/* id 16, wireType 0 =*/128).bool(message.fixedCount);
+            if (message.mangleNames != null && Object.hasOwnProperty.call(message, "mangleNames"))
+                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.mangleNames);
+            if (message.callbackDatatype != null && Object.hasOwnProperty.call(message, "callbackDatatype"))
+                writer.uint32(/* id 18, wireType 2 =*/146).string(message.callbackDatatype);
+            if (message.callbackFunction != null && Object.hasOwnProperty.call(message, "callbackFunction"))
+                writer.uint32(/* id 19, wireType 2 =*/154).string(message.callbackFunction);
+            if (message.descriptorsize != null && Object.hasOwnProperty.call(message, "descriptorsize"))
+                writer.uint32(/* id 20, wireType 0 =*/160).int32(message.descriptorsize);
+            if (message.proto3SingularMsgs != null && Object.hasOwnProperty.call(message, "proto3SingularMsgs"))
+                writer.uint32(/* id 21, wireType 0 =*/168).bool(message.proto3SingularMsgs);
+            if (message.submsgCallback != null && Object.hasOwnProperty.call(message, "submsgCallback"))
+                writer.uint32(/* id 22, wireType 0 =*/176).bool(message.submsgCallback);
+            if (message.defaultHas != null && Object.hasOwnProperty.call(message, "defaultHas"))
+                writer.uint32(/* id 23, wireType 0 =*/184).bool(message.defaultHas);
+            if (message.include != null && message.include.length)
+                for (var i = 0; i < message.include.length; ++i)
+                    writer.uint32(/* id 24, wireType 2 =*/194).string(message.include[i]);
+            if (message["package"] != null && Object.hasOwnProperty.call(message, "package"))
+                writer.uint32(/* id 25, wireType 2 =*/202).string(message["package"]);
+            if (message.exclude != null && message.exclude.length)
+                for (var i = 0; i < message.exclude.length; ++i)
+                    writer.uint32(/* id 26, wireType 2 =*/210).string(message.exclude[i]);
+            if (message.typeOverride != null && Object.hasOwnProperty.call(message, "typeOverride"))
+                writer.uint32(/* id 27, wireType 0 =*/216).int32(message.typeOverride);
+            if (message.sortByTag != null && Object.hasOwnProperty.call(message, "sortByTag"))
+                writer.uint32(/* id 28, wireType 0 =*/224).bool(message.sortByTag);
             return writer;
         };
     
@@ -25052,6 +25190,9 @@
                 case 12:
                     message.proto3 = reader.bool();
                     break;
+                case 21:
+                    message.proto3SingularMsgs = reader.bool();
+                    break;
                 case 13:
                     message.enumToString = reader.bool();
                     break;
@@ -25060,6 +25201,43 @@
                     break;
                 case 16:
                     message.fixedCount = reader.bool();
+                    break;
+                case 22:
+                    message.submsgCallback = reader.bool();
+                    break;
+                case 17:
+                    message.mangleNames = reader.int32();
+                    break;
+                case 18:
+                    message.callbackDatatype = reader.string();
+                    break;
+                case 19:
+                    message.callbackFunction = reader.string();
+                    break;
+                case 20:
+                    message.descriptorsize = reader.int32();
+                    break;
+                case 23:
+                    message.defaultHas = reader.bool();
+                    break;
+                case 24:
+                    if (!(message.include && message.include.length))
+                        message.include = [];
+                    message.include.push(reader.string());
+                    break;
+                case 26:
+                    if (!(message.exclude && message.exclude.length))
+                        message.exclude = [];
+                    message.exclude.push(reader.string());
+                    break;
+                case 25:
+                    message["package"] = reader.string();
+                    break;
+                case 27:
+                    message.typeOverride = reader.int32();
+                    break;
+                case 28:
+                    message.sortByTag = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -25111,6 +25289,44 @@
         values[valuesById[16] = "IS_16"] = 16;
         values[valuesById[32] = "IS_32"] = 32;
         values[valuesById[64] = "IS_64"] = 64;
+        return values;
+    })();
+    
+    /**
+     * TypenameMangling enum.
+     * @exports TypenameMangling
+     * @enum {number}
+     * @property {number} M_NONE=0 M_NONE value
+     * @property {number} M_STRIP_PACKAGE=1 M_STRIP_PACKAGE value
+     * @property {number} M_FLATTEN=2 M_FLATTEN value
+     * @property {number} M_PACKAGE_INITIALS=3 M_PACKAGE_INITIALS value
+     */
+    $root.TypenameMangling = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "M_NONE"] = 0;
+        values[valuesById[1] = "M_STRIP_PACKAGE"] = 1;
+        values[valuesById[2] = "M_FLATTEN"] = 2;
+        values[valuesById[3] = "M_PACKAGE_INITIALS"] = 3;
+        return values;
+    })();
+    
+    /**
+     * DescriptorSize enum.
+     * @exports DescriptorSize
+     * @enum {number}
+     * @property {number} DS_AUTO=0 DS_AUTO value
+     * @property {number} DS_1=1 DS_1 value
+     * @property {number} DS_2=2 DS_2 value
+     * @property {number} DS_4=4 DS_4 value
+     * @property {number} DS_8=8 DS_8 value
+     */
+    $root.DescriptorSize = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "DS_AUTO"] = 0;
+        values[valuesById[1] = "DS_1"] = 1;
+        values[valuesById[2] = "DS_2"] = 2;
+        values[valuesById[4] = "DS_4"] = 4;
+        values[valuesById[8] = "DS_8"] = 8;
         return values;
     })();
 

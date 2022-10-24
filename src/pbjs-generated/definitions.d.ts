@@ -11,6 +11,8 @@ export namespace particle {
             /**
              * SIM card types.
              *
+             * The Boron 2G/3G and Boron LTE can use either the built-in MFF2 embedded Particle SIM card or an external nano SIM card in the SIM card connector.
+             *
              * Note: The values of this enum should match the values defined by the `SimType` enum in the firmware.
              */
             enum SimType {
@@ -35,7 +37,7 @@ export namespace particle {
                 useDefaults?: (boolean|null);
             }
 
-            /** Access point settings. */
+            /** Access point settings for 3rd party SIM credentials for the Cellular network. */
             class AccessPoint implements IAccessPoint {
 
                 /**
@@ -11773,6 +11775,9 @@ export interface INanoPBOptions {
     /** NanoPBOptions proto3 */
     proto3?: (boolean|null);
 
+    /** NanoPBOptions proto3SingularMsgs */
+    proto3SingularMsgs?: (boolean|null);
+
     /** NanoPBOptions enumToString */
     enumToString?: (boolean|null);
 
@@ -11781,6 +11786,39 @@ export interface INanoPBOptions {
 
     /** NanoPBOptions fixedCount */
     fixedCount?: (boolean|null);
+
+    /** NanoPBOptions submsgCallback */
+    submsgCallback?: (boolean|null);
+
+    /** NanoPBOptions mangleNames */
+    mangleNames?: (TypenameMangling|null);
+
+    /** NanoPBOptions callbackDatatype */
+    callbackDatatype?: (string|null);
+
+    /** NanoPBOptions callbackFunction */
+    callbackFunction?: (string|null);
+
+    /** NanoPBOptions descriptorsize */
+    descriptorsize?: (DescriptorSize|null);
+
+    /** NanoPBOptions defaultHas */
+    defaultHas?: (boolean|null);
+
+    /** NanoPBOptions include */
+    include?: (string[]|null);
+
+    /** NanoPBOptions exclude */
+    exclude?: (string[]|null);
+
+    /** NanoPBOptions package */
+    "package"?: (string|null);
+
+    /** NanoPBOptions typeOverride */
+    typeOverride?: (google.protobuf.FieldDescriptorProto.Type|null);
+
+    /** NanoPBOptions sortByTag */
+    sortByTag?: (boolean|null);
 }
 
 /** Represents a NanoPBOptions. */
@@ -11831,6 +11869,9 @@ export class NanoPBOptions implements INanoPBOptions {
     /** NanoPBOptions proto3. */
     public proto3: boolean;
 
+    /** NanoPBOptions proto3SingularMsgs. */
+    public proto3SingularMsgs: boolean;
+
     /** NanoPBOptions enumToString. */
     public enumToString: boolean;
 
@@ -11839,6 +11880,39 @@ export class NanoPBOptions implements INanoPBOptions {
 
     /** NanoPBOptions fixedCount. */
     public fixedCount: boolean;
+
+    /** NanoPBOptions submsgCallback. */
+    public submsgCallback: boolean;
+
+    /** NanoPBOptions mangleNames. */
+    public mangleNames: TypenameMangling;
+
+    /** NanoPBOptions callbackDatatype. */
+    public callbackDatatype: string;
+
+    /** NanoPBOptions callbackFunction. */
+    public callbackFunction: string;
+
+    /** NanoPBOptions descriptorsize. */
+    public descriptorsize: DescriptorSize;
+
+    /** NanoPBOptions defaultHas. */
+    public defaultHas: boolean;
+
+    /** NanoPBOptions include. */
+    public include: string[];
+
+    /** NanoPBOptions exclude. */
+    public exclude: string[];
+
+    /** NanoPBOptions package. */
+    public package: string;
+
+    /** NanoPBOptions typeOverride. */
+    public typeOverride: google.protobuf.FieldDescriptorProto.Type;
+
+    /** NanoPBOptions sortByTag. */
+    public sortByTag: boolean;
 
     /**
      * Creates a new NanoPBOptions instance using the specified properties.
@@ -11883,4 +11957,21 @@ export enum IntSize {
     IS_16 = 16,
     IS_32 = 32,
     IS_64 = 64
+}
+
+/** TypenameMangling enum. */
+export enum TypenameMangling {
+    M_NONE = 0,
+    M_STRIP_PACKAGE = 1,
+    M_FLATTEN = 2,
+    M_PACKAGE_INITIALS = 3
+}
+
+/** DescriptorSize enum. */
+export enum DescriptorSize {
+    DS_AUTO = 0,
+    DS_1 = 1,
+    DS_2 = 2,
+    DS_4 = 4,
+    DS_8 = 8
 }
