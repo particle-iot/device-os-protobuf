@@ -82,6 +82,7 @@ enum AuthenticationProtocol {
   AUTH_CHAP = 3;
   AUTH_MSCHAP = 4;
   AUTH_MSCHAPV2 = 5;
+  AUTH_AUTO = 100;
 }
 
 /**
@@ -128,7 +129,7 @@ message EapCredentialsPeap {
  * RFC 2716
  */
 message EapCredentialsTls {
-  string identity = 1;
+  string identity = 1; /* optional */
   string user_certificate = 2;
   string private_key = 3;
   string private_key_password = 4; /* optional */
@@ -142,8 +143,7 @@ message EapCredentialsTls {
  */
 message EapCredentialsTtls {
   string identity = 1; /* This is the outer tunnel identity, optional */
-  string domain = 2; /* optional */
-  string ca_certificate = 3; /* optional */
+  string ca_certificate = 2; /* optional */
 }
 
 /**
@@ -152,9 +152,15 @@ message EapCredentialsTtls {
  * draft-cam-winget-eap-fast-00.txt
  */
 message EapCredentialsFast {
-  string identity = 1; /* optional */
   /* Protected Access Credential */
-  bytes pac = 2; /* optional */
+  string identity = 1;
+  bytes pac = 2; /* normally provisioned by peer */
+  enum ProvisioningFlags {
+    DISABLED = 0;
+    ANONYMOUS = 0x01;
+    AUTHENTICATED = 0x02;
+  }
+  uint32 provisioning_flags = 3;
 }
 
 /**
