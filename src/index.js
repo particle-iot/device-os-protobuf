@@ -177,5 +177,6 @@ DeviceOSProtobuf._pbjsJSON = require('./pbjs-generated/definitions.json');
  * (which is keyed by protobuf message name)
  */
 DeviceOSProtobuf.definitions = pbjsGeneratedProtobufCode.particle.ctrl;
+DeviceOSProtobuf.cloudDefinitions = pbjsGeneratedProtobufCode.particle.cloud;
 
 module.exports = DeviceOSProtobuf;
