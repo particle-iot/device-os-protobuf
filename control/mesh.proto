@@ -2,7 +2,7 @@ syntax = "proto3";
 package particle.ctrl.mesh;
 
 import "control/extensions.proto";
-import "control/common.proto"
+import "control/common.proto";
 
 option java_package = "io.particle.firmwareprotos.ctrl.mesh";
 
