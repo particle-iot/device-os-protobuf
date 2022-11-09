@@ -2,23 +2,6 @@ syntax = "proto3";
 
 package particle.cloud;
 
-import "extensions.proto";
-import "common.proto";
-
-/**
- * Digital signature types.
- */
-enum SignatureType {
-  /**
-   * Invalid signature type.
-   */
-  SIGNATURE_TYPE_INVALID = 0;
-  /**
-   * NIST P-256 elliptic curve with SHA-256 hash.
-   */
-  SIGNATURE_TYPE_ECDSA_P256_SHA256 = 1;
-}
-
 /**
  * A request sent to the device to notify it that it must disconnect from the current server and
  * use another server for further connections to the Cloud.
@@ -43,14 +26,6 @@ message ServerMovedPermanentlyRequest {
    * The signature of the server details.
    */
   bytes sign = 4;
-  /**
-   * The algorithm used to sign the server details.
-   */
-  SignatureType sign_type = 5;
-  /**
-   * The version of the key pair used to sign the server details.
-   */
-  uint32 sign_version = 6;
 }
 
 /**
