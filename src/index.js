@@ -173,10 +173,12 @@ class DeviceOSProtobuf {
 DeviceOSProtobuf._pbjsJSON = require('./pbjs-generated/definitions.json');
 
 /**
- * All of the interesting auto-generated Javascript objects from `control/*.proto` files live in this definitions object
+ * All of the interesting auto-generated Javascript objects from `*.proto` files live in this definitions object
  * (which is keyed by protobuf message name)
  */
+DeviceOSProtobuf.schema = pbjsGeneratedProtobufCode.particle;
+
+// These definitions are specific to control requests and are exposed for backward compatibility
 DeviceOSProtobuf.definitions = pbjsGeneratedProtobufCode.particle.ctrl;
-DeviceOSProtobuf.cloudDefinitions = pbjsGeneratedProtobufCode.particle.cloud;
 
 module.exports = DeviceOSProtobuf;
