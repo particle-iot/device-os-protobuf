@@ -17,7 +17,7 @@
     "prepublish": "npm run build",
     "test": "mocha './src/**/*.test.js' --color",
     "test:ci": "npm run lint && npm run test && npm run coverage",
-    "coverage": "nyc --check-coverage mocha --forbid-only \"src/**/*.test.js\" --exclude src/pbjs-generated/*.js",
+    "coverage": "nyc --check-coverage --exclude src/pbjs-generated/*.js --exclude 'src/**/*.test.js' -- mocha --forbid-only 'src/**/*.test.js'",
     "lint": "eslint . --ext .js --ignore-path .gitignore --ignore-pattern src/pbjs-generated/*.js",
     "lint:fix": "npm run lint -- --fix"
   },
