@@ -3,8 +3,7 @@ syntax = "proto3";
 package particle.ctrl.wifi;
 option java_package = "io.particle.firmwareprotos.ctrl.wifi";
 
-import "extensions.proto";
-import "common.proto";
+import "control/extensions.proto";
 
 /**
  * WiFi security types.
