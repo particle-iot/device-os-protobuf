@@ -3,8 +3,7 @@ syntax = "proto3";
 package particle.ctrl.cellular;
 option java_package = "io.particle.firmwareprotos.ctrl.cellular";
 
-import "extensions.proto";
-import "common.proto";
+import "control/extensions.proto";
 
 /**
  * SIM card types.

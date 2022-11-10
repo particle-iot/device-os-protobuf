@@ -81,6 +81,7 @@ declare class DeviceOSProtobuf {
 }
 declare namespace DeviceOSProtobuf {
     const _pbjsJSON: any;
+    const schema: typeof pbjsGeneratedProtobufCode.particle;
     const definitions: typeof pbjsGeneratedProtobufCode.particle.ctrl;
 }
 import pbjsGeneratedProtobufCode = require("./pbjs-generated/definitions");

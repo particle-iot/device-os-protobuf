@@ -6,7 +6,7 @@
   "types": "src/index.d.ts",
   "scripts": {
     "build": "npm run build:pbjs:module && npm run build:pbjs:json && npm run build:types && npm run build:docs",
-    "build:pbjs:module": "pbjs control/*.proto -t static-module -o src/pbjs-generated/definitions.js --no-delimited --no-convert --no-verify",
+    "build:pbjs:module": "pbjs control/*.proto cloud/*.proto -p nanopb -t static-module -o src/pbjs-generated/definitions.js --no-delimited --no-convert --no-verify",
     "build:pbjs:ts": "pbts src/pbjs-generated/definitions.js -o src/pbjs-generated/definitions.d.ts",
     "build:pbjs:json": "pbjs control/*.proto -t json -o src/pbjs-generated/definitions.json --no-delimited --no-convert --no-verify",
     "build:types": "npm run clean:types && npm run build:pbjs:ts && tsc --project ./tsconfig.json",
@@ -17,7 +17,7 @@
     "prepublish": "npm run build",
     "test": "mocha './src/**/*.test.js' --color",
     "test:ci": "npm run lint && npm run test && npm run coverage",
-    "coverage": "nyc --check-coverage mocha --forbid-only \"src/**/*.test.js\" --exclude src/pbjs-generated/*.js",
+    "coverage": "nyc --check-coverage --exclude src/pbjs-generated/*.js --exclude 'src/**/*.test.js' -- mocha --forbid-only 'src/**/*.test.js'",
     "lint": "eslint . --ext .js --ignore-path .gitignore --ignore-pattern src/pbjs-generated/*.js",
     "lint:fix": "npm run lint -- --fix"
   },

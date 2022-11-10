@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/descriptor.proto";
+import public "nanopb.proto";
 
 option java_package = "io.particle.firmwareprotos.ctrl";
 

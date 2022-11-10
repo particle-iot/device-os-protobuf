@@ -203,10 +203,13 @@ describe('deviceOSProtobuf', () => {
 
 	describe('getDefinitions()', () => {
 		it('provides getDefinitions()', () => {
-			const definitions = DeviceOSProtobuf.getDefinitions();
-			expect(definitions).to.be.an('Array');
+			let defs = DeviceOSProtobuf.getDefinitions();
+			expect(defs).to.be.an('Array');
+			const defCount = defs.length;
+			defs = new Set(defs);
+			expect(defs.size).to.equal(defCount); // No duplicates
 
-			expect(definitions).to.have.members([
+			const expectedDefs = new Set([
 				'cellular.SimType',
 				'cellular.AccessPoint',
 				'cellular.SetAccessPointRequest',
@@ -408,6 +411,22 @@ describe('deviceOSProtobuf', () => {
 				'GetModuleInfoRequest',
 				'GetModuleInfoReply'
 			]);
+
+			const missingDefs = [];
+			for (const d of expectedDefs) {
+				if (!defs.has(d)) {
+					missingDefs.push(d);
+				}
+			}
+			expect(missingDefs).to.have.members([]);
+
+			const extraDefs = [];
+			for (const d of defs) {
+				if (!expectedDefs.has(d)) {
+					extraDefs.push(d);
+				}
+			}
+			expect(extraDefs).to.have.members([]);
 		});
 	});
 

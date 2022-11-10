@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package particle.cloud;
+
+/**
+ * A request sent to the device to notify it that it must disconnect from the current server and
+ * use another server for further connections to the Cloud.
+ */
+message ServerMovedPermanentlyRequest {
+  /**
+   * The address of the new server.
+   *
+   * The address can be a domain name or IP address. A domain name may contain placeholder arguments
+   * such as `$id`.
+   */
+  string server_addr = 1;
+  /**
+   * The port number of the new server. The default value is 5684.
+   */
+  uint32 server_port = 2;
+  /**
+   * The public key of the new server in DER format.
+   */
+  bytes server_pub_key = 3;
+  /**
+   * The signature of the server details.
+   */
+  bytes sign = 4;
+}
+
+/**
+ * A response for a ServerMovedPermanentlyRequest.
+ */
+message ServerMovedPermanentlyResponse {
+}
