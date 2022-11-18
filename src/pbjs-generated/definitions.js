@@ -24802,7 +24802,7 @@
          * @memberof NanoPBOptions
          * @instance
          */
-        NanoPBOptions.prototype.proto3SingularMsgs = false;
+        NanoPBOptions.prototype.proto3SingularMsgs = true;
     
         /**
          * NanoPBOptions enumToString.
