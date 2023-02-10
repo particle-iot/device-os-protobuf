@@ -4,6 +4,7 @@ package particle.ctrl.wifi;
 option java_package = "io.particle.firmwareprotos.ctrl.wifi";
 
 import "control/extensions.proto";
+import "control/network.proto";
 
 /**
  * WiFi security types.
@@ -49,6 +50,7 @@ message JoinNewNetworkRequest {
   bytes bssid = 2 [(nanopb).max_size = 6]; // Network address
   Security security = 3; // Network security
   Credentials credentials = 4; // Network credentials
+  Interface interface_config = 5; // Network interface configuration (IP, mask, DNS etc)
 }
 
 message JoinNewNetworkReply {
