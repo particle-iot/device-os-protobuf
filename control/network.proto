@@ -31,7 +31,7 @@ message Ipv4Config {
   // On P2P links
   Ipv4Address peer = 2;
   // Temporary, will be moved to routing table
-  Ipv4Address gateway = 3;
+  Ipv4Address gateway = 3 [(nanopb).proto3 = false];
 
   repeated Ipv4Address dns = 4;
   InterfaceConfigurationSource source = 5;
@@ -42,7 +42,7 @@ message Ipv6Config {
   repeated Ipv6Address dns = 2;
   InterfaceConfigurationSource source = 3;
   // Temporary, will be moved to routing table
-  Ipv6Address gateway = 4;
+  Ipv6Address gateway = 4 [(nanopb).proto3 = false];
 }
 
 // Direct mapping to if_flags_t
