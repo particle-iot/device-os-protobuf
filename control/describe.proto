@@ -44,6 +44,11 @@ message FirmwareModuleDependency {
   uint32 version = 3; ///< Module version
 }
 
+message FirmwareModuleAsset {
+  bytes hash = 1; ///< SHA-256 hash
+  string name = 2; ///< Asset name
+}
+
 /**
  * Firmware module info.
  */
@@ -57,6 +62,7 @@ message FirmwareModule {
   fixed32 passed_flags = 7; ///< Passed validation checks (see FirmwareModuleValidityFlag)
   bytes hash = 8; ///< SHA-256 hash
   repeated FirmwareModuleDependency dependencies = 9; ///< Module dependencies
+  repeated FirmwareModuleAsset asset_dependencies = 10; ///< Asset dependencies
 }
 
 /**
@@ -67,4 +73,5 @@ message SystemDescribe {
   string imei = 2; ///< IMEI (cellular platforms only)
   string iccid = 3; ///< ICCID (cellular platforms only)
   string modem_firmware_version = 4; ///< Modem firmware version (cellular platforms only)
+  repeated FirmwareModuleAsset assets = 5; ///< List of valid assets currently present in device storage
 }
