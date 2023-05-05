@@ -6477,6 +6477,15 @@ export namespace particle {
             public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkConfiguration;
         }
 
+        /** InterfaceConfigurationSource enum. */
+        enum InterfaceConfigurationSource {
+            NONE = 0,
+            DHCP = 1,
+            STATIC = 2,
+            SLAAC = 3,
+            DHCPV6 = 4
+        }
+
         /** Properties of an InterfaceAddress. */
         interface IInterfaceAddress {
 
@@ -6539,6 +6548,12 @@ export namespace particle {
 
             /** Ipv4Config gateway */
             gateway?: (particle.ctrl.IIpv4Address|null);
+
+            /** Ipv4Config dns */
+            dns?: (particle.ctrl.IIpv4Address[]|null);
+
+            /** Ipv4Config source */
+            source?: (particle.ctrl.InterfaceConfigurationSource|null);
         }
 
         /** Represents an Ipv4Config. */
@@ -6558,6 +6573,12 @@ export namespace particle {
 
             /** Ipv4Config gateway. */
             public gateway?: (particle.ctrl.IIpv4Address|null);
+
+            /** Ipv4Config dns. */
+            public dns: particle.ctrl.IIpv4Address[];
+
+            /** Ipv4Config source. */
+            public source: particle.ctrl.InterfaceConfigurationSource;
 
             /**
              * Creates a new Ipv4Config instance using the specified properties.
@@ -6590,6 +6611,15 @@ export namespace particle {
 
             /** Ipv6Config addresses */
             addresses?: (particle.ctrl.IInterfaceAddress[]|null);
+
+            /** Ipv6Config dns */
+            dns?: (particle.ctrl.IIpv6Address[]|null);
+
+            /** Ipv6Config source */
+            source?: (particle.ctrl.InterfaceConfigurationSource|null);
+
+            /** Ipv6Config gateway */
+            gateway?: (particle.ctrl.IIpv6Address|null);
         }
 
         /** Represents an Ipv6Config. */
@@ -6603,6 +6633,15 @@ export namespace particle {
 
             /** Ipv6Config addresses. */
             public addresses: particle.ctrl.IInterfaceAddress[];
+
+            /** Ipv6Config dns. */
+            public dns: particle.ctrl.IIpv6Address[];
+
+            /** Ipv6Config source. */
+            public source: particle.ctrl.InterfaceConfigurationSource;
+
+            /** Ipv6Config gateway. */
+            public gateway?: (particle.ctrl.IIpv6Address|null);
 
             /**
              * Creates a new Ipv6Config instance using the specified properties.
@@ -6699,6 +6738,9 @@ export namespace particle {
 
             /** Interface metric */
             metric?: (number|null);
+
+            /** Interface profile */
+            profile?: (Uint8Array|null);
         }
 
         /** Represents an Interface. */
@@ -6739,6 +6781,9 @@ export namespace particle {
 
             /** Interface metric. */
             public metric: number;
+
+            /** Interface profile. */
+            public profile: Uint8Array;
 
             /**
              * Creates a new Interface instance using the specified properties.
@@ -6995,6 +7040,270 @@ export namespace particle {
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
             public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.GetInterfaceReply;
+        }
+
+        /** Properties of a GetInterfaceStoredConfigurationRequest. */
+        interface IGetInterfaceStoredConfigurationRequest {
+
+            /** GetInterfaceStoredConfigurationRequest index */
+            index?: (number|null);
+        }
+
+        /** Represents a GetInterfaceStoredConfigurationRequest. */
+        class GetInterfaceStoredConfigurationRequest implements IGetInterfaceStoredConfigurationRequest {
+
+            /**
+             * Constructs a new GetInterfaceStoredConfigurationRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IGetInterfaceStoredConfigurationRequest);
+
+            /** GetInterfaceStoredConfigurationRequest index. */
+            public index: number;
+
+            /**
+             * Creates a new GetInterfaceStoredConfigurationRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns GetInterfaceStoredConfigurationRequest instance
+             */
+            public static create(properties?: particle.ctrl.IGetInterfaceStoredConfigurationRequest): particle.ctrl.GetInterfaceStoredConfigurationRequest;
+
+            /**
+             * Encodes the specified GetInterfaceStoredConfigurationRequest message. Does not implicitly {@link particle.ctrl.GetInterfaceStoredConfigurationRequest.verify|verify} messages.
+             * @param message GetInterfaceStoredConfigurationRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IGetInterfaceStoredConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a GetInterfaceStoredConfigurationRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns GetInterfaceStoredConfigurationRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.GetInterfaceStoredConfigurationRequest;
+        }
+
+        /** Properties of a GetInterfaceStoredConfigurationReply. */
+        interface IGetInterfaceStoredConfigurationReply {
+
+            /** GetInterfaceStoredConfigurationReply config */
+            config?: (particle.ctrl.IInterface[]|null);
+        }
+
+        /** Represents a GetInterfaceStoredConfigurationReply. */
+        class GetInterfaceStoredConfigurationReply implements IGetInterfaceStoredConfigurationReply {
+
+            /**
+             * Constructs a new GetInterfaceStoredConfigurationReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IGetInterfaceStoredConfigurationReply);
+
+            /** GetInterfaceStoredConfigurationReply config. */
+            public config: particle.ctrl.IInterface[];
+
+            /**
+             * Creates a new GetInterfaceStoredConfigurationReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns GetInterfaceStoredConfigurationReply instance
+             */
+            public static create(properties?: particle.ctrl.IGetInterfaceStoredConfigurationReply): particle.ctrl.GetInterfaceStoredConfigurationReply;
+
+            /**
+             * Encodes the specified GetInterfaceStoredConfigurationReply message. Does not implicitly {@link particle.ctrl.GetInterfaceStoredConfigurationReply.verify|verify} messages.
+             * @param message GetInterfaceStoredConfigurationReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IGetInterfaceStoredConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a GetInterfaceStoredConfigurationReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns GetInterfaceStoredConfigurationReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.GetInterfaceStoredConfigurationReply;
+        }
+
+        /** Properties of a SetInterfaceStoredConfigurationRequest. */
+        interface ISetInterfaceStoredConfigurationRequest {
+
+            /** SetInterfaceStoredConfigurationRequest config */
+            config?: (particle.ctrl.IInterface|null);
+        }
+
+        /** Represents a SetInterfaceStoredConfigurationRequest. */
+        class SetInterfaceStoredConfigurationRequest implements ISetInterfaceStoredConfigurationRequest {
+
+            /**
+             * Constructs a new SetInterfaceStoredConfigurationRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.ISetInterfaceStoredConfigurationRequest);
+
+            /** SetInterfaceStoredConfigurationRequest config. */
+            public config?: (particle.ctrl.IInterface|null);
+
+            /**
+             * Creates a new SetInterfaceStoredConfigurationRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns SetInterfaceStoredConfigurationRequest instance
+             */
+            public static create(properties?: particle.ctrl.ISetInterfaceStoredConfigurationRequest): particle.ctrl.SetInterfaceStoredConfigurationRequest;
+
+            /**
+             * Encodes the specified SetInterfaceStoredConfigurationRequest message. Does not implicitly {@link particle.ctrl.SetInterfaceStoredConfigurationRequest.verify|verify} messages.
+             * @param message SetInterfaceStoredConfigurationRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.ISetInterfaceStoredConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a SetInterfaceStoredConfigurationRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns SetInterfaceStoredConfigurationRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.SetInterfaceStoredConfigurationRequest;
+        }
+
+        /** Properties of a SetInterfaceStoredConfigurationReply. */
+        interface ISetInterfaceStoredConfigurationReply {
+        }
+
+        /** Represents a SetInterfaceStoredConfigurationReply. */
+        class SetInterfaceStoredConfigurationReply implements ISetInterfaceStoredConfigurationReply {
+
+            /**
+             * Constructs a new SetInterfaceStoredConfigurationReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.ISetInterfaceStoredConfigurationReply);
+
+            /**
+             * Creates a new SetInterfaceStoredConfigurationReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns SetInterfaceStoredConfigurationReply instance
+             */
+            public static create(properties?: particle.ctrl.ISetInterfaceStoredConfigurationReply): particle.ctrl.SetInterfaceStoredConfigurationReply;
+
+            /**
+             * Encodes the specified SetInterfaceStoredConfigurationReply message. Does not implicitly {@link particle.ctrl.SetInterfaceStoredConfigurationReply.verify|verify} messages.
+             * @param message SetInterfaceStoredConfigurationReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.ISetInterfaceStoredConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a SetInterfaceStoredConfigurationReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns SetInterfaceStoredConfigurationReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.SetInterfaceStoredConfigurationReply;
+        }
+
+        /** Properties of a DeleteInterfaceStoredConfigurationRequest. */
+        interface IDeleteInterfaceStoredConfigurationRequest {
+
+            /** DeleteInterfaceStoredConfigurationRequest index */
+            index?: (number|null);
+
+            /** DeleteInterfaceStoredConfigurationRequest profile */
+            profile?: (Uint8Array|null);
+        }
+
+        /** Represents a DeleteInterfaceStoredConfigurationRequest. */
+        class DeleteInterfaceStoredConfigurationRequest implements IDeleteInterfaceStoredConfigurationRequest {
+
+            /**
+             * Constructs a new DeleteInterfaceStoredConfigurationRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IDeleteInterfaceStoredConfigurationRequest);
+
+            /** DeleteInterfaceStoredConfigurationRequest index. */
+            public index: number;
+
+            /** DeleteInterfaceStoredConfigurationRequest profile. */
+            public profile: Uint8Array;
+
+            /**
+             * Creates a new DeleteInterfaceStoredConfigurationRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns DeleteInterfaceStoredConfigurationRequest instance
+             */
+            public static create(properties?: particle.ctrl.IDeleteInterfaceStoredConfigurationRequest): particle.ctrl.DeleteInterfaceStoredConfigurationRequest;
+
+            /**
+             * Encodes the specified DeleteInterfaceStoredConfigurationRequest message. Does not implicitly {@link particle.ctrl.DeleteInterfaceStoredConfigurationRequest.verify|verify} messages.
+             * @param message DeleteInterfaceStoredConfigurationRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IDeleteInterfaceStoredConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a DeleteInterfaceStoredConfigurationRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns DeleteInterfaceStoredConfigurationRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.DeleteInterfaceStoredConfigurationRequest;
+        }
+
+        /** Properties of a DeleteInterfaceStoredConfigurationReply. */
+        interface IDeleteInterfaceStoredConfigurationReply {
+        }
+
+        /** Represents a DeleteInterfaceStoredConfigurationReply. */
+        class DeleteInterfaceStoredConfigurationReply implements IDeleteInterfaceStoredConfigurationReply {
+
+            /**
+             * Constructs a new DeleteInterfaceStoredConfigurationReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IDeleteInterfaceStoredConfigurationReply);
+
+            /**
+             * Creates a new DeleteInterfaceStoredConfigurationReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns DeleteInterfaceStoredConfigurationReply instance
+             */
+            public static create(properties?: particle.ctrl.IDeleteInterfaceStoredConfigurationReply): particle.ctrl.DeleteInterfaceStoredConfigurationReply;
+
+            /**
+             * Encodes the specified DeleteInterfaceStoredConfigurationReply message. Does not implicitly {@link particle.ctrl.DeleteInterfaceStoredConfigurationReply.verify|verify} messages.
+             * @param message DeleteInterfaceStoredConfigurationReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IDeleteInterfaceStoredConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a DeleteInterfaceStoredConfigurationReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns DeleteInterfaceStoredConfigurationReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.DeleteInterfaceStoredConfigurationReply;
         }
 
         /** StorageType enum. */
@@ -8358,6 +8667,9 @@ export namespace particle {
 
                 /** JoinNewNetworkRequest credentials */
                 credentials?: (particle.ctrl.wifi.ICredentials|null);
+
+                /** JoinNewNetworkRequest interfaceConfig */
+                interfaceConfig?: (particle.ctrl.IInterface|null);
             }
 
             /**
@@ -8384,6 +8696,9 @@ export namespace particle {
 
                 /** JoinNewNetworkRequest credentials. */
                 public credentials?: (particle.ctrl.wifi.ICredentials|null);
+
+                /** JoinNewNetworkRequest interfaceConfig. */
+                public interfaceConfig?: (particle.ctrl.IInterface|null);
 
                 /**
                  * Creates a new JoinNewNetworkRequest instance using the specified properties.
@@ -9806,6 +10121,309 @@ export namespace particle {
 
     /** Namespace cloud. */
     namespace cloud {
+
+        /** Firmware module types. */
+        enum FirmwareModuleType {
+            INVALID_MODULE = 0,
+            BOOTLOADER_MODULE = 1,
+            MONO_FIRMWARE_MODULE = 2,
+            SYSTEM_PART_MODULE = 3,
+            USER_PART_MODULE = 4,
+            NCP_FIRMWARE_MODULE = 5,
+            RADIO_STACK_MODULE = 6
+        }
+
+        /** Firmware module store. */
+        enum FirmwareModuleStore {
+            INVALID_MODULE_STORE = 0,
+            MAIN_MODULE_STORE = 1,
+            FACTORY_MODULE_STORE = 2
+        }
+
+        /** Firmware module validation flags. */
+        enum FirmwareModuleValidityFlag {
+            MODULE_NO_VALID_FLAGS = 0,
+            MODULE_INTEGRITY_VALID_FLAG = 2,
+            MODULE_DEPENDENCIES_VALID_FLAG = 4,
+            MODULE_RANGE_VALID_FLAG = 8,
+            MODULE_PLATFORM_VALID_FLAG = 16
+        }
+
+        /** Properties of a FirmwareModuleDependency. */
+        interface IFirmwareModuleDependency {
+
+            /** < Module type */
+            type?: (particle.cloud.FirmwareModuleType|null);
+
+            /** < Module index */
+            index?: (number|null);
+
+            /** < Module version */
+            version?: (number|null);
+        }
+
+        /** Firmware module dependency. */
+        class FirmwareModuleDependency implements IFirmwareModuleDependency {
+
+            /**
+             * Constructs a new FirmwareModuleDependency.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IFirmwareModuleDependency);
+
+            /** < Module type */
+            public type: particle.cloud.FirmwareModuleType;
+
+            /** < Module index */
+            public index: number;
+
+            /** < Module version */
+            public version: number;
+
+            /**
+             * Creates a new FirmwareModuleDependency instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns FirmwareModuleDependency instance
+             */
+            public static create(properties?: particle.cloud.IFirmwareModuleDependency): particle.cloud.FirmwareModuleDependency;
+
+            /**
+             * Encodes the specified FirmwareModuleDependency message. Does not implicitly {@link particle.cloud.FirmwareModuleDependency.verify|verify} messages.
+             * @param message FirmwareModuleDependency message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IFirmwareModuleDependency, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a FirmwareModuleDependency message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns FirmwareModuleDependency
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.FirmwareModuleDependency;
+        }
+
+        /** Properties of a FirmwareModuleAsset. */
+        interface IFirmwareModuleAsset {
+
+            /** < SHA-256 hash */
+            hash?: (Uint8Array|null);
+
+            /** < Asset name */
+            name?: (string|null);
+        }
+
+        /** Represents a FirmwareModuleAsset. */
+        class FirmwareModuleAsset implements IFirmwareModuleAsset {
+
+            /**
+             * Constructs a new FirmwareModuleAsset.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IFirmwareModuleAsset);
+
+            /** < SHA-256 hash */
+            public hash: Uint8Array;
+
+            /** < Asset name */
+            public name: string;
+
+            /**
+             * Creates a new FirmwareModuleAsset instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns FirmwareModuleAsset instance
+             */
+            public static create(properties?: particle.cloud.IFirmwareModuleAsset): particle.cloud.FirmwareModuleAsset;
+
+            /**
+             * Encodes the specified FirmwareModuleAsset message. Does not implicitly {@link particle.cloud.FirmwareModuleAsset.verify|verify} messages.
+             * @param message FirmwareModuleAsset message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IFirmwareModuleAsset, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a FirmwareModuleAsset message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns FirmwareModuleAsset
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.FirmwareModuleAsset;
+        }
+
+        /** Properties of a FirmwareModule. */
+        interface IFirmwareModule {
+
+            /** < Module type */
+            type?: (particle.cloud.FirmwareModuleType|null);
+
+            /** < Module index */
+            index?: (number|null);
+
+            /** < Module version */
+            version?: (number|null);
+
+            /** < Module store */
+            store?: (particle.cloud.FirmwareModuleStore|null);
+
+            /** < Maximum module size */
+            maxSize?: (number|null);
+
+            /** < Performed validation checks (see FirmwareModuleValidityFlag) */
+            checkedFlags?: (number|null);
+
+            /** < Passed validation checks (see FirmwareModuleValidityFlag) */
+            passedFlags?: (number|null);
+
+            /** < SHA-256 hash */
+            hash?: (Uint8Array|null);
+
+            /** < Module dependencies */
+            dependencies?: (particle.cloud.IFirmwareModuleDependency[]|null);
+
+            /** < Asset dependencies */
+            assetDependencies?: (particle.cloud.IFirmwareModuleAsset[]|null);
+        }
+
+        /** Firmware module info. */
+        class FirmwareModule implements IFirmwareModule {
+
+            /**
+             * Constructs a new FirmwareModule.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IFirmwareModule);
+
+            /** < Module type */
+            public type: particle.cloud.FirmwareModuleType;
+
+            /** < Module index */
+            public index: number;
+
+            /** < Module version */
+            public version: number;
+
+            /** < Module store */
+            public store: particle.cloud.FirmwareModuleStore;
+
+            /** < Maximum module size */
+            public maxSize: number;
+
+            /** < Performed validation checks (see FirmwareModuleValidityFlag) */
+            public checkedFlags: number;
+
+            /** < Passed validation checks (see FirmwareModuleValidityFlag) */
+            public passedFlags: number;
+
+            /** < SHA-256 hash */
+            public hash: Uint8Array;
+
+            /** < Module dependencies */
+            public dependencies: particle.cloud.IFirmwareModuleDependency[];
+
+            /** < Asset dependencies */
+            public assetDependencies: particle.cloud.IFirmwareModuleAsset[];
+
+            /**
+             * Creates a new FirmwareModule instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns FirmwareModule instance
+             */
+            public static create(properties?: particle.cloud.IFirmwareModule): particle.cloud.FirmwareModule;
+
+            /**
+             * Encodes the specified FirmwareModule message. Does not implicitly {@link particle.cloud.FirmwareModule.verify|verify} messages.
+             * @param message FirmwareModule message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IFirmwareModule, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a FirmwareModule message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns FirmwareModule
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.FirmwareModule;
+        }
+
+        /** Properties of a SystemDescribe. */
+        interface ISystemDescribe {
+
+            /** < Firmware modules */
+            firmwareModules?: (particle.cloud.IFirmwareModule[]|null);
+
+            /** < IMEI (cellular platforms only) */
+            imei?: (string|null);
+
+            /** < ICCID (cellular platforms only) */
+            iccid?: (string|null);
+
+            /** < Modem firmware version (cellular platforms only) */
+            modemFirmwareVersion?: (string|null);
+
+            /** < List of valid assets currently present in device storage */
+            assets?: (particle.cloud.IFirmwareModuleAsset[]|null);
+        }
+
+        /** System describe. */
+        class SystemDescribe implements ISystemDescribe {
+
+            /**
+             * Constructs a new SystemDescribe.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.ISystemDescribe);
+
+            /** < Firmware modules */
+            public firmwareModules: particle.cloud.IFirmwareModule[];
+
+            /** < IMEI (cellular platforms only) */
+            public imei: string;
+
+            /** < ICCID (cellular platforms only) */
+            public iccid: string;
+
+            /** < Modem firmware version (cellular platforms only) */
+            public modemFirmwareVersion: string;
+
+            /** < List of valid assets currently present in device storage */
+            public assets: particle.cloud.IFirmwareModuleAsset[];
+
+            /**
+             * Creates a new SystemDescribe instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns SystemDescribe instance
+             */
+            public static create(properties?: particle.cloud.ISystemDescribe): particle.cloud.SystemDescribe;
+
+            /**
+             * Encodes the specified SystemDescribe message. Does not implicitly {@link particle.cloud.SystemDescribe.verify|verify} messages.
+             * @param message SystemDescribe message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.ISystemDescribe, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a SystemDescribe message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns SystemDescribe
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.SystemDescribe;
+        }
 
         /** Properties of a ServerMovedPermanentlyRequest. */
         interface IServerMovedPermanentlyRequest {

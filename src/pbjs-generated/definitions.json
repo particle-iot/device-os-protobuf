@@ -1666,6 +1666,15 @@
                 }
               }
             },
+            "InterfaceConfigurationSource": {
+              "values": {
+                "NONE": 0,
+                "DHCP": 1,
+                "STATIC": 2,
+                "SLAAC": 3,
+                "DHCPV6": 4
+              }
+            },
             "InterfaceAddress": {
               "fields": {
                 "address": {
@@ -1691,7 +1700,19 @@
                 },
                 "gateway": {
                   "type": "Ipv4Address",
-                  "id": 3
+                  "id": 3,
+                  "options": {
+                    "(nanopb).proto3": false
+                  }
+                },
+                "dns": {
+                  "rule": "repeated",
+                  "type": "Ipv4Address",
+                  "id": 4
+                },
+                "source": {
+                  "type": "InterfaceConfigurationSource",
+                  "id": 5
                 }
               }
             },
@@ -1701,6 +1722,22 @@
                   "rule": "repeated",
                   "type": "InterfaceAddress",
                   "id": 1
+                },
+                "dns": {
+                  "rule": "repeated",
+                  "type": "Ipv6Address",
+                  "id": 2
+                },
+                "source": {
+                  "type": "InterfaceConfigurationSource",
+                  "id": 3
+                },
+                "gateway": {
+                  "type": "Ipv6Address",
+                  "id": 4,
+                  "options": {
+                    "(nanopb).proto3": false
+                  }
                 }
               }
             },
@@ -1788,6 +1825,10 @@
                 "metric": {
                   "type": "uint32",
                   "id": 10
+                },
+                "profile": {
+                  "type": "bytes",
+                  "id": 11
                 }
               }
             },
@@ -1840,6 +1881,58 @@
                   "id": 1
                 }
               }
+            },
+            "GetInterfaceStoredConfigurationRequest": {
+              "options": {
+                "(type_id)": 402
+              },
+              "fields": {
+                "index": {
+                  "type": "uint32",
+                  "id": 1
+                }
+              }
+            },
+            "GetInterfaceStoredConfigurationReply": {
+              "fields": {
+                "config": {
+                  "rule": "repeated",
+                  "type": "Interface",
+                  "id": 1
+                }
+              }
+            },
+            "SetInterfaceStoredConfigurationRequest": {
+              "options": {
+                "(type_id)": 403
+              },
+              "fields": {
+                "config": {
+                  "type": "Interface",
+                  "id": 1
+                }
+              }
+            },
+            "SetInterfaceStoredConfigurationReply": {
+              "fields": {}
+            },
+            "DeleteInterfaceStoredConfigurationRequest": {
+              "options": {
+                "(type_id)": 404
+              },
+              "fields": {
+                "index": {
+                  "type": "uint32",
+                  "id": 1
+                },
+                "profile": {
+                  "type": "bytes",
+                  "id": 2
+                }
+              }
+            },
+            "DeleteInterfaceStoredConfigurationReply": {
+              "fields": {}
             },
             "StorageType": {
               "values": {
@@ -2234,6 +2327,10 @@
                     "credentials": {
                       "type": "Credentials",
                       "id": 4
+                    },
+                    "interfaceConfig": {
+                      "type": "Interface",
+                      "id": 5
                     }
                   }
                 },
@@ -2571,6 +2668,137 @@
                   "rule": "repeated",
                   "type": "WiFiAccessPoint",
                   "id": 1
+                }
+              }
+            }
+          }
+        },
+        "cloud": {
+          "nested": {
+            "FirmwareModuleType": {
+              "values": {
+                "INVALID_MODULE": 0,
+                "BOOTLOADER_MODULE": 1,
+                "MONO_FIRMWARE_MODULE": 2,
+                "SYSTEM_PART_MODULE": 3,
+                "USER_PART_MODULE": 4,
+                "NCP_FIRMWARE_MODULE": 5,
+                "RADIO_STACK_MODULE": 6
+              }
+            },
+            "FirmwareModuleStore": {
+              "values": {
+                "INVALID_MODULE_STORE": 0,
+                "MAIN_MODULE_STORE": 1,
+                "FACTORY_MODULE_STORE": 2
+              }
+            },
+            "FirmwareModuleValidityFlag": {
+              "values": {
+                "MODULE_NO_VALID_FLAGS": 0,
+                "MODULE_INTEGRITY_VALID_FLAG": 2,
+                "MODULE_DEPENDENCIES_VALID_FLAG": 4,
+                "MODULE_RANGE_VALID_FLAG": 8,
+                "MODULE_PLATFORM_VALID_FLAG": 16
+              }
+            },
+            "FirmwareModuleDependency": {
+              "fields": {
+                "type": {
+                  "type": "FirmwareModuleType",
+                  "id": 1
+                },
+                "index": {
+                  "type": "uint32",
+                  "id": 2
+                },
+                "version": {
+                  "type": "uint32",
+                  "id": 3
+                }
+              }
+            },
+            "FirmwareModuleAsset": {
+              "fields": {
+                "hash": {
+                  "type": "bytes",
+                  "id": 1
+                },
+                "name": {
+                  "type": "string",
+                  "id": 2
+                }
+              }
+            },
+            "FirmwareModule": {
+              "fields": {
+                "type": {
+                  "type": "FirmwareModuleType",
+                  "id": 1
+                },
+                "index": {
+                  "type": "uint32",
+                  "id": 2
+                },
+                "version": {
+                  "type": "uint32",
+                  "id": 3
+                },
+                "store": {
+                  "type": "FirmwareModuleStore",
+                  "id": 4
+                },
+                "maxSize": {
+                  "type": "uint32",
+                  "id": 5
+                },
+                "checkedFlags": {
+                  "type": "fixed32",
+                  "id": 6
+                },
+                "passedFlags": {
+                  "type": "fixed32",
+                  "id": 7
+                },
+                "hash": {
+                  "type": "bytes",
+                  "id": 8
+                },
+                "dependencies": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleDependency",
+                  "id": 9
+                },
+                "assetDependencies": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleAsset",
+                  "id": 10
+                }
+              }
+            },
+            "SystemDescribe": {
+              "fields": {
+                "firmwareModules": {
+                  "rule": "repeated",
+                  "type": "FirmwareModule",
+                  "id": 1
+                },
+                "imei": {
+                  "type": "string",
+                  "id": 2
+                },
+                "iccid": {
+                  "type": "string",
+                  "id": 3
+                },
+                "modemFirmwareVersion": {
+                  "type": "string",
+                  "id": 4
+                },
+                "assets": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleAsset",
+                  "id": 5
                 }
               }
             }

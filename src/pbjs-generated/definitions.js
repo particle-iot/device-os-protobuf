@@ -13544,6 +13544,26 @@
                 return NetworkConfiguration;
             })();
     
+            /**
+             * InterfaceConfigurationSource enum.
+             * @name particle.ctrl.InterfaceConfigurationSource
+             * @enum {number}
+             * @property {number} NONE=0 NONE value
+             * @property {number} DHCP=1 DHCP value
+             * @property {number} STATIC=2 STATIC value
+             * @property {number} SLAAC=3 SLAAC value
+             * @property {number} DHCPV6=4 DHCPV6 value
+             */
+            ctrl.InterfaceConfigurationSource = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "NONE"] = 0;
+                values[valuesById[1] = "DHCP"] = 1;
+                values[valuesById[2] = "STATIC"] = 2;
+                values[valuesById[3] = "SLAAC"] = 3;
+                values[valuesById[4] = "DHCPV6"] = 4;
+                return values;
+            })();
+    
             ctrl.InterfaceAddress = (function() {
     
                 /**
@@ -13660,6 +13680,8 @@
                  * @property {Array.<particle.ctrl.IInterfaceAddress>|null} [addresses] Ipv4Config addresses
                  * @property {particle.ctrl.IIpv4Address|null} [peer] Ipv4Config peer
                  * @property {particle.ctrl.IIpv4Address|null} [gateway] Ipv4Config gateway
+                 * @property {Array.<particle.ctrl.IIpv4Address>|null} [dns] Ipv4Config dns
+                 * @property {particle.ctrl.InterfaceConfigurationSource|null} [source] Ipv4Config source
                  */
     
                 /**
@@ -13672,6 +13694,7 @@
                  */
                 function Ipv4Config(properties) {
                     this.addresses = [];
+                    this.dns = [];
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -13701,6 +13724,22 @@
                  * @instance
                  */
                 Ipv4Config.prototype.gateway = null;
+    
+                /**
+                 * Ipv4Config dns.
+                 * @member {Array.<particle.ctrl.IIpv4Address>} dns
+                 * @memberof particle.ctrl.Ipv4Config
+                 * @instance
+                 */
+                Ipv4Config.prototype.dns = $util.emptyArray;
+    
+                /**
+                 * Ipv4Config source.
+                 * @member {particle.ctrl.InterfaceConfigurationSource} source
+                 * @memberof particle.ctrl.Ipv4Config
+                 * @instance
+                 */
+                Ipv4Config.prototype.source = 0;
     
                 /**
                  * Creates a new Ipv4Config instance using the specified properties.
@@ -13733,6 +13772,11 @@
                         $root.particle.ctrl.Ipv4Address.encode(message.peer, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                     if (message.gateway != null && Object.hasOwnProperty.call(message, "gateway"))
                         $root.particle.ctrl.Ipv4Address.encode(message.gateway, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.dns != null && message.dns.length)
+                        for (var i = 0; i < message.dns.length; ++i)
+                            $root.particle.ctrl.Ipv4Address.encode(message.dns[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    if (message.source != null && Object.hasOwnProperty.call(message, "source"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).int32(message.source);
                     return writer;
                 };
     
@@ -13765,6 +13809,14 @@
                         case 3:
                             message.gateway = $root.particle.ctrl.Ipv4Address.decode(reader, reader.uint32());
                             break;
+                        case 4:
+                            if (!(message.dns && message.dns.length))
+                                message.dns = [];
+                            message.dns.push($root.particle.ctrl.Ipv4Address.decode(reader, reader.uint32()));
+                            break;
+                        case 5:
+                            message.source = reader.int32();
+                            break;
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -13783,6 +13835,9 @@
                  * @memberof particle.ctrl
                  * @interface IIpv6Config
                  * @property {Array.<particle.ctrl.IInterfaceAddress>|null} [addresses] Ipv6Config addresses
+                 * @property {Array.<particle.ctrl.IIpv6Address>|null} [dns] Ipv6Config dns
+                 * @property {particle.ctrl.InterfaceConfigurationSource|null} [source] Ipv6Config source
+                 * @property {particle.ctrl.IIpv6Address|null} [gateway] Ipv6Config gateway
                  */
     
                 /**
@@ -13795,6 +13850,7 @@
                  */
                 function Ipv6Config(properties) {
                     this.addresses = [];
+                    this.dns = [];
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -13808,6 +13864,30 @@
                  * @instance
                  */
                 Ipv6Config.prototype.addresses = $util.emptyArray;
+    
+                /**
+                 * Ipv6Config dns.
+                 * @member {Array.<particle.ctrl.IIpv6Address>} dns
+                 * @memberof particle.ctrl.Ipv6Config
+                 * @instance
+                 */
+                Ipv6Config.prototype.dns = $util.emptyArray;
+    
+                /**
+                 * Ipv6Config source.
+                 * @member {particle.ctrl.InterfaceConfigurationSource} source
+                 * @memberof particle.ctrl.Ipv6Config
+                 * @instance
+                 */
+                Ipv6Config.prototype.source = 0;
+    
+                /**
+                 * Ipv6Config gateway.
+                 * @member {particle.ctrl.IIpv6Address|null|undefined} gateway
+                 * @memberof particle.ctrl.Ipv6Config
+                 * @instance
+                 */
+                Ipv6Config.prototype.gateway = null;
     
                 /**
                  * Creates a new Ipv6Config instance using the specified properties.
@@ -13836,6 +13916,13 @@
                     if (message.addresses != null && message.addresses.length)
                         for (var i = 0; i < message.addresses.length; ++i)
                             $root.particle.ctrl.InterfaceAddress.encode(message.addresses[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.dns != null && message.dns.length)
+                        for (var i = 0; i < message.dns.length; ++i)
+                            $root.particle.ctrl.Ipv6Address.encode(message.dns[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.source != null && Object.hasOwnProperty.call(message, "source"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.source);
+                    if (message.gateway != null && Object.hasOwnProperty.call(message, "gateway"))
+                        $root.particle.ctrl.Ipv6Address.encode(message.gateway, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                     return writer;
                 };
     
@@ -13861,6 +13948,17 @@
                             if (!(message.addresses && message.addresses.length))
                                 message.addresses = [];
                             message.addresses.push($root.particle.ctrl.InterfaceAddress.decode(reader, reader.uint32()));
+                            break;
+                        case 2:
+                            if (!(message.dns && message.dns.length))
+                                message.dns = [];
+                            message.dns.push($root.particle.ctrl.Ipv6Address.decode(reader, reader.uint32()));
+                            break;
+                        case 3:
+                            message.source = reader.int32();
+                            break;
+                        case 4:
+                            message.gateway = $root.particle.ctrl.Ipv6Address.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -13969,6 +14067,7 @@
                  * @property {Uint8Array|null} [hwAddress] Interface hwAddress
                  * @property {number|null} [mtu] Interface mtu
                  * @property {number|null} [metric] Interface metric
+                 * @property {Uint8Array|null} [profile] Interface profile
                  */
     
                 /**
@@ -14067,6 +14166,14 @@
                 Interface.prototype.metric = 0;
     
                 /**
+                 * Interface profile.
+                 * @member {Uint8Array} profile
+                 * @memberof particle.ctrl.Interface
+                 * @instance
+                 */
+                Interface.prototype.profile = $util.newBuffer([]);
+    
+                /**
                  * Creates a new Interface instance using the specified properties.
                  * @function create
                  * @memberof particle.ctrl.Interface
@@ -14110,6 +14217,8 @@
                         writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.mtu);
                     if (message.metric != null && Object.hasOwnProperty.call(message, "metric"))
                         writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.metric);
+                    if (message.profile != null && Object.hasOwnProperty.call(message, "profile"))
+                        writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.profile);
                     return writer;
                 };
     
@@ -14160,6 +14269,9 @@
                             break;
                         case 10:
                             message.metric = reader.uint32();
+                            break;
+                        case 11:
+                            message.profile = reader.bytes();
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -14653,6 +14765,554 @@
                 };
     
                 return GetInterfaceReply;
+            })();
+    
+            ctrl.GetInterfaceStoredConfigurationRequest = (function() {
+    
+                /**
+                 * Properties of a GetInterfaceStoredConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @interface IGetInterfaceStoredConfigurationRequest
+                 * @property {number|null} [index] GetInterfaceStoredConfigurationRequest index
+                 */
+    
+                /**
+                 * Constructs a new GetInterfaceStoredConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a GetInterfaceStoredConfigurationRequest.
+                 * @implements IGetInterfaceStoredConfigurationRequest
+                 * @constructor
+                 * @param {particle.ctrl.IGetInterfaceStoredConfigurationRequest=} [properties] Properties to set
+                 */
+                function GetInterfaceStoredConfigurationRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * GetInterfaceStoredConfigurationRequest index.
+                 * @member {number} index
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationRequest
+                 * @instance
+                 */
+                GetInterfaceStoredConfigurationRequest.prototype.index = 0;
+    
+                /**
+                 * Creates a new GetInterfaceStoredConfigurationRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.IGetInterfaceStoredConfigurationRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.GetInterfaceStoredConfigurationRequest} GetInterfaceStoredConfigurationRequest instance
+                 */
+                GetInterfaceStoredConfigurationRequest.create = function create(properties) {
+                    return new GetInterfaceStoredConfigurationRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified GetInterfaceStoredConfigurationRequest message. Does not implicitly {@link particle.ctrl.GetInterfaceStoredConfigurationRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.IGetInterfaceStoredConfigurationRequest} message GetInterfaceStoredConfigurationRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                GetInterfaceStoredConfigurationRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.index != null && Object.hasOwnProperty.call(message, "index"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.index);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a GetInterfaceStoredConfigurationRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.GetInterfaceStoredConfigurationRequest} GetInterfaceStoredConfigurationRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                GetInterfaceStoredConfigurationRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.GetInterfaceStoredConfigurationRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.index = reader.uint32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return GetInterfaceStoredConfigurationRequest;
+            })();
+    
+            ctrl.GetInterfaceStoredConfigurationReply = (function() {
+    
+                /**
+                 * Properties of a GetInterfaceStoredConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @interface IGetInterfaceStoredConfigurationReply
+                 * @property {Array.<particle.ctrl.IInterface>|null} [config] GetInterfaceStoredConfigurationReply config
+                 */
+    
+                /**
+                 * Constructs a new GetInterfaceStoredConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a GetInterfaceStoredConfigurationReply.
+                 * @implements IGetInterfaceStoredConfigurationReply
+                 * @constructor
+                 * @param {particle.ctrl.IGetInterfaceStoredConfigurationReply=} [properties] Properties to set
+                 */
+                function GetInterfaceStoredConfigurationReply(properties) {
+                    this.config = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * GetInterfaceStoredConfigurationReply config.
+                 * @member {Array.<particle.ctrl.IInterface>} config
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationReply
+                 * @instance
+                 */
+                GetInterfaceStoredConfigurationReply.prototype.config = $util.emptyArray;
+    
+                /**
+                 * Creates a new GetInterfaceStoredConfigurationReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.IGetInterfaceStoredConfigurationReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.GetInterfaceStoredConfigurationReply} GetInterfaceStoredConfigurationReply instance
+                 */
+                GetInterfaceStoredConfigurationReply.create = function create(properties) {
+                    return new GetInterfaceStoredConfigurationReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified GetInterfaceStoredConfigurationReply message. Does not implicitly {@link particle.ctrl.GetInterfaceStoredConfigurationReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.IGetInterfaceStoredConfigurationReply} message GetInterfaceStoredConfigurationReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                GetInterfaceStoredConfigurationReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.config != null && message.config.length)
+                        for (var i = 0; i < message.config.length; ++i)
+                            $root.particle.ctrl.Interface.encode(message.config[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a GetInterfaceStoredConfigurationReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.GetInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.GetInterfaceStoredConfigurationReply} GetInterfaceStoredConfigurationReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                GetInterfaceStoredConfigurationReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.GetInterfaceStoredConfigurationReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.config && message.config.length))
+                                message.config = [];
+                            message.config.push($root.particle.ctrl.Interface.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return GetInterfaceStoredConfigurationReply;
+            })();
+    
+            ctrl.SetInterfaceStoredConfigurationRequest = (function() {
+    
+                /**
+                 * Properties of a SetInterfaceStoredConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @interface ISetInterfaceStoredConfigurationRequest
+                 * @property {particle.ctrl.IInterface|null} [config] SetInterfaceStoredConfigurationRequest config
+                 */
+    
+                /**
+                 * Constructs a new SetInterfaceStoredConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a SetInterfaceStoredConfigurationRequest.
+                 * @implements ISetInterfaceStoredConfigurationRequest
+                 * @constructor
+                 * @param {particle.ctrl.ISetInterfaceStoredConfigurationRequest=} [properties] Properties to set
+                 */
+                function SetInterfaceStoredConfigurationRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * SetInterfaceStoredConfigurationRequest config.
+                 * @member {particle.ctrl.IInterface|null|undefined} config
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationRequest
+                 * @instance
+                 */
+                SetInterfaceStoredConfigurationRequest.prototype.config = null;
+    
+                /**
+                 * Creates a new SetInterfaceStoredConfigurationRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.ISetInterfaceStoredConfigurationRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.SetInterfaceStoredConfigurationRequest} SetInterfaceStoredConfigurationRequest instance
+                 */
+                SetInterfaceStoredConfigurationRequest.create = function create(properties) {
+                    return new SetInterfaceStoredConfigurationRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified SetInterfaceStoredConfigurationRequest message. Does not implicitly {@link particle.ctrl.SetInterfaceStoredConfigurationRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.ISetInterfaceStoredConfigurationRequest} message SetInterfaceStoredConfigurationRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SetInterfaceStoredConfigurationRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
+                        $root.particle.ctrl.Interface.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a SetInterfaceStoredConfigurationRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.SetInterfaceStoredConfigurationRequest} SetInterfaceStoredConfigurationRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SetInterfaceStoredConfigurationRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.SetInterfaceStoredConfigurationRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.config = $root.particle.ctrl.Interface.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return SetInterfaceStoredConfigurationRequest;
+            })();
+    
+            ctrl.SetInterfaceStoredConfigurationReply = (function() {
+    
+                /**
+                 * Properties of a SetInterfaceStoredConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @interface ISetInterfaceStoredConfigurationReply
+                 */
+    
+                /**
+                 * Constructs a new SetInterfaceStoredConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a SetInterfaceStoredConfigurationReply.
+                 * @implements ISetInterfaceStoredConfigurationReply
+                 * @constructor
+                 * @param {particle.ctrl.ISetInterfaceStoredConfigurationReply=} [properties] Properties to set
+                 */
+                function SetInterfaceStoredConfigurationReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new SetInterfaceStoredConfigurationReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.ISetInterfaceStoredConfigurationReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.SetInterfaceStoredConfigurationReply} SetInterfaceStoredConfigurationReply instance
+                 */
+                SetInterfaceStoredConfigurationReply.create = function create(properties) {
+                    return new SetInterfaceStoredConfigurationReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified SetInterfaceStoredConfigurationReply message. Does not implicitly {@link particle.ctrl.SetInterfaceStoredConfigurationReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.ISetInterfaceStoredConfigurationReply} message SetInterfaceStoredConfigurationReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SetInterfaceStoredConfigurationReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a SetInterfaceStoredConfigurationReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.SetInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.SetInterfaceStoredConfigurationReply} SetInterfaceStoredConfigurationReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SetInterfaceStoredConfigurationReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.SetInterfaceStoredConfigurationReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return SetInterfaceStoredConfigurationReply;
+            })();
+    
+            ctrl.DeleteInterfaceStoredConfigurationRequest = (function() {
+    
+                /**
+                 * Properties of a DeleteInterfaceStoredConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @interface IDeleteInterfaceStoredConfigurationRequest
+                 * @property {number|null} [index] DeleteInterfaceStoredConfigurationRequest index
+                 * @property {Uint8Array|null} [profile] DeleteInterfaceStoredConfigurationRequest profile
+                 */
+    
+                /**
+                 * Constructs a new DeleteInterfaceStoredConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a DeleteInterfaceStoredConfigurationRequest.
+                 * @implements IDeleteInterfaceStoredConfigurationRequest
+                 * @constructor
+                 * @param {particle.ctrl.IDeleteInterfaceStoredConfigurationRequest=} [properties] Properties to set
+                 */
+                function DeleteInterfaceStoredConfigurationRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * DeleteInterfaceStoredConfigurationRequest index.
+                 * @member {number} index
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationRequest
+                 * @instance
+                 */
+                DeleteInterfaceStoredConfigurationRequest.prototype.index = 0;
+    
+                /**
+                 * DeleteInterfaceStoredConfigurationRequest profile.
+                 * @member {Uint8Array} profile
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationRequest
+                 * @instance
+                 */
+                DeleteInterfaceStoredConfigurationRequest.prototype.profile = $util.newBuffer([]);
+    
+                /**
+                 * Creates a new DeleteInterfaceStoredConfigurationRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.IDeleteInterfaceStoredConfigurationRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.DeleteInterfaceStoredConfigurationRequest} DeleteInterfaceStoredConfigurationRequest instance
+                 */
+                DeleteInterfaceStoredConfigurationRequest.create = function create(properties) {
+                    return new DeleteInterfaceStoredConfigurationRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified DeleteInterfaceStoredConfigurationRequest message. Does not implicitly {@link particle.ctrl.DeleteInterfaceStoredConfigurationRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.IDeleteInterfaceStoredConfigurationRequest} message DeleteInterfaceStoredConfigurationRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DeleteInterfaceStoredConfigurationRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.index != null && Object.hasOwnProperty.call(message, "index"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.index);
+                    if (message.profile != null && Object.hasOwnProperty.call(message, "profile"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.profile);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a DeleteInterfaceStoredConfigurationRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.DeleteInterfaceStoredConfigurationRequest} DeleteInterfaceStoredConfigurationRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DeleteInterfaceStoredConfigurationRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.DeleteInterfaceStoredConfigurationRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.index = reader.uint32();
+                            break;
+                        case 2:
+                            message.profile = reader.bytes();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return DeleteInterfaceStoredConfigurationRequest;
+            })();
+    
+            ctrl.DeleteInterfaceStoredConfigurationReply = (function() {
+    
+                /**
+                 * Properties of a DeleteInterfaceStoredConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @interface IDeleteInterfaceStoredConfigurationReply
+                 */
+    
+                /**
+                 * Constructs a new DeleteInterfaceStoredConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a DeleteInterfaceStoredConfigurationReply.
+                 * @implements IDeleteInterfaceStoredConfigurationReply
+                 * @constructor
+                 * @param {particle.ctrl.IDeleteInterfaceStoredConfigurationReply=} [properties] Properties to set
+                 */
+                function DeleteInterfaceStoredConfigurationReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new DeleteInterfaceStoredConfigurationReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.IDeleteInterfaceStoredConfigurationReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.DeleteInterfaceStoredConfigurationReply} DeleteInterfaceStoredConfigurationReply instance
+                 */
+                DeleteInterfaceStoredConfigurationReply.create = function create(properties) {
+                    return new DeleteInterfaceStoredConfigurationReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified DeleteInterfaceStoredConfigurationReply message. Does not implicitly {@link particle.ctrl.DeleteInterfaceStoredConfigurationReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.IDeleteInterfaceStoredConfigurationReply} message DeleteInterfaceStoredConfigurationReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DeleteInterfaceStoredConfigurationReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a DeleteInterfaceStoredConfigurationReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.DeleteInterfaceStoredConfigurationReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.DeleteInterfaceStoredConfigurationReply} DeleteInterfaceStoredConfigurationReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DeleteInterfaceStoredConfigurationReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.DeleteInterfaceStoredConfigurationReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return DeleteInterfaceStoredConfigurationReply;
             })();
     
             /**
@@ -17470,6 +18130,7 @@
                      * @property {Uint8Array|null} [bssid] JoinNewNetworkRequest bssid
                      * @property {particle.ctrl.wifi.Security|null} [security] JoinNewNetworkRequest security
                      * @property {particle.ctrl.wifi.ICredentials|null} [credentials] JoinNewNetworkRequest credentials
+                     * @property {particle.ctrl.IInterface|null} [interfaceConfig] JoinNewNetworkRequest interfaceConfig
                      */
     
                     /**
@@ -17522,6 +18183,14 @@
                     JoinNewNetworkRequest.prototype.credentials = null;
     
                     /**
+                     * JoinNewNetworkRequest interfaceConfig.
+                     * @member {particle.ctrl.IInterface|null|undefined} interfaceConfig
+                     * @memberof particle.ctrl.wifi.JoinNewNetworkRequest
+                     * @instance
+                     */
+                    JoinNewNetworkRequest.prototype.interfaceConfig = null;
+    
+                    /**
                      * Creates a new JoinNewNetworkRequest instance using the specified properties.
                      * @function create
                      * @memberof particle.ctrl.wifi.JoinNewNetworkRequest
@@ -17553,6 +18222,8 @@
                             writer.uint32(/* id 3, wireType 0 =*/24).int32(message.security);
                         if (message.credentials != null && Object.hasOwnProperty.call(message, "credentials"))
                             $root.particle.ctrl.wifi.Credentials.encode(message.credentials, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        if (message.interfaceConfig != null && Object.hasOwnProperty.call(message, "interfaceConfig"))
+                            $root.particle.ctrl.Interface.encode(message.interfaceConfig, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                         return writer;
                     };
     
@@ -17585,6 +18256,9 @@
                                 break;
                             case 4:
                                 message.credentials = $root.particle.ctrl.wifi.Credentials.decode(reader, reader.uint32());
+                                break;
+                            case 5:
+                                message.interfaceConfig = $root.particle.ctrl.Interface.decode(reader, reader.uint32());
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -20496,6 +21170,678 @@
              * @namespace
              */
             var cloud = {};
+    
+            /**
+             * Firmware module types.
+             * @name particle.cloud.FirmwareModuleType
+             * @enum {number}
+             * @property {number} INVALID_MODULE=0 < Invalid
+             * @property {number} BOOTLOADER_MODULE=1 < Bootloader module
+             * @property {number} MONO_FIRMWARE_MODULE=2 < Monolithic firmware module
+             * @property {number} SYSTEM_PART_MODULE=3 < System part module
+             * @property {number} USER_PART_MODULE=4 < User part module
+             * @property {number} NCP_FIRMWARE_MODULE=5 < NCP firmware module
+             * @property {number} RADIO_STACK_MODULE=6 < Radio stack module
+             */
+            cloud.FirmwareModuleType = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "INVALID_MODULE"] = 0;
+                values[valuesById[1] = "BOOTLOADER_MODULE"] = 1;
+                values[valuesById[2] = "MONO_FIRMWARE_MODULE"] = 2;
+                values[valuesById[3] = "SYSTEM_PART_MODULE"] = 3;
+                values[valuesById[4] = "USER_PART_MODULE"] = 4;
+                values[valuesById[5] = "NCP_FIRMWARE_MODULE"] = 5;
+                values[valuesById[6] = "RADIO_STACK_MODULE"] = 6;
+                return values;
+            })();
+    
+            /**
+             * Firmware module store.
+             * @name particle.cloud.FirmwareModuleStore
+             * @enum {number}
+             * @property {number} INVALID_MODULE_STORE=0 < Invalid
+             * @property {number} MAIN_MODULE_STORE=1 < Main store
+             * @property {number} FACTORY_MODULE_STORE=2 < Factory store
+             */
+            cloud.FirmwareModuleStore = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "INVALID_MODULE_STORE"] = 0;
+                values[valuesById[1] = "MAIN_MODULE_STORE"] = 1;
+                values[valuesById[2] = "FACTORY_MODULE_STORE"] = 2;
+                return values;
+            })();
+    
+            /**
+             * Firmware module validation flags.
+             * @name particle.cloud.FirmwareModuleValidityFlag
+             * @enum {number}
+             * @property {number} MODULE_NO_VALID_FLAGS=0 MODULE_NO_VALID_FLAGS value
+             * @property {number} MODULE_INTEGRITY_VALID_FLAG=2 < Module integrity
+             * @property {number} MODULE_DEPENDENCIES_VALID_FLAG=4 < Module dependencies
+             * @property {number} MODULE_RANGE_VALID_FLAG=8 < Module address and size
+             * @property {number} MODULE_PLATFORM_VALID_FLAG=16 < Module platform
+             */
+            cloud.FirmwareModuleValidityFlag = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "MODULE_NO_VALID_FLAGS"] = 0;
+                values[valuesById[2] = "MODULE_INTEGRITY_VALID_FLAG"] = 2;
+                values[valuesById[4] = "MODULE_DEPENDENCIES_VALID_FLAG"] = 4;
+                values[valuesById[8] = "MODULE_RANGE_VALID_FLAG"] = 8;
+                values[valuesById[16] = "MODULE_PLATFORM_VALID_FLAG"] = 16;
+                return values;
+            })();
+    
+            cloud.FirmwareModuleDependency = (function() {
+    
+                /**
+                 * Properties of a FirmwareModuleDependency.
+                 * @memberof particle.cloud
+                 * @interface IFirmwareModuleDependency
+                 * @property {particle.cloud.FirmwareModuleType|null} [type] < Module type
+                 * @property {number|null} [index] < Module index
+                 * @property {number|null} [version] < Module version
+                 */
+    
+                /**
+                 * Constructs a new FirmwareModuleDependency.
+                 * @memberof particle.cloud
+                 * @classdesc Firmware module dependency.
+                 * @implements IFirmwareModuleDependency
+                 * @constructor
+                 * @param {particle.cloud.IFirmwareModuleDependency=} [properties] Properties to set
+                 */
+                function FirmwareModuleDependency(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < Module type
+                 * @member {particle.cloud.FirmwareModuleType} type
+                 * @memberof particle.cloud.FirmwareModuleDependency
+                 * @instance
+                 */
+                FirmwareModuleDependency.prototype.type = 0;
+    
+                /**
+                 * < Module index
+                 * @member {number} index
+                 * @memberof particle.cloud.FirmwareModuleDependency
+                 * @instance
+                 */
+                FirmwareModuleDependency.prototype.index = 0;
+    
+                /**
+                 * < Module version
+                 * @member {number} version
+                 * @memberof particle.cloud.FirmwareModuleDependency
+                 * @instance
+                 */
+                FirmwareModuleDependency.prototype.version = 0;
+    
+                /**
+                 * Creates a new FirmwareModuleDependency instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.FirmwareModuleDependency
+                 * @static
+                 * @param {particle.cloud.IFirmwareModuleDependency=} [properties] Properties to set
+                 * @returns {particle.cloud.FirmwareModuleDependency} FirmwareModuleDependency instance
+                 */
+                FirmwareModuleDependency.create = function create(properties) {
+                    return new FirmwareModuleDependency(properties);
+                };
+    
+                /**
+                 * Encodes the specified FirmwareModuleDependency message. Does not implicitly {@link particle.cloud.FirmwareModuleDependency.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.FirmwareModuleDependency
+                 * @static
+                 * @param {particle.cloud.IFirmwareModuleDependency} message FirmwareModuleDependency message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FirmwareModuleDependency.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                    if (message.index != null && Object.hasOwnProperty.call(message, "index"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+                    if (message.version != null && Object.hasOwnProperty.call(message, "version"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.version);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a FirmwareModuleDependency message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.FirmwareModuleDependency
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.FirmwareModuleDependency} FirmwareModuleDependency
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FirmwareModuleDependency.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.FirmwareModuleDependency();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.type = reader.int32();
+                            break;
+                        case 2:
+                            message.index = reader.uint32();
+                            break;
+                        case 3:
+                            message.version = reader.uint32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return FirmwareModuleDependency;
+            })();
+    
+            cloud.FirmwareModuleAsset = (function() {
+    
+                /**
+                 * Properties of a FirmwareModuleAsset.
+                 * @memberof particle.cloud
+                 * @interface IFirmwareModuleAsset
+                 * @property {Uint8Array|null} [hash] < SHA-256 hash
+                 * @property {string|null} [name] < Asset name
+                 */
+    
+                /**
+                 * Constructs a new FirmwareModuleAsset.
+                 * @memberof particle.cloud
+                 * @classdesc Represents a FirmwareModuleAsset.
+                 * @implements IFirmwareModuleAsset
+                 * @constructor
+                 * @param {particle.cloud.IFirmwareModuleAsset=} [properties] Properties to set
+                 */
+                function FirmwareModuleAsset(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < SHA-256 hash
+                 * @member {Uint8Array} hash
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @instance
+                 */
+                FirmwareModuleAsset.prototype.hash = $util.newBuffer([]);
+    
+                /**
+                 * < Asset name
+                 * @member {string} name
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @instance
+                 */
+                FirmwareModuleAsset.prototype.name = "";
+    
+                /**
+                 * Creates a new FirmwareModuleAsset instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @static
+                 * @param {particle.cloud.IFirmwareModuleAsset=} [properties] Properties to set
+                 * @returns {particle.cloud.FirmwareModuleAsset} FirmwareModuleAsset instance
+                 */
+                FirmwareModuleAsset.create = function create(properties) {
+                    return new FirmwareModuleAsset(properties);
+                };
+    
+                /**
+                 * Encodes the specified FirmwareModuleAsset message. Does not implicitly {@link particle.cloud.FirmwareModuleAsset.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @static
+                 * @param {particle.cloud.IFirmwareModuleAsset} message FirmwareModuleAsset message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FirmwareModuleAsset.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
+                    if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a FirmwareModuleAsset message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.FirmwareModuleAsset} FirmwareModuleAsset
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FirmwareModuleAsset.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.FirmwareModuleAsset();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.hash = reader.bytes();
+                            break;
+                        case 2:
+                            message.name = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return FirmwareModuleAsset;
+            })();
+    
+            cloud.FirmwareModule = (function() {
+    
+                /**
+                 * Properties of a FirmwareModule.
+                 * @memberof particle.cloud
+                 * @interface IFirmwareModule
+                 * @property {particle.cloud.FirmwareModuleType|null} [type] < Module type
+                 * @property {number|null} [index] < Module index
+                 * @property {number|null} [version] < Module version
+                 * @property {particle.cloud.FirmwareModuleStore|null} [store] < Module store
+                 * @property {number|null} [maxSize] < Maximum module size
+                 * @property {number|null} [checkedFlags] < Performed validation checks (see FirmwareModuleValidityFlag)
+                 * @property {number|null} [passedFlags] < Passed validation checks (see FirmwareModuleValidityFlag)
+                 * @property {Uint8Array|null} [hash] < SHA-256 hash
+                 * @property {Array.<particle.cloud.IFirmwareModuleDependency>|null} [dependencies] < Module dependencies
+                 * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assetDependencies] < Asset dependencies
+                 */
+    
+                /**
+                 * Constructs a new FirmwareModule.
+                 * @memberof particle.cloud
+                 * @classdesc Firmware module info.
+                 * @implements IFirmwareModule
+                 * @constructor
+                 * @param {particle.cloud.IFirmwareModule=} [properties] Properties to set
+                 */
+                function FirmwareModule(properties) {
+                    this.dependencies = [];
+                    this.assetDependencies = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < Module type
+                 * @member {particle.cloud.FirmwareModuleType} type
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.type = 0;
+    
+                /**
+                 * < Module index
+                 * @member {number} index
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.index = 0;
+    
+                /**
+                 * < Module version
+                 * @member {number} version
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.version = 0;
+    
+                /**
+                 * < Module store
+                 * @member {particle.cloud.FirmwareModuleStore} store
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.store = 0;
+    
+                /**
+                 * < Maximum module size
+                 * @member {number} maxSize
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.maxSize = 0;
+    
+                /**
+                 * < Performed validation checks (see FirmwareModuleValidityFlag)
+                 * @member {number} checkedFlags
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.checkedFlags = 0;
+    
+                /**
+                 * < Passed validation checks (see FirmwareModuleValidityFlag)
+                 * @member {number} passedFlags
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.passedFlags = 0;
+    
+                /**
+                 * < SHA-256 hash
+                 * @member {Uint8Array} hash
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.hash = $util.newBuffer([]);
+    
+                /**
+                 * < Module dependencies
+                 * @member {Array.<particle.cloud.IFirmwareModuleDependency>} dependencies
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.dependencies = $util.emptyArray;
+    
+                /**
+                 * < Asset dependencies
+                 * @member {Array.<particle.cloud.IFirmwareModuleAsset>} assetDependencies
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.assetDependencies = $util.emptyArray;
+    
+                /**
+                 * Creates a new FirmwareModule instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.FirmwareModule
+                 * @static
+                 * @param {particle.cloud.IFirmwareModule=} [properties] Properties to set
+                 * @returns {particle.cloud.FirmwareModule} FirmwareModule instance
+                 */
+                FirmwareModule.create = function create(properties) {
+                    return new FirmwareModule(properties);
+                };
+    
+                /**
+                 * Encodes the specified FirmwareModule message. Does not implicitly {@link particle.cloud.FirmwareModule.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.FirmwareModule
+                 * @static
+                 * @param {particle.cloud.IFirmwareModule} message FirmwareModule message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FirmwareModule.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                    if (message.index != null && Object.hasOwnProperty.call(message, "index"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.index);
+                    if (message.version != null && Object.hasOwnProperty.call(message, "version"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.version);
+                    if (message.store != null && Object.hasOwnProperty.call(message, "store"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.store);
+                    if (message.maxSize != null && Object.hasOwnProperty.call(message, "maxSize"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.maxSize);
+                    if (message.checkedFlags != null && Object.hasOwnProperty.call(message, "checkedFlags"))
+                        writer.uint32(/* id 6, wireType 5 =*/53).fixed32(message.checkedFlags);
+                    if (message.passedFlags != null && Object.hasOwnProperty.call(message, "passedFlags"))
+                        writer.uint32(/* id 7, wireType 5 =*/61).fixed32(message.passedFlags);
+                    if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
+                        writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.hash);
+                    if (message.dependencies != null && message.dependencies.length)
+                        for (var i = 0; i < message.dependencies.length; ++i)
+                            $root.particle.cloud.FirmwareModuleDependency.encode(message.dependencies[i], writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    if (message.assetDependencies != null && message.assetDependencies.length)
+                        for (var i = 0; i < message.assetDependencies.length; ++i)
+                            $root.particle.cloud.FirmwareModuleAsset.encode(message.assetDependencies[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a FirmwareModule message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.FirmwareModule
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.FirmwareModule} FirmwareModule
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FirmwareModule.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.FirmwareModule();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.type = reader.int32();
+                            break;
+                        case 2:
+                            message.index = reader.uint32();
+                            break;
+                        case 3:
+                            message.version = reader.uint32();
+                            break;
+                        case 4:
+                            message.store = reader.int32();
+                            break;
+                        case 5:
+                            message.maxSize = reader.uint32();
+                            break;
+                        case 6:
+                            message.checkedFlags = reader.fixed32();
+                            break;
+                        case 7:
+                            message.passedFlags = reader.fixed32();
+                            break;
+                        case 8:
+                            message.hash = reader.bytes();
+                            break;
+                        case 9:
+                            if (!(message.dependencies && message.dependencies.length))
+                                message.dependencies = [];
+                            message.dependencies.push($root.particle.cloud.FirmwareModuleDependency.decode(reader, reader.uint32()));
+                            break;
+                        case 10:
+                            if (!(message.assetDependencies && message.assetDependencies.length))
+                                message.assetDependencies = [];
+                            message.assetDependencies.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return FirmwareModule;
+            })();
+    
+            cloud.SystemDescribe = (function() {
+    
+                /**
+                 * Properties of a SystemDescribe.
+                 * @memberof particle.cloud
+                 * @interface ISystemDescribe
+                 * @property {Array.<particle.cloud.IFirmwareModule>|null} [firmwareModules] < Firmware modules
+                 * @property {string|null} [imei] < IMEI (cellular platforms only)
+                 * @property {string|null} [iccid] < ICCID (cellular platforms only)
+                 * @property {string|null} [modemFirmwareVersion] < Modem firmware version (cellular platforms only)
+                 * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assets] < List of valid assets currently present in device storage
+                 */
+    
+                /**
+                 * Constructs a new SystemDescribe.
+                 * @memberof particle.cloud
+                 * @classdesc System describe.
+                 * @implements ISystemDescribe
+                 * @constructor
+                 * @param {particle.cloud.ISystemDescribe=} [properties] Properties to set
+                 */
+                function SystemDescribe(properties) {
+                    this.firmwareModules = [];
+                    this.assets = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < Firmware modules
+                 * @member {Array.<particle.cloud.IFirmwareModule>} firmwareModules
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                SystemDescribe.prototype.firmwareModules = $util.emptyArray;
+    
+                /**
+                 * < IMEI (cellular platforms only)
+                 * @member {string} imei
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                SystemDescribe.prototype.imei = "";
+    
+                /**
+                 * < ICCID (cellular platforms only)
+                 * @member {string} iccid
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                SystemDescribe.prototype.iccid = "";
+    
+                /**
+                 * < Modem firmware version (cellular platforms only)
+                 * @member {string} modemFirmwareVersion
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                SystemDescribe.prototype.modemFirmwareVersion = "";
+    
+                /**
+                 * < List of valid assets currently present in device storage
+                 * @member {Array.<particle.cloud.IFirmwareModuleAsset>} assets
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                SystemDescribe.prototype.assets = $util.emptyArray;
+    
+                /**
+                 * Creates a new SystemDescribe instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.SystemDescribe
+                 * @static
+                 * @param {particle.cloud.ISystemDescribe=} [properties] Properties to set
+                 * @returns {particle.cloud.SystemDescribe} SystemDescribe instance
+                 */
+                SystemDescribe.create = function create(properties) {
+                    return new SystemDescribe(properties);
+                };
+    
+                /**
+                 * Encodes the specified SystemDescribe message. Does not implicitly {@link particle.cloud.SystemDescribe.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.SystemDescribe
+                 * @static
+                 * @param {particle.cloud.ISystemDescribe} message SystemDescribe message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SystemDescribe.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.firmwareModules != null && message.firmwareModules.length)
+                        for (var i = 0; i < message.firmwareModules.length; ++i)
+                            $root.particle.cloud.FirmwareModule.encode(message.firmwareModules[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.imei != null && Object.hasOwnProperty.call(message, "imei"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.imei);
+                    if (message.iccid != null && Object.hasOwnProperty.call(message, "iccid"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.iccid);
+                    if (message.modemFirmwareVersion != null && Object.hasOwnProperty.call(message, "modemFirmwareVersion"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.modemFirmwareVersion);
+                    if (message.assets != null && message.assets.length)
+                        for (var i = 0; i < message.assets.length; ++i)
+                            $root.particle.cloud.FirmwareModuleAsset.encode(message.assets[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a SystemDescribe message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.SystemDescribe
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.SystemDescribe} SystemDescribe
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SystemDescribe.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.SystemDescribe();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.firmwareModules && message.firmwareModules.length))
+                                message.firmwareModules = [];
+                            message.firmwareModules.push($root.particle.cloud.FirmwareModule.decode(reader, reader.uint32()));
+                            break;
+                        case 2:
+                            message.imei = reader.string();
+                            break;
+                        case 3:
+                            message.iccid = reader.string();
+                            break;
+                        case 4:
+                            message.modemFirmwareVersion = reader.string();
+                            break;
+                        case 5:
+                            if (!(message.assets && message.assets.length))
+                                message.assets = [];
+                            message.assets.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return SystemDescribe;
+            })();
     
             cloud.ServerMovedPermanentlyRequest = (function() {
     
