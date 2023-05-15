@@ -180,5 +180,6 @@ DeviceOSProtobuf.schema = pbjsGeneratedProtobufCode.particle;
 
 // These definitions are specific to control requests and are exposed for backward compatibility
 DeviceOSProtobuf.definitions = pbjsGeneratedProtobufCode.particle.ctrl;
+DeviceOSProtobuf.cloudDefinitions = pbjsGeneratedProtobufCode.particle.cloud;
 
 module.exports = DeviceOSProtobuf;

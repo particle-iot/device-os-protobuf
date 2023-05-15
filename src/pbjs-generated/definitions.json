@@ -1666,6 +1666,15 @@
                 }
               }
             },
+            "InterfaceConfigurationSource": {
+              "values": {
+                "NONE": 0,
+                "DHCP": 1,
+                "STATIC": 2,
+                "SLAAC": 3,
+                "DHCPV6": 4
+              }
+            },
             "InterfaceAddress": {
               "fields": {
                 "address": {
@@ -1691,7 +1700,19 @@
                 },
                 "gateway": {
                   "type": "Ipv4Address",
-                  "id": 3
+                  "id": 3,
+                  "options": {
+                    "(nanopb).proto3": false
+                  }
+                },
+                "dns": {
+                  "rule": "repeated",
+                  "type": "Ipv4Address",
+                  "id": 4
+                },
+                "source": {
+                  "type": "InterfaceConfigurationSource",
+                  "id": 5
                 }
               }
             },
@@ -1701,6 +1722,22 @@
                   "rule": "repeated",
                   "type": "InterfaceAddress",
                   "id": 1
+                },
+                "dns": {
+                  "rule": "repeated",
+                  "type": "Ipv6Address",
+                  "id": 2
+                },
+                "source": {
+                  "type": "InterfaceConfigurationSource",
+                  "id": 3
+                },
+                "gateway": {
+                  "type": "Ipv6Address",
+                  "id": 4,
+                  "options": {
+                    "(nanopb).proto3": false
+                  }
                 }
               }
             },
@@ -1788,6 +1825,10 @@
                 "metric": {
                   "type": "uint32",
                   "id": 10
+                },
+                "profile": {
+                  "type": "bytes",
+                  "id": 11
                 }
               }
             },
@@ -1840,6 +1881,58 @@
                   "id": 1
                 }
               }
+            },
+            "GetInterfaceStoredConfigurationRequest": {
+              "options": {
+                "(type_id)": 402
+              },
+              "fields": {
+                "index": {
+                  "type": "uint32",
+                  "id": 1
+                }
+              }
+            },
+            "GetInterfaceStoredConfigurationReply": {
+              "fields": {
+                "config": {
+                  "rule": "repeated",
+                  "type": "Interface",
+                  "id": 1
+                }
+              }
+            },
+            "SetInterfaceStoredConfigurationRequest": {
+              "options": {
+                "(type_id)": 403
+              },
+              "fields": {
+                "config": {
+                  "type": "Interface",
+                  "id": 1
+                }
+              }
+            },
+            "SetInterfaceStoredConfigurationReply": {
+              "fields": {}
+            },
+            "DeleteInterfaceStoredConfigurationRequest": {
+              "options": {
+                "(type_id)": 404
+              },
+              "fields": {
+                "index": {
+                  "type": "uint32",
+                  "id": 1
+                },
+                "profile": {
+                  "type": "bytes",
+                  "id": 2
+                }
+              }
+            },
+            "DeleteInterfaceStoredConfigurationReply": {
+              "fields": {}
             },
             "StorageType": {
               "values": {
@@ -2234,6 +2327,10 @@
                     "credentials": {
                       "type": "Credentials",
                       "id": 4
+                    },
+                    "interfaceConfig": {
+                      "type": "Interface",
+                      "id": 5
                     }
                   }
                 },

@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package particle.cloud;
+
+/**
+ * Firmware module types.
+ */
+enum FirmwareModuleType {
+  INVALID_MODULE = 0; ///< Invalid
+  RESOURCE_MODULE = 1; ///< Resource module
+  BOOTLOADER_MODULE = 2; ///< Bootloader module
+  MONO_FIRMWARE_MODULE = 3; ///< Monolithic firmware module
+  SYSTEM_PART_MODULE = 4; ///< System part module
+  USER_PART_MODULE = 5; ///< User part module
+  SETTINGS_MODULE = 6; ///< Settings module
+  NCP_FIRMWARE_MODULE = 7; ///< NCP firmware module
+  RADIO_STACK_MODULE = 8; ///< Radio stack module
+  ASSET_MODULE = 9; ///< Asset module
+}
+
+/**
+ * Firmware module store.
+ */
+enum FirmwareModuleStore {
+  MAIN_MODULE_STORE = 0; ///< Main store
+  FACTORY_MODULE_STORE = 1; ///< Factory store
+  BACKUP_MODULE_STORE = 2; ///< Backup store
+  SCRATCHPAD_MODULE_STORE = 3; ///< Scratchpad store
+}
+
+/**
+ * Firmware module validation flags.
+ */
+enum FirmwareModuleValidityFlag {
+  MODULE_NO_VALID_FLAGS = 0; // The first enum value must be zero in proto3
+  MODULE_INTEGRITY_VALID_FLAG = 0x02; ///< Module integrity
+  MODULE_DEPENDENCIES_VALID_FLAG = 0x04; ///< Module dependencies
+  MODULE_RANGE_VALID_FLAG = 0x08; ///< Module address and size
+  MODULE_PLATFORM_VALID_FLAG = 0x10; ///< Module platform
+}
+
+/**
+ * Firmware module dependency.
+ */
+message FirmwareModuleDependency {
+  FirmwareModuleType type = 1; ///< Module type
+  uint32 index = 2; ///< Module index
+  uint32 version = 3; ///< Module version
+}
+
+message FirmwareModuleAsset {
+  bytes hash = 1; ///< SHA-256 hash
+  string name = 2; ///< Asset name
+}
+
+/**
+ * Firmware module info.
+ */
+message FirmwareModule {
+  FirmwareModuleType type = 1; ///< Module type
+  uint32 index = 2; ///< Module index
+  uint32 version = 3; ///< Module version
+  FirmwareModuleStore store = 4; ///< Module store
+  uint32 max_size = 5; ///< Maximum module size
+  fixed32 checked_flags = 6; ///< Performed validation checks (see FirmwareModuleValidityFlag)
+  fixed32 passed_flags = 7; ///< Passed validation checks (see FirmwareModuleValidityFlag)
+  optional bytes hash = 8; ///< SHA-256 hash
+  repeated FirmwareModuleDependency dependencies = 9; ///< Module dependencies
+  repeated FirmwareModuleAsset asset_dependencies = 10; ///< Asset dependencies
+}
+
+/**
+ * System describe.
+ */
+message SystemDescribe {
+  repeated FirmwareModule firmware_modules = 1; ///< Firmware modules
+  optional string imei = 2; ///< IMEI (cellular platforms only)
+  optional string iccid = 3; ///< ICCID (cellular platforms only)
+  optional string modem_firmware_version = 4; ///< Modem firmware version (cellular platforms only)
+  repeated FirmwareModuleAsset assets = 5; ///< List of valid assets currently present in device storage
+}

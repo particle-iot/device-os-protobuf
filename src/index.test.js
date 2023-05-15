@@ -409,7 +409,14 @@ describe('deviceOSProtobuf', () => {
 				'GetSectionDataSizeRequest',
 				'GetSectionDataSizeReply',
 				'GetModuleInfoRequest',
-				'GetModuleInfoReply'
+				'GetModuleInfoReply',
+				'InterfaceConfigurationSource',
+				'GetInterfaceStoredConfigurationRequest',
+				'GetInterfaceStoredConfigurationReply',
+				'SetInterfaceStoredConfigurationRequest',
+				'SetInterfaceStoredConfigurationReply',
+				'DeleteInterfaceStoredConfigurationRequest',
+				'DeleteInterfaceStoredConfigurationReply'
 			]);
 
 			const missingDefs = [];
