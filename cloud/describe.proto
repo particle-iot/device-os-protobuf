@@ -7,21 +7,25 @@ package particle.cloud;
  */
 enum FirmwareModuleType {
   INVALID_MODULE = 0; ///< Invalid
-  BOOTLOADER_MODULE = 1; ///< Bootloader module
-  MONO_FIRMWARE_MODULE = 2; ///< Monolithic firmware module
-  SYSTEM_PART_MODULE = 3; ///< System part module
-  USER_PART_MODULE = 4; ///< User part module
-  NCP_FIRMWARE_MODULE = 5; ///< NCP firmware module
-  RADIO_STACK_MODULE = 6; ///< Radio stack module
+  RESOURCE_MODULE = 1; ///< Resource module
+  BOOTLOADER_MODULE = 2; ///< Bootloader module
+  MONO_FIRMWARE_MODULE = 3; ///< Monolithic firmware module
+  SYSTEM_PART_MODULE = 4; ///< System part module
+  USER_PART_MODULE = 5; ///< User part module
+  SETTINGS_MODULE = 6; ///< Settings module
+  NCP_FIRMWARE_MODULE = 7; ///< NCP firmware module
+  RADIO_STACK_MODULE = 8; ///< Radio stack module
+  ASSET_MODULE = 9; ///< Asset module
 }
 
 /**
  * Firmware module store.
  */
 enum FirmwareModuleStore {
-  INVALID_MODULE_STORE = 0; ///< Invalid
-  MAIN_MODULE_STORE = 1; ///< Main store
-  FACTORY_MODULE_STORE = 2; ///< Factory store
+  MAIN_MODULE_STORE = 0; ///< Main store
+  FACTORY_MODULE_STORE = 1; ///< Factory store
+  BACKUP_MODULE_STORE = 2; ///< Backup store
+  SCRATCHPAD_MODULE_STORE = 3; ///< Scratchpad store
 }
 
 /**
