@@ -10122,22 +10122,141 @@ export namespace particle {
     /** Namespace cloud. */
     namespace cloud {
 
+        /** Properties of a ServerMovedPermanentlyRequest. */
+        interface IServerMovedPermanentlyRequest {
+
+            /**
+             * The address of the new server.
+             *
+             * The address can be a domain name or IP address. A domain name may contain placeholder arguments
+             * such as `$id`.
+             */
+            serverAddr?: (string|null);
+
+            /** The port number of the new server. The default value is 5684. */
+            serverPort?: (number|null);
+
+            /** The public key of the new server in DER format. */
+            serverPubKey?: (Uint8Array|null);
+
+            /** The signature of the server details. */
+            sign?: (Uint8Array|null);
+        }
+
+        /**
+         * A request sent to the device to notify it that it must disconnect from the current server and
+         * use another server for further connections to the Cloud.
+         */
+        class ServerMovedPermanentlyRequest implements IServerMovedPermanentlyRequest {
+
+            /**
+             * Constructs a new ServerMovedPermanentlyRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IServerMovedPermanentlyRequest);
+
+            /**
+             * The address of the new server.
+             *
+             * The address can be a domain name or IP address. A domain name may contain placeholder arguments
+             * such as `$id`.
+             */
+            public serverAddr: string;
+
+            /** The port number of the new server. The default value is 5684. */
+            public serverPort: number;
+
+            /** The public key of the new server in DER format. */
+            public serverPubKey: Uint8Array;
+
+            /** The signature of the server details. */
+            public sign: Uint8Array;
+
+            /**
+             * Creates a new ServerMovedPermanentlyRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns ServerMovedPermanentlyRequest instance
+             */
+            public static create(properties?: particle.cloud.IServerMovedPermanentlyRequest): particle.cloud.ServerMovedPermanentlyRequest;
+
+            /**
+             * Encodes the specified ServerMovedPermanentlyRequest message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyRequest.verify|verify} messages.
+             * @param message ServerMovedPermanentlyRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IServerMovedPermanentlyRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a ServerMovedPermanentlyRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns ServerMovedPermanentlyRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ServerMovedPermanentlyRequest;
+        }
+
+        /** Properties of a ServerMovedPermanentlyResponse. */
+        interface IServerMovedPermanentlyResponse {
+        }
+
+        /** A response for a ServerMovedPermanentlyRequest. */
+        class ServerMovedPermanentlyResponse implements IServerMovedPermanentlyResponse {
+
+            /**
+             * Constructs a new ServerMovedPermanentlyResponse.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IServerMovedPermanentlyResponse);
+
+            /**
+             * Creates a new ServerMovedPermanentlyResponse instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns ServerMovedPermanentlyResponse instance
+             */
+            public static create(properties?: particle.cloud.IServerMovedPermanentlyResponse): particle.cloud.ServerMovedPermanentlyResponse;
+
+            /**
+             * Encodes the specified ServerMovedPermanentlyResponse message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyResponse.verify|verify} messages.
+             * @param message ServerMovedPermanentlyResponse message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IServerMovedPermanentlyResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a ServerMovedPermanentlyResponse message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns ServerMovedPermanentlyResponse
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ServerMovedPermanentlyResponse;
+        }
+
         /** Firmware module types. */
         enum FirmwareModuleType {
             INVALID_MODULE = 0,
-            BOOTLOADER_MODULE = 1,
-            MONO_FIRMWARE_MODULE = 2,
-            SYSTEM_PART_MODULE = 3,
-            USER_PART_MODULE = 4,
-            NCP_FIRMWARE_MODULE = 5,
-            RADIO_STACK_MODULE = 6
+            RESOURCE_MODULE = 1,
+            BOOTLOADER_MODULE = 2,
+            MONO_FIRMWARE_MODULE = 3,
+            SYSTEM_PART_MODULE = 4,
+            USER_PART_MODULE = 5,
+            SETTINGS_MODULE = 6,
+            NCP_FIRMWARE_MODULE = 7,
+            RADIO_STACK_MODULE = 8,
+            ASSET_MODULE = 9
         }
 
         /** Firmware module store. */
         enum FirmwareModuleStore {
-            INVALID_MODULE_STORE = 0,
-            MAIN_MODULE_STORE = 1,
-            FACTORY_MODULE_STORE = 2
+            MAIN_MODULE_STORE = 0,
+            FACTORY_MODULE_STORE = 1,
+            BACKUP_MODULE_STORE = 2,
+            SCRATCHPAD_MODULE_STORE = 3
         }
 
         /** Firmware module validation flags. */
@@ -10322,13 +10441,16 @@ export namespace particle {
             public passedFlags: number;
 
             /** < SHA-256 hash */
-            public hash: Uint8Array;
+            public hash?: (Uint8Array|null);
 
             /** < Module dependencies */
             public dependencies: particle.cloud.IFirmwareModuleDependency[];
 
             /** < Asset dependencies */
             public assetDependencies: particle.cloud.IFirmwareModuleAsset[];
+
+            /** FirmwareModule _hash. */
+            public _hash?: "hash";
 
             /**
              * Creates a new FirmwareModule instance using the specified properties.
@@ -10388,16 +10510,25 @@ export namespace particle {
             public firmwareModules: particle.cloud.IFirmwareModule[];
 
             /** < IMEI (cellular platforms only) */
-            public imei: string;
+            public imei?: (string|null);
 
             /** < ICCID (cellular platforms only) */
-            public iccid: string;
+            public iccid?: (string|null);
 
             /** < Modem firmware version (cellular platforms only) */
-            public modemFirmwareVersion: string;
+            public modemFirmwareVersion?: (string|null);
 
             /** < List of valid assets currently present in device storage */
             public assets: particle.cloud.IFirmwareModuleAsset[];
+
+            /** SystemDescribe _imei. */
+            public _imei?: "imei";
+
+            /** SystemDescribe _iccid. */
+            public _iccid?: "iccid";
+
+            /** SystemDescribe _modemFirmwareVersion. */
+            public _modemFirmwareVersion?: "modemFirmwareVersion";
 
             /**
              * Creates a new SystemDescribe instance using the specified properties.
@@ -10423,121 +10554,6 @@ export namespace particle {
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
             public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.SystemDescribe;
-        }
-
-        /** Properties of a ServerMovedPermanentlyRequest. */
-        interface IServerMovedPermanentlyRequest {
-
-            /**
-             * The address of the new server.
-             *
-             * The address can be a domain name or IP address. A domain name may contain placeholder arguments
-             * such as `$id`.
-             */
-            serverAddr?: (string|null);
-
-            /** The port number of the new server. The default value is 5684. */
-            serverPort?: (number|null);
-
-            /** The public key of the new server in DER format. */
-            serverPubKey?: (Uint8Array|null);
-
-            /** The signature of the server details. */
-            sign?: (Uint8Array|null);
-        }
-
-        /**
-         * A request sent to the device to notify it that it must disconnect from the current server and
-         * use another server for further connections to the Cloud.
-         */
-        class ServerMovedPermanentlyRequest implements IServerMovedPermanentlyRequest {
-
-            /**
-             * Constructs a new ServerMovedPermanentlyRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.cloud.IServerMovedPermanentlyRequest);
-
-            /**
-             * The address of the new server.
-             *
-             * The address can be a domain name or IP address. A domain name may contain placeholder arguments
-             * such as `$id`.
-             */
-            public serverAddr: string;
-
-            /** The port number of the new server. The default value is 5684. */
-            public serverPort: number;
-
-            /** The public key of the new server in DER format. */
-            public serverPubKey: Uint8Array;
-
-            /** The signature of the server details. */
-            public sign: Uint8Array;
-
-            /**
-             * Creates a new ServerMovedPermanentlyRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns ServerMovedPermanentlyRequest instance
-             */
-            public static create(properties?: particle.cloud.IServerMovedPermanentlyRequest): particle.cloud.ServerMovedPermanentlyRequest;
-
-            /**
-             * Encodes the specified ServerMovedPermanentlyRequest message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyRequest.verify|verify} messages.
-             * @param message ServerMovedPermanentlyRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.cloud.IServerMovedPermanentlyRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a ServerMovedPermanentlyRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns ServerMovedPermanentlyRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ServerMovedPermanentlyRequest;
-        }
-
-        /** Properties of a ServerMovedPermanentlyResponse. */
-        interface IServerMovedPermanentlyResponse {
-        }
-
-        /** A response for a ServerMovedPermanentlyRequest. */
-        class ServerMovedPermanentlyResponse implements IServerMovedPermanentlyResponse {
-
-            /**
-             * Constructs a new ServerMovedPermanentlyResponse.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.cloud.IServerMovedPermanentlyResponse);
-
-            /**
-             * Creates a new ServerMovedPermanentlyResponse instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns ServerMovedPermanentlyResponse instance
-             */
-            public static create(properties?: particle.cloud.IServerMovedPermanentlyResponse): particle.cloud.ServerMovedPermanentlyResponse;
-
-            /**
-             * Encodes the specified ServerMovedPermanentlyResponse message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyResponse.verify|verify} messages.
-             * @param message ServerMovedPermanentlyResponse message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.cloud.IServerMovedPermanentlyResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a ServerMovedPermanentlyResponse message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns ServerMovedPermanentlyResponse
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ServerMovedPermanentlyResponse;
         }
     }
 }

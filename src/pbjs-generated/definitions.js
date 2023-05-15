@@ -21171,27 +21171,254 @@
              */
             var cloud = {};
     
+            cloud.ServerMovedPermanentlyRequest = (function() {
+    
+                /**
+                 * Properties of a ServerMovedPermanentlyRequest.
+                 * @memberof particle.cloud
+                 * @interface IServerMovedPermanentlyRequest
+                 * @property {string|null} [serverAddr] The address of the new server.
+                 * 
+                 * The address can be a domain name or IP address. A domain name may contain placeholder arguments
+                 * such as `$id`.
+                 * @property {number|null} [serverPort] The port number of the new server. The default value is 5684.
+                 * @property {Uint8Array|null} [serverPubKey] The public key of the new server in DER format.
+                 * @property {Uint8Array|null} [sign] The signature of the server details.
+                 */
+    
+                /**
+                 * Constructs a new ServerMovedPermanentlyRequest.
+                 * @memberof particle.cloud
+                 * @classdesc A request sent to the device to notify it that it must disconnect from the current server and
+                 * use another server for further connections to the Cloud.
+                 * @implements IServerMovedPermanentlyRequest
+                 * @constructor
+                 * @param {particle.cloud.IServerMovedPermanentlyRequest=} [properties] Properties to set
+                 */
+                function ServerMovedPermanentlyRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * The address of the new server.
+                 * 
+                 * The address can be a domain name or IP address. A domain name may contain placeholder arguments
+                 * such as `$id`.
+                 * @member {string} serverAddr
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @instance
+                 */
+                ServerMovedPermanentlyRequest.prototype.serverAddr = "";
+    
+                /**
+                 * The port number of the new server. The default value is 5684.
+                 * @member {number} serverPort
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @instance
+                 */
+                ServerMovedPermanentlyRequest.prototype.serverPort = 0;
+    
+                /**
+                 * The public key of the new server in DER format.
+                 * @member {Uint8Array} serverPubKey
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @instance
+                 */
+                ServerMovedPermanentlyRequest.prototype.serverPubKey = $util.newBuffer([]);
+    
+                /**
+                 * The signature of the server details.
+                 * @member {Uint8Array} sign
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @instance
+                 */
+                ServerMovedPermanentlyRequest.prototype.sign = $util.newBuffer([]);
+    
+                /**
+                 * Creates a new ServerMovedPermanentlyRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @static
+                 * @param {particle.cloud.IServerMovedPermanentlyRequest=} [properties] Properties to set
+                 * @returns {particle.cloud.ServerMovedPermanentlyRequest} ServerMovedPermanentlyRequest instance
+                 */
+                ServerMovedPermanentlyRequest.create = function create(properties) {
+                    return new ServerMovedPermanentlyRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified ServerMovedPermanentlyRequest message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @static
+                 * @param {particle.cloud.IServerMovedPermanentlyRequest} message ServerMovedPermanentlyRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ServerMovedPermanentlyRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.serverAddr != null && Object.hasOwnProperty.call(message, "serverAddr"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.serverAddr);
+                    if (message.serverPort != null && Object.hasOwnProperty.call(message, "serverPort"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.serverPort);
+                    if (message.serverPubKey != null && Object.hasOwnProperty.call(message, "serverPubKey"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.serverPubKey);
+                    if (message.sign != null && Object.hasOwnProperty.call(message, "sign"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.sign);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a ServerMovedPermanentlyRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.ServerMovedPermanentlyRequest} ServerMovedPermanentlyRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ServerMovedPermanentlyRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ServerMovedPermanentlyRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.serverAddr = reader.string();
+                            break;
+                        case 2:
+                            message.serverPort = reader.uint32();
+                            break;
+                        case 3:
+                            message.serverPubKey = reader.bytes();
+                            break;
+                        case 4:
+                            message.sign = reader.bytes();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return ServerMovedPermanentlyRequest;
+            })();
+    
+            cloud.ServerMovedPermanentlyResponse = (function() {
+    
+                /**
+                 * Properties of a ServerMovedPermanentlyResponse.
+                 * @memberof particle.cloud
+                 * @interface IServerMovedPermanentlyResponse
+                 */
+    
+                /**
+                 * Constructs a new ServerMovedPermanentlyResponse.
+                 * @memberof particle.cloud
+                 * @classdesc A response for a ServerMovedPermanentlyRequest.
+                 * @implements IServerMovedPermanentlyResponse
+                 * @constructor
+                 * @param {particle.cloud.IServerMovedPermanentlyResponse=} [properties] Properties to set
+                 */
+                function ServerMovedPermanentlyResponse(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new ServerMovedPermanentlyResponse instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.ServerMovedPermanentlyResponse
+                 * @static
+                 * @param {particle.cloud.IServerMovedPermanentlyResponse=} [properties] Properties to set
+                 * @returns {particle.cloud.ServerMovedPermanentlyResponse} ServerMovedPermanentlyResponse instance
+                 */
+                ServerMovedPermanentlyResponse.create = function create(properties) {
+                    return new ServerMovedPermanentlyResponse(properties);
+                };
+    
+                /**
+                 * Encodes the specified ServerMovedPermanentlyResponse message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyResponse.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.ServerMovedPermanentlyResponse
+                 * @static
+                 * @param {particle.cloud.IServerMovedPermanentlyResponse} message ServerMovedPermanentlyResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ServerMovedPermanentlyResponse.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a ServerMovedPermanentlyResponse message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.ServerMovedPermanentlyResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.ServerMovedPermanentlyResponse} ServerMovedPermanentlyResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ServerMovedPermanentlyResponse.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ServerMovedPermanentlyResponse();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return ServerMovedPermanentlyResponse;
+            })();
+    
             /**
              * Firmware module types.
              * @name particle.cloud.FirmwareModuleType
              * @enum {number}
              * @property {number} INVALID_MODULE=0 < Invalid
-             * @property {number} BOOTLOADER_MODULE=1 < Bootloader module
-             * @property {number} MONO_FIRMWARE_MODULE=2 < Monolithic firmware module
-             * @property {number} SYSTEM_PART_MODULE=3 < System part module
-             * @property {number} USER_PART_MODULE=4 < User part module
-             * @property {number} NCP_FIRMWARE_MODULE=5 < NCP firmware module
-             * @property {number} RADIO_STACK_MODULE=6 < Radio stack module
+             * @property {number} RESOURCE_MODULE=1 < Resource module
+             * @property {number} BOOTLOADER_MODULE=2 < Bootloader module
+             * @property {number} MONO_FIRMWARE_MODULE=3 < Monolithic firmware module
+             * @property {number} SYSTEM_PART_MODULE=4 < System part module
+             * @property {number} USER_PART_MODULE=5 < User part module
+             * @property {number} SETTINGS_MODULE=6 < Settings module
+             * @property {number} NCP_FIRMWARE_MODULE=7 < NCP firmware module
+             * @property {number} RADIO_STACK_MODULE=8 < Radio stack module
+             * @property {number} ASSET_MODULE=9 < Asset module
              */
             cloud.FirmwareModuleType = (function() {
                 var valuesById = {}, values = Object.create(valuesById);
                 values[valuesById[0] = "INVALID_MODULE"] = 0;
-                values[valuesById[1] = "BOOTLOADER_MODULE"] = 1;
-                values[valuesById[2] = "MONO_FIRMWARE_MODULE"] = 2;
-                values[valuesById[3] = "SYSTEM_PART_MODULE"] = 3;
-                values[valuesById[4] = "USER_PART_MODULE"] = 4;
-                values[valuesById[5] = "NCP_FIRMWARE_MODULE"] = 5;
-                values[valuesById[6] = "RADIO_STACK_MODULE"] = 6;
+                values[valuesById[1] = "RESOURCE_MODULE"] = 1;
+                values[valuesById[2] = "BOOTLOADER_MODULE"] = 2;
+                values[valuesById[3] = "MONO_FIRMWARE_MODULE"] = 3;
+                values[valuesById[4] = "SYSTEM_PART_MODULE"] = 4;
+                values[valuesById[5] = "USER_PART_MODULE"] = 5;
+                values[valuesById[6] = "SETTINGS_MODULE"] = 6;
+                values[valuesById[7] = "NCP_FIRMWARE_MODULE"] = 7;
+                values[valuesById[8] = "RADIO_STACK_MODULE"] = 8;
+                values[valuesById[9] = "ASSET_MODULE"] = 9;
                 return values;
             })();
     
@@ -21199,15 +21426,17 @@
              * Firmware module store.
              * @name particle.cloud.FirmwareModuleStore
              * @enum {number}
-             * @property {number} INVALID_MODULE_STORE=0 < Invalid
-             * @property {number} MAIN_MODULE_STORE=1 < Main store
-             * @property {number} FACTORY_MODULE_STORE=2 < Factory store
+             * @property {number} MAIN_MODULE_STORE=0 < Main store
+             * @property {number} FACTORY_MODULE_STORE=1 < Factory store
+             * @property {number} BACKUP_MODULE_STORE=2 < Backup store
+             * @property {number} SCRATCHPAD_MODULE_STORE=3 < Scratchpad store
              */
             cloud.FirmwareModuleStore = (function() {
                 var valuesById = {}, values = Object.create(valuesById);
-                values[valuesById[0] = "INVALID_MODULE_STORE"] = 0;
-                values[valuesById[1] = "MAIN_MODULE_STORE"] = 1;
-                values[valuesById[2] = "FACTORY_MODULE_STORE"] = 2;
+                values[valuesById[0] = "MAIN_MODULE_STORE"] = 0;
+                values[valuesById[1] = "FACTORY_MODULE_STORE"] = 1;
+                values[valuesById[2] = "BACKUP_MODULE_STORE"] = 2;
+                values[valuesById[3] = "SCRATCHPAD_MODULE_STORE"] = 3;
                 return values;
             })();
     
@@ -21552,11 +21781,11 @@
     
                 /**
                  * < SHA-256 hash
-                 * @member {Uint8Array} hash
+                 * @member {Uint8Array|null|undefined} hash
                  * @memberof particle.cloud.FirmwareModule
                  * @instance
                  */
-                FirmwareModule.prototype.hash = $util.newBuffer([]);
+                FirmwareModule.prototype.hash = null;
     
                 /**
                  * < Module dependencies
@@ -21573,6 +21802,20 @@
                  * @instance
                  */
                 FirmwareModule.prototype.assetDependencies = $util.emptyArray;
+    
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+    
+                /**
+                 * FirmwareModule _hash.
+                 * @member {"hash"|undefined} _hash
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                Object.defineProperty(FirmwareModule.prototype, "_hash", {
+                    get: $util.oneOfGetter($oneOfFields = ["hash"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
     
                 /**
                  * Creates a new FirmwareModule instance using the specified properties.
@@ -21726,27 +21969,27 @@
     
                 /**
                  * < IMEI (cellular platforms only)
-                 * @member {string} imei
+                 * @member {string|null|undefined} imei
                  * @memberof particle.cloud.SystemDescribe
                  * @instance
                  */
-                SystemDescribe.prototype.imei = "";
+                SystemDescribe.prototype.imei = null;
     
                 /**
                  * < ICCID (cellular platforms only)
-                 * @member {string} iccid
+                 * @member {string|null|undefined} iccid
                  * @memberof particle.cloud.SystemDescribe
                  * @instance
                  */
-                SystemDescribe.prototype.iccid = "";
+                SystemDescribe.prototype.iccid = null;
     
                 /**
                  * < Modem firmware version (cellular platforms only)
-                 * @member {string} modemFirmwareVersion
+                 * @member {string|null|undefined} modemFirmwareVersion
                  * @memberof particle.cloud.SystemDescribe
                  * @instance
                  */
-                SystemDescribe.prototype.modemFirmwareVersion = "";
+                SystemDescribe.prototype.modemFirmwareVersion = null;
     
                 /**
                  * < List of valid assets currently present in device storage
@@ -21755,6 +21998,42 @@
                  * @instance
                  */
                 SystemDescribe.prototype.assets = $util.emptyArray;
+    
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+    
+                /**
+                 * SystemDescribe _imei.
+                 * @member {"imei"|undefined} _imei
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                Object.defineProperty(SystemDescribe.prototype, "_imei", {
+                    get: $util.oneOfGetter($oneOfFields = ["imei"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+    
+                /**
+                 * SystemDescribe _iccid.
+                 * @member {"iccid"|undefined} _iccid
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                Object.defineProperty(SystemDescribe.prototype, "_iccid", {
+                    get: $util.oneOfGetter($oneOfFields = ["iccid"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+    
+                /**
+                 * SystemDescribe _modemFirmwareVersion.
+                 * @member {"modemFirmwareVersion"|undefined} _modemFirmwareVersion
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                Object.defineProperty(SystemDescribe.prototype, "_modemFirmwareVersion", {
+                    get: $util.oneOfGetter($oneOfFields = ["modemFirmwareVersion"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
     
                 /**
                  * Creates a new SystemDescribe instance using the specified properties.
@@ -21841,227 +22120,6 @@
                 };
     
                 return SystemDescribe;
-            })();
-    
-            cloud.ServerMovedPermanentlyRequest = (function() {
-    
-                /**
-                 * Properties of a ServerMovedPermanentlyRequest.
-                 * @memberof particle.cloud
-                 * @interface IServerMovedPermanentlyRequest
-                 * @property {string|null} [serverAddr] The address of the new server.
-                 * 
-                 * The address can be a domain name or IP address. A domain name may contain placeholder arguments
-                 * such as `$id`.
-                 * @property {number|null} [serverPort] The port number of the new server. The default value is 5684.
-                 * @property {Uint8Array|null} [serverPubKey] The public key of the new server in DER format.
-                 * @property {Uint8Array|null} [sign] The signature of the server details.
-                 */
-    
-                /**
-                 * Constructs a new ServerMovedPermanentlyRequest.
-                 * @memberof particle.cloud
-                 * @classdesc A request sent to the device to notify it that it must disconnect from the current server and
-                 * use another server for further connections to the Cloud.
-                 * @implements IServerMovedPermanentlyRequest
-                 * @constructor
-                 * @param {particle.cloud.IServerMovedPermanentlyRequest=} [properties] Properties to set
-                 */
-                function ServerMovedPermanentlyRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * The address of the new server.
-                 * 
-                 * The address can be a domain name or IP address. A domain name may contain placeholder arguments
-                 * such as `$id`.
-                 * @member {string} serverAddr
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @instance
-                 */
-                ServerMovedPermanentlyRequest.prototype.serverAddr = "";
-    
-                /**
-                 * The port number of the new server. The default value is 5684.
-                 * @member {number} serverPort
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @instance
-                 */
-                ServerMovedPermanentlyRequest.prototype.serverPort = 0;
-    
-                /**
-                 * The public key of the new server in DER format.
-                 * @member {Uint8Array} serverPubKey
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @instance
-                 */
-                ServerMovedPermanentlyRequest.prototype.serverPubKey = $util.newBuffer([]);
-    
-                /**
-                 * The signature of the server details.
-                 * @member {Uint8Array} sign
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @instance
-                 */
-                ServerMovedPermanentlyRequest.prototype.sign = $util.newBuffer([]);
-    
-                /**
-                 * Creates a new ServerMovedPermanentlyRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @static
-                 * @param {particle.cloud.IServerMovedPermanentlyRequest=} [properties] Properties to set
-                 * @returns {particle.cloud.ServerMovedPermanentlyRequest} ServerMovedPermanentlyRequest instance
-                 */
-                ServerMovedPermanentlyRequest.create = function create(properties) {
-                    return new ServerMovedPermanentlyRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified ServerMovedPermanentlyRequest message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @static
-                 * @param {particle.cloud.IServerMovedPermanentlyRequest} message ServerMovedPermanentlyRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                ServerMovedPermanentlyRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.serverAddr != null && Object.hasOwnProperty.call(message, "serverAddr"))
-                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.serverAddr);
-                    if (message.serverPort != null && Object.hasOwnProperty.call(message, "serverPort"))
-                        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.serverPort);
-                    if (message.serverPubKey != null && Object.hasOwnProperty.call(message, "serverPubKey"))
-                        writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.serverPubKey);
-                    if (message.sign != null && Object.hasOwnProperty.call(message, "sign"))
-                        writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.sign);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a ServerMovedPermanentlyRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.cloud.ServerMovedPermanentlyRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.cloud.ServerMovedPermanentlyRequest} ServerMovedPermanentlyRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                ServerMovedPermanentlyRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ServerMovedPermanentlyRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.serverAddr = reader.string();
-                            break;
-                        case 2:
-                            message.serverPort = reader.uint32();
-                            break;
-                        case 3:
-                            message.serverPubKey = reader.bytes();
-                            break;
-                        case 4:
-                            message.sign = reader.bytes();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return ServerMovedPermanentlyRequest;
-            })();
-    
-            cloud.ServerMovedPermanentlyResponse = (function() {
-    
-                /**
-                 * Properties of a ServerMovedPermanentlyResponse.
-                 * @memberof particle.cloud
-                 * @interface IServerMovedPermanentlyResponse
-                 */
-    
-                /**
-                 * Constructs a new ServerMovedPermanentlyResponse.
-                 * @memberof particle.cloud
-                 * @classdesc A response for a ServerMovedPermanentlyRequest.
-                 * @implements IServerMovedPermanentlyResponse
-                 * @constructor
-                 * @param {particle.cloud.IServerMovedPermanentlyResponse=} [properties] Properties to set
-                 */
-                function ServerMovedPermanentlyResponse(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new ServerMovedPermanentlyResponse instance using the specified properties.
-                 * @function create
-                 * @memberof particle.cloud.ServerMovedPermanentlyResponse
-                 * @static
-                 * @param {particle.cloud.IServerMovedPermanentlyResponse=} [properties] Properties to set
-                 * @returns {particle.cloud.ServerMovedPermanentlyResponse} ServerMovedPermanentlyResponse instance
-                 */
-                ServerMovedPermanentlyResponse.create = function create(properties) {
-                    return new ServerMovedPermanentlyResponse(properties);
-                };
-    
-                /**
-                 * Encodes the specified ServerMovedPermanentlyResponse message. Does not implicitly {@link particle.cloud.ServerMovedPermanentlyResponse.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.cloud.ServerMovedPermanentlyResponse
-                 * @static
-                 * @param {particle.cloud.IServerMovedPermanentlyResponse} message ServerMovedPermanentlyResponse message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                ServerMovedPermanentlyResponse.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a ServerMovedPermanentlyResponse message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.cloud.ServerMovedPermanentlyResponse
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.cloud.ServerMovedPermanentlyResponse} ServerMovedPermanentlyResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                ServerMovedPermanentlyResponse.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ServerMovedPermanentlyResponse();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return ServerMovedPermanentlyResponse;
             })();
     
             return cloud;
