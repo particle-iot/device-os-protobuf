@@ -1,0 +1,218 @@
+syntax = "proto3";
+
+package particle.ledger;
+
+/**
+ * Ledger scope.
+ */
+enum LedgerScope {
+  LEDGER_SCOPE_INVALID = 0; ///< Invalid scope.
+  LEDGER_SCOPE_DEVICE = 1; ///< Device scope.
+  LEDGER_SCOPE_PRODUCT = 2; ///< Product scope.
+  LEDGER_SCOPE_ORG = 3; ///< Organization scope.
+}
+
+/**
+ * Timestamp.
+ */
+message Timestamp {
+  /**
+   * Device local time.
+   */
+  message LocalTime {
+    uint64 value = 1; ///< Milliseconds since startup.
+    /**
+     * Session ID.
+     *
+     * The value of this field is generated when the device resets. It is used to detect a reset
+     * that might had happened between two timestamps recorded when the Unix time was still
+     * unknown.
+     */
+    bytes session_id = 2;
+  }
+
+  oneof value {
+    uint64 unix_time = 1; ///< Milliseconds since the Unix epoch.
+    LocalTime local_time = 2; ///< Device local time.
+  }
+};
+
+/**
+ * Entry update operation.
+ */
+message EntryUpdate {
+  /**
+   * Operation type.
+   */
+  enum Type {
+    INVALID_TYPE = 0; ///< Invalid operation.
+    ASSIGN = 1; ///< Assign a value to an entry.
+    INCREMENT = 2; ///< Increment a numeric entry.
+    DECREMENT = 3; ///< Decrement a numeric entry.
+    PUSH_FRONT = 4; ///< Prepend an element to an array entry.
+    PUSH_BACK = 5; ///< Append an element to an array entry.
+    POP_FRONT = 6; ///< Remove the first element of an array entry.
+    POP_BACK = 7; ///< Remove the last element of an array entry.
+  }
+
+  /**
+   * Assign a value to an entry.
+   */
+  message Assign {
+    bytes data = 1; ///< Value data.
+  }
+
+  /**
+   * Increment a numeric entry.
+   */
+  message Increment {
+    int32 value = 1; ///< Value to add to the current value of the entry.
+  }
+
+  /**
+   * Decrement a numeric entry.
+   */
+  message Decrement {
+    int32 value = 1; ///< Value to substract from the current value of the entry.
+  }
+
+  /**
+   * Prepend an element to an array entry.
+   */
+  message PushFront {
+    bytes data = 1; ///< MessagePack-encoded element data.
+    bytes id = 2; ///< Element ID.
+  }
+
+  /**
+   * Append an element to an array entry.
+   */
+  message PushBack {
+    bytes data = 1; ///< MessagePack-encoded element data.
+    bytes id = 2; ///< Element ID.
+  }
+
+  /**
+   * Remove the first element of an array entry.
+   */
+  message PopFront {
+    bytes id = 1; ///< Element ID.
+  }
+
+  /**
+   * Remove the last element of an array entry.
+   */
+  message PopBack {
+    bytes id = 1; ///< Element ID.
+  }
+
+  Type type = 1; ///< Operation type.
+  Timestamp time = 2; // Update timestamp.
+
+  oneof operation {
+    Assign assign = 3;
+    Increment increment = 4;
+    Decrement decrement = 5;
+    PushFront push_front = 6;
+    PushBack push_back = 7;
+    PopFront pop_front = 8;
+    PopBack pop_back = 9;
+  }
+}
+
+/**
+ * Page update operation.
+ */
+message PageUpdate {
+  /**
+   * Operation type.
+   */
+  enum Type {
+    INVALID_TYPE = 0; ///< Invalid operation.
+    REMOVE_PAGE = 1; ///< Remove a page.
+  }
+
+  /**
+   * Remove a page.
+   */
+  message RemovePage {
+  }
+
+  Type type = 1; ///< Operation type.
+  Timestamp time = 2; // Update timestamp.
+
+  oneof update {
+    RemovePage remove_page = 3;
+  }
+}
+
+/**
+ * Set of page updates.
+ */
+message PageUpdateSet {
+  /**
+   * Set of entry updates.
+   */
+  message EntryUpdates {
+    string entry_name = 1; ///< Entry name.
+    repeated EntryUpdate updates = 2; ///< Entry updates.
+  }
+
+  /**
+   * Update operation.
+   */
+  message Update {
+    oneof update {
+      EntryUpdates entry_updates = 1; ///< Entry update.
+      PageUpdate page_update = 2; ///< Page update.
+    }
+  }
+
+  repeated Update updates = 1; ///< Update operations.
+}
+
+/**
+ * Entry data.
+ */
+message EntryData {
+  /**
+   * Entry type.
+   */
+  enum Type {
+    INVALID_TYPE = 0; ///< Invalid entry type.
+    ARRAY_TYPE = 1; ///< Array entry.
+    OTHER_TYPE = 2; ///< Other entry.
+  }
+
+  /**
+   * Array.
+   */
+  message Array {
+    /**
+     * Array element.
+     */
+    message Element {
+      bytes data = 1; ///< MessagePack-encoded element data.
+      bytes id = 2; ///< Element ID.
+      Timestamp create_time = 3; ///< Time when the element was added to the array.
+    }
+
+    repeated Element elements = 1; ///< Array elements.
+  }
+
+  string name = 1; ///< Entry name.
+  Type type = 2; ///< Entry type.
+  Timestamp create_time = 3; ///< Time when the entry was assigned the value.
+
+  oneof value {
+    bytes data = 4; ///< MessagePack-encoded value data (any type except array).
+    Array array = 5; ///< Array elements.
+  }
+}
+
+/**
+ * Page data.
+ */
+message PageData {
+  repeated EntryData entries = 1; ///< Page entries.
+}

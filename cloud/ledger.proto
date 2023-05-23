@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package particle.cloud;
+
+import "common/ledger.proto";
+
+/**
+ * Ledger request.
+ */
+message LedgerRequest {
+  /**
+   * Request type.
+   */
+  enum Type {
+    INVALID_TYPE = 0; ///< Invalid request type.
+    LIST_LEDGERS = 1; ///< List organization/product ledgers.
+    GET_PAGE = 2; ///< Get page contents.
+    SYNC_PAGE = 3; ///< Sync page contents.
+    SUBSCRIBE = 4; ///< Subscribe to page notifications.
+    UNSUBSCRIBE = 5; ///< Unsubscribe from page notifications.
+  }
+
+  /**
+   * List organization/product ledgers.
+   */
+  message ListLedgers {
+  }
+
+  /**
+   * Get page contents.
+   */
+  message GetPage {
+    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
+    string page_name = 2; ///< Page name.
+  }
+
+  /**
+   * Sync page contents.
+   */
+  message SyncPage {
+    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
+    string page_name = 2; ///< Page name.
+    bytes page_checksum = 3; ///< Page checksum before the update.
+    repeated particle.ledger.PageUpdateSet updates = 4; ///< Update operations.
+  }
+
+  /**
+   * Subscribe to page notifications.
+   */
+  message Subscribe {
+    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
+    repeated string page_names = 2; ///< Page names.
+  }
+
+  /**
+   * Unsubscribe from page notifications.
+   */
+  message Unsubscribe {
+    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
+    repeated string page_names = 2; ///< Page names.
+  }
+
+  Type type = 1; ///< Request type.
+
+  oneof request {
+    ListLedgers list_ledgers = 2;
+    GetPage get_page = 3;
+    SyncPage sync_page = 4;
+    Subscribe subscribe = 5;
+    Unsubscribe unsubscribe = 6;
+  }
+}
+
+/**
+ * Ledger response.
+ */
+message LedgerResponse {
+  /**
+   * List organization/product ledgers.
+   */
+  message ListLedgers {
+    /**
+     * Ledger.
+     */
+    message Ledger {
+      string name = 1; ///< Ledger name.
+      particle.ledger.LedgerScope scope = 2; ///< Ledger scope.
+    }
+
+    repeated Ledger ledgers = 1; ///< List of ledgers.
+  }
+
+  /**
+   * Get page contents.
+   */
+  message GetPage {
+    particle.ledger.PageData data = 1; ///< Page data.
+    bytes page_checksum = 2; ///< Page checksum.
+  }
+
+  /**
+   * Sync page contents.
+   */
+  message SyncPage {
+    // TODO: Send a diff or list of update operations for recreating the resulting contents of the page
+    particle.ledger.PageData data = 1; ///< Page data.
+    bytes page_checksum = 2; ///< Page checksum after the update.
+  }
+
+  /**
+   * Subscribe to page notifications.
+   */
+  message Subscribe {
+  }
+
+  /**
+   * Unsubscribe from page notifications.
+   */
+  message Unsubscribe {
+  }
+
+  oneof response {
+    ListLedgers list_ledgers = 1;
+    GetPage get_page = 2;
+    SyncPage sync_page = 3;
+    Subscribe subscribe = 4;
+    Unsubscribe unsubscribe = 5;
+  }
+}
