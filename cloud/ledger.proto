@@ -18,16 +18,21 @@ message LedgerRequest {
     SYNC_PAGE = 3; ///< Sync page contents.
     SUBSCRIBE = 4; ///< Subscribe to page notifications.
     UNSUBSCRIBE = 5; ///< Unsubscribe from page notifications.
+    NOTIFY_PAGE_CHANGED = 6; ///< Notify about page changes.
   }
 
   /**
    * List organization/product ledgers.
+   *
+   * This request can only be sent by the device.
    */
   message ListLedgers {
   }
 
   /**
    * Get page contents.
+   *
+   * This request can be sent by the device and server.
    */
   message GetPage {
     optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
@@ -36,6 +41,8 @@ message LedgerRequest {
 
   /**
    * Sync page contents.
+   *
+   * This request can only be sent by the device.
    */
   message SyncPage {
     optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
@@ -46,6 +53,8 @@ message LedgerRequest {
 
   /**
    * Subscribe to page notifications.
+   *
+   * This request can only be sent by the device.
    */
   message Subscribe {
     optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
@@ -54,10 +63,37 @@ message LedgerRequest {
 
   /**
    * Unsubscribe from page notifications.
+   *
+   * This request can only be sent by the device.
    */
   message Unsubscribe {
     optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
     repeated string page_names = 2; ///< Page names.
+  }
+
+  /**
+   * Notify about page changes.
+   *
+   * This request can only be sent by the server.
+   */
+  message NotifyPageChanged {
+    /**
+     * List of changed entries of a page.
+     */
+    message PageChange {
+      string page_name = 1; ///< Page name.
+      repeated string entry_names = 2; ///< Names of changed entries.
+    }
+
+    /**
+     * List of changed pages of a ledger.
+     */
+    message LedgerChange {
+      optional string ledger_name = 1; ///< Ledger name. If not set, it is the device ledger that changed.
+      repeated PageChange page_changes = 2; ///< Changed pages.
+    }
+
+    repeated LedgerChange ledger_changes = 1; ///< Changed ledgers.
   }
 
   Type type = 1; ///< Request type.
@@ -68,6 +104,7 @@ message LedgerRequest {
     SyncPage sync_page = 4;
     Subscribe subscribe = 5;
     Unsubscribe unsubscribe = 6;
+    NotifyPageChanged notify_page_changed = 7;
   }
 }
 
@@ -127,6 +164,12 @@ message LedgerResponse {
   message Unsubscribe {
   }
 
+  /**
+   * Notify about page changes.
+   */
+  message NotifyPageChanged {
+  }
+
   Result result = 1;
   optional string error_message = 2;
 
@@ -136,5 +179,6 @@ message LedgerResponse {
     SyncPage sync_page = 5;
     Subscribe subscribe = 6;
     Unsubscribe unsubscribe = 7;
+    NotifyPageChanged notify_page_changed = 8;
   }
 }
