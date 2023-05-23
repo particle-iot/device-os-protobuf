@@ -76,6 +76,14 @@ message LedgerRequest {
  */
 message LedgerResponse {
   /**
+   * Result code.
+   */
+  enum Result {
+    OK = 0;
+    LEDGER_NOT_FOUND = 1;
+  }
+
+  /**
    * List organization/product ledgers.
    */
   message ListLedgers {
@@ -95,7 +103,7 @@ message LedgerResponse {
    */
   message GetPage {
     particle.ledger.PageData data = 1; ///< Page data.
-    bytes page_checksum = 2; ///< Page checksum.
+    bytes checksum = 2; ///< Page checksum.
   }
 
   /**
@@ -104,7 +112,7 @@ message LedgerResponse {
   message SyncPage {
     // TODO: Send a diff or list of update operations for recreating the resulting contents of the page
     particle.ledger.PageData data = 1; ///< Page data.
-    bytes page_checksum = 2; ///< Page checksum after the update.
+    bytes checksum = 2; ///< Page checksum after the update.
   }
 
   /**
@@ -119,11 +127,14 @@ message LedgerResponse {
   message Unsubscribe {
   }
 
+  Result result = 1;
+  optional string error_message = 2;
+
   oneof response {
-    ListLedgers list_ledgers = 1;
-    GetPage get_page = 2;
-    SyncPage sync_page = 3;
-    Subscribe subscribe = 4;
-    Unsubscribe unsubscribe = 5;
+    ListLedgers list_ledgers = 3;
+    GetPage get_page = 4;
+    SyncPage sync_page = 5;
+    Subscribe subscribe = 6;
+    Unsubscribe unsubscribe = 7;
   }
 }

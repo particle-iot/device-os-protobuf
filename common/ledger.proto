@@ -200,13 +200,12 @@ message EntryData {
     repeated Element elements = 1; ///< Array elements.
   }
 
-  string name = 1; ///< Entry name.
-  Type type = 2; ///< Entry type.
-  Timestamp create_time = 3; ///< Time when the entry was assigned the value.
+  Type type = 1; ///< Entry type.
+  Timestamp create_time = 2; ///< Time when the entry was assigned the value.
 
   oneof value {
-    bytes data = 4; ///< MessagePack-encoded value data (any type except array).
-    Array array = 5; ///< Array elements.
+    bytes data = 3; ///< MessagePack-encoded value data (any type except array).
+    Array array = 4; ///< Array elements.
   }
 }
 
@@ -214,5 +213,13 @@ message EntryData {
  * Page data.
  */
 message PageData {
-  repeated EntryData entries = 1; ///< Page entries.
+  /**
+   * Entry name and data.
+   */
+  message Entry {
+    string name = 1; ///< Entry name.
+    EntryData data = 2; ///< Entry data.
+  }
+
+  repeated Entry entries = 1; ///< Page entries.
 }
