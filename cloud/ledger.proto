@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package particle.cloud;
 
-import "common/ledger.proto";
+import "common/ledger.proto"
 
 /**
  * Ledger request.
@@ -24,7 +24,7 @@ message LedgerRequest {
   /**
    * List organization/product ledgers.
    *
-   * This request can only be sent by the device.
+   * This request is sent by the device.
    */
   message ListLedgers {
   }
@@ -32,7 +32,7 @@ message LedgerRequest {
   /**
    * Get page contents.
    *
-   * This request can be sent by the device and server.
+   * This request is sent by the device and server.
    */
   message GetPage {
     optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
@@ -42,63 +42,85 @@ message LedgerRequest {
   /**
    * Sync page contents.
    *
-   * This request can only be sent by the device.
+   * This request is sent by the device.
    */
   message SyncPage {
+    /**
+     * Sync strategy.
+     */
+    enum Strategy {
+      INVALID_STRATEGY = 0; ///< Invalid strategy.
+      PREFER_DEVICE_CHANGES = 1; ///< Prefer device changes.
+      PREFER_SERVER_CHANGES = 2; ///< Prefer server changes.
+    }
+
     optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
     string page_name = 2; ///< Page name.
-    bytes page_checksum = 3; ///< Page checksum before the update.
-    repeated particle.ledger.PageUpdateSet updates = 4; ///< Update operations.
+    bytes checksum = 3; ///< Page checksum.
+    optional Strategy strategy = 4; ///< Sync strategy. If not set, the default strategy is used.
+    /**
+     * MessagePack-encoded page contents.
+     *
+     * If not set, the server may request the actual page contents via a `GET_PAGE` request while
+     * the sync request is being processed.
+     */
+    optional bytes data = 5;
   }
 
   /**
    * Subscribe to page notifications.
    *
-   * This request can only be sent by the device.
+   * This request is sent by the device.
    */
   message Subscribe {
-    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
-    repeated string page_names = 2; ///< Page names.
+    /**
+     * List of ledger pages.
+     */
+    message LedgerPages {
+      optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
+      repeated string page_names = 2; ///< Page names.
+    }
+
+    repeated LedgerPages ledger_pages = 1; ///< List of ledger pages.
   }
 
   /**
    * Unsubscribe from page notifications.
    *
-   * This request can only be sent by the device.
+   * This request is sent by the device.
    */
   message Unsubscribe {
-    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
-    repeated string page_names = 2; ///< Page names.
+    /**
+     * List of ledger pages.
+     */
+    message LedgerPages {
+      optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
+      repeated string page_names = 2; ///< Page names.
+    }
+
+    repeated LedgerPages ledger_pages = 1; ///< List of ledger pages.
   }
 
   /**
    * Notify about page changes.
    *
-   * This request can only be sent by the server.
+   * This request is sent by the server.
    */
   message NotifyPageChanged {
     /**
-     * List of changed entries of a page.
+     * List of changed ledger pages.
      */
-    message PageChange {
-      string page_name = 1; ///< Page name.
-      repeated string entry_names = 2; ///< Names of changed entries.
-    }
-
-    /**
-     * List of changed pages of a ledger.
-     */
-    message LedgerChange {
+    message LedgerPages {
       optional string ledger_name = 1; ///< Ledger name. If not set, it is the device ledger that changed.
-      repeated PageChange page_changes = 2; ///< Changed pages.
+      repeated string page_names = 2; ///< Page names.
     }
 
-    repeated LedgerChange ledger_changes = 1; ///< Changed ledgers.
+    repeated LedgerPages ledger_pages = 1; ///< List of changed ledger pages.
   }
 
-  Type type = 1; ///< Request type.
+  optional Type type = 1; ///< Request type. Must be set if none of the request-specific fields are set.
 
-  oneof request {
+  oneof request { ///< Request data.
     ListLedgers list_ledgers = 2;
     GetPage get_page = 3;
     SyncPage sync_page = 4;
@@ -125,7 +147,7 @@ message LedgerResponse {
    */
   message ListLedgers {
     /**
-     * Ledger.
+     * Ledger info.
      */
     message Ledger {
       string name = 1; ///< Ledger name.
@@ -139,7 +161,7 @@ message LedgerResponse {
    * Get page contents.
    */
   message GetPage {
-    particle.ledger.PageData data = 1; ///< Page data.
+    bytes data = 1; ///< MessagePack-encoded page contents.
     bytes checksum = 2; ///< Page checksum.
   }
 
@@ -147,9 +169,8 @@ message LedgerResponse {
    * Sync page contents.
    */
   message SyncPage {
-    // TODO: Send a diff or list of update operations for recreating the resulting contents of the page
-    particle.ledger.PageData data = 1; ///< Page data.
-    bytes checksum = 2; ///< Page checksum after the update.
+    bytes data = 1; ///< MessagePack-encoded contents of the page after the synchronization.
+    bytes checksum = 2; ///< Checksum of the page after the synchronization.
   }
 
   /**
@@ -170,10 +191,10 @@ message LedgerResponse {
   message NotifyPageChanged {
   }
 
-  Result result = 1;
-  optional string error_message = 2;
+  Result result = 1; ///< Result code.
+  optional string error_message = 2; ///< Error message.
 
-  oneof response {
+  oneof response { ///< Response data.
     ListLedgers list_ledgers = 3;
     GetPage get_page = 4;
     SyncPage sync_page = 5;
