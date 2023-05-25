@@ -6,7 +6,7 @@ package particle.ledger;
  * Ledger scope.
  */
 enum LedgerScope {
-  LEDGER_SCOPE_INVALID = 0; ///< Invalid scope.
+  LEDGER_SCOPE_UNKNOWN = 0; ///< Unknown scope.
   LEDGER_SCOPE_DEVICE = 1; ///< Device scope.
   LEDGER_SCOPE_PRODUCT = 2; ///< Product scope.
   LEDGER_SCOPE_ORG = 3; ///< Organization scope.
