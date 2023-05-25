@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package particle.cloud;
 
-import "common/ledger.proto"
+import "common/ledger.proto";
 
 /**
  * Ledger request.

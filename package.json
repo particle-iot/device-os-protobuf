@@ -6,7 +6,7 @@
   "types": "src/index.d.ts",
   "scripts": {
     "build": "npm run build:pbjs:module && npm run build:pbjs:json && npm run build:types && npm run build:docs",
-    "build:pbjs:module": "pbjs control/*.proto cloud/*.proto -p nanopb -t static-module -o src/pbjs-generated/definitions.js --no-delimited --no-convert --no-verify",
+    "build:pbjs:module": "pbjs common/*.proto control/*.proto cloud/*.proto -p nanopb -t static-module -o src/pbjs-generated/definitions.js --no-delimited --no-convert --no-verify",
     "build:pbjs:ts": "pbts src/pbjs-generated/definitions.js -o src/pbjs-generated/definitions.d.ts",
     "build:pbjs:json": "pbjs control/*.proto cloud/*.proto -t json -o src/pbjs-generated/definitions.json --no-delimited --no-convert --no-verify",
     "build:types": "npm run clean:types && npm run build:pbjs:ts && tsc --project ./tsconfig.json",
