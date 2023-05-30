@@ -48,7 +48,7 @@ message GetDeviceIdRequest {
 
 message GetDeviceIdReply {
   // Device ID (hex-encoded)
-  string id = 1 [(nanopb).max_size = 24];
+  string id = 1 [(nanopb).max_length = 24];
 }
 
 // Get the device's serial number
@@ -58,7 +58,7 @@ message GetSerialNumberRequest {
 
 message GetSerialNumberReply {
   // Device serial ID
-  string serial = 1 [(nanopb).max_size = 16];
+  string serial = 1 [(nanopb).max_length = 16];
 }
 
 // Get the firmware version
@@ -95,7 +95,7 @@ message GetSystemCapabilitiesReply {
 
 message SetClaimCodeRequest {
   option (type_id) = 200; // CTRL_REQUEST_SET_CLAIM_CODE
-  string code = 1 [(nanopb).max_size = 64]; // Claim code
+  string code = 1 [(nanopb).max_length = 64]; // Claim code
 }
 
 message SetClaimCodeReply {
@@ -132,7 +132,7 @@ message GetSecurityKeyReply {
 message SetServerAddressRequest {
   option (type_id) = 220; // CTRL_REQUEST_SET_SERVER_ADDRESS
   ServerProtocolType protocol = 1; // Protocol type
-  string address = 2 [(nanopb).max_size = 64]; // Server address
+  string address = 2 [(nanopb).max_length = 64]; // Server address
   int32 port = 3; // Port number
 }
 
@@ -168,8 +168,8 @@ message GetServerProtocolReply {
 // Set the SoftAP SSID prefix and suffix
 message SetSoftApSsidRequest {
   option (type_id) = 240;  // CTRL_REQUEST_SET_SOFTAP_SSID
-  string prefix = 1 [(nanopb).max_size = 32]; // SSID prefix
-  string suffix = 2 [(nanopb).max_size = 16]; // SSID sufix
+  string prefix = 1 [(nanopb).max_length = 32]; // SSID prefix
+  string suffix = 2 [(nanopb).max_length = 16]; // SSID sufix
 }
 
 message SetSoftApSsidReply {
