@@ -22,27 +22,29 @@ message LedgerRequest {
   }
 
   /**
-   * List organization/product ledgers.
+   * Get the list of ledgers.
    *
-   * This request is sent by the device.
+   * This request can only be sent by the device.
    */
   message ListLedgers {
+    repeated ledger.LedgerScope scopes = 1; ///< Scope filter.
   }
 
   /**
    * Get page contents.
    *
-   * This request is sent by the device and server.
+   * This request can be sent by the device and server.
    */
   message GetPage {
-    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
-    string page_name = 2; ///< Page name.
+    string ledger_name = 1; ///< Ledger name.
+    ledger.LedgerScope scope = 2; ///< Ledger scope.
+    string page_name = 3; ///< Page name.
   }
 
   /**
    * Sync page contents.
    *
-   * This request is sent by the device.
+   * This request can only be sent by the device.
    */
   message SyncPage {
     /**
@@ -54,65 +56,76 @@ message LedgerRequest {
       PREFER_SERVER_CHANGES = 2; ///< Prefer server changes.
     }
 
-    optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
-    string page_name = 2; ///< Page name.
-    bytes checksum = 3; ///< Page checksum.
-    optional Strategy strategy = 4; ///< Sync strategy. If not set, the default strategy is used.
+    string ledger_name = 1; ///< Ledger name.
+    ledger.LedgerScope scope = 2; ///< Ledger scope.
+    string page_name = 3; ///< Page name.
+    /**
+     * Last time the page was changed, in milliseconds since the Unix epoch.
+     *
+     * If not set, the time is unknown.
+     */
+    optional fixed64 updated_at = 4;
+    optional Strategy strategy = 5; ///< Sync strategy. If not set, the default strategy is used.
     /**
      * MessagePack-encoded page contents.
      *
      * If not set, the server may request the actual page contents via a `GET_PAGE` request while
      * the sync request is being processed.
      */
-    optional bytes data = 5;
+    optional bytes data = 6;
   }
 
   /**
    * Subscribe to page notifications.
    *
-   * This request is sent by the device.
+   * This request can only be sent by the device.
    */
   message Subscribe {
     /**
      * List of ledger pages.
      */
     message LedgerPages {
-      optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
-      repeated string page_names = 2; ///< Page names.
+      string ledger_name = 1; ///< Ledger name.
+      ledger.LedgerScope scope = 2; ///< Ledger scope.
+      repeated string page_names = 3; ///< Page names.
     }
 
     repeated LedgerPages ledger_pages = 1; ///< List of ledger pages.
+    bool resubscribe = 2; ///< Whether to add to or override the current subscriptions.
   }
 
   /**
    * Unsubscribe from page notifications.
    *
-   * This request is sent by the device.
+   * This request can only be sent by the device.
    */
   message Unsubscribe {
     /**
      * List of ledger pages.
      */
     message LedgerPages {
-      optional string ledger_name = 1; ///< Ledger name. If not set, the device ledger is used.
-      repeated string page_names = 2; ///< Page names.
+      string ledger_name = 1; ///< Ledger name.
+      ledger.LedgerScope scope = 2; ///< Ledger scope.
+      repeated string page_names = 3; ///< Page names.
     }
 
     repeated LedgerPages ledger_pages = 1; ///< List of ledger pages.
+    bool unsubscribe_all = 2; ///< Whether to unsubscribe from all notifications.
   }
 
   /**
    * Notify about page changes.
    *
-   * This request is sent by the server.
+   * This request can only be sent by the server.
    */
   message NotifyPageChanged {
     /**
      * List of changed ledger pages.
      */
     message LedgerPages {
-      optional string ledger_name = 1; ///< Ledger name. If not set, it is the device ledger that changed.
-      repeated string page_names = 2; ///< Page names.
+      string ledger_name = 1; ///< Ledger name.
+      ledger.LedgerScope scope = 2; ///< Ledger scope.
+      repeated string page_names = 3; ///< Page names.
     }
 
     repeated LedgerPages ledger_pages = 1; ///< List of changed ledger pages.
@@ -143,7 +156,7 @@ message LedgerResponse {
   }
 
   /**
-   * List organization/product ledgers.
+   * Get the list of ledgers.
    */
   message ListLedgers {
     /**
@@ -151,7 +164,7 @@ message LedgerResponse {
      */
     message Ledger {
       string name = 1; ///< Ledger name.
-      particle.ledger.LedgerScope scope = 2; ///< Ledger scope.
+      ledger.LedgerScope scope = 2; ///< Ledger scope.
     }
 
     repeated Ledger ledgers = 1; ///< List of ledgers.
@@ -162,7 +175,12 @@ message LedgerResponse {
    */
   message GetPage {
     bytes data = 1; ///< MessagePack-encoded page contents.
-    bytes checksum = 2; ///< Page checksum.
+    /**
+     * Last time the page was changed, in milliseconds since the Unix epoch.
+     *
+     * If not set, the time is unknown.
+     */
+    optional fixed64 updated_at = 2;
   }
 
   /**
@@ -170,7 +188,7 @@ message LedgerResponse {
    */
   message SyncPage {
     bytes data = 1; ///< MessagePack-encoded contents of the page after the synchronization.
-    bytes checksum = 2; ///< Checksum of the page after the synchronization.
+    fixed64 updated_at = 2; ///< Last time the page was changed, in milliseconds since the Unix epoch.
   }
 
   /**
