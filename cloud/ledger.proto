@@ -1,223 +1,215 @@
 syntax = "proto3";
 
-package particle.cloud;
+package particle.cloud.ledger;
 
-import "common/ledger.proto";
+import "nanopb.proto";
 
 /**
- * Ledger request.
+ * Ledger scope.
  */
-message LedgerRequest {
-  /**
-   * Request type.
-   */
-  enum Type {
-    INVALID_TYPE = 0; ///< Invalid request type.
-    LIST_LEDGERS = 1; ///< List organization/product ledgers.
-    GET_PAGE = 2; ///< Get page contents.
-    SYNC_PAGE = 3; ///< Sync page contents.
-    SUBSCRIBE = 4; ///< Subscribe to page notifications.
-    UNSUBSCRIBE = 5; ///< Unsubscribe from page notifications.
-    NOTIFY_PAGE_CHANGED = 6; ///< Notify about page changes.
-  }
-
-  /**
-   * Get the list of ledgers.
-   *
-   * This request can only be sent by the device.
-   */
-  message ListLedgers {
-    repeated ledger.LedgerScope scopes = 1; ///< Scope filter.
-  }
-
-  /**
-   * Get page contents.
-   *
-   * This request can be sent by the device and server.
-   */
-  message GetPage {
-    string ledger_name = 1; ///< Ledger name.
-    ledger.LedgerScope scope = 2; ///< Ledger scope.
-    string page_name = 3; ///< Page name.
-  }
-
-  /**
-   * Sync page contents.
-   *
-   * This request can only be sent by the device.
-   */
-  message SyncPage {
-    /**
-     * Sync strategy.
-     */
-    enum Strategy {
-      INVALID_STRATEGY = 0; ///< Invalid strategy.
-      PREFER_DEVICE_CHANGES = 1; ///< Prefer device changes.
-      PREFER_SERVER_CHANGES = 2; ///< Prefer server changes.
-    }
-
-    string ledger_name = 1; ///< Ledger name.
-    ledger.LedgerScope scope = 2; ///< Ledger scope.
-    string page_name = 3; ///< Page name.
-    /**
-     * Last time the page was changed, in milliseconds since the Unix epoch.
-     *
-     * If not set, the time is unknown.
-     */
-    optional fixed64 updated_at = 4;
-    optional Strategy strategy = 5; ///< Sync strategy. If not set, the default strategy is used.
-    /**
-     * MessagePack-encoded page contents.
-     *
-     * If not set, the server may request the actual page contents via a `GET_PAGE` request while
-     * the sync request is being processed.
-     */
-    optional bytes data = 6;
-  }
-
-  /**
-   * Subscribe to page notifications.
-   *
-   * This request can only be sent by the device.
-   */
-  message Subscribe {
-    /**
-     * List of ledger pages.
-     */
-    message LedgerPages {
-      string ledger_name = 1; ///< Ledger name.
-      ledger.LedgerScope scope = 2; ///< Ledger scope.
-      repeated string page_names = 3; ///< Page names.
-    }
-
-    repeated LedgerPages ledger_pages = 1; ///< List of ledger pages.
-    bool resubscribe = 2; ///< Whether to add to or override the current subscriptions.
-  }
-
-  /**
-   * Unsubscribe from page notifications.
-   *
-   * This request can only be sent by the device.
-   */
-  message Unsubscribe {
-    /**
-     * List of ledger pages.
-     */
-    message LedgerPages {
-      string ledger_name = 1; ///< Ledger name.
-      ledger.LedgerScope scope = 2; ///< Ledger scope.
-      repeated string page_names = 3; ///< Page names.
-    }
-
-    repeated LedgerPages ledger_pages = 1; ///< List of ledger pages.
-    bool unsubscribe_all = 2; ///< Whether to unsubscribe from all notifications.
-  }
-
-  /**
-   * Notify about page changes.
-   *
-   * This request can only be sent by the server.
-   */
-  message NotifyPageChanged {
-    /**
-     * List of changed ledger pages.
-     */
-    message LedgerPages {
-      string ledger_name = 1; ///< Ledger name.
-      ledger.LedgerScope scope = 2; ///< Ledger scope.
-      repeated string page_names = 3; ///< Page names.
-    }
-
-    repeated LedgerPages ledger_pages = 1; ///< List of changed ledger pages.
-  }
-
-  optional Type type = 1; ///< Request type. Must be set if none of the request-specific fields are set.
-
-  oneof request { ///< Request data.
-    ListLedgers list_ledgers = 2;
-    GetPage get_page = 3;
-    SyncPage sync_page = 4;
-    Subscribe subscribe = 5;
-    Unsubscribe unsubscribe = 6;
-    NotifyPageChanged notify_page_changed = 7;
-  }
+enum Scope {
+  SCOPE_UNKNOWN = 0; ///< Unknown scope.
+  SCOPE_DEVICE = 1; ///< Device scope.
+  SCOPE_PRODUCT = 2; ///< Product scope.
+  SCOPE_OWNER = 3; ///< Owner scope.
 }
 
 /**
- * Ledger response.
+ * Sync direction.
  */
-message LedgerResponse {
-  /**
-   * Result code.
-   */
-  enum Result {
-    OK = 0;
-    LEDGER_NOT_FOUND = 1;
-  }
+enum SyncDirection {
+  SYNC_DIRECTION_UNKNOWN = 0; ///< Unknown direction.
+  SYNC_DIRECTION_DEVICE_TO_CLOUD = 1; ///< Device to cloud.
+  SYNC_DIRECTION_CLOUD_TO_DEVICE = 2; ///< Cloud to device.
+}
 
+/**
+ * Get the ledger info.
+ *
+ * This request is sent by the device.
+ */
+message GetInfoRequest {
   /**
-   * Get the list of ledgers.
+   * Names of the ledgers for which to request the info.
    */
-  message ListLedgers {
+  repeated string ledgers = 1;
+}
+
+/**
+ * Response for a `GetInfoRequest`.
+ */
+message GetInfoResponse {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    Scope scope = 2; ///< Ledger scope.
+    SyncDirection sync_direction = 3; ///< Sync direction.
     /**
-     * Ledger info.
-     */
-    message Ledger {
-      string name = 1; ///< Ledger name.
-      ledger.LedgerScope scope = 2; ///< Ledger scope.
-    }
-
-    repeated Ledger ledgers = 1; ///< List of ledgers.
-  }
-
-  /**
-   * Get page contents.
-   */
-  message GetPage {
-    bytes data = 1; ///< MessagePack-encoded page contents.
-    /**
-     * Last time the page was changed, in milliseconds since the Unix epoch.
+     * Time the ledger was last updated, in milliseconds since the Unix epoch.
      *
-     * If not set, the time is unknown.
+     * If 0, the time is unknown.
      */
-    optional fixed64 updated_at = 2;
+    fixed64 last_updated = 4;
+    /**
+     * Time the ledger was last synchronized according to the server, in milliseconds since the
+     * Unix epoch.
+     *
+     * If 0, the ledger has not yet been synchronized.
+     */
+    fixed64 last_synced = 5;
   }
 
   /**
-   * Sync page contents.
+   * Ledger info.
+   *
+   * If the request contained an unknown ledger name or the requested ledger is inaccessible by the
+   * device, the info about the respective ledger would be omitted.
    */
-  message SyncPage {
-    bytes data = 1; ///< MessagePack-encoded contents of the page after the synchronization.
-    fixed64 updated_at = 2; ///< Last time the page was changed, in milliseconds since the Unix epoch.
+  repeated Ledger ledgers = 1;
+}
+
+/**
+ * Synchronize the contents of a ledger.
+ *
+ * This request is sent by the device or server in order to synchronize the contents of a device-to-
+ * cloud or cloud-to-device ledger respectively.
+ *
+ * The device can send this request at any time in order to synchronize a device-to-cloud ledger.
+ *
+ * Synchronization of a cloud-to-device ledger is always initiated by the device by either sending a
+ * `BeginSyncRequest` for that ledger or setting the `sync` field of the respective
+ * `NotifyUpdateResponse` to `true`. The contents of the ledger is then sent by the server in a
+ * `SyncRequest`.
+ */
+message SyncRequest {
+  string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+  bytes data = 2; ///< Contents of the ledger.
+  /**
+   * Time the ledger was last updated, in milliseconds since the Unix epoch.
+   *
+   * If 0, the time is unknown.
+   */
+  fixed64 last_updated = 3;
+}
+
+/**
+ * Response for a `SyncRequest`.
+ */
+message SyncResponse {
+  /**
+   * Updated synchronization time, in milliseconds since the Unix epoch.
+   */
+  fixed64 last_synced = 1;
+}
+
+/**
+ * Request synchronization of one or multiple cloud-to-device ledgers.
+ *
+ * This request is sent by the device.
+ */
+message BeginSyncRequest {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    /**
+     * Time the ledger was last synchronized according to the device, in milliseconds since the
+     * Unix epoch.
+     *
+     * If 0, the ledger has not yet been synchronized.
+     */
+    fixed64 last_synced = 2;
   }
 
   /**
-   * Subscribe to page notifications.
+   * Ledger info.
    */
-  message Subscribe {
+  repeated Ledger ledgers = 1;
+}
+
+/**
+ * Response for a `BeginSyncRequest`.
+ */
+message BeginSyncResponse {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    /**
+     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     */
+    fixed64 last_updated = 2;
+    /**
+     * Whether a `SyncRequest` is to be expected for this ledger.
+     */
+    bool sync_pending = 3;
   }
 
   /**
-   * Unsubscribe from page notifications.
+   * Ledger info.
    */
-  message Unsubscribe {
+  repeated Ledger ledgers = 1;
+}
+
+/**
+ * Subscribe to notifications about updates made to one or multiple cloud-to-device ledgers.
+ *
+ * Subscriptions listed in this request replace all the subscriptions currently registered on
+ * the server.
+ *
+ * This request is sent by the device.
+ */
+message SubscribeToUpdatesRequest {
+  /**
+   * Names of the ledgers to subscribe to.
+   */
+  repeated string ledgers = 1;
+}
+
+/**
+ * Response for a `SubscribeToUpdatesRequest`.
+ */
+message SubscribeToUpdatesResponse {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    /**
+     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     */
+    fixed64 last_updated = 2;
   }
 
   /**
-   * Notify about page changes.
+   * Ledger info.
    */
-  message NotifyPageChanged {
-  }
+  repeated Ledger ledgers = 1;
+}
 
-  Result result = 1; ///< Result code.
-  optional string error_message = 2; ///< Error message.
+/**
+ * Notify the device that a cloud-to-device ledger was updated.
+ *
+ * This request is sent by the server.
+ */
+message NotifyUpdateRequest {
+  string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+  /**
+   * Time the ledger was updated, in milliseconds since the Unix epoch.
+   */
+  fixed64 last_updated = 2;
+}
 
-  oneof response { ///< Response data.
-    ListLedgers list_ledgers = 3;
-    GetPage get_page = 4;
-    SyncPage sync_page = 5;
-    Subscribe subscribe = 6;
-    Unsubscribe unsubscribe = 7;
-    NotifyPageChanged notify_page_changed = 8;
-  }
+/**
+ * Response for a `NotifyUpdateRequest`.
+ */
+message NotifyUpdateResponse {
+  /**
+   * If `true`, the server is requested to send a `SyncRequest` for this ledger.
+   */
+  bool sync = 1;
 }
