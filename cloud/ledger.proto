@@ -104,29 +104,19 @@ message SyncResponse {
 }
 
 /**
- * Request synchronization of one or multiple cloud-to-device ledgers.
+ * Request synchronization of a cloud-to-device ledger.
  *
  * This request is sent by the device.
  */
 message BeginSyncRequest {
+  string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
   /**
-   * Ledger info.
+   * Time the ledger was last synchronized according to the device, in milliseconds since the
+   * Unix epoch.
+   *
+   * If 0, the ledger has not yet been synchronized.
    */
-  message Ledger {
-    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
-    /**
-     * Time the ledger was last synchronized according to the device, in milliseconds since the
-     * Unix epoch.
-     *
-     * If 0, the ledger has not yet been synchronized.
-     */
-    fixed64 last_synced = 2;
-  }
-
-  /**
-   * Ledger info.
-   */
-  repeated Ledger ledgers = 1;
+  fixed64 last_synced = 2;
 }
 
 /**
@@ -134,24 +124,13 @@ message BeginSyncRequest {
  */
 message BeginSyncResponse {
   /**
-   * Ledger info.
+   * Time the ledger was last updated, in milliseconds since the Unix epoch.
    */
-  message Ledger {
-    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
-    /**
-     * Time the ledger was last updated, in milliseconds since the Unix epoch.
-     */
-    fixed64 last_updated = 2;
-    /**
-     * Whether a `SyncRequest` is to be expected for this ledger.
-     */
-    bool sync_pending = 3;
-  }
-
+  fixed64 last_updated = 1;
   /**
-   * Ledger info.
+   * Whether a `SyncRequest` is pending for this ledger.
    */
-  repeated Ledger ledgers = 1;
+  bool sync_pending = 2;
 }
 
 /**
