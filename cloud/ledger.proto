@@ -79,9 +79,8 @@ message GetInfoResponse {
  * The device can send this request at any time in order to synchronize a device-to-cloud ledger.
  *
  * Synchronization of a cloud-to-device ledger is always initiated by the device by either sending a
- * `BeginSyncRequest` for that ledger or setting the `sync` field of the respective
- * `NotifyUpdateResponse` to `true`. The contents of the ledger is then sent by the server in a
- * `SyncRequest`.
+ * `BeginSyncRequest` or setting the `sync` field of the respective `NotifyUpdateResponse` to `true`.
+ * The contents of the ledger is then sent by the server in a separate `SyncRequest`.
  */
 message SyncRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
@@ -158,12 +157,12 @@ message BeginSyncResponse {
 /**
  * Subscribe to notifications about updates made to one or multiple cloud-to-device ledgers.
  *
- * Subscriptions listed in this request replace all the subscriptions currently registered on
+ * Subscriptions listed in this request will replace all the subscriptions currently registered on
  * the server.
  *
  * This request is sent by the device.
  */
-message SubscribeToUpdatesRequest {
+message SubscribeRequest {
   /**
    * Names of the ledgers to subscribe to.
    */
@@ -171,9 +170,9 @@ message SubscribeToUpdatesRequest {
 }
 
 /**
- * Response for a `SubscribeToUpdatesRequest`.
+ * Response for a `SubscribeRequest`.
  */
-message SubscribeToUpdatesResponse {
+message SubscribeResponse {
   /**
    * Ledger info.
    */
@@ -209,7 +208,7 @@ message NotifyUpdateRequest {
  */
 message NotifyUpdateResponse {
   /**
-   * If `true`, the server is requested to send a `SyncRequest` for this ledger.
+   * Whether synchronization is requested for this ledger by the device.
    */
   bool sync = 1;
 }
