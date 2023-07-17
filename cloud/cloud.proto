@@ -2,6 +2,67 @@ syntax = "proto3";
 
 package particle.cloud;
 
+import "ledger.proto";
+
+/**
+ * Request message.
+ */
+message Request {
+  /**
+   * Request type.
+   */
+  enum Type {
+    INVALID = 0; ///< Invalid request type.
+    LEDGER_GET_INFO = 1; ///< Get the ledger info.
+    LEDGER_SYNC = 2; ///< Synchronize a ledger.
+    LEDGER_BEGIN_SYNC = 3; ///< Request synchronization of a ledger.
+    LEDGER_SUBSCRIBE = 4; ///< Subscribe to ledger updates.
+    LEDGER_NOTIFY_UPDATE = 5; ///< Notify a ledger update.
+  }
+
+  Type type = 1; ///< Request type.
+
+  oneof data { ///< Request data.
+    ledger.GetInfoRequest ledger_get_info = 2;
+    ledger.SyncRequest ledger_sync = 3;
+    ledger.BeginSyncRequest ledger_begin_sync = 4;
+    ledger.SubscribeRequest ledger_subscribe = 5;
+    ledger.NotifyUpdateRequest ledger_notify_update = 6;
+  }
+}
+
+/**
+ * Response message.
+ */
+message Response {
+  /**
+   * Result code.
+   */
+  enum Result {
+    OK = 0; ///< Operation succeeded.
+    LEDGER_NOT_FOUND = 1; ///< Requested ledger is not found.
+    INVALID_SYNC_DIRECTION = 2; ///< Sync direction of the ledger is invalid.
+  }
+
+  /**
+   * Result code.
+   *
+   * Possible result codes are defined by the `Result` enum. If the response is sent by the device,
+   * the result code may be negative in which case it indicates a Device OS system error:
+   *
+   * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+   */
+  sint32 result = 1;
+
+  oneof data { ///< Response data.
+    ledger.GetInfoResponse ledger_get_info = 2;
+    ledger.SyncResponse ledger_sync = 3;
+    ledger.BeginSyncResponse ledger_begin_sync = 4;
+    ledger.SubscribeResponse ledger_subscribe = 5;
+    ledger.NotifyUpdateResponse ledger_notify_update = 6;
+  }
+}
+
 /**
  * A request sent to the device to notify it that it must disconnect from the current server and
  * use another server for further connections to the Cloud.
