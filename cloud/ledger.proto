@@ -47,18 +47,11 @@ message GetInfoResponse {
     Scope scope = 2; ///< Ledger scope.
     SyncDirection sync_direction = 3; ///< Sync direction.
     /**
-     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     * Time the ledger was last updated according to the server, in milliseconds since the Unix epoch.
      *
      * If 0, the time is unknown.
      */
     fixed64 last_updated = 4;
-    /**
-     * Time the ledger was last synchronized according to the server, in milliseconds since the
-     * Unix epoch.
-     *
-     * If 0, the ledger has not yet been synchronized.
-     */
-    fixed64 last_synced = 5;
   }
 
   /**
@@ -98,7 +91,7 @@ message SyncRequest {
  */
 message SyncResponse {
   /**
-   * Updated synchronization time, in milliseconds since the Unix epoch.
+   * Time the ledger was synchronized, in milliseconds since the Unix epoch.
    */
   fixed64 last_synced = 1;
 }
@@ -111,12 +104,11 @@ message SyncResponse {
 message BeginSyncRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
   /**
-   * Time the ledger was last synchronized according to the device, in milliseconds since the
-   * Unix epoch.
+   * Time the ledger was last updated according to the device, in milliseconds since the Unix epoch.
    *
-   * If 0, the ledger has not yet been synchronized.
+   * If 0, the time is unknown.
    */
-  fixed64 last_synced = 2;
+  fixed64 last_updated = 2;
 }
 
 /**
