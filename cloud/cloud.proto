@@ -53,13 +53,14 @@ message Response {
    * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
    */
   sint32 result = 1;
+  optional string message = 2; ///< Diagnostic message.
 
   oneof data { ///< Response data.
-    ledger.GetInfoResponse ledger_get_info = 2;
-    ledger.SyncResponse ledger_sync = 3;
-    ledger.BeginSyncResponse ledger_begin_sync = 4;
-    ledger.SubscribeResponse ledger_subscribe = 5;
-    ledger.NotifyUpdateResponse ledger_notify_update = 6;
+    ledger.GetInfoResponse ledger_get_info = 3;
+    ledger.SyncResponse ledger_sync = 4;
+    ledger.BeginSyncResponse ledger_begin_sync = 5;
+    ledger.SubscribeResponse ledger_subscribe = 6;
+    ledger.NotifyUpdateResponse ledger_notify_update = 7;
   }
 }
 
