@@ -36,7 +36,7 @@ message GetInfoRequest {
 }
 
 /**
- * Response for a `GetInfoRequest`.
+ * Response for `GetInfoRequest`.
  */
 message GetInfoResponse {
   /**
@@ -64,18 +64,11 @@ message GetInfoResponse {
 }
 
 /**
- * Synchronize the contents of a ledger.
+ * Update the contents of a remote device-to-cloud ledger.
  *
- * This request is sent by the device or server in order to synchronize the contents of a device-to-
- * cloud or cloud-to-device ledger respectively.
- *
- * The device can send this request at any time in order to synchronize a device-to-cloud ledger.
- *
- * Synchronization of a cloud-to-device ledger is always initiated by the device by either sending a
- * `BeginSyncRequest` or setting the `sync` field of the respective `NotifyUpdateResponse` to `true`.
- * The contents of the ledger is then sent by the server in a separate `SyncRequest`.
+ * This request is sent by the device.
  */
-message SyncRequest {
+message SetDataRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
   bytes data = 2; ///< Contents of the ledger.
   /**
@@ -87,42 +80,41 @@ message SyncRequest {
 }
 
 /**
- * Response for a `SyncRequest`.
+ * Response for `SetDataRequest`.
  */
-message SyncResponse {
-  /**
-   * Time the ledger was synchronized, in milliseconds since the Unix epoch.
-   */
-  fixed64 last_synced = 1;
+message SetDataResponse {
 }
 
 /**
- * Request synchronization of a cloud-to-device ledger.
+ * Get the contents of a remote cloud-to-device ledger.
  *
  * This request is sent by the device.
  */
-message BeginSyncRequest {
+message GetDataRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
   /**
    * Time the ledger was last updated according to the device, in milliseconds since the Unix epoch.
    *
-   * If 0, the time is unknown.
+   * If specified, the response will only contain the contents of the ledger if its last update time
+   * as recorded on the server is greater than the time specified in this field.
    */
-  fixed64 last_updated = 2;
+  optional fixed64 last_updated = 2;
 }
 
 /**
- * Response for a `BeginSyncRequest`.
+ * Response for `GetDataRequest`.
  */
-message BeginSyncResponse {
+message GetDataResponse {
+  /**
+   * Contents of the ledger.
+   *
+   * If not specified, the device has the most recent version of the ledger data.
+   */
+  optional bytes data = 1;
   /**
    * Time the ledger was last updated, in milliseconds since the Unix epoch.
    */
-  fixed64 last_updated = 1;
-  /**
-   * Whether a `SyncRequest` is pending for this ledger.
-   */
-  bool sync_pending = 2;
+  fixed64 last_updated = 2;
 }
 
 /**
@@ -141,7 +133,7 @@ message SubscribeRequest {
 }
 
 /**
- * Response for a `SubscribeRequest`.
+ * Response for `SubscribeRequest`.
  */
 message SubscribeResponse {
   /**
@@ -175,11 +167,7 @@ message NotifyUpdateRequest {
 }
 
 /**
- * Response for a `NotifyUpdateRequest`.
+ * Response for `NotifyUpdateRequest`.
  */
 message NotifyUpdateResponse {
-  /**
-   * Whether synchronization is requested for this ledger by the device.
-   */
-  bool sync = 1;
 }
