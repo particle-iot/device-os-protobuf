@@ -14,8 +14,8 @@ message Request {
   enum Type {
     INVALID = 0; ///< Invalid request type.
     LEDGER_GET_INFO = 1; ///< Get the ledger info.
-    LEDGER_SYNC = 2; ///< Synchronize a ledger.
-    LEDGER_BEGIN_SYNC = 3; ///< Request synchronization of a ledger.
+    LEDGER_SET_DATA = 2; ///< Update the contents of a remote ledger.
+    LEDGER_GET_DATA = 3; ///< Get the contents of a remote ledger.
     LEDGER_SUBSCRIBE = 4; ///< Subscribe to ledger updates.
     LEDGER_NOTIFY_UPDATE = 5; ///< Notify a ledger update.
   }
@@ -24,8 +24,8 @@ message Request {
 
   oneof data { ///< Request data.
     ledger.GetInfoRequest ledger_get_info = 2;
-    ledger.SyncRequest ledger_sync = 3;
-    ledger.BeginSyncRequest ledger_begin_sync = 4;
+    ledger.SetDataRequest ledger_set_data = 3;
+    ledger.GetDataRequest ledger_get_data = 4;
     ledger.SubscribeRequest ledger_subscribe = 5;
     ledger.NotifyUpdateRequest ledger_notify_update = 6;
   }
@@ -57,8 +57,8 @@ message Response {
 
   oneof data { ///< Response data.
     ledger.GetInfoResponse ledger_get_info = 3;
-    ledger.SyncResponse ledger_sync = 4;
-    ledger.BeginSyncResponse ledger_begin_sync = 5;
+    ledger.SetDataResponse ledger_set_data = 4;
+    ledger.GetDataResponse ledger_get_data = 5;
     ledger.SubscribeResponse ledger_subscribe = 6;
     ledger.NotifyUpdateResponse ledger_notify_update = 7;
   }
