@@ -18,6 +18,8 @@ enum Security {
   WPA_PSK = 2; // WPA PSK
   WPA2_PSK = 3; // WPA2 PSK
   WPA_WPA2_PSK = 4; // WPA/WPA2 PSK
+  WPA3_PSK = 5; // WPA3 PSK
+  WPA2_WPA3_PSK = 6; // WPA2/WPA3 PSK
 }
 
 /**
@@ -51,6 +53,7 @@ message JoinNewNetworkRequest {
   Security security = 3; // Network security
   Credentials credentials = 4; // Network credentials
   Interface interface_config = 5; // Network interface configuration (IP, mask, DNS etc)
+  bool hidden = 6;
 }
 
 message JoinNewNetworkReply {
