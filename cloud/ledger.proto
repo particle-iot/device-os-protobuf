@@ -70,13 +70,17 @@ message GetInfoResponse {
  */
 message SetDataRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
-  bytes data = 2; ///< Contents of the ledger.
   /**
    * Time the ledger was last updated, in milliseconds since the Unix epoch.
    *
    * If 0, the time is unknown.
    */
-  fixed64 last_updated = 3;
+  fixed64 last_updated = 2;
+  /**
+   * Contents of the ledger.
+   */
+  // XXX: Device OS currently requires this field to have the highest field number in the message.
+  bytes data = 10;
 }
 
 /**
@@ -106,15 +110,16 @@ message GetDataRequest {
  */
 message GetDataResponse {
   /**
+   * Time the ledger was last updated, in milliseconds since the Unix epoch.
+   */
+  fixed64 last_updated = 1;
+  /**
    * Contents of the ledger.
    *
    * If not specified, the device has the most recent version of the ledger data.
    */
-  optional bytes data = 1;
-  /**
-   * Time the ledger was last updated, in milliseconds since the Unix epoch.
-   */
-  fixed64 last_updated = 2;
+  // XXX: Device OS currently requires this field to have the highest field number in the message.
+  optional bytes data = 10;
 }
 
 /**
