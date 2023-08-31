@@ -10122,6 +10122,208 @@ export namespace particle {
     /** Namespace cloud. */
     namespace cloud {
 
+        /** Properties of a Request. */
+        interface IRequest {
+
+            /** < Request type. */
+            type?: (particle.cloud.Request.Type|null);
+
+            /** Request ledgerGetInfo */
+            ledgerGetInfo?: (particle.cloud.ledger.IGetInfoRequest|null);
+
+            /** Request ledgerSetData */
+            ledgerSetData?: (particle.cloud.ledger.ISetDataRequest|null);
+
+            /** Request ledgerGetData */
+            ledgerGetData?: (particle.cloud.ledger.IGetDataRequest|null);
+
+            /** Request ledgerSubscribe */
+            ledgerSubscribe?: (particle.cloud.ledger.ISubscribeRequest|null);
+
+            /** Request ledgerNotifyUpdate */
+            ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateRequest|null);
+        }
+
+        /** Request message. */
+        class Request implements IRequest {
+
+            /**
+             * Constructs a new Request.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IRequest);
+
+            /** < Request type. */
+            public type: particle.cloud.Request.Type;
+
+            /** Request ledgerGetInfo. */
+            public ledgerGetInfo?: (particle.cloud.ledger.IGetInfoRequest|null);
+
+            /** Request ledgerSetData. */
+            public ledgerSetData?: (particle.cloud.ledger.ISetDataRequest|null);
+
+            /** Request ledgerGetData. */
+            public ledgerGetData?: (particle.cloud.ledger.IGetDataRequest|null);
+
+            /** Request ledgerSubscribe. */
+            public ledgerSubscribe?: (particle.cloud.ledger.ISubscribeRequest|null);
+
+            /** Request ledgerNotifyUpdate. */
+            public ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateRequest|null);
+
+            /** Request data. */
+            public data?: ("ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate");
+
+            /**
+             * Creates a new Request instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Request instance
+             */
+            public static create(properties?: particle.cloud.IRequest): particle.cloud.Request;
+
+            /**
+             * Encodes the specified Request message. Does not implicitly {@link particle.cloud.Request.verify|verify} messages.
+             * @param message Request message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a Request message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Request
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.Request;
+        }
+
+        namespace Request {
+
+            /** Request type. */
+            enum Type {
+                INVALID = 0,
+                LEDGER_GET_INFO = 1,
+                LEDGER_SET_DATA = 2,
+                LEDGER_GET_DATA = 3,
+                LEDGER_SUBSCRIBE = 4,
+                LEDGER_NOTIFY_UPDATE = 5
+            }
+        }
+
+        /** Properties of a Response. */
+        interface IResponse {
+
+            /**
+             * Result code.
+             *
+             * Possible result codes are defined by the `Result` enum. If the response is sent by the device,
+             * the result code may be negative in which case it indicates a Device OS system error:
+             *
+             * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+             */
+            result?: (number|null);
+
+            /** < Diagnostic message. */
+            message?: (string|null);
+
+            /** Response ledgerGetInfo */
+            ledgerGetInfo?: (particle.cloud.ledger.IGetInfoResponse|null);
+
+            /** Response ledgerSetData */
+            ledgerSetData?: (particle.cloud.ledger.ISetDataResponse|null);
+
+            /** Response ledgerGetData */
+            ledgerGetData?: (particle.cloud.ledger.IGetDataResponse|null);
+
+            /** Response ledgerSubscribe */
+            ledgerSubscribe?: (particle.cloud.ledger.ISubscribeResponse|null);
+
+            /** Response ledgerNotifyUpdate */
+            ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateResponse|null);
+        }
+
+        /** Response message. */
+        class Response implements IResponse {
+
+            /**
+             * Constructs a new Response.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IResponse);
+
+            /**
+             * Result code.
+             *
+             * Possible result codes are defined by the `Result` enum. If the response is sent by the device,
+             * the result code may be negative in which case it indicates a Device OS system error:
+             *
+             * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+             */
+            public result: number;
+
+            /** < Diagnostic message. */
+            public message?: (string|null);
+
+            /** Response ledgerGetInfo. */
+            public ledgerGetInfo?: (particle.cloud.ledger.IGetInfoResponse|null);
+
+            /** Response ledgerSetData. */
+            public ledgerSetData?: (particle.cloud.ledger.ISetDataResponse|null);
+
+            /** Response ledgerGetData. */
+            public ledgerGetData?: (particle.cloud.ledger.IGetDataResponse|null);
+
+            /** Response ledgerSubscribe. */
+            public ledgerSubscribe?: (particle.cloud.ledger.ISubscribeResponse|null);
+
+            /** Response ledgerNotifyUpdate. */
+            public ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateResponse|null);
+
+            /** Response _message. */
+            public _message?: "message";
+
+            /** Response data. */
+            public data?: ("ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate");
+
+            /**
+             * Creates a new Response instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Response instance
+             */
+            public static create(properties?: particle.cloud.IResponse): particle.cloud.Response;
+
+            /**
+             * Encodes the specified Response message. Does not implicitly {@link particle.cloud.Response.verify|verify} messages.
+             * @param message Response message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a Response message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Response
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.Response;
+        }
+
+        namespace Response {
+
+            /** Result code. */
+            enum Result {
+                OK = 0,
+                LEDGER_NOT_FOUND = 1,
+                INVALID_SYNC_DIRECTION = 2
+            }
+        }
+
         /** Properties of a ServerMovedPermanentlyRequest. */
         interface IServerMovedPermanentlyRequest {
 
@@ -10235,6 +10437,665 @@ export namespace particle {
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
             public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ServerMovedPermanentlyResponse;
+        }
+
+        /** Namespace ledger. */
+        namespace ledger {
+
+            /** Ledger scope. */
+            enum Scope {
+                SCOPE_UNKNOWN = 0,
+                SCOPE_DEVICE = 1,
+                SCOPE_PRODUCT = 2,
+                SCOPE_OWNER = 3
+            }
+
+            /** Sync direction. */
+            enum SyncDirection {
+                SYNC_DIRECTION_UNKNOWN = 0,
+                SYNC_DIRECTION_DEVICE_TO_CLOUD = 1,
+                SYNC_DIRECTION_CLOUD_TO_DEVICE = 2
+            }
+
+            /** Properties of a GetInfoRequest. */
+            interface IGetInfoRequest {
+
+                /** Names of the ledgers for which to request the info. */
+                ledgers?: (string[]|null);
+            }
+
+            /**
+             * Get the ledger info.
+             *
+             * This request is sent by the device.
+             */
+            class GetInfoRequest implements IGetInfoRequest {
+
+                /**
+                 * Constructs a new GetInfoRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.IGetInfoRequest);
+
+                /** Names of the ledgers for which to request the info. */
+                public ledgers: string[];
+
+                /**
+                 * Creates a new GetInfoRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns GetInfoRequest instance
+                 */
+                public static create(properties?: particle.cloud.ledger.IGetInfoRequest): particle.cloud.ledger.GetInfoRequest;
+
+                /**
+                 * Encodes the specified GetInfoRequest message. Does not implicitly {@link particle.cloud.ledger.GetInfoRequest.verify|verify} messages.
+                 * @param message GetInfoRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.IGetInfoRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a GetInfoRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns GetInfoRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.GetInfoRequest;
+            }
+
+            /** Properties of a GetInfoResponse. */
+            interface IGetInfoResponse {
+
+                /** < Ledger info. */
+                ledgers?: (particle.cloud.ledger.GetInfoResponse.ILedger[]|null);
+            }
+
+            /** Response for `GetInfoRequest`. */
+            class GetInfoResponse implements IGetInfoResponse {
+
+                /**
+                 * Constructs a new GetInfoResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.IGetInfoResponse);
+
+                /** < Ledger info. */
+                public ledgers: particle.cloud.ledger.GetInfoResponse.ILedger[];
+
+                /**
+                 * Creates a new GetInfoResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns GetInfoResponse instance
+                 */
+                public static create(properties?: particle.cloud.ledger.IGetInfoResponse): particle.cloud.ledger.GetInfoResponse;
+
+                /**
+                 * Encodes the specified GetInfoResponse message. Does not implicitly {@link particle.cloud.ledger.GetInfoResponse.verify|verify} messages.
+                 * @param message GetInfoResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.IGetInfoResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a GetInfoResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns GetInfoResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.GetInfoResponse;
+            }
+
+            namespace GetInfoResponse {
+
+                /** Properties of a Ledger. */
+                interface ILedger {
+
+                    /** Ledger name as specified in the request. */
+                    name?: (string|null);
+
+                    /**
+                     * Ledger scope.
+                     *
+                     * If the requested ledger is not found or is not accessible by the device, this field is set to
+                     * `SCOPE_UNKNOWN`.
+                     */
+                    scope?: (particle.cloud.ledger.Scope|null);
+
+                    /**
+                     * Sync direction.
+                     *
+                     * If the requested ledger is not found or is not accessible by the device, this field is set to
+                     * `SYNC_DIRECTION_UNKNOWN`.
+                     */
+                    syncDirection?: (particle.cloud.ledger.SyncDirection|null);
+
+                    /** Ledger lastUpdated */
+                    lastUpdated?: (number|Long|null);
+                }
+
+                /** Ledger info. */
+                class Ledger implements ILedger {
+
+                    /**
+                     * Constructs a new Ledger.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: particle.cloud.ledger.GetInfoResponse.ILedger);
+
+                    /** Ledger name as specified in the request. */
+                    public name: string;
+
+                    /**
+                     * Ledger scope.
+                     *
+                     * If the requested ledger is not found or is not accessible by the device, this field is set to
+                     * `SCOPE_UNKNOWN`.
+                     */
+                    public scope: particle.cloud.ledger.Scope;
+
+                    /**
+                     * Sync direction.
+                     *
+                     * If the requested ledger is not found or is not accessible by the device, this field is set to
+                     * `SYNC_DIRECTION_UNKNOWN`.
+                     */
+                    public syncDirection: particle.cloud.ledger.SyncDirection;
+
+                    /** Ledger lastUpdated. */
+                    public lastUpdated?: (number|Long|null);
+
+                    /** Ledger _lastUpdated. */
+                    public _lastUpdated?: "lastUpdated";
+
+                    /**
+                     * Creates a new Ledger instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns Ledger instance
+                     */
+                    public static create(properties?: particle.cloud.ledger.GetInfoResponse.ILedger): particle.cloud.ledger.GetInfoResponse.Ledger;
+
+                    /**
+                     * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.GetInfoResponse.Ledger.verify|verify} messages.
+                     * @param message Ledger message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: particle.cloud.ledger.GetInfoResponse.ILedger, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a Ledger message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns Ledger
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.GetInfoResponse.Ledger;
+                }
+            }
+
+            /** Properties of a SetDataRequest. */
+            interface ISetDataRequest {
+
+                /** SetDataRequest name */
+                name?: (string|null);
+
+                /** SetDataRequest lastUpdated */
+                lastUpdated?: (number|Long|null);
+
+                /** SetDataRequest data */
+                data?: (Uint8Array|null);
+            }
+
+            /**
+             * Update the contents of a remote device-to-cloud ledger.
+             *
+             * This request is sent by the device.
+             */
+            class SetDataRequest implements ISetDataRequest {
+
+                /**
+                 * Constructs a new SetDataRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.ISetDataRequest);
+
+                /** SetDataRequest name. */
+                public name: string;
+
+                /** SetDataRequest lastUpdated. */
+                public lastUpdated: (number|Long);
+
+                /** SetDataRequest data. */
+                public data: Uint8Array;
+
+                /**
+                 * Creates a new SetDataRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SetDataRequest instance
+                 */
+                public static create(properties?: particle.cloud.ledger.ISetDataRequest): particle.cloud.ledger.SetDataRequest;
+
+                /**
+                 * Encodes the specified SetDataRequest message. Does not implicitly {@link particle.cloud.ledger.SetDataRequest.verify|verify} messages.
+                 * @param message SetDataRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.ISetDataRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SetDataRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SetDataRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SetDataRequest;
+            }
+
+            /** Properties of a SetDataResponse. */
+            interface ISetDataResponse {
+            }
+
+            /** Response for `SetDataRequest`. */
+            class SetDataResponse implements ISetDataResponse {
+
+                /**
+                 * Constructs a new SetDataResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.ISetDataResponse);
+
+                /**
+                 * Creates a new SetDataResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SetDataResponse instance
+                 */
+                public static create(properties?: particle.cloud.ledger.ISetDataResponse): particle.cloud.ledger.SetDataResponse;
+
+                /**
+                 * Encodes the specified SetDataResponse message. Does not implicitly {@link particle.cloud.ledger.SetDataResponse.verify|verify} messages.
+                 * @param message SetDataResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.ISetDataResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SetDataResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SetDataResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SetDataResponse;
+            }
+
+            /** Properties of a GetDataRequest. */
+            interface IGetDataRequest {
+
+                /** GetDataRequest name */
+                name?: (string|null);
+
+                /** GetDataRequest lastUpdated */
+                lastUpdated?: (number|Long|null);
+            }
+
+            /**
+             * Get the contents of a remote cloud-to-device ledger.
+             *
+             * This request is sent by the device.
+             */
+            class GetDataRequest implements IGetDataRequest {
+
+                /**
+                 * Constructs a new GetDataRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.IGetDataRequest);
+
+                /** GetDataRequest name. */
+                public name: string;
+
+                /** GetDataRequest lastUpdated. */
+                public lastUpdated?: (number|Long|null);
+
+                /** GetDataRequest _lastUpdated. */
+                public _lastUpdated?: "lastUpdated";
+
+                /**
+                 * Creates a new GetDataRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns GetDataRequest instance
+                 */
+                public static create(properties?: particle.cloud.ledger.IGetDataRequest): particle.cloud.ledger.GetDataRequest;
+
+                /**
+                 * Encodes the specified GetDataRequest message. Does not implicitly {@link particle.cloud.ledger.GetDataRequest.verify|verify} messages.
+                 * @param message GetDataRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.IGetDataRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a GetDataRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns GetDataRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.GetDataRequest;
+            }
+
+            /** Properties of a GetDataResponse. */
+            interface IGetDataResponse {
+
+                /** Time the ledger was last updated, in milliseconds since the Unix epoch. */
+                lastUpdated?: (number|Long|null);
+
+                /** GetDataResponse data */
+                data?: (Uint8Array|null);
+            }
+
+            /** Response for `GetDataRequest`. */
+            class GetDataResponse implements IGetDataResponse {
+
+                /**
+                 * Constructs a new GetDataResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.IGetDataResponse);
+
+                /** Time the ledger was last updated, in milliseconds since the Unix epoch. */
+                public lastUpdated: (number|Long);
+
+                /** GetDataResponse data. */
+                public data?: (Uint8Array|null);
+
+                /** GetDataResponse _data. */
+                public _data?: "data";
+
+                /**
+                 * Creates a new GetDataResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns GetDataResponse instance
+                 */
+                public static create(properties?: particle.cloud.ledger.IGetDataResponse): particle.cloud.ledger.GetDataResponse;
+
+                /**
+                 * Encodes the specified GetDataResponse message. Does not implicitly {@link particle.cloud.ledger.GetDataResponse.verify|verify} messages.
+                 * @param message GetDataResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.IGetDataResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a GetDataResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns GetDataResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.GetDataResponse;
+            }
+
+            /** Properties of a SubscribeRequest. */
+            interface ISubscribeRequest {
+
+                /** Names of the ledgers to subscribe to. */
+                ledgers?: (string[]|null);
+            }
+
+            /**
+             * Subscribe to notifications about updates made to one or multiple cloud-to-device ledgers.
+             *
+             * Subscriptions listed in this request will replace all the subscriptions currently registered on
+             * the server.
+             *
+             * This request is sent by the device.
+             */
+            class SubscribeRequest implements ISubscribeRequest {
+
+                /**
+                 * Constructs a new SubscribeRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.ISubscribeRequest);
+
+                /** Names of the ledgers to subscribe to. */
+                public ledgers: string[];
+
+                /**
+                 * Creates a new SubscribeRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SubscribeRequest instance
+                 */
+                public static create(properties?: particle.cloud.ledger.ISubscribeRequest): particle.cloud.ledger.SubscribeRequest;
+
+                /**
+                 * Encodes the specified SubscribeRequest message. Does not implicitly {@link particle.cloud.ledger.SubscribeRequest.verify|verify} messages.
+                 * @param message SubscribeRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.ISubscribeRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SubscribeRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SubscribeRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SubscribeRequest;
+            }
+
+            /** Properties of a SubscribeResponse. */
+            interface ISubscribeResponse {
+
+                /** < Ledger info. */
+                ledgers?: (particle.cloud.ledger.SubscribeResponse.ILedger[]|null);
+            }
+
+            /** Response for `SubscribeRequest`. */
+            class SubscribeResponse implements ISubscribeResponse {
+
+                /**
+                 * Constructs a new SubscribeResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.ISubscribeResponse);
+
+                /** < Ledger info. */
+                public ledgers: particle.cloud.ledger.SubscribeResponse.ILedger[];
+
+                /**
+                 * Creates a new SubscribeResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SubscribeResponse instance
+                 */
+                public static create(properties?: particle.cloud.ledger.ISubscribeResponse): particle.cloud.ledger.SubscribeResponse;
+
+                /**
+                 * Encodes the specified SubscribeResponse message. Does not implicitly {@link particle.cloud.ledger.SubscribeResponse.verify|verify} messages.
+                 * @param message SubscribeResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.ISubscribeResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SubscribeResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SubscribeResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SubscribeResponse;
+            }
+
+            namespace SubscribeResponse {
+
+                /** Properties of a Ledger. */
+                interface ILedger {
+
+                    /** Ledger name */
+                    name?: (string|null);
+
+                    /** Ledger lastUpdated */
+                    lastUpdated?: (number|Long|null);
+                }
+
+                /** Ledger info. */
+                class Ledger implements ILedger {
+
+                    /**
+                     * Constructs a new Ledger.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: particle.cloud.ledger.SubscribeResponse.ILedger);
+
+                    /** Ledger name. */
+                    public name: string;
+
+                    /** Ledger lastUpdated. */
+                    public lastUpdated: (number|Long);
+
+                    /**
+                     * Creates a new Ledger instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns Ledger instance
+                     */
+                    public static create(properties?: particle.cloud.ledger.SubscribeResponse.ILedger): particle.cloud.ledger.SubscribeResponse.Ledger;
+
+                    /**
+                     * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.SubscribeResponse.Ledger.verify|verify} messages.
+                     * @param message Ledger message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: particle.cloud.ledger.SubscribeResponse.ILedger, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a Ledger message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns Ledger
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SubscribeResponse.Ledger;
+                }
+            }
+
+            /** Properties of a NotifyUpdateRequest. */
+            interface INotifyUpdateRequest {
+
+                /** NotifyUpdateRequest name */
+                name?: (string|null);
+
+                /** NotifyUpdateRequest lastUpdated */
+                lastUpdated?: (number|Long|null);
+            }
+
+            /**
+             * Notify the device that a cloud-to-device ledger was updated.
+             *
+             * This request is sent by the server.
+             */
+            class NotifyUpdateRequest implements INotifyUpdateRequest {
+
+                /**
+                 * Constructs a new NotifyUpdateRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.INotifyUpdateRequest);
+
+                /** NotifyUpdateRequest name. */
+                public name: string;
+
+                /** NotifyUpdateRequest lastUpdated. */
+                public lastUpdated: (number|Long);
+
+                /**
+                 * Creates a new NotifyUpdateRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns NotifyUpdateRequest instance
+                 */
+                public static create(properties?: particle.cloud.ledger.INotifyUpdateRequest): particle.cloud.ledger.NotifyUpdateRequest;
+
+                /**
+                 * Encodes the specified NotifyUpdateRequest message. Does not implicitly {@link particle.cloud.ledger.NotifyUpdateRequest.verify|verify} messages.
+                 * @param message NotifyUpdateRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.INotifyUpdateRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a NotifyUpdateRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns NotifyUpdateRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.NotifyUpdateRequest;
+            }
+
+            /** Properties of a NotifyUpdateResponse. */
+            interface INotifyUpdateResponse {
+            }
+
+            /** Response for `NotifyUpdateRequest`. */
+            class NotifyUpdateResponse implements INotifyUpdateResponse {
+
+                /**
+                 * Constructs a new NotifyUpdateResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.INotifyUpdateResponse);
+
+                /**
+                 * Creates a new NotifyUpdateResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns NotifyUpdateResponse instance
+                 */
+                public static create(properties?: particle.cloud.ledger.INotifyUpdateResponse): particle.cloud.ledger.NotifyUpdateResponse;
+
+                /**
+                 * Encodes the specified NotifyUpdateResponse message. Does not implicitly {@link particle.cloud.ledger.NotifyUpdateResponse.verify|verify} messages.
+                 * @param message NotifyUpdateResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.INotifyUpdateResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a NotifyUpdateResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns NotifyUpdateResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.NotifyUpdateResponse;
+            }
         }
 
         /** Firmware module types. */

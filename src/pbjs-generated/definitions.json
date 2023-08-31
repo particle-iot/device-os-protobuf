@@ -294,7 +294,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 24
+                    "(nanopb).max_length": 24
                   }
                 }
               }
@@ -311,7 +311,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 16
+                    "(nanopb).max_length": 16
                   }
                 }
               }
@@ -371,7 +371,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 64
+                    "(nanopb).max_length": 64
                   }
                 }
               }
@@ -443,7 +443,7 @@
                   "type": "string",
                   "id": 2,
                   "options": {
-                    "(nanopb).max_size": 64
+                    "(nanopb).max_length": 64
                   }
                 },
                 "port": {
@@ -515,14 +515,14 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 32
+                    "(nanopb).max_length": 32
                   }
                 },
                 "suffix": {
                   "type": "string",
                   "id": 2,
                   "options": {
-                    "(nanopb).max_size": 16
+                    "(nanopb).max_length": 16
                   }
                 }
               }
