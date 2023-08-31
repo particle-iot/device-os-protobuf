@@ -21401,6 +21401,433 @@
              */
             var cloud = {};
     
+            cloud.Request = (function() {
+    
+                /**
+                 * Properties of a Request.
+                 * @memberof particle.cloud
+                 * @interface IRequest
+                 * @property {particle.cloud.Request.Type|null} [type] < Request type.
+                 * @property {particle.cloud.ledger.IGetInfoRequest|null} [ledgerGetInfo] Request ledgerGetInfo
+                 * @property {particle.cloud.ledger.ISetDataRequest|null} [ledgerSetData] Request ledgerSetData
+                 * @property {particle.cloud.ledger.IGetDataRequest|null} [ledgerGetData] Request ledgerGetData
+                 * @property {particle.cloud.ledger.ISubscribeRequest|null} [ledgerSubscribe] Request ledgerSubscribe
+                 * @property {particle.cloud.ledger.INotifyUpdateRequest|null} [ledgerNotifyUpdate] Request ledgerNotifyUpdate
+                 */
+    
+                /**
+                 * Constructs a new Request.
+                 * @memberof particle.cloud
+                 * @classdesc Request message.
+                 * @implements IRequest
+                 * @constructor
+                 * @param {particle.cloud.IRequest=} [properties] Properties to set
+                 */
+                function Request(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < Request type.
+                 * @member {particle.cloud.Request.Type} type
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.type = 0;
+    
+                /**
+                 * Request ledgerGetInfo.
+                 * @member {particle.cloud.ledger.IGetInfoRequest|null|undefined} ledgerGetInfo
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.ledgerGetInfo = null;
+    
+                /**
+                 * Request ledgerSetData.
+                 * @member {particle.cloud.ledger.ISetDataRequest|null|undefined} ledgerSetData
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.ledgerSetData = null;
+    
+                /**
+                 * Request ledgerGetData.
+                 * @member {particle.cloud.ledger.IGetDataRequest|null|undefined} ledgerGetData
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.ledgerGetData = null;
+    
+                /**
+                 * Request ledgerSubscribe.
+                 * @member {particle.cloud.ledger.ISubscribeRequest|null|undefined} ledgerSubscribe
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.ledgerSubscribe = null;
+    
+                /**
+                 * Request ledgerNotifyUpdate.
+                 * @member {particle.cloud.ledger.INotifyUpdateRequest|null|undefined} ledgerNotifyUpdate
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.ledgerNotifyUpdate = null;
+    
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+    
+                /**
+                 * Request data.
+                 * @member {"ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|undefined} data
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Object.defineProperty(Request.prototype, "data", {
+                    get: $util.oneOfGetter($oneOfFields = ["ledgerGetInfo", "ledgerSetData", "ledgerGetData", "ledgerSubscribe", "ledgerNotifyUpdate"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+    
+                /**
+                 * Creates a new Request instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.Request
+                 * @static
+                 * @param {particle.cloud.IRequest=} [properties] Properties to set
+                 * @returns {particle.cloud.Request} Request instance
+                 */
+                Request.create = function create(properties) {
+                    return new Request(properties);
+                };
+    
+                /**
+                 * Encodes the specified Request message. Does not implicitly {@link particle.cloud.Request.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.Request
+                 * @static
+                 * @param {particle.cloud.IRequest} message Request message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Request.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                    if (message.ledgerGetInfo != null && Object.hasOwnProperty.call(message, "ledgerGetInfo"))
+                        $root.particle.cloud.ledger.GetInfoRequest.encode(message.ledgerGetInfo, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.ledgerSetData != null && Object.hasOwnProperty.call(message, "ledgerSetData"))
+                        $root.particle.cloud.ledger.SetDataRequest.encode(message.ledgerSetData, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.ledgerGetData != null && Object.hasOwnProperty.call(message, "ledgerGetData"))
+                        $root.particle.cloud.ledger.GetDataRequest.encode(message.ledgerGetData, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    if (message.ledgerSubscribe != null && Object.hasOwnProperty.call(message, "ledgerSubscribe"))
+                        $root.particle.cloud.ledger.SubscribeRequest.encode(message.ledgerSubscribe, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.ledgerNotifyUpdate != null && Object.hasOwnProperty.call(message, "ledgerNotifyUpdate"))
+                        $root.particle.cloud.ledger.NotifyUpdateRequest.encode(message.ledgerNotifyUpdate, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a Request message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.Request
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.Request} Request
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Request.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.Request();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.type = reader.int32();
+                            break;
+                        case 2:
+                            message.ledgerGetInfo = $root.particle.cloud.ledger.GetInfoRequest.decode(reader, reader.uint32());
+                            break;
+                        case 3:
+                            message.ledgerSetData = $root.particle.cloud.ledger.SetDataRequest.decode(reader, reader.uint32());
+                            break;
+                        case 4:
+                            message.ledgerGetData = $root.particle.cloud.ledger.GetDataRequest.decode(reader, reader.uint32());
+                            break;
+                        case 5:
+                            message.ledgerSubscribe = $root.particle.cloud.ledger.SubscribeRequest.decode(reader, reader.uint32());
+                            break;
+                        case 6:
+                            message.ledgerNotifyUpdate = $root.particle.cloud.ledger.NotifyUpdateRequest.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Request type.
+                 * @name particle.cloud.Request.Type
+                 * @enum {number}
+                 * @property {number} INVALID=0 < Invalid request type.
+                 * @property {number} LEDGER_GET_INFO=1 < Get the ledger info.
+                 * @property {number} LEDGER_SET_DATA=2 < Update the contents of a remote ledger.
+                 * @property {number} LEDGER_GET_DATA=3 < Get the contents of a remote ledger.
+                 * @property {number} LEDGER_SUBSCRIBE=4 < Subscribe to ledger updates.
+                 * @property {number} LEDGER_NOTIFY_UPDATE=5 < Notify a ledger update.
+                 */
+                Request.Type = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "INVALID"] = 0;
+                    values[valuesById[1] = "LEDGER_GET_INFO"] = 1;
+                    values[valuesById[2] = "LEDGER_SET_DATA"] = 2;
+                    values[valuesById[3] = "LEDGER_GET_DATA"] = 3;
+                    values[valuesById[4] = "LEDGER_SUBSCRIBE"] = 4;
+                    values[valuesById[5] = "LEDGER_NOTIFY_UPDATE"] = 5;
+                    return values;
+                })();
+    
+                return Request;
+            })();
+    
+            cloud.Response = (function() {
+    
+                /**
+                 * Properties of a Response.
+                 * @memberof particle.cloud
+                 * @interface IResponse
+                 * @property {number|null} [result] Result code.
+                 * 
+                 * Possible result codes are defined by the `Result` enum. If the response is sent by the device,
+                 * the result code may be negative in which case it indicates a Device OS system error:
+                 * 
+                 * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+                 * @property {string|null} [message] < Diagnostic message.
+                 * @property {particle.cloud.ledger.IGetInfoResponse|null} [ledgerGetInfo] Response ledgerGetInfo
+                 * @property {particle.cloud.ledger.ISetDataResponse|null} [ledgerSetData] Response ledgerSetData
+                 * @property {particle.cloud.ledger.IGetDataResponse|null} [ledgerGetData] Response ledgerGetData
+                 * @property {particle.cloud.ledger.ISubscribeResponse|null} [ledgerSubscribe] Response ledgerSubscribe
+                 * @property {particle.cloud.ledger.INotifyUpdateResponse|null} [ledgerNotifyUpdate] Response ledgerNotifyUpdate
+                 */
+    
+                /**
+                 * Constructs a new Response.
+                 * @memberof particle.cloud
+                 * @classdesc Response message.
+                 * @implements IResponse
+                 * @constructor
+                 * @param {particle.cloud.IResponse=} [properties] Properties to set
+                 */
+                function Response(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Result code.
+                 * 
+                 * Possible result codes are defined by the `Result` enum. If the response is sent by the device,
+                 * the result code may be negative in which case it indicates a Device OS system error:
+                 * 
+                 * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+                 * @member {number} result
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.result = 0;
+    
+                /**
+                 * < Diagnostic message.
+                 * @member {string|null|undefined} message
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.message = null;
+    
+                /**
+                 * Response ledgerGetInfo.
+                 * @member {particle.cloud.ledger.IGetInfoResponse|null|undefined} ledgerGetInfo
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.ledgerGetInfo = null;
+    
+                /**
+                 * Response ledgerSetData.
+                 * @member {particle.cloud.ledger.ISetDataResponse|null|undefined} ledgerSetData
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.ledgerSetData = null;
+    
+                /**
+                 * Response ledgerGetData.
+                 * @member {particle.cloud.ledger.IGetDataResponse|null|undefined} ledgerGetData
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.ledgerGetData = null;
+    
+                /**
+                 * Response ledgerSubscribe.
+                 * @member {particle.cloud.ledger.ISubscribeResponse|null|undefined} ledgerSubscribe
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.ledgerSubscribe = null;
+    
+                /**
+                 * Response ledgerNotifyUpdate.
+                 * @member {particle.cloud.ledger.INotifyUpdateResponse|null|undefined} ledgerNotifyUpdate
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.ledgerNotifyUpdate = null;
+    
+                // OneOf field names bound to virtual getters and setters
+                var $oneOfFields;
+    
+                /**
+                 * Response _message.
+                 * @member {"message"|undefined} _message
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Object.defineProperty(Response.prototype, "_message", {
+                    get: $util.oneOfGetter($oneOfFields = ["message"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+    
+                /**
+                 * Response data.
+                 * @member {"ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|undefined} data
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Object.defineProperty(Response.prototype, "data", {
+                    get: $util.oneOfGetter($oneOfFields = ["ledgerGetInfo", "ledgerSetData", "ledgerGetData", "ledgerSubscribe", "ledgerNotifyUpdate"]),
+                    set: $util.oneOfSetter($oneOfFields)
+                });
+    
+                /**
+                 * Creates a new Response instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.Response
+                 * @static
+                 * @param {particle.cloud.IResponse=} [properties] Properties to set
+                 * @returns {particle.cloud.Response} Response instance
+                 */
+                Response.create = function create(properties) {
+                    return new Response(properties);
+                };
+    
+                /**
+                 * Encodes the specified Response message. Does not implicitly {@link particle.cloud.Response.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.Response
+                 * @static
+                 * @param {particle.cloud.IResponse} message Response message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Response.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.result != null && Object.hasOwnProperty.call(message, "result"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).sint32(message.result);
+                    if (message.message != null && Object.hasOwnProperty.call(message, "message"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                    if (message.ledgerGetInfo != null && Object.hasOwnProperty.call(message, "ledgerGetInfo"))
+                        $root.particle.cloud.ledger.GetInfoResponse.encode(message.ledgerGetInfo, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.ledgerSetData != null && Object.hasOwnProperty.call(message, "ledgerSetData"))
+                        $root.particle.cloud.ledger.SetDataResponse.encode(message.ledgerSetData, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    if (message.ledgerGetData != null && Object.hasOwnProperty.call(message, "ledgerGetData"))
+                        $root.particle.cloud.ledger.GetDataResponse.encode(message.ledgerGetData, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.ledgerSubscribe != null && Object.hasOwnProperty.call(message, "ledgerSubscribe"))
+                        $root.particle.cloud.ledger.SubscribeResponse.encode(message.ledgerSubscribe, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.ledgerNotifyUpdate != null && Object.hasOwnProperty.call(message, "ledgerNotifyUpdate"))
+                        $root.particle.cloud.ledger.NotifyUpdateResponse.encode(message.ledgerNotifyUpdate, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a Response message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.Response
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.Response} Response
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Response.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.Response();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.result = reader.sint32();
+                            break;
+                        case 2:
+                            message.message = reader.string();
+                            break;
+                        case 3:
+                            message.ledgerGetInfo = $root.particle.cloud.ledger.GetInfoResponse.decode(reader, reader.uint32());
+                            break;
+                        case 4:
+                            message.ledgerSetData = $root.particle.cloud.ledger.SetDataResponse.decode(reader, reader.uint32());
+                            break;
+                        case 5:
+                            message.ledgerGetData = $root.particle.cloud.ledger.GetDataResponse.decode(reader, reader.uint32());
+                            break;
+                        case 6:
+                            message.ledgerSubscribe = $root.particle.cloud.ledger.SubscribeResponse.decode(reader, reader.uint32());
+                            break;
+                        case 7:
+                            message.ledgerNotifyUpdate = $root.particle.cloud.ledger.NotifyUpdateResponse.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Result code.
+                 * @name particle.cloud.Response.Result
+                 * @enum {number}
+                 * @property {number} OK=0 < Operation succeeded.
+                 * @property {number} LEDGER_NOT_FOUND=1 < Requested ledger is not found.
+                 * @property {number} INVALID_SYNC_DIRECTION=2 < Sync direction of the ledger is invalid.
+                 */
+                Response.Result = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "OK"] = 0;
+                    values[valuesById[1] = "LEDGER_NOT_FOUND"] = 1;
+                    values[valuesById[2] = "INVALID_SYNC_DIRECTION"] = 2;
+                    return values;
+                })();
+    
+                return Response;
+            })();
+    
             cloud.ServerMovedPermanentlyRequest = (function() {
     
                 /**
@@ -21620,6 +22047,1349 @@
                 };
     
                 return ServerMovedPermanentlyResponse;
+            })();
+    
+            cloud.ledger = (function() {
+    
+                /**
+                 * Namespace ledger.
+                 * @memberof particle.cloud
+                 * @namespace
+                 */
+                var ledger = {};
+    
+                /**
+                 * Ledger scope.
+                 * @name particle.cloud.ledger.Scope
+                 * @enum {number}
+                 * @property {number} SCOPE_UNKNOWN=0 < Unknown scope.
+                 * @property {number} SCOPE_DEVICE=1 < Device scope.
+                 * @property {number} SCOPE_PRODUCT=2 < Product scope.
+                 * @property {number} SCOPE_OWNER=3 < Owner scope.
+                 */
+                ledger.Scope = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "SCOPE_UNKNOWN"] = 0;
+                    values[valuesById[1] = "SCOPE_DEVICE"] = 1;
+                    values[valuesById[2] = "SCOPE_PRODUCT"] = 2;
+                    values[valuesById[3] = "SCOPE_OWNER"] = 3;
+                    return values;
+                })();
+    
+                /**
+                 * Sync direction.
+                 * @name particle.cloud.ledger.SyncDirection
+                 * @enum {number}
+                 * @property {number} SYNC_DIRECTION_UNKNOWN=0 < Unknown direction.
+                 * @property {number} SYNC_DIRECTION_DEVICE_TO_CLOUD=1 < Device to cloud.
+                 * @property {number} SYNC_DIRECTION_CLOUD_TO_DEVICE=2 < Cloud to device.
+                 */
+                ledger.SyncDirection = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "SYNC_DIRECTION_UNKNOWN"] = 0;
+                    values[valuesById[1] = "SYNC_DIRECTION_DEVICE_TO_CLOUD"] = 1;
+                    values[valuesById[2] = "SYNC_DIRECTION_CLOUD_TO_DEVICE"] = 2;
+                    return values;
+                })();
+    
+                ledger.GetInfoRequest = (function() {
+    
+                    /**
+                     * Properties of a GetInfoRequest.
+                     * @memberof particle.cloud.ledger
+                     * @interface IGetInfoRequest
+                     * @property {Array.<string>|null} [ledgers] Names of the ledgers for which to request the info.
+                     */
+    
+                    /**
+                     * Constructs a new GetInfoRequest.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Get the ledger info.
+                     * 
+                     * This request is sent by the device.
+                     * @implements IGetInfoRequest
+                     * @constructor
+                     * @param {particle.cloud.ledger.IGetInfoRequest=} [properties] Properties to set
+                     */
+                    function GetInfoRequest(properties) {
+                        this.ledgers = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Names of the ledgers for which to request the info.
+                     * @member {Array.<string>} ledgers
+                     * @memberof particle.cloud.ledger.GetInfoRequest
+                     * @instance
+                     */
+                    GetInfoRequest.prototype.ledgers = $util.emptyArray;
+    
+                    /**
+                     * Creates a new GetInfoRequest instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.GetInfoRequest
+                     * @static
+                     * @param {particle.cloud.ledger.IGetInfoRequest=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.GetInfoRequest} GetInfoRequest instance
+                     */
+                    GetInfoRequest.create = function create(properties) {
+                        return new GetInfoRequest(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified GetInfoRequest message. Does not implicitly {@link particle.cloud.ledger.GetInfoRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.GetInfoRequest
+                     * @static
+                     * @param {particle.cloud.ledger.IGetInfoRequest} message GetInfoRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetInfoRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.ledgers != null && message.ledgers.length)
+                            for (var i = 0; i < message.ledgers.length; ++i)
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.ledgers[i]);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a GetInfoRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.GetInfoRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.GetInfoRequest} GetInfoRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetInfoRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.GetInfoRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.ledgers && message.ledgers.length))
+                                    message.ledgers = [];
+                                message.ledgers.push(reader.string());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return GetInfoRequest;
+                })();
+    
+                ledger.GetInfoResponse = (function() {
+    
+                    /**
+                     * Properties of a GetInfoResponse.
+                     * @memberof particle.cloud.ledger
+                     * @interface IGetInfoResponse
+                     * @property {Array.<particle.cloud.ledger.GetInfoResponse.ILedger>|null} [ledgers] < Ledger info.
+                     */
+    
+                    /**
+                     * Constructs a new GetInfoResponse.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Response for `GetInfoRequest`.
+                     * @implements IGetInfoResponse
+                     * @constructor
+                     * @param {particle.cloud.ledger.IGetInfoResponse=} [properties] Properties to set
+                     */
+                    function GetInfoResponse(properties) {
+                        this.ledgers = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * < Ledger info.
+                     * @member {Array.<particle.cloud.ledger.GetInfoResponse.ILedger>} ledgers
+                     * @memberof particle.cloud.ledger.GetInfoResponse
+                     * @instance
+                     */
+                    GetInfoResponse.prototype.ledgers = $util.emptyArray;
+    
+                    /**
+                     * Creates a new GetInfoResponse instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.GetInfoResponse
+                     * @static
+                     * @param {particle.cloud.ledger.IGetInfoResponse=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.GetInfoResponse} GetInfoResponse instance
+                     */
+                    GetInfoResponse.create = function create(properties) {
+                        return new GetInfoResponse(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified GetInfoResponse message. Does not implicitly {@link particle.cloud.ledger.GetInfoResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.GetInfoResponse
+                     * @static
+                     * @param {particle.cloud.ledger.IGetInfoResponse} message GetInfoResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetInfoResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.ledgers != null && message.ledgers.length)
+                            for (var i = 0; i < message.ledgers.length; ++i)
+                                $root.particle.cloud.ledger.GetInfoResponse.Ledger.encode(message.ledgers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a GetInfoResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.GetInfoResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.GetInfoResponse} GetInfoResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetInfoResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.GetInfoResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.ledgers && message.ledgers.length))
+                                    message.ledgers = [];
+                                message.ledgers.push($root.particle.cloud.ledger.GetInfoResponse.Ledger.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    GetInfoResponse.Ledger = (function() {
+    
+                        /**
+                         * Properties of a Ledger.
+                         * @memberof particle.cloud.ledger.GetInfoResponse
+                         * @interface ILedger
+                         * @property {string|null} [name] Ledger name as specified in the request.
+                         * @property {particle.cloud.ledger.Scope|null} [scope] Ledger scope.
+                         * 
+                         * If the requested ledger is not found or is not accessible by the device, this field is set to
+                         * `SCOPE_UNKNOWN`.
+                         * @property {particle.cloud.ledger.SyncDirection|null} [syncDirection] Sync direction.
+                         * 
+                         * If the requested ledger is not found or is not accessible by the device, this field is set to
+                         * `SYNC_DIRECTION_UNKNOWN`.
+                         * @property {number|Long|null} [lastUpdated] Ledger lastUpdated
+                         */
+    
+                        /**
+                         * Constructs a new Ledger.
+                         * @memberof particle.cloud.ledger.GetInfoResponse
+                         * @classdesc Ledger info.
+                         * @implements ILedger
+                         * @constructor
+                         * @param {particle.cloud.ledger.GetInfoResponse.ILedger=} [properties] Properties to set
+                         */
+                        function Ledger(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+    
+                        /**
+                         * Ledger name as specified in the request.
+                         * @member {string} name
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.name = "";
+    
+                        /**
+                         * Ledger scope.
+                         * 
+                         * If the requested ledger is not found or is not accessible by the device, this field is set to
+                         * `SCOPE_UNKNOWN`.
+                         * @member {particle.cloud.ledger.Scope} scope
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.scope = 0;
+    
+                        /**
+                         * Sync direction.
+                         * 
+                         * If the requested ledger is not found or is not accessible by the device, this field is set to
+                         * `SYNC_DIRECTION_UNKNOWN`.
+                         * @member {particle.cloud.ledger.SyncDirection} syncDirection
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.syncDirection = 0;
+    
+                        /**
+                         * Ledger lastUpdated.
+                         * @member {number|Long|null|undefined} lastUpdated
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.lastUpdated = null;
+    
+                        // OneOf field names bound to virtual getters and setters
+                        var $oneOfFields;
+    
+                        /**
+                         * Ledger _lastUpdated.
+                         * @member {"lastUpdated"|undefined} _lastUpdated
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Object.defineProperty(Ledger.prototype, "_lastUpdated", {
+                            get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
+                            set: $util.oneOfSetter($oneOfFields)
+                        });
+    
+                        /**
+                         * Creates a new Ledger instance using the specified properties.
+                         * @function create
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.GetInfoResponse.ILedger=} [properties] Properties to set
+                         * @returns {particle.cloud.ledger.GetInfoResponse.Ledger} Ledger instance
+                         */
+                        Ledger.create = function create(properties) {
+                            return new Ledger(properties);
+                        };
+    
+                        /**
+                         * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.GetInfoResponse.Ledger.verify|verify} messages.
+                         * @function encode
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.GetInfoResponse.ILedger} message Ledger message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Ledger.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                            if (message.scope != null && Object.hasOwnProperty.call(message, "scope"))
+                                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.scope);
+                            if (message.syncDirection != null && Object.hasOwnProperty.call(message, "syncDirection"))
+                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.syncDirection);
+                            if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                                writer.uint32(/* id 4, wireType 1 =*/33).fixed64(message.lastUpdated);
+                            return writer;
+                        };
+    
+                        /**
+                         * Decodes a Ledger message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {particle.cloud.ledger.GetInfoResponse.Ledger} Ledger
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Ledger.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.GetInfoResponse.Ledger();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.name = reader.string();
+                                    break;
+                                case 2:
+                                    message.scope = reader.int32();
+                                    break;
+                                case 3:
+                                    message.syncDirection = reader.int32();
+                                    break;
+                                case 4:
+                                    message.lastUpdated = reader.fixed64();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+    
+                        return Ledger;
+                    })();
+    
+                    return GetInfoResponse;
+                })();
+    
+                ledger.SetDataRequest = (function() {
+    
+                    /**
+                     * Properties of a SetDataRequest.
+                     * @memberof particle.cloud.ledger
+                     * @interface ISetDataRequest
+                     * @property {string|null} [name] SetDataRequest name
+                     * @property {number|Long|null} [lastUpdated] SetDataRequest lastUpdated
+                     * @property {Uint8Array|null} [data] SetDataRequest data
+                     */
+    
+                    /**
+                     * Constructs a new SetDataRequest.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Update the contents of a remote device-to-cloud ledger.
+                     * 
+                     * This request is sent by the device.
+                     * @implements ISetDataRequest
+                     * @constructor
+                     * @param {particle.cloud.ledger.ISetDataRequest=} [properties] Properties to set
+                     */
+                    function SetDataRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * SetDataRequest name.
+                     * @member {string} name
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @instance
+                     */
+                    SetDataRequest.prototype.name = "";
+    
+                    /**
+                     * SetDataRequest lastUpdated.
+                     * @member {number|Long} lastUpdated
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @instance
+                     */
+                    SetDataRequest.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                    /**
+                     * SetDataRequest data.
+                     * @member {Uint8Array} data
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @instance
+                     */
+                    SetDataRequest.prototype.data = $util.newBuffer([]);
+    
+                    /**
+                     * Creates a new SetDataRequest instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @static
+                     * @param {particle.cloud.ledger.ISetDataRequest=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.SetDataRequest} SetDataRequest instance
+                     */
+                    SetDataRequest.create = function create(properties) {
+                        return new SetDataRequest(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified SetDataRequest message. Does not implicitly {@link particle.cloud.ledger.SetDataRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @static
+                     * @param {particle.cloud.ledger.ISetDataRequest} message SetDataRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SetDataRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                        if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                            writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                        if (message.data != null && Object.hasOwnProperty.call(message, "data"))
+                            writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.data);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a SetDataRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.SetDataRequest} SetDataRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SetDataRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.SetDataRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.name = reader.string();
+                                break;
+                            case 2:
+                                message.lastUpdated = reader.fixed64();
+                                break;
+                            case 10:
+                                message.data = reader.bytes();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return SetDataRequest;
+                })();
+    
+                ledger.SetDataResponse = (function() {
+    
+                    /**
+                     * Properties of a SetDataResponse.
+                     * @memberof particle.cloud.ledger
+                     * @interface ISetDataResponse
+                     */
+    
+                    /**
+                     * Constructs a new SetDataResponse.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Response for `SetDataRequest`.
+                     * @implements ISetDataResponse
+                     * @constructor
+                     * @param {particle.cloud.ledger.ISetDataResponse=} [properties] Properties to set
+                     */
+                    function SetDataResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Creates a new SetDataResponse instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.SetDataResponse
+                     * @static
+                     * @param {particle.cloud.ledger.ISetDataResponse=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.SetDataResponse} SetDataResponse instance
+                     */
+                    SetDataResponse.create = function create(properties) {
+                        return new SetDataResponse(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified SetDataResponse message. Does not implicitly {@link particle.cloud.ledger.SetDataResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.SetDataResponse
+                     * @static
+                     * @param {particle.cloud.ledger.ISetDataResponse} message SetDataResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SetDataResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a SetDataResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.SetDataResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.SetDataResponse} SetDataResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SetDataResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.SetDataResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return SetDataResponse;
+                })();
+    
+                ledger.GetDataRequest = (function() {
+    
+                    /**
+                     * Properties of a GetDataRequest.
+                     * @memberof particle.cloud.ledger
+                     * @interface IGetDataRequest
+                     * @property {string|null} [name] GetDataRequest name
+                     * @property {number|Long|null} [lastUpdated] GetDataRequest lastUpdated
+                     */
+    
+                    /**
+                     * Constructs a new GetDataRequest.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Get the contents of a remote cloud-to-device ledger.
+                     * 
+                     * This request is sent by the device.
+                     * @implements IGetDataRequest
+                     * @constructor
+                     * @param {particle.cloud.ledger.IGetDataRequest=} [properties] Properties to set
+                     */
+                    function GetDataRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * GetDataRequest name.
+                     * @member {string} name
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @instance
+                     */
+                    GetDataRequest.prototype.name = "";
+    
+                    /**
+                     * GetDataRequest lastUpdated.
+                     * @member {number|Long|null|undefined} lastUpdated
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @instance
+                     */
+                    GetDataRequest.prototype.lastUpdated = null;
+    
+                    // OneOf field names bound to virtual getters and setters
+                    var $oneOfFields;
+    
+                    /**
+                     * GetDataRequest _lastUpdated.
+                     * @member {"lastUpdated"|undefined} _lastUpdated
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @instance
+                     */
+                    Object.defineProperty(GetDataRequest.prototype, "_lastUpdated", {
+                        get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
+                        set: $util.oneOfSetter($oneOfFields)
+                    });
+    
+                    /**
+                     * Creates a new GetDataRequest instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @static
+                     * @param {particle.cloud.ledger.IGetDataRequest=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.GetDataRequest} GetDataRequest instance
+                     */
+                    GetDataRequest.create = function create(properties) {
+                        return new GetDataRequest(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified GetDataRequest message. Does not implicitly {@link particle.cloud.ledger.GetDataRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @static
+                     * @param {particle.cloud.ledger.IGetDataRequest} message GetDataRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetDataRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                        if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                            writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a GetDataRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.GetDataRequest} GetDataRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetDataRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.GetDataRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.name = reader.string();
+                                break;
+                            case 2:
+                                message.lastUpdated = reader.fixed64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return GetDataRequest;
+                })();
+    
+                ledger.GetDataResponse = (function() {
+    
+                    /**
+                     * Properties of a GetDataResponse.
+                     * @memberof particle.cloud.ledger
+                     * @interface IGetDataResponse
+                     * @property {number|Long|null} [lastUpdated] Time the ledger was last updated, in milliseconds since the Unix epoch.
+                     * @property {Uint8Array|null} [data] GetDataResponse data
+                     */
+    
+                    /**
+                     * Constructs a new GetDataResponse.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Response for `GetDataRequest`.
+                     * @implements IGetDataResponse
+                     * @constructor
+                     * @param {particle.cloud.ledger.IGetDataResponse=} [properties] Properties to set
+                     */
+                    function GetDataResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+                     * @member {number|Long} lastUpdated
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @instance
+                     */
+                    GetDataResponse.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                    /**
+                     * GetDataResponse data.
+                     * @member {Uint8Array|null|undefined} data
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @instance
+                     */
+                    GetDataResponse.prototype.data = null;
+    
+                    // OneOf field names bound to virtual getters and setters
+                    var $oneOfFields;
+    
+                    /**
+                     * GetDataResponse _data.
+                     * @member {"data"|undefined} _data
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @instance
+                     */
+                    Object.defineProperty(GetDataResponse.prototype, "_data", {
+                        get: $util.oneOfGetter($oneOfFields = ["data"]),
+                        set: $util.oneOfSetter($oneOfFields)
+                    });
+    
+                    /**
+                     * Creates a new GetDataResponse instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @static
+                     * @param {particle.cloud.ledger.IGetDataResponse=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.GetDataResponse} GetDataResponse instance
+                     */
+                    GetDataResponse.create = function create(properties) {
+                        return new GetDataResponse(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified GetDataResponse message. Does not implicitly {@link particle.cloud.ledger.GetDataResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @static
+                     * @param {particle.cloud.ledger.IGetDataResponse} message GetDataResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetDataResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                            writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.lastUpdated);
+                        if (message.data != null && Object.hasOwnProperty.call(message, "data"))
+                            writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.data);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a GetDataResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.GetDataResponse} GetDataResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetDataResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.GetDataResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.lastUpdated = reader.fixed64();
+                                break;
+                            case 10:
+                                message.data = reader.bytes();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return GetDataResponse;
+                })();
+    
+                ledger.SubscribeRequest = (function() {
+    
+                    /**
+                     * Properties of a SubscribeRequest.
+                     * @memberof particle.cloud.ledger
+                     * @interface ISubscribeRequest
+                     * @property {Array.<string>|null} [ledgers] Names of the ledgers to subscribe to.
+                     */
+    
+                    /**
+                     * Constructs a new SubscribeRequest.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Subscribe to notifications about updates made to one or multiple cloud-to-device ledgers.
+                     * 
+                     * Subscriptions listed in this request will replace all the subscriptions currently registered on
+                     * the server.
+                     * 
+                     * This request is sent by the device.
+                     * @implements ISubscribeRequest
+                     * @constructor
+                     * @param {particle.cloud.ledger.ISubscribeRequest=} [properties] Properties to set
+                     */
+                    function SubscribeRequest(properties) {
+                        this.ledgers = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Names of the ledgers to subscribe to.
+                     * @member {Array.<string>} ledgers
+                     * @memberof particle.cloud.ledger.SubscribeRequest
+                     * @instance
+                     */
+                    SubscribeRequest.prototype.ledgers = $util.emptyArray;
+    
+                    /**
+                     * Creates a new SubscribeRequest instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.SubscribeRequest
+                     * @static
+                     * @param {particle.cloud.ledger.ISubscribeRequest=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.SubscribeRequest} SubscribeRequest instance
+                     */
+                    SubscribeRequest.create = function create(properties) {
+                        return new SubscribeRequest(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified SubscribeRequest message. Does not implicitly {@link particle.cloud.ledger.SubscribeRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.SubscribeRequest
+                     * @static
+                     * @param {particle.cloud.ledger.ISubscribeRequest} message SubscribeRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SubscribeRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.ledgers != null && message.ledgers.length)
+                            for (var i = 0; i < message.ledgers.length; ++i)
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.ledgers[i]);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a SubscribeRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.SubscribeRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.SubscribeRequest} SubscribeRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SubscribeRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.SubscribeRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.ledgers && message.ledgers.length))
+                                    message.ledgers = [];
+                                message.ledgers.push(reader.string());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return SubscribeRequest;
+                })();
+    
+                ledger.SubscribeResponse = (function() {
+    
+                    /**
+                     * Properties of a SubscribeResponse.
+                     * @memberof particle.cloud.ledger
+                     * @interface ISubscribeResponse
+                     * @property {Array.<particle.cloud.ledger.SubscribeResponse.ILedger>|null} [ledgers] < Ledger info.
+                     */
+    
+                    /**
+                     * Constructs a new SubscribeResponse.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Response for `SubscribeRequest`.
+                     * @implements ISubscribeResponse
+                     * @constructor
+                     * @param {particle.cloud.ledger.ISubscribeResponse=} [properties] Properties to set
+                     */
+                    function SubscribeResponse(properties) {
+                        this.ledgers = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * < Ledger info.
+                     * @member {Array.<particle.cloud.ledger.SubscribeResponse.ILedger>} ledgers
+                     * @memberof particle.cloud.ledger.SubscribeResponse
+                     * @instance
+                     */
+                    SubscribeResponse.prototype.ledgers = $util.emptyArray;
+    
+                    /**
+                     * Creates a new SubscribeResponse instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.SubscribeResponse
+                     * @static
+                     * @param {particle.cloud.ledger.ISubscribeResponse=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.SubscribeResponse} SubscribeResponse instance
+                     */
+                    SubscribeResponse.create = function create(properties) {
+                        return new SubscribeResponse(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified SubscribeResponse message. Does not implicitly {@link particle.cloud.ledger.SubscribeResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.SubscribeResponse
+                     * @static
+                     * @param {particle.cloud.ledger.ISubscribeResponse} message SubscribeResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SubscribeResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.ledgers != null && message.ledgers.length)
+                            for (var i = 0; i < message.ledgers.length; ++i)
+                                $root.particle.cloud.ledger.SubscribeResponse.Ledger.encode(message.ledgers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a SubscribeResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.SubscribeResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.SubscribeResponse} SubscribeResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SubscribeResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.SubscribeResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.ledgers && message.ledgers.length))
+                                    message.ledgers = [];
+                                message.ledgers.push($root.particle.cloud.ledger.SubscribeResponse.Ledger.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    SubscribeResponse.Ledger = (function() {
+    
+                        /**
+                         * Properties of a Ledger.
+                         * @memberof particle.cloud.ledger.SubscribeResponse
+                         * @interface ILedger
+                         * @property {string|null} [name] Ledger name
+                         * @property {number|Long|null} [lastUpdated] Ledger lastUpdated
+                         */
+    
+                        /**
+                         * Constructs a new Ledger.
+                         * @memberof particle.cloud.ledger.SubscribeResponse
+                         * @classdesc Ledger info.
+                         * @implements ILedger
+                         * @constructor
+                         * @param {particle.cloud.ledger.SubscribeResponse.ILedger=} [properties] Properties to set
+                         */
+                        function Ledger(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+    
+                        /**
+                         * Ledger name.
+                         * @member {string} name
+                         * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.name = "";
+    
+                        /**
+                         * Ledger lastUpdated.
+                         * @member {number|Long} lastUpdated
+                         * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                        /**
+                         * Creates a new Ledger instance using the specified properties.
+                         * @function create
+                         * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.SubscribeResponse.ILedger=} [properties] Properties to set
+                         * @returns {particle.cloud.ledger.SubscribeResponse.Ledger} Ledger instance
+                         */
+                        Ledger.create = function create(properties) {
+                            return new Ledger(properties);
+                        };
+    
+                        /**
+                         * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.SubscribeResponse.Ledger.verify|verify} messages.
+                         * @function encode
+                         * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.SubscribeResponse.ILedger} message Ledger message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Ledger.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                            if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                                writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                            return writer;
+                        };
+    
+                        /**
+                         * Decodes a Ledger message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {particle.cloud.ledger.SubscribeResponse.Ledger} Ledger
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Ledger.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.SubscribeResponse.Ledger();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.name = reader.string();
+                                    break;
+                                case 2:
+                                    message.lastUpdated = reader.fixed64();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+    
+                        return Ledger;
+                    })();
+    
+                    return SubscribeResponse;
+                })();
+    
+                ledger.NotifyUpdateRequest = (function() {
+    
+                    /**
+                     * Properties of a NotifyUpdateRequest.
+                     * @memberof particle.cloud.ledger
+                     * @interface INotifyUpdateRequest
+                     * @property {string|null} [name] NotifyUpdateRequest name
+                     * @property {number|Long|null} [lastUpdated] NotifyUpdateRequest lastUpdated
+                     */
+    
+                    /**
+                     * Constructs a new NotifyUpdateRequest.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Notify the device that a cloud-to-device ledger was updated.
+                     * 
+                     * This request is sent by the server.
+                     * @implements INotifyUpdateRequest
+                     * @constructor
+                     * @param {particle.cloud.ledger.INotifyUpdateRequest=} [properties] Properties to set
+                     */
+                    function NotifyUpdateRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * NotifyUpdateRequest name.
+                     * @member {string} name
+                     * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                     * @instance
+                     */
+                    NotifyUpdateRequest.prototype.name = "";
+    
+                    /**
+                     * NotifyUpdateRequest lastUpdated.
+                     * @member {number|Long} lastUpdated
+                     * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                     * @instance
+                     */
+                    NotifyUpdateRequest.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                    /**
+                     * Creates a new NotifyUpdateRequest instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                     * @static
+                     * @param {particle.cloud.ledger.INotifyUpdateRequest=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.NotifyUpdateRequest} NotifyUpdateRequest instance
+                     */
+                    NotifyUpdateRequest.create = function create(properties) {
+                        return new NotifyUpdateRequest(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified NotifyUpdateRequest message. Does not implicitly {@link particle.cloud.ledger.NotifyUpdateRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                     * @static
+                     * @param {particle.cloud.ledger.INotifyUpdateRequest} message NotifyUpdateRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    NotifyUpdateRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                        if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                            writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a NotifyUpdateRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.NotifyUpdateRequest} NotifyUpdateRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    NotifyUpdateRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.NotifyUpdateRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.name = reader.string();
+                                break;
+                            case 2:
+                                message.lastUpdated = reader.fixed64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return NotifyUpdateRequest;
+                })();
+    
+                ledger.NotifyUpdateResponse = (function() {
+    
+                    /**
+                     * Properties of a NotifyUpdateResponse.
+                     * @memberof particle.cloud.ledger
+                     * @interface INotifyUpdateResponse
+                     */
+    
+                    /**
+                     * Constructs a new NotifyUpdateResponse.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Response for `NotifyUpdateRequest`.
+                     * @implements INotifyUpdateResponse
+                     * @constructor
+                     * @param {particle.cloud.ledger.INotifyUpdateResponse=} [properties] Properties to set
+                     */
+                    function NotifyUpdateResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Creates a new NotifyUpdateResponse instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.NotifyUpdateResponse
+                     * @static
+                     * @param {particle.cloud.ledger.INotifyUpdateResponse=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.NotifyUpdateResponse} NotifyUpdateResponse instance
+                     */
+                    NotifyUpdateResponse.create = function create(properties) {
+                        return new NotifyUpdateResponse(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified NotifyUpdateResponse message. Does not implicitly {@link particle.cloud.ledger.NotifyUpdateResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.NotifyUpdateResponse
+                     * @static
+                     * @param {particle.cloud.ledger.INotifyUpdateResponse} message NotifyUpdateResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    NotifyUpdateResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a NotifyUpdateResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.NotifyUpdateResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.NotifyUpdateResponse} NotifyUpdateResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    NotifyUpdateResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.NotifyUpdateResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return NotifyUpdateResponse;
+                })();
+    
+                return ledger;
             })();
     
             /**
