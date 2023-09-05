@@ -21413,6 +21413,7 @@
                  * @property {particle.cloud.ledger.IGetDataRequest|null} [ledgerGetData] Request ledgerGetData
                  * @property {particle.cloud.ledger.ISubscribeRequest|null} [ledgerSubscribe] Request ledgerSubscribe
                  * @property {particle.cloud.ledger.INotifyUpdateRequest|null} [ledgerNotifyUpdate] Request ledgerNotifyUpdate
+                 * @property {particle.cloud.ledger.IResetInfoRequest|null} [ledgerResetInfo] Request ledgerResetInfo
                  */
     
                 /**
@@ -21478,17 +21479,25 @@
                  */
                 Request.prototype.ledgerNotifyUpdate = null;
     
+                /**
+                 * Request ledgerResetInfo.
+                 * @member {particle.cloud.ledger.IResetInfoRequest|null|undefined} ledgerResetInfo
+                 * @memberof particle.cloud.Request
+                 * @instance
+                 */
+                Request.prototype.ledgerResetInfo = null;
+    
                 // OneOf field names bound to virtual getters and setters
                 var $oneOfFields;
     
                 /**
                  * Request data.
-                 * @member {"ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|undefined} data
+                 * @member {"ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|"ledgerResetInfo"|undefined} data
                  * @memberof particle.cloud.Request
                  * @instance
                  */
                 Object.defineProperty(Request.prototype, "data", {
-                    get: $util.oneOfGetter($oneOfFields = ["ledgerGetInfo", "ledgerSetData", "ledgerGetData", "ledgerSubscribe", "ledgerNotifyUpdate"]),
+                    get: $util.oneOfGetter($oneOfFields = ["ledgerGetInfo", "ledgerSetData", "ledgerGetData", "ledgerSubscribe", "ledgerNotifyUpdate", "ledgerResetInfo"]),
                     set: $util.oneOfSetter($oneOfFields)
                 });
     
@@ -21528,6 +21537,8 @@
                         $root.particle.cloud.ledger.SubscribeRequest.encode(message.ledgerSubscribe, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                     if (message.ledgerNotifyUpdate != null && Object.hasOwnProperty.call(message, "ledgerNotifyUpdate"))
                         $root.particle.cloud.ledger.NotifyUpdateRequest.encode(message.ledgerNotifyUpdate, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.ledgerResetInfo != null && Object.hasOwnProperty.call(message, "ledgerResetInfo"))
+                        $root.particle.cloud.ledger.ResetInfoRequest.encode(message.ledgerResetInfo, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                     return writer;
                 };
     
@@ -21567,6 +21578,9 @@
                         case 6:
                             message.ledgerNotifyUpdate = $root.particle.cloud.ledger.NotifyUpdateRequest.decode(reader, reader.uint32());
                             break;
+                        case 7:
+                            message.ledgerResetInfo = $root.particle.cloud.ledger.ResetInfoRequest.decode(reader, reader.uint32());
+                            break;
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -21585,6 +21599,7 @@
                  * @property {number} LEDGER_GET_DATA=3 < Get the contents of a remote ledger.
                  * @property {number} LEDGER_SUBSCRIBE=4 < Subscribe to ledger updates.
                  * @property {number} LEDGER_NOTIFY_UPDATE=5 < Notify a ledger update.
+                 * @property {number} LEDGER_RESET_INFO=6 < Reset ledger info.
                  */
                 Request.Type = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
@@ -21594,6 +21609,7 @@
                     values[valuesById[3] = "LEDGER_GET_DATA"] = 3;
                     values[valuesById[4] = "LEDGER_SUBSCRIBE"] = 4;
                     values[valuesById[5] = "LEDGER_NOTIFY_UPDATE"] = 5;
+                    values[valuesById[6] = "LEDGER_RESET_INFO"] = 6;
                     return values;
                 })();
     
@@ -21618,6 +21634,7 @@
                  * @property {particle.cloud.ledger.IGetDataResponse|null} [ledgerGetData] Response ledgerGetData
                  * @property {particle.cloud.ledger.ISubscribeResponse|null} [ledgerSubscribe] Response ledgerSubscribe
                  * @property {particle.cloud.ledger.INotifyUpdateResponse|null} [ledgerNotifyUpdate] Response ledgerNotifyUpdate
+                 * @property {particle.cloud.ledger.IResetInfoResponse|null} [ledgerResetInfo] Response ledgerResetInfo
                  */
     
                 /**
@@ -21696,6 +21713,14 @@
                  */
                 Response.prototype.ledgerNotifyUpdate = null;
     
+                /**
+                 * Response ledgerResetInfo.
+                 * @member {particle.cloud.ledger.IResetInfoResponse|null|undefined} ledgerResetInfo
+                 * @memberof particle.cloud.Response
+                 * @instance
+                 */
+                Response.prototype.ledgerResetInfo = null;
+    
                 // OneOf field names bound to virtual getters and setters
                 var $oneOfFields;
     
@@ -21712,12 +21737,12 @@
     
                 /**
                  * Response data.
-                 * @member {"ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|undefined} data
+                 * @member {"ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|"ledgerResetInfo"|undefined} data
                  * @memberof particle.cloud.Response
                  * @instance
                  */
                 Object.defineProperty(Response.prototype, "data", {
-                    get: $util.oneOfGetter($oneOfFields = ["ledgerGetInfo", "ledgerSetData", "ledgerGetData", "ledgerSubscribe", "ledgerNotifyUpdate"]),
+                    get: $util.oneOfGetter($oneOfFields = ["ledgerGetInfo", "ledgerSetData", "ledgerGetData", "ledgerSubscribe", "ledgerNotifyUpdate", "ledgerResetInfo"]),
                     set: $util.oneOfSetter($oneOfFields)
                 });
     
@@ -21759,6 +21784,8 @@
                         $root.particle.cloud.ledger.SubscribeResponse.encode(message.ledgerSubscribe, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                     if (message.ledgerNotifyUpdate != null && Object.hasOwnProperty.call(message, "ledgerNotifyUpdate"))
                         $root.particle.cloud.ledger.NotifyUpdateResponse.encode(message.ledgerNotifyUpdate, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    if (message.ledgerResetInfo != null && Object.hasOwnProperty.call(message, "ledgerResetInfo"))
+                        $root.particle.cloud.ledger.ResetInfoResponse.encode(message.ledgerResetInfo, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     return writer;
                 };
     
@@ -21801,6 +21828,9 @@
                         case 7:
                             message.ledgerNotifyUpdate = $root.particle.cloud.ledger.NotifyUpdateResponse.decode(reader, reader.uint32());
                             break;
+                        case 8:
+                            message.ledgerResetInfo = $root.particle.cloud.ledger.ResetInfoResponse.decode(reader, reader.uint32());
+                            break;
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -21815,13 +21845,13 @@
                  * @enum {number}
                  * @property {number} OK=0 < Operation succeeded.
                  * @property {number} LEDGER_NOT_FOUND=1 < Requested ledger is not found.
-                 * @property {number} INVALID_SYNC_DIRECTION=2 < Sync direction of the ledger is invalid.
+                 * @property {number} LEDGER_INVALID_SYNC_DIRECTION=2 < Sync direction of the ledger is invalid.
                  */
                 Response.Result = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
                     values[valuesById[0] = "OK"] = 0;
                     values[valuesById[1] = "LEDGER_NOT_FOUND"] = 1;
-                    values[valuesById[2] = "INVALID_SYNC_DIRECTION"] = 2;
+                    values[valuesById[2] = "LEDGER_INVALID_SYNC_DIRECTION"] = 2;
                     return values;
                 })();
     
@@ -23207,14 +23237,13 @@
                      * Properties of a NotifyUpdateRequest.
                      * @memberof particle.cloud.ledger
                      * @interface INotifyUpdateRequest
-                     * @property {string|null} [name] NotifyUpdateRequest name
-                     * @property {number|Long|null} [lastUpdated] NotifyUpdateRequest lastUpdated
+                     * @property {Array.<particle.cloud.ledger.NotifyUpdateRequest.ILedger>|null} [ledgers] < Ledger info.
                      */
     
                     /**
                      * Constructs a new NotifyUpdateRequest.
                      * @memberof particle.cloud.ledger
-                     * @classdesc Notify the device that a cloud-to-device ledger was updated.
+                     * @classdesc Notify the device that one or more cloud-to-device ledgers were updated.
                      * 
                      * This request is sent by the server.
                      * @implements INotifyUpdateRequest
@@ -23222,6 +23251,7 @@
                      * @param {particle.cloud.ledger.INotifyUpdateRequest=} [properties] Properties to set
                      */
                     function NotifyUpdateRequest(properties) {
+                        this.ledgers = [];
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -23229,20 +23259,12 @@
                     }
     
                     /**
-                     * NotifyUpdateRequest name.
-                     * @member {string} name
+                     * < Ledger info.
+                     * @member {Array.<particle.cloud.ledger.NotifyUpdateRequest.ILedger>} ledgers
                      * @memberof particle.cloud.ledger.NotifyUpdateRequest
                      * @instance
                      */
-                    NotifyUpdateRequest.prototype.name = "";
-    
-                    /**
-                     * NotifyUpdateRequest lastUpdated.
-                     * @member {number|Long} lastUpdated
-                     * @memberof particle.cloud.ledger.NotifyUpdateRequest
-                     * @instance
-                     */
-                    NotifyUpdateRequest.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    NotifyUpdateRequest.prototype.ledgers = $util.emptyArray;
     
                     /**
                      * Creates a new NotifyUpdateRequest instance using the specified properties.
@@ -23268,10 +23290,9 @@
                     NotifyUpdateRequest.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
-                        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
-                        if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
-                            writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                        if (message.ledgers != null && message.ledgers.length)
+                            for (var i = 0; i < message.ledgers.length; ++i)
+                                $root.particle.cloud.ledger.NotifyUpdateRequest.Ledger.encode(message.ledgers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         return writer;
                     };
     
@@ -23294,10 +23315,9 @@
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
-                                message.name = reader.string();
-                                break;
-                            case 2:
-                                message.lastUpdated = reader.fixed64();
+                                if (!(message.ledgers && message.ledgers.length))
+                                    message.ledgers = [];
+                                message.ledgers.push($root.particle.cloud.ledger.NotifyUpdateRequest.Ledger.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -23306,6 +23326,113 @@
                         }
                         return message;
                     };
+    
+                    NotifyUpdateRequest.Ledger = (function() {
+    
+                        /**
+                         * Properties of a Ledger.
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                         * @interface ILedger
+                         * @property {string|null} [name] Ledger name
+                         * @property {number|Long|null} [lastUpdated] Ledger lastUpdated
+                         */
+    
+                        /**
+                         * Constructs a new Ledger.
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest
+                         * @classdesc Ledger info.
+                         * @implements ILedger
+                         * @constructor
+                         * @param {particle.cloud.ledger.NotifyUpdateRequest.ILedger=} [properties] Properties to set
+                         */
+                        function Ledger(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+    
+                        /**
+                         * Ledger name.
+                         * @member {string} name
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.name = "";
+    
+                        /**
+                         * Ledger lastUpdated.
+                         * @member {number|Long} lastUpdated
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+    
+                        /**
+                         * Creates a new Ledger instance using the specified properties.
+                         * @function create
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.NotifyUpdateRequest.ILedger=} [properties] Properties to set
+                         * @returns {particle.cloud.ledger.NotifyUpdateRequest.Ledger} Ledger instance
+                         */
+                        Ledger.create = function create(properties) {
+                            return new Ledger(properties);
+                        };
+    
+                        /**
+                         * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.NotifyUpdateRequest.Ledger.verify|verify} messages.
+                         * @function encode
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.NotifyUpdateRequest.ILedger} message Ledger message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Ledger.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                            if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
+                                writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                            return writer;
+                        };
+    
+                        /**
+                         * Decodes a Ledger message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof particle.cloud.ledger.NotifyUpdateRequest.Ledger
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {particle.cloud.ledger.NotifyUpdateRequest.Ledger} Ledger
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Ledger.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.NotifyUpdateRequest.Ledger();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.name = reader.string();
+                                    break;
+                                case 2:
+                                    message.lastUpdated = reader.fixed64();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+    
+                        return Ledger;
+                    })();
     
                     return NotifyUpdateRequest;
                 })();
@@ -23387,6 +23514,166 @@
                     };
     
                     return NotifyUpdateResponse;
+                })();
+    
+                ledger.ResetInfoRequest = (function() {
+    
+                    /**
+                     * Properties of a ResetInfoRequest.
+                     * @memberof particle.cloud.ledger
+                     * @interface IResetInfoRequest
+                     */
+    
+                    /**
+                     * Constructs a new ResetInfoRequest.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Notify the device that it needs to re-request the info about all ledgers in use.
+                     * 
+                     * This request is sent by the server.
+                     * @implements IResetInfoRequest
+                     * @constructor
+                     * @param {particle.cloud.ledger.IResetInfoRequest=} [properties] Properties to set
+                     */
+                    function ResetInfoRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Creates a new ResetInfoRequest instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.ResetInfoRequest
+                     * @static
+                     * @param {particle.cloud.ledger.IResetInfoRequest=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.ResetInfoRequest} ResetInfoRequest instance
+                     */
+                    ResetInfoRequest.create = function create(properties) {
+                        return new ResetInfoRequest(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified ResetInfoRequest message. Does not implicitly {@link particle.cloud.ledger.ResetInfoRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.ResetInfoRequest
+                     * @static
+                     * @param {particle.cloud.ledger.IResetInfoRequest} message ResetInfoRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ResetInfoRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a ResetInfoRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.ResetInfoRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.ResetInfoRequest} ResetInfoRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ResetInfoRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.ResetInfoRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return ResetInfoRequest;
+                })();
+    
+                ledger.ResetInfoResponse = (function() {
+    
+                    /**
+                     * Properties of a ResetInfoResponse.
+                     * @memberof particle.cloud.ledger
+                     * @interface IResetInfoResponse
+                     */
+    
+                    /**
+                     * Constructs a new ResetInfoResponse.
+                     * @memberof particle.cloud.ledger
+                     * @classdesc Response for `ResetInfoRequest`.
+                     * @implements IResetInfoResponse
+                     * @constructor
+                     * @param {particle.cloud.ledger.IResetInfoResponse=} [properties] Properties to set
+                     */
+                    function ResetInfoResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+    
+                    /**
+                     * Creates a new ResetInfoResponse instance using the specified properties.
+                     * @function create
+                     * @memberof particle.cloud.ledger.ResetInfoResponse
+                     * @static
+                     * @param {particle.cloud.ledger.IResetInfoResponse=} [properties] Properties to set
+                     * @returns {particle.cloud.ledger.ResetInfoResponse} ResetInfoResponse instance
+                     */
+                    ResetInfoResponse.create = function create(properties) {
+                        return new ResetInfoResponse(properties);
+                    };
+    
+                    /**
+                     * Encodes the specified ResetInfoResponse message. Does not implicitly {@link particle.cloud.ledger.ResetInfoResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof particle.cloud.ledger.ResetInfoResponse
+                     * @static
+                     * @param {particle.cloud.ledger.IResetInfoResponse} message ResetInfoResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ResetInfoResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+    
+                    /**
+                     * Decodes a ResetInfoResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof particle.cloud.ledger.ResetInfoResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {particle.cloud.ledger.ResetInfoResponse} ResetInfoResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ResetInfoResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.ResetInfoResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+    
+                    return ResetInfoResponse;
                 })();
     
                 return ledger;

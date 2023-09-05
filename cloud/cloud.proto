@@ -18,6 +18,7 @@ message Request {
     LEDGER_GET_DATA = 3; ///< Get the contents of a remote ledger.
     LEDGER_SUBSCRIBE = 4; ///< Subscribe to ledger updates.
     LEDGER_NOTIFY_UPDATE = 5; ///< Notify a ledger update.
+    LEDGER_RESET_INFO = 6; ///< Reset ledger info.
   }
 
   Type type = 1; ///< Request type.
@@ -28,6 +29,7 @@ message Request {
     ledger.GetDataRequest ledger_get_data = 4;
     ledger.SubscribeRequest ledger_subscribe = 5;
     ledger.NotifyUpdateRequest ledger_notify_update = 6;
+    ledger.ResetInfoRequest ledger_reset_info = 7;
   }
 }
 
@@ -41,7 +43,7 @@ message Response {
   enum Result {
     OK = 0; ///< Operation succeeded.
     LEDGER_NOT_FOUND = 1; ///< Requested ledger is not found.
-    INVALID_SYNC_DIRECTION = 2; ///< Sync direction of the ledger is invalid.
+    LEDGER_INVALID_SYNC_DIRECTION = 2; ///< Sync direction of the ledger is invalid.
   }
 
   /**
@@ -61,6 +63,7 @@ message Response {
     ledger.GetDataResponse ledger_get_data = 5;
     ledger.SubscribeResponse ledger_subscribe = 6;
     ledger.NotifyUpdateResponse ledger_notify_update = 7;
+    ledger.ResetInfoResponse ledger_reset_info = 8;
   }
 }
 

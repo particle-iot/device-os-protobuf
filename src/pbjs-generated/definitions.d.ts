@@ -10246,6 +10246,9 @@ export namespace particle {
 
             /** Request ledgerNotifyUpdate */
             ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateRequest|null);
+
+            /** Request ledgerResetInfo */
+            ledgerResetInfo?: (particle.cloud.ledger.IResetInfoRequest|null);
         }
 
         /** Request message. */
@@ -10275,8 +10278,11 @@ export namespace particle {
             /** Request ledgerNotifyUpdate. */
             public ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateRequest|null);
 
+            /** Request ledgerResetInfo. */
+            public ledgerResetInfo?: (particle.cloud.ledger.IResetInfoRequest|null);
+
             /** Request data. */
-            public data?: ("ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate");
+            public data?: ("ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|"ledgerResetInfo");
 
             /**
              * Creates a new Request instance using the specified properties.
@@ -10313,7 +10319,8 @@ export namespace particle {
                 LEDGER_SET_DATA = 2,
                 LEDGER_GET_DATA = 3,
                 LEDGER_SUBSCRIBE = 4,
-                LEDGER_NOTIFY_UPDATE = 5
+                LEDGER_NOTIFY_UPDATE = 5,
+                LEDGER_RESET_INFO = 6
             }
         }
 
@@ -10347,6 +10354,9 @@ export namespace particle {
 
             /** Response ledgerNotifyUpdate */
             ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateResponse|null);
+
+            /** Response ledgerResetInfo */
+            ledgerResetInfo?: (particle.cloud.ledger.IResetInfoResponse|null);
         }
 
         /** Response message. */
@@ -10386,11 +10396,14 @@ export namespace particle {
             /** Response ledgerNotifyUpdate. */
             public ledgerNotifyUpdate?: (particle.cloud.ledger.INotifyUpdateResponse|null);
 
+            /** Response ledgerResetInfo. */
+            public ledgerResetInfo?: (particle.cloud.ledger.IResetInfoResponse|null);
+
             /** Response _message. */
             public _message?: "message";
 
             /** Response data. */
-            public data?: ("ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate");
+            public data?: ("ledgerGetInfo"|"ledgerSetData"|"ledgerGetData"|"ledgerSubscribe"|"ledgerNotifyUpdate"|"ledgerResetInfo");
 
             /**
              * Creates a new Response instance using the specified properties.
@@ -10424,7 +10437,7 @@ export namespace particle {
             enum Result {
                 OK = 0,
                 LEDGER_NOT_FOUND = 1,
-                INVALID_SYNC_DIRECTION = 2
+                LEDGER_INVALID_SYNC_DIRECTION = 2
             }
         }
 
@@ -11110,15 +11123,12 @@ export namespace particle {
             /** Properties of a NotifyUpdateRequest. */
             interface INotifyUpdateRequest {
 
-                /** NotifyUpdateRequest name */
-                name?: (string|null);
-
-                /** NotifyUpdateRequest lastUpdated */
-                lastUpdated?: (number|Long|null);
+                /** < Ledger info. */
+                ledgers?: (particle.cloud.ledger.NotifyUpdateRequest.ILedger[]|null);
             }
 
             /**
-             * Notify the device that a cloud-to-device ledger was updated.
+             * Notify the device that one or more cloud-to-device ledgers were updated.
              *
              * This request is sent by the server.
              */
@@ -11130,11 +11140,8 @@ export namespace particle {
                  */
                 constructor(properties?: particle.cloud.ledger.INotifyUpdateRequest);
 
-                /** NotifyUpdateRequest name. */
-                public name: string;
-
-                /** NotifyUpdateRequest lastUpdated. */
-                public lastUpdated: (number|Long);
+                /** < Ledger info. */
+                public ledgers: particle.cloud.ledger.NotifyUpdateRequest.ILedger[];
 
                 /**
                  * Creates a new NotifyUpdateRequest instance using the specified properties.
@@ -11160,6 +11167,60 @@ export namespace particle {
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
                 public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.NotifyUpdateRequest;
+            }
+
+            namespace NotifyUpdateRequest {
+
+                /** Properties of a Ledger. */
+                interface ILedger {
+
+                    /** Ledger name */
+                    name?: (string|null);
+
+                    /** Ledger lastUpdated */
+                    lastUpdated?: (number|Long|null);
+                }
+
+                /** Ledger info. */
+                class Ledger implements ILedger {
+
+                    /**
+                     * Constructs a new Ledger.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: particle.cloud.ledger.NotifyUpdateRequest.ILedger);
+
+                    /** Ledger name. */
+                    public name: string;
+
+                    /** Ledger lastUpdated. */
+                    public lastUpdated: (number|Long);
+
+                    /**
+                     * Creates a new Ledger instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns Ledger instance
+                     */
+                    public static create(properties?: particle.cloud.ledger.NotifyUpdateRequest.ILedger): particle.cloud.ledger.NotifyUpdateRequest.Ledger;
+
+                    /**
+                     * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.NotifyUpdateRequest.Ledger.verify|verify} messages.
+                     * @param message Ledger message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: particle.cloud.ledger.NotifyUpdateRequest.ILedger, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a Ledger message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns Ledger
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.NotifyUpdateRequest.Ledger;
+                }
             }
 
             /** Properties of a NotifyUpdateResponse. */
@@ -11199,6 +11260,88 @@ export namespace particle {
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
                 public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.NotifyUpdateResponse;
+            }
+
+            /** Properties of a ResetInfoRequest. */
+            interface IResetInfoRequest {
+            }
+
+            /**
+             * Notify the device that it needs to re-request the info about all ledgers in use.
+             *
+             * This request is sent by the server.
+             */
+            class ResetInfoRequest implements IResetInfoRequest {
+
+                /**
+                 * Constructs a new ResetInfoRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.IResetInfoRequest);
+
+                /**
+                 * Creates a new ResetInfoRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns ResetInfoRequest instance
+                 */
+                public static create(properties?: particle.cloud.ledger.IResetInfoRequest): particle.cloud.ledger.ResetInfoRequest;
+
+                /**
+                 * Encodes the specified ResetInfoRequest message. Does not implicitly {@link particle.cloud.ledger.ResetInfoRequest.verify|verify} messages.
+                 * @param message ResetInfoRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.IResetInfoRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a ResetInfoRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns ResetInfoRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.ResetInfoRequest;
+            }
+
+            /** Properties of a ResetInfoResponse. */
+            interface IResetInfoResponse {
+            }
+
+            /** Response for `ResetInfoRequest`. */
+            class ResetInfoResponse implements IResetInfoResponse {
+
+                /**
+                 * Constructs a new ResetInfoResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: particle.cloud.ledger.IResetInfoResponse);
+
+                /**
+                 * Creates a new ResetInfoResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns ResetInfoResponse instance
+                 */
+                public static create(properties?: particle.cloud.ledger.IResetInfoResponse): particle.cloud.ledger.ResetInfoResponse;
+
+                /**
+                 * Encodes the specified ResetInfoResponse message. Does not implicitly {@link particle.cloud.ledger.ResetInfoResponse.verify|verify} messages.
+                 * @param message ResetInfoResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: particle.cloud.ledger.IResetInfoResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a ResetInfoResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns ResetInfoResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.ResetInfoResponse;
             }
         }
 
