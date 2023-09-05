@@ -165,20 +165,41 @@ message SubscribeResponse {
 }
 
 /**
- * Notify the device that a cloud-to-device ledger was updated.
+ * Notify the device that one or more cloud-to-device ledgers were updated.
  *
  * This request is sent by the server.
  */
 message NotifyUpdateRequest {
-  string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
   /**
-   * Time the ledger was updated, in milliseconds since the Unix epoch.
+   * Ledger info.
    */
-  fixed64 last_updated = 2;
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    /**
+     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     */
+    fixed64 last_updated = 2;
+  }
+
+  repeated Ledger ledgers = 1; ///< Ledger info.
 }
 
 /**
  * Response for `NotifyUpdateRequest`.
  */
 message NotifyUpdateResponse {
+}
+
+/**
+ * Notify the device that it needs to re-request the info about all ledgers in use.
+ *
+ * This request is sent by the server.
+ */
+message ResetInfoRequest {
+}
+
+/**
+ * Response for `ResetInfoRequest`.
+ */
+message ResetInfoResponse {
 }
