@@ -10522,7 +10522,11 @@ export namespace particle {
             /** Properties of a GetInfoResponse. */
             interface IGetInfoResponse {
 
-                /** < Ledger info. */
+                /**
+                 * Ledger info.
+                 *
+                 * A ledger is omitted in the response if it cannot be found or is not accessible by the device.
+                 */
                 ledgers?: (particle.cloud.ledger.GetInfoResponse.ILedger[]|null);
             }
 
@@ -10535,7 +10539,11 @@ export namespace particle {
                  */
                 constructor(properties?: particle.cloud.ledger.IGetInfoResponse);
 
-                /** < Ledger info. */
+                /**
+                 * Ledger info.
+                 *
+                 * A ledger is omitted in the response if it cannot be found or is not accessible by the device.
+                 */
                 public ledgers: particle.cloud.ledger.GetInfoResponse.ILedger[];
 
                 /**
@@ -10569,23 +10577,13 @@ export namespace particle {
                 /** Properties of a Ledger. */
                 interface ILedger {
 
-                    /** Ledger name as specified in the request. */
+                    /** < Ledger name. */
                     name?: (string|null);
 
-                    /**
-                     * Ledger scope.
-                     *
-                     * If the requested ledger is not found or is not accessible by the device, this field is set to
-                     * `SCOPE_UNKNOWN`.
-                     */
+                    /** < Ledger scope. */
                     scope?: (particle.cloud.ledger.Scope|null);
 
-                    /**
-                     * Sync direction.
-                     *
-                     * If the requested ledger is not found or is not accessible by the device, this field is set to
-                     * `SYNC_DIRECTION_UNKNOWN`.
-                     */
+                    /** Ledger syncDirection */
                     syncDirection?: (particle.cloud.ledger.SyncDirection|null);
 
                     /** Ledger lastUpdated */
@@ -10601,30 +10599,17 @@ export namespace particle {
                      */
                     constructor(properties?: particle.cloud.ledger.GetInfoResponse.ILedger);
 
-                    /** Ledger name as specified in the request. */
+                    /** < Ledger name. */
                     public name: string;
 
-                    /**
-                     * Ledger scope.
-                     *
-                     * If the requested ledger is not found or is not accessible by the device, this field is set to
-                     * `SCOPE_UNKNOWN`.
-                     */
+                    /** < Ledger scope. */
                     public scope: particle.cloud.ledger.Scope;
 
-                    /**
-                     * Sync direction.
-                     *
-                     * If the requested ledger is not found or is not accessible by the device, this field is set to
-                     * `SYNC_DIRECTION_UNKNOWN`.
-                     */
+                    /** Ledger syncDirection. */
                     public syncDirection: particle.cloud.ledger.SyncDirection;
 
                     /** Ledger lastUpdated. */
-                    public lastUpdated?: (number|Long|null);
-
-                    /** Ledger _lastUpdated. */
-                    public _lastUpdated?: "lastUpdated";
+                    public lastUpdated: (number|Long);
 
                     /**
                      * Creates a new Ledger instance using the specified properties.

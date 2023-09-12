@@ -43,33 +43,23 @@ message GetInfoResponse {
    * Ledger info.
    */
   message Ledger {
-    /**
-     * Ledger name as specified in the request.
-     */
-    string name = 1 [(nanopb).max_length = 32];
-    /**
-     * Ledger scope.
-     *
-     * If the requested ledger is not found or is not accessible by the device, this field is set to
-     * `SCOPE_UNKNOWN`.
-     */
-    Scope scope = 2;
-    /**
-     * Sync direction.
-     *
-     * If the requested ledger is not found or is not accessible by the device, this field is set to
-     * `SYNC_DIRECTION_UNKNOWN`.
-     */
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    Scope scope = 2; ///< Ledger scope.
     SyncDirection sync_direction = 3; ///< Sync direction.
     /**
      * Time the ledger was last updated according to the server, in milliseconds since the Unix epoch.
      *
      * If 0, the time is unknown.
      */
-    optional fixed64 last_updated = 4;
+    fixed64 last_updated = 4;
   }
 
-  repeated Ledger ledgers = 1; ///< Ledger info.
+  /**
+   * Ledger info.
+   *
+   * A ledger is omitted in the response if it cannot be found or is not accessible by the device.
+   */
+  repeated Ledger ledgers = 1;
 }
 
 /**
