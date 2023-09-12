@@ -22227,7 +22227,9 @@
                      * Properties of a GetInfoResponse.
                      * @memberof particle.cloud.ledger
                      * @interface IGetInfoResponse
-                     * @property {Array.<particle.cloud.ledger.GetInfoResponse.ILedger>|null} [ledgers] < Ledger info.
+                     * @property {Array.<particle.cloud.ledger.GetInfoResponse.ILedger>|null} [ledgers] Ledger info.
+                     * 
+                     * A ledger is omitted in the response if it cannot be found or is not accessible by the device.
                      */
     
                     /**
@@ -22247,7 +22249,9 @@
                     }
     
                     /**
-                     * < Ledger info.
+                     * Ledger info.
+                     * 
+                     * A ledger is omitted in the response if it cannot be found or is not accessible by the device.
                      * @member {Array.<particle.cloud.ledger.GetInfoResponse.ILedger>} ledgers
                      * @memberof particle.cloud.ledger.GetInfoResponse
                      * @instance
@@ -22321,15 +22325,9 @@
                          * Properties of a Ledger.
                          * @memberof particle.cloud.ledger.GetInfoResponse
                          * @interface ILedger
-                         * @property {string|null} [name] Ledger name as specified in the request.
-                         * @property {particle.cloud.ledger.Scope|null} [scope] Ledger scope.
-                         * 
-                         * If the requested ledger is not found or is not accessible by the device, this field is set to
-                         * `SCOPE_UNKNOWN`.
-                         * @property {particle.cloud.ledger.SyncDirection|null} [syncDirection] Sync direction.
-                         * 
-                         * If the requested ledger is not found or is not accessible by the device, this field is set to
-                         * `SYNC_DIRECTION_UNKNOWN`.
+                         * @property {string|null} [name] < Ledger name.
+                         * @property {particle.cloud.ledger.Scope|null} [scope] < Ledger scope.
+                         * @property {particle.cloud.ledger.SyncDirection|null} [syncDirection] Ledger syncDirection
                          * @property {number|Long|null} [lastUpdated] Ledger lastUpdated
                          */
     
@@ -22349,7 +22347,7 @@
                         }
     
                         /**
-                         * Ledger name as specified in the request.
+                         * < Ledger name.
                          * @member {string} name
                          * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
                          * @instance
@@ -22357,10 +22355,7 @@
                         Ledger.prototype.name = "";
     
                         /**
-                         * Ledger scope.
-                         * 
-                         * If the requested ledger is not found or is not accessible by the device, this field is set to
-                         * `SCOPE_UNKNOWN`.
+                         * < Ledger scope.
                          * @member {particle.cloud.ledger.Scope} scope
                          * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
                          * @instance
@@ -22368,10 +22363,7 @@
                         Ledger.prototype.scope = 0;
     
                         /**
-                         * Sync direction.
-                         * 
-                         * If the requested ledger is not found or is not accessible by the device, this field is set to
-                         * `SYNC_DIRECTION_UNKNOWN`.
+                         * Ledger syncDirection.
                          * @member {particle.cloud.ledger.SyncDirection} syncDirection
                          * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
                          * @instance
@@ -22380,25 +22372,11 @@
     
                         /**
                          * Ledger lastUpdated.
-                         * @member {number|Long|null|undefined} lastUpdated
+                         * @member {number|Long} lastUpdated
                          * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
                          * @instance
                          */
-                        Ledger.prototype.lastUpdated = null;
-    
-                        // OneOf field names bound to virtual getters and setters
-                        var $oneOfFields;
-    
-                        /**
-                         * Ledger _lastUpdated.
-                         * @member {"lastUpdated"|undefined} _lastUpdated
-                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
-                         * @instance
-                         */
-                        Object.defineProperty(Ledger.prototype, "_lastUpdated", {
-                            get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
-                            set: $util.oneOfSetter($oneOfFields)
-                        });
+                        Ledger.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
     
                         /**
                          * Creates a new Ledger instance using the specified properties.
