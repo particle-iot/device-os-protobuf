@@ -8588,7 +8588,9 @@ export namespace particle {
                 WEP = 1,
                 WPA_PSK = 2,
                 WPA2_PSK = 3,
-                WPA_WPA2_PSK = 4
+                WPA_WPA2_PSK = 4,
+                WPA3_PSK = 5,
+                WPA2_WPA3_PSK = 6
             }
 
             /**
@@ -8670,6 +8672,9 @@ export namespace particle {
 
                 /** JoinNewNetworkRequest interfaceConfig */
                 interfaceConfig?: (particle.ctrl.IInterface|null);
+
+                /** JoinNewNetworkRequest hidden */
+                hidden?: (boolean|null);
             }
 
             /**
@@ -8699,6 +8704,9 @@ export namespace particle {
 
                 /** JoinNewNetworkRequest interfaceConfig. */
                 public interfaceConfig?: (particle.ctrl.IInterface|null);
+
+                /** JoinNewNetworkRequest hidden. */
+                public hidden: boolean;
 
                 /**
                  * Creates a new JoinNewNetworkRequest instance using the specified properties.

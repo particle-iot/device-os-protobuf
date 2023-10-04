@@ -2283,7 +2283,9 @@
                     "WEP": 1,
                     "WPA_PSK": 2,
                     "WPA2_PSK": 3,
-                    "WPA_WPA2_PSK": 4
+                    "WPA_WPA2_PSK": 4,
+                    "WPA3_PSK": 5,
+                    "WPA2_WPA3_PSK": 6
                   }
                 },
                 "CredentialsType": {
@@ -2331,6 +2333,10 @@
                     "interfaceConfig": {
                       "type": "Interface",
                       "id": 5
+                    },
+                    "hidden": {
+                      "type": "bool",
+                      "id": 6
                     }
                   }
                 },

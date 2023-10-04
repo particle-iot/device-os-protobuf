@@ -17985,6 +17985,8 @@
                  * @property {number} WPA_PSK=2 WPA_PSK value
                  * @property {number} WPA2_PSK=3 WPA2_PSK value
                  * @property {number} WPA_WPA2_PSK=4 WPA_WPA2_PSK value
+                 * @property {number} WPA3_PSK=5 WPA3_PSK value
+                 * @property {number} WPA2_WPA3_PSK=6 WPA2_WPA3_PSK value
                  */
                 wifi.Security = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
@@ -17993,6 +17995,8 @@
                     values[valuesById[2] = "WPA_PSK"] = 2;
                     values[valuesById[3] = "WPA2_PSK"] = 3;
                     values[valuesById[4] = "WPA_WPA2_PSK"] = 4;
+                    values[valuesById[5] = "WPA3_PSK"] = 5;
+                    values[valuesById[6] = "WPA2_WPA3_PSK"] = 6;
                     return values;
                 })();
     
@@ -18131,6 +18135,7 @@
                      * @property {particle.ctrl.wifi.Security|null} [security] JoinNewNetworkRequest security
                      * @property {particle.ctrl.wifi.ICredentials|null} [credentials] JoinNewNetworkRequest credentials
                      * @property {particle.ctrl.IInterface|null} [interfaceConfig] JoinNewNetworkRequest interfaceConfig
+                     * @property {boolean|null} [hidden] JoinNewNetworkRequest hidden
                      */
     
                     /**
@@ -18191,6 +18196,14 @@
                     JoinNewNetworkRequest.prototype.interfaceConfig = null;
     
                     /**
+                     * JoinNewNetworkRequest hidden.
+                     * @member {boolean} hidden
+                     * @memberof particle.ctrl.wifi.JoinNewNetworkRequest
+                     * @instance
+                     */
+                    JoinNewNetworkRequest.prototype.hidden = false;
+    
+                    /**
                      * Creates a new JoinNewNetworkRequest instance using the specified properties.
                      * @function create
                      * @memberof particle.ctrl.wifi.JoinNewNetworkRequest
@@ -18224,6 +18237,8 @@
                             $root.particle.ctrl.wifi.Credentials.encode(message.credentials, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                         if (message.interfaceConfig != null && Object.hasOwnProperty.call(message, "interfaceConfig"))
                             $root.particle.ctrl.Interface.encode(message.interfaceConfig, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                        if (message.hidden != null && Object.hasOwnProperty.call(message, "hidden"))
+                            writer.uint32(/* id 6, wireType 0 =*/48).bool(message.hidden);
                         return writer;
                     };
     
@@ -18259,6 +18274,9 @@
                                 break;
                             case 5:
                                 message.interfaceConfig = $root.particle.ctrl.Interface.decode(reader, reader.uint32());
+                                break;
+                            case 6:
+                                message.hidden = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
