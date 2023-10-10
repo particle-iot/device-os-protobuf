@@ -42,8 +42,9 @@ message Response {
    */
   enum Result {
     OK = 0; ///< Operation succeeded.
-    LEDGER_NOT_FOUND = 1; ///< Requested ledger is not found.
-    LEDGER_INVALID_SYNC_DIRECTION = 2; ///< Sync direction of the ledger is invalid.
+    ERROR = 1; ///< Operation failed. See the CoAP response code for details.
+    LEDGER_NOT_FOUND = 2; ///< Requested ledger is not found.
+    LEDGER_INVALID_SYNC_DIRECTION = 3; ///< Sync direction of the ledger is invalid.
   }
 
   /**
