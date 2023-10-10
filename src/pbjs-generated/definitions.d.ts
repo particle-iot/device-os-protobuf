@@ -10436,8 +10436,9 @@ export namespace particle {
             /** Result code. */
             enum Result {
                 OK = 0,
-                LEDGER_NOT_FOUND = 1,
-                LEDGER_INVALID_SYNC_DIRECTION = 2
+                ERROR = 1,
+                LEDGER_NOT_FOUND = 2,
+                LEDGER_INVALID_SYNC_DIRECTION = 3
             }
         }
 

@@ -21844,14 +21844,16 @@
                  * @name particle.cloud.Response.Result
                  * @enum {number}
                  * @property {number} OK=0 < Operation succeeded.
-                 * @property {number} LEDGER_NOT_FOUND=1 < Requested ledger is not found.
-                 * @property {number} LEDGER_INVALID_SYNC_DIRECTION=2 < Sync direction of the ledger is invalid.
+                 * @property {number} ERROR=1 < Operation failed. See the CoAP response code for details.
+                 * @property {number} LEDGER_NOT_FOUND=2 < Requested ledger is not found.
+                 * @property {number} LEDGER_INVALID_SYNC_DIRECTION=3 < Sync direction of the ledger is invalid.
                  */
                 Response.Result = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
                     values[valuesById[0] = "OK"] = 0;
-                    values[valuesById[1] = "LEDGER_NOT_FOUND"] = 1;
-                    values[valuesById[2] = "LEDGER_INVALID_SYNC_DIRECTION"] = 2;
+                    values[valuesById[1] = "ERROR"] = 1;
+                    values[valuesById[2] = "LEDGER_NOT_FOUND"] = 2;
+                    values[valuesById[3] = "LEDGER_INVALID_SYNC_DIRECTION"] = 3;
                     return values;
                 })();
     
