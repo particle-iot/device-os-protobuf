@@ -42,9 +42,10 @@ message Response {
    */
   enum Result {
     OK = 0; ///< Operation succeeded.
-    ERROR = 1; ///< Operation failed. See the CoAP response code for details.
+    ERROR = 1; ///< Operation failed. See the CoAP response code and diagnostic message for details.
     LEDGER_NOT_FOUND = 2; ///< Requested ledger is not found.
     LEDGER_INVALID_SYNC_DIRECTION = 3; ///< Sync direction of the ledger is invalid.
+    LEDGER_OWNER_CHANGED = 4; ///< Owner of the ledger changed.
   }
 
   /**

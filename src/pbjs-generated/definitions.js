@@ -21844,9 +21844,10 @@
                  * @name particle.cloud.Response.Result
                  * @enum {number}
                  * @property {number} OK=0 < Operation succeeded.
-                 * @property {number} ERROR=1 < Operation failed. See the CoAP response code for details.
+                 * @property {number} ERROR=1 < Operation failed. See the CoAP response code and diagnostic message for details.
                  * @property {number} LEDGER_NOT_FOUND=2 < Requested ledger is not found.
                  * @property {number} LEDGER_INVALID_SYNC_DIRECTION=3 < Sync direction of the ledger is invalid.
+                 * @property {number} LEDGER_OWNER_CHANGED=4 < Owner of the ledger changed.
                  */
                 Response.Result = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
@@ -21854,6 +21855,7 @@
                     values[valuesById[1] = "ERROR"] = 1;
                     values[valuesById[2] = "LEDGER_NOT_FOUND"] = 2;
                     values[valuesById[3] = "LEDGER_INVALID_SYNC_DIRECTION"] = 3;
+                    values[valuesById[4] = "LEDGER_OWNER_CHANGED"] = 4;
                     return values;
                 })();
     
@@ -22091,20 +22093,20 @@
                 var ledger = {};
     
                 /**
-                 * Ledger scope.
-                 * @name particle.cloud.ledger.Scope
+                 * Scope type.
+                 * @name particle.cloud.ledger.ScopeType
                  * @enum {number}
-                 * @property {number} SCOPE_UNKNOWN=0 < Unknown scope.
-                 * @property {number} SCOPE_DEVICE=1 < Device scope.
-                 * @property {number} SCOPE_PRODUCT=2 < Product scope.
-                 * @property {number} SCOPE_OWNER=3 < Owner scope.
+                 * @property {number} SCOPE_TYPE_UNKNOWN=0 < Unknown scope.
+                 * @property {number} SCOPE_TYPE_DEVICE=1 < Device scope.
+                 * @property {number} SCOPE_TYPE_PRODUCT=2 < Product scope.
+                 * @property {number} SCOPE_TYPE_OWNER=3 < Owner scope.
                  */
-                ledger.Scope = (function() {
+                ledger.ScopeType = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
-                    values[valuesById[0] = "SCOPE_UNKNOWN"] = 0;
-                    values[valuesById[1] = "SCOPE_DEVICE"] = 1;
-                    values[valuesById[2] = "SCOPE_PRODUCT"] = 2;
-                    values[valuesById[3] = "SCOPE_OWNER"] = 3;
+                    values[valuesById[0] = "SCOPE_TYPE_UNKNOWN"] = 0;
+                    values[valuesById[1] = "SCOPE_TYPE_DEVICE"] = 1;
+                    values[valuesById[2] = "SCOPE_TYPE_PRODUCT"] = 2;
+                    values[valuesById[3] = "SCOPE_TYPE_OWNER"] = 3;
                     return values;
                 })();
     
@@ -22328,7 +22330,8 @@
                          * @memberof particle.cloud.ledger.GetInfoResponse
                          * @interface ILedger
                          * @property {string|null} [name] < Ledger name.
-                         * @property {particle.cloud.ledger.Scope|null} [scope] < Ledger scope.
+                         * @property {Uint8Array|null} [scopeId] < Scope ID.
+                         * @property {particle.cloud.ledger.ScopeType|null} [scopeType] < Scope type.
                          * @property {particle.cloud.ledger.SyncDirection|null} [syncDirection] Ledger syncDirection
                          * @property {number|Long|null} [lastUpdated] Ledger lastUpdated
                          */
@@ -22357,12 +22360,20 @@
                         Ledger.prototype.name = "";
     
                         /**
-                         * < Ledger scope.
-                         * @member {particle.cloud.ledger.Scope} scope
+                         * < Scope ID.
+                         * @member {Uint8Array} scopeId
                          * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
                          * @instance
                          */
-                        Ledger.prototype.scope = 0;
+                        Ledger.prototype.scopeId = $util.newBuffer([]);
+    
+                        /**
+                         * < Scope type.
+                         * @member {particle.cloud.ledger.ScopeType} scopeType
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.scopeType = 0;
     
                         /**
                          * Ledger syncDirection.
@@ -22374,11 +22385,25 @@
     
                         /**
                          * Ledger lastUpdated.
-                         * @member {number|Long} lastUpdated
+                         * @member {number|Long|null|undefined} lastUpdated
                          * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
                          * @instance
                          */
-                        Ledger.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                        Ledger.prototype.lastUpdated = null;
+    
+                        // OneOf field names bound to virtual getters and setters
+                        var $oneOfFields;
+    
+                        /**
+                         * Ledger _lastUpdated.
+                         * @member {"lastUpdated"|undefined} _lastUpdated
+                         * @memberof particle.cloud.ledger.GetInfoResponse.Ledger
+                         * @instance
+                         */
+                        Object.defineProperty(Ledger.prototype, "_lastUpdated", {
+                            get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
+                            set: $util.oneOfSetter($oneOfFields)
+                        });
     
                         /**
                          * Creates a new Ledger instance using the specified properties.
@@ -22406,12 +22431,14 @@
                                 writer = $Writer.create();
                             if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
-                            if (message.scope != null && Object.hasOwnProperty.call(message, "scope"))
-                                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.scope);
+                            if (message.scopeId != null && Object.hasOwnProperty.call(message, "scopeId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.scopeId);
+                            if (message.scopeType != null && Object.hasOwnProperty.call(message, "scopeType"))
+                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.scopeType);
                             if (message.syncDirection != null && Object.hasOwnProperty.call(message, "syncDirection"))
-                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.syncDirection);
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.syncDirection);
                             if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
-                                writer.uint32(/* id 4, wireType 1 =*/33).fixed64(message.lastUpdated);
+                                writer.uint32(/* id 5, wireType 1 =*/41).fixed64(message.lastUpdated);
                             return writer;
                         };
     
@@ -22437,12 +22464,15 @@
                                     message.name = reader.string();
                                     break;
                                 case 2:
-                                    message.scope = reader.int32();
+                                    message.scopeId = reader.bytes();
                                     break;
                                 case 3:
-                                    message.syncDirection = reader.int32();
+                                    message.scopeType = reader.int32();
                                     break;
                                 case 4:
+                                    message.syncDirection = reader.int32();
+                                    break;
+                                case 5:
                                     message.lastUpdated = reader.fixed64();
                                     break;
                                 default:
@@ -22465,7 +22495,8 @@
                      * Properties of a SetDataRequest.
                      * @memberof particle.cloud.ledger
                      * @interface ISetDataRequest
-                     * @property {string|null} [name] SetDataRequest name
+                     * @property {string|null} [name] < Ledger name.
+                     * @property {Uint8Array|null} [scopeId] SetDataRequest scopeId
                      * @property {number|Long|null} [lastUpdated] SetDataRequest lastUpdated
                      * @property {Uint8Array|null} [data] SetDataRequest data
                      */
@@ -22488,7 +22519,7 @@
                     }
     
                     /**
-                     * SetDataRequest name.
+                     * < Ledger name.
                      * @member {string} name
                      * @memberof particle.cloud.ledger.SetDataRequest
                      * @instance
@@ -22496,12 +22527,20 @@
                     SetDataRequest.prototype.name = "";
     
                     /**
-                     * SetDataRequest lastUpdated.
-                     * @member {number|Long} lastUpdated
+                     * SetDataRequest scopeId.
+                     * @member {Uint8Array} scopeId
                      * @memberof particle.cloud.ledger.SetDataRequest
                      * @instance
                      */
-                    SetDataRequest.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    SetDataRequest.prototype.scopeId = $util.newBuffer([]);
+    
+                    /**
+                     * SetDataRequest lastUpdated.
+                     * @member {number|Long|null|undefined} lastUpdated
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @instance
+                     */
+                    SetDataRequest.prototype.lastUpdated = null;
     
                     /**
                      * SetDataRequest data.
@@ -22510,6 +22549,20 @@
                      * @instance
                      */
                     SetDataRequest.prototype.data = $util.newBuffer([]);
+    
+                    // OneOf field names bound to virtual getters and setters
+                    var $oneOfFields;
+    
+                    /**
+                     * SetDataRequest _lastUpdated.
+                     * @member {"lastUpdated"|undefined} _lastUpdated
+                     * @memberof particle.cloud.ledger.SetDataRequest
+                     * @instance
+                     */
+                    Object.defineProperty(SetDataRequest.prototype, "_lastUpdated", {
+                        get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
+                        set: $util.oneOfSetter($oneOfFields)
+                    });
     
                     /**
                      * Creates a new SetDataRequest instance using the specified properties.
@@ -22537,8 +22590,10 @@
                             writer = $Writer.create();
                         if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                             writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                        if (message.scopeId != null && Object.hasOwnProperty.call(message, "scopeId"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.scopeId);
                         if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
-                            writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                            writer.uint32(/* id 3, wireType 1 =*/25).fixed64(message.lastUpdated);
                         if (message.data != null && Object.hasOwnProperty.call(message, "data"))
                             writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.data);
                         return writer;
@@ -22566,6 +22621,9 @@
                                 message.name = reader.string();
                                 break;
                             case 2:
+                                message.scopeId = reader.bytes();
+                                break;
+                            case 3:
                                 message.lastUpdated = reader.fixed64();
                                 break;
                             case 10:
@@ -22667,7 +22725,8 @@
                      * Properties of a GetDataRequest.
                      * @memberof particle.cloud.ledger
                      * @interface IGetDataRequest
-                     * @property {string|null} [name] GetDataRequest name
+                     * @property {string|null} [name] < Ledger name.
+                     * @property {Uint8Array|null} [scopeId] GetDataRequest scopeId
                      * @property {number|Long|null} [lastUpdated] GetDataRequest lastUpdated
                      */
     
@@ -22689,12 +22748,20 @@
                     }
     
                     /**
-                     * GetDataRequest name.
+                     * < Ledger name.
                      * @member {string} name
                      * @memberof particle.cloud.ledger.GetDataRequest
                      * @instance
                      */
                     GetDataRequest.prototype.name = "";
+    
+                    /**
+                     * GetDataRequest scopeId.
+                     * @member {Uint8Array} scopeId
+                     * @memberof particle.cloud.ledger.GetDataRequest
+                     * @instance
+                     */
+                    GetDataRequest.prototype.scopeId = $util.newBuffer([]);
     
                     /**
                      * GetDataRequest lastUpdated.
@@ -22744,8 +22811,10 @@
                             writer = $Writer.create();
                         if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                             writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                        if (message.scopeId != null && Object.hasOwnProperty.call(message, "scopeId"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.scopeId);
                         if (message.lastUpdated != null && Object.hasOwnProperty.call(message, "lastUpdated"))
-                            writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.lastUpdated);
+                            writer.uint32(/* id 3, wireType 1 =*/25).fixed64(message.lastUpdated);
                         return writer;
                     };
     
@@ -22771,6 +22840,9 @@
                                 message.name = reader.string();
                                 break;
                             case 2:
+                                message.scopeId = reader.bytes();
+                                break;
+                            case 3:
                                 message.lastUpdated = reader.fixed64();
                                 break;
                             default:
@@ -22911,7 +22983,7 @@
                      * Properties of a SubscribeRequest.
                      * @memberof particle.cloud.ledger
                      * @interface ISubscribeRequest
-                     * @property {Array.<string>|null} [ledgers] Names of the ledgers to subscribe to.
+                     * @property {Array.<particle.cloud.ledger.SubscribeRequest.ILedger>|null} [ledgers] < Ledgers to subscribe to.
                      */
     
                     /**
@@ -22936,8 +23008,8 @@
                     }
     
                     /**
-                     * Names of the ledgers to subscribe to.
-                     * @member {Array.<string>} ledgers
+                     * < Ledgers to subscribe to.
+                     * @member {Array.<particle.cloud.ledger.SubscribeRequest.ILedger>} ledgers
                      * @memberof particle.cloud.ledger.SubscribeRequest
                      * @instance
                      */
@@ -22969,7 +23041,7 @@
                             writer = $Writer.create();
                         if (message.ledgers != null && message.ledgers.length)
                             for (var i = 0; i < message.ledgers.length; ++i)
-                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.ledgers[i]);
+                                $root.particle.cloud.ledger.SubscribeRequest.Ledger.encode(message.ledgers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         return writer;
                     };
     
@@ -22994,7 +23066,7 @@
                             case 1:
                                 if (!(message.ledgers && message.ledgers.length))
                                     message.ledgers = [];
-                                message.ledgers.push(reader.string());
+                                message.ledgers.push($root.particle.cloud.ledger.SubscribeRequest.Ledger.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -23003,6 +23075,113 @@
                         }
                         return message;
                     };
+    
+                    SubscribeRequest.Ledger = (function() {
+    
+                        /**
+                         * Properties of a Ledger.
+                         * @memberof particle.cloud.ledger.SubscribeRequest
+                         * @interface ILedger
+                         * @property {string|null} [name] < Ledger name.
+                         * @property {Uint8Array|null} [scopeId] < Scope ID.
+                         */
+    
+                        /**
+                         * Constructs a new Ledger.
+                         * @memberof particle.cloud.ledger.SubscribeRequest
+                         * @classdesc Ledger info.
+                         * @implements ILedger
+                         * @constructor
+                         * @param {particle.cloud.ledger.SubscribeRequest.ILedger=} [properties] Properties to set
+                         */
+                        function Ledger(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+    
+                        /**
+                         * < Ledger name.
+                         * @member {string} name
+                         * @memberof particle.cloud.ledger.SubscribeRequest.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.name = "";
+    
+                        /**
+                         * < Scope ID.
+                         * @member {Uint8Array} scopeId
+                         * @memberof particle.cloud.ledger.SubscribeRequest.Ledger
+                         * @instance
+                         */
+                        Ledger.prototype.scopeId = $util.newBuffer([]);
+    
+                        /**
+                         * Creates a new Ledger instance using the specified properties.
+                         * @function create
+                         * @memberof particle.cloud.ledger.SubscribeRequest.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.SubscribeRequest.ILedger=} [properties] Properties to set
+                         * @returns {particle.cloud.ledger.SubscribeRequest.Ledger} Ledger instance
+                         */
+                        Ledger.create = function create(properties) {
+                            return new Ledger(properties);
+                        };
+    
+                        /**
+                         * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.SubscribeRequest.Ledger.verify|verify} messages.
+                         * @function encode
+                         * @memberof particle.cloud.ledger.SubscribeRequest.Ledger
+                         * @static
+                         * @param {particle.cloud.ledger.SubscribeRequest.ILedger} message Ledger message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Ledger.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+                            if (message.scopeId != null && Object.hasOwnProperty.call(message, "scopeId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.scopeId);
+                            return writer;
+                        };
+    
+                        /**
+                         * Decodes a Ledger message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof particle.cloud.ledger.SubscribeRequest.Ledger
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {particle.cloud.ledger.SubscribeRequest.Ledger} Ledger
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Ledger.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.ledger.SubscribeRequest.Ledger();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.name = reader.string();
+                                    break;
+                                case 2:
+                                    message.scopeId = reader.bytes();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+    
+                        return Ledger;
+                    })();
     
                     return SubscribeRequest;
                 })();

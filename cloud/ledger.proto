@@ -5,13 +5,13 @@ package particle.cloud.ledger;
 import "nanopb.proto";
 
 /**
- * Ledger scope.
+ * Scope type.
  */
-enum Scope {
-  SCOPE_UNKNOWN = 0; ///< Unknown scope.
-  SCOPE_DEVICE = 1; ///< Device scope.
-  SCOPE_PRODUCT = 2; ///< Product scope.
-  SCOPE_OWNER = 3; ///< Owner scope.
+enum ScopeType {
+  SCOPE_TYPE_UNKNOWN = 0; ///< Unknown scope.
+  SCOPE_TYPE_DEVICE = 1; ///< Device scope.
+  SCOPE_TYPE_PRODUCT = 2; ///< Product scope.
+  SCOPE_TYPE_OWNER = 3; ///< Owner scope.
 }
 
 /**
@@ -44,14 +44,15 @@ message GetInfoResponse {
    */
   message Ledger {
     string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
-    Scope scope = 2; ///< Ledger scope.
-    SyncDirection sync_direction = 3; ///< Sync direction.
+    bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
+    ScopeType scope_type = 3; ///< Scope type.
+    SyncDirection sync_direction = 4; ///< Sync direction.
     /**
      * Time the ledger was last updated according to the server, in milliseconds since the Unix epoch.
      *
-     * If 0, the time is unknown.
+     * If not set, the time is unknown.
      */
-    fixed64 last_updated = 4;
+    optional fixed64 last_updated = 5;
   }
 
   /**
@@ -69,12 +70,13 @@ message GetInfoResponse {
  */
 message SetDataRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+  bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
   /**
    * Time the ledger was last updated, in milliseconds since the Unix epoch.
    *
-   * If 0, the time is unknown.
+   * If not set, the time is unknown.
    */
-  fixed64 last_updated = 2;
+  optional fixed64 last_updated = 3;
   /**
    * Contents of the ledger.
    */
@@ -95,13 +97,14 @@ message SetDataResponse {
  */
 message GetDataRequest {
   string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+  bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
   /**
    * Time the ledger was last updated according to the device, in milliseconds since the Unix epoch.
    *
-   * If specified, the response will only contain the contents of the ledger if its last update time
-   * as recorded on the server is greater than the time specified in this field.
+   * If set, the response will only contain the contents of the ledger if its last update time as
+   * recorded on the server is greater than the time specified in this field.
    */
-  optional fixed64 last_updated = 2;
+  optional fixed64 last_updated = 3;
 }
 
 /**
@@ -115,7 +118,7 @@ message GetDataResponse {
   /**
    * Contents of the ledger.
    *
-   * If not specified, the device has the most recent version of the ledger data.
+   * If not set, the device has the most recent version of the ledger data.
    */
   // XXX: Device OS currently requires this field to have the highest field number in the message.
   optional bytes data = 10;
@@ -131,9 +134,14 @@ message GetDataResponse {
  */
 message SubscribeRequest {
   /**
-   * Names of the ledgers to subscribe to.
+   * Ledger info.
    */
-  repeated string ledgers = 1;
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
+  }
+
+  repeated Ledger ledgers = 1; ///< Ledgers to subscribe to.
 }
 
 /**
