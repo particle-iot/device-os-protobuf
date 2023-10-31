@@ -10342,7 +10342,8 @@ export namespace particle {
                 OK = 0,
                 ERROR = 1,
                 LEDGER_NOT_FOUND = 2,
-                LEDGER_INVALID_SYNC_DIRECTION = 3
+                LEDGER_INVALID_SYNC_DIRECTION = 3,
+                LEDGER_OWNER_CHANGED = 4
             }
         }
 
@@ -10464,12 +10465,12 @@ export namespace particle {
         /** Namespace ledger. */
         namespace ledger {
 
-            /** Ledger scope. */
-            enum Scope {
-                SCOPE_UNKNOWN = 0,
-                SCOPE_DEVICE = 1,
-                SCOPE_PRODUCT = 2,
-                SCOPE_OWNER = 3
+            /** Scope type. */
+            enum ScopeType {
+                SCOPE_TYPE_UNKNOWN = 0,
+                SCOPE_TYPE_DEVICE = 1,
+                SCOPE_TYPE_PRODUCT = 2,
+                SCOPE_TYPE_OWNER = 3
             }
 
             /** Sync direction. */
@@ -10589,8 +10590,11 @@ export namespace particle {
                     /** < Ledger name. */
                     name?: (string|null);
 
-                    /** < Ledger scope. */
-                    scope?: (particle.cloud.ledger.Scope|null);
+                    /** < Scope ID. */
+                    scopeId?: (Uint8Array|null);
+
+                    /** < Scope type. */
+                    scopeType?: (particle.cloud.ledger.ScopeType|null);
 
                     /** Ledger syncDirection */
                     syncDirection?: (particle.cloud.ledger.SyncDirection|null);
@@ -10611,14 +10615,20 @@ export namespace particle {
                     /** < Ledger name. */
                     public name: string;
 
-                    /** < Ledger scope. */
-                    public scope: particle.cloud.ledger.Scope;
+                    /** < Scope ID. */
+                    public scopeId: Uint8Array;
+
+                    /** < Scope type. */
+                    public scopeType: particle.cloud.ledger.ScopeType;
 
                     /** Ledger syncDirection. */
                     public syncDirection: particle.cloud.ledger.SyncDirection;
 
                     /** Ledger lastUpdated. */
-                    public lastUpdated: (number|Long);
+                    public lastUpdated?: (number|Long|null);
+
+                    /** Ledger _lastUpdated. */
+                    public _lastUpdated?: "lastUpdated";
 
                     /**
                      * Creates a new Ledger instance using the specified properties.
@@ -10650,8 +10660,11 @@ export namespace particle {
             /** Properties of a SetDataRequest. */
             interface ISetDataRequest {
 
-                /** SetDataRequest name */
+                /** < Ledger name. */
                 name?: (string|null);
+
+                /** SetDataRequest scopeId */
+                scopeId?: (Uint8Array|null);
 
                 /** SetDataRequest lastUpdated */
                 lastUpdated?: (number|Long|null);
@@ -10673,14 +10686,20 @@ export namespace particle {
                  */
                 constructor(properties?: particle.cloud.ledger.ISetDataRequest);
 
-                /** SetDataRequest name. */
+                /** < Ledger name. */
                 public name: string;
 
+                /** SetDataRequest scopeId. */
+                public scopeId: Uint8Array;
+
                 /** SetDataRequest lastUpdated. */
-                public lastUpdated: (number|Long);
+                public lastUpdated?: (number|Long|null);
 
                 /** SetDataRequest data. */
                 public data: Uint8Array;
+
+                /** SetDataRequest _lastUpdated. */
+                public _lastUpdated?: "lastUpdated";
 
                 /**
                  * Creates a new SetDataRequest instance using the specified properties.
@@ -10750,8 +10769,11 @@ export namespace particle {
             /** Properties of a GetDataRequest. */
             interface IGetDataRequest {
 
-                /** GetDataRequest name */
+                /** < Ledger name. */
                 name?: (string|null);
+
+                /** GetDataRequest scopeId */
+                scopeId?: (Uint8Array|null);
 
                 /** GetDataRequest lastUpdated */
                 lastUpdated?: (number|Long|null);
@@ -10770,8 +10792,11 @@ export namespace particle {
                  */
                 constructor(properties?: particle.cloud.ledger.IGetDataRequest);
 
-                /** GetDataRequest name. */
+                /** < Ledger name. */
                 public name: string;
+
+                /** GetDataRequest scopeId. */
+                public scopeId: Uint8Array;
 
                 /** GetDataRequest lastUpdated. */
                 public lastUpdated?: (number|Long|null);
@@ -10862,8 +10887,8 @@ export namespace particle {
             /** Properties of a SubscribeRequest. */
             interface ISubscribeRequest {
 
-                /** Names of the ledgers to subscribe to. */
-                ledgers?: (string[]|null);
+                /** < Ledgers to subscribe to. */
+                ledgers?: (particle.cloud.ledger.SubscribeRequest.ILedger[]|null);
             }
 
             /**
@@ -10882,8 +10907,8 @@ export namespace particle {
                  */
                 constructor(properties?: particle.cloud.ledger.ISubscribeRequest);
 
-                /** Names of the ledgers to subscribe to. */
-                public ledgers: string[];
+                /** < Ledgers to subscribe to. */
+                public ledgers: particle.cloud.ledger.SubscribeRequest.ILedger[];
 
                 /**
                  * Creates a new SubscribeRequest instance using the specified properties.
@@ -10909,6 +10934,60 @@ export namespace particle {
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
                 public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SubscribeRequest;
+            }
+
+            namespace SubscribeRequest {
+
+                /** Properties of a Ledger. */
+                interface ILedger {
+
+                    /** < Ledger name. */
+                    name?: (string|null);
+
+                    /** < Scope ID. */
+                    scopeId?: (Uint8Array|null);
+                }
+
+                /** Ledger info. */
+                class Ledger implements ILedger {
+
+                    /**
+                     * Constructs a new Ledger.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: particle.cloud.ledger.SubscribeRequest.ILedger);
+
+                    /** < Ledger name. */
+                    public name: string;
+
+                    /** < Scope ID. */
+                    public scopeId: Uint8Array;
+
+                    /**
+                     * Creates a new Ledger instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns Ledger instance
+                     */
+                    public static create(properties?: particle.cloud.ledger.SubscribeRequest.ILedger): particle.cloud.ledger.SubscribeRequest.Ledger;
+
+                    /**
+                     * Encodes the specified Ledger message. Does not implicitly {@link particle.cloud.ledger.SubscribeRequest.Ledger.verify|verify} messages.
+                     * @param message Ledger message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: particle.cloud.ledger.SubscribeRequest.ILedger, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a Ledger message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns Ledger
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.ledger.SubscribeRequest.Ledger;
+                }
             }
 
             /** Properties of a SubscribeResponse. */
