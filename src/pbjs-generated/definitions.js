@@ -21848,6 +21848,8 @@
                  * @property {number} LEDGER_NOT_FOUND=2 < Requested ledger is not found.
                  * @property {number} LEDGER_INVALID_SYNC_DIRECTION=3 < Sync direction of the ledger is invalid.
                  * @property {number} LEDGER_OWNER_CHANGED=4 < Owner of the ledger changed.
+                 * @property {number} LEDGER_INVALID_DATA=5 < Invalid format of ledger data.
+                 * @property {number} LEDGER_TOO_LARGE_DATA=6 < Ledger data is too large.
                  */
                 Response.Result = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
@@ -21856,6 +21858,8 @@
                     values[valuesById[2] = "LEDGER_NOT_FOUND"] = 2;
                     values[valuesById[3] = "LEDGER_INVALID_SYNC_DIRECTION"] = 3;
                     values[valuesById[4] = "LEDGER_OWNER_CHANGED"] = 4;
+                    values[valuesById[5] = "LEDGER_INVALID_DATA"] = 5;
+                    values[valuesById[6] = "LEDGER_TOO_LARGE_DATA"] = 6;
                     return values;
                 })();
     
