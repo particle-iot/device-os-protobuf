@@ -46,6 +46,8 @@ message Response {
     LEDGER_NOT_FOUND = 2; ///< Requested ledger is not found.
     LEDGER_INVALID_SYNC_DIRECTION = 3; ///< Sync direction of the ledger is invalid.
     LEDGER_OWNER_CHANGED = 4; ///< Owner of the ledger changed.
+    LEDGER_INVALID_DATA = 5; ///< Invalid format of ledger data.
+    LEDGER_TOO_LARGE_DATA = 6; ///< Ledger data is too large.
   }
 
   /**
