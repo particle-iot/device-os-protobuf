@@ -10343,7 +10343,7 @@ export namespace particle {
                 ERROR = 1,
                 LEDGER_NOT_FOUND = 2,
                 LEDGER_INVALID_SYNC_DIRECTION = 3,
-                LEDGER_OWNER_CHANGED = 4,
+                LEDGER_SCOPE_CHANGED = 4,
                 LEDGER_INVALID_DATA = 5,
                 LEDGER_TOO_LARGE_DATA = 6
             }
