@@ -45,7 +45,7 @@ message Response {
     ERROR = 1; ///< Operation failed. See the CoAP response code and diagnostic message for details.
     LEDGER_NOT_FOUND = 2; ///< Requested ledger is not found.
     LEDGER_INVALID_SYNC_DIRECTION = 3; ///< Sync direction of the ledger is invalid.
-    LEDGER_OWNER_CHANGED = 4; ///< Owner of the ledger changed.
+    LEDGER_SCOPE_CHANGED = 4; ///< Ledger scope changed.
     LEDGER_INVALID_DATA = 5; ///< Invalid format of ledger data.
     LEDGER_TOO_LARGE_DATA = 6; ///< Ledger data is too large.
   }
