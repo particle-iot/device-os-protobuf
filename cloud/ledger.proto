@@ -50,7 +50,7 @@ message GetInfoResponse {
     /**
      * Time the ledger was last updated according to the server, in milliseconds since the Unix epoch.
      *
-     * If not set, the time is unknown.
+     * If not set, the time is unknown or the ledger has not yet been assigned any data.
      */
     optional fixed64 last_updated = 5;
   }
@@ -113,8 +113,10 @@ message GetDataRequest {
 message GetDataResponse {
   /**
    * Time the ledger was last updated, in milliseconds since the Unix epoch.
+   *
+   * If not set, the ledger has not yet been assigned any data.
    */
-  fixed64 last_updated = 1;
+  optional fixed64 last_updated = 1;
   /**
    * Contents of the ledger.
    *
@@ -155,8 +157,10 @@ message SubscribeResponse {
     string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
     /**
      * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     *
+     * If not set, the ledger has not yet been assigned any data.
      */
-    fixed64 last_updated = 2;
+    optional fixed64 last_updated = 2;
   }
 
   repeated Ledger ledgers = 1; ///< Ledger info.

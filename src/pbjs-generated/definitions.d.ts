@@ -10835,7 +10835,11 @@ export namespace particle {
             /** Properties of a GetDataResponse. */
             interface IGetDataResponse {
 
-                /** Time the ledger was last updated, in milliseconds since the Unix epoch. */
+                /**
+                 * Time the ledger was last updated, in milliseconds since the Unix epoch.
+                 *
+                 * If not set, the ledger has not yet been assigned any data.
+                 */
                 lastUpdated?: (number|Long|null);
 
                 /** GetDataResponse data */
@@ -10851,11 +10855,18 @@ export namespace particle {
                  */
                 constructor(properties?: particle.cloud.ledger.IGetDataResponse);
 
-                /** Time the ledger was last updated, in milliseconds since the Unix epoch. */
-                public lastUpdated: (number|Long);
+                /**
+                 * Time the ledger was last updated, in milliseconds since the Unix epoch.
+                 *
+                 * If not set, the ledger has not yet been assigned any data.
+                 */
+                public lastUpdated?: (number|Long|null);
 
                 /** GetDataResponse data. */
                 public data?: (Uint8Array|null);
+
+                /** GetDataResponse _lastUpdated. */
+                public _lastUpdated?: "lastUpdated";
 
                 /** GetDataResponse _data. */
                 public _data?: "data";
@@ -11062,7 +11073,10 @@ export namespace particle {
                     public name: string;
 
                     /** Ledger lastUpdated. */
-                    public lastUpdated: (number|Long);
+                    public lastUpdated?: (number|Long|null);
+
+                    /** Ledger _lastUpdated. */
+                    public _lastUpdated?: "lastUpdated";
 
                     /**
                      * Creates a new Ledger instance using the specified properties.
