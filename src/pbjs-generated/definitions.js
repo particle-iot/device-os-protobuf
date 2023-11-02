@@ -22867,6 +22867,8 @@
                      * @memberof particle.cloud.ledger
                      * @interface IGetDataResponse
                      * @property {number|Long|null} [lastUpdated] Time the ledger was last updated, in milliseconds since the Unix epoch.
+                     * 
+                     * If not set, the ledger has not yet been assigned any data.
                      * @property {Uint8Array|null} [data] GetDataResponse data
                      */
     
@@ -22887,11 +22889,13 @@
     
                     /**
                      * Time the ledger was last updated, in milliseconds since the Unix epoch.
-                     * @member {number|Long} lastUpdated
+                     * 
+                     * If not set, the ledger has not yet been assigned any data.
+                     * @member {number|Long|null|undefined} lastUpdated
                      * @memberof particle.cloud.ledger.GetDataResponse
                      * @instance
                      */
-                    GetDataResponse.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    GetDataResponse.prototype.lastUpdated = null;
     
                     /**
                      * GetDataResponse data.
@@ -22903,6 +22907,17 @@
     
                     // OneOf field names bound to virtual getters and setters
                     var $oneOfFields;
+    
+                    /**
+                     * GetDataResponse _lastUpdated.
+                     * @member {"lastUpdated"|undefined} _lastUpdated
+                     * @memberof particle.cloud.ledger.GetDataResponse
+                     * @instance
+                     */
+                    Object.defineProperty(GetDataResponse.prototype, "_lastUpdated", {
+                        get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
+                        set: $util.oneOfSetter($oneOfFields)
+                    });
     
                     /**
                      * GetDataResponse _data.
@@ -23319,11 +23334,25 @@
     
                         /**
                          * Ledger lastUpdated.
-                         * @member {number|Long} lastUpdated
+                         * @member {number|Long|null|undefined} lastUpdated
                          * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
                          * @instance
                          */
-                        Ledger.prototype.lastUpdated = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                        Ledger.prototype.lastUpdated = null;
+    
+                        // OneOf field names bound to virtual getters and setters
+                        var $oneOfFields;
+    
+                        /**
+                         * Ledger _lastUpdated.
+                         * @member {"lastUpdated"|undefined} _lastUpdated
+                         * @memberof particle.cloud.ledger.SubscribeResponse.Ledger
+                         * @instance
+                         */
+                        Object.defineProperty(Ledger.prototype, "_lastUpdated", {
+                            get: $util.oneOfGetter($oneOfFields = ["lastUpdated"]),
+                            set: $util.oneOfSetter($oneOfFields)
+                        });
     
                         /**
                          * Creates a new Ledger instance using the specified properties.
