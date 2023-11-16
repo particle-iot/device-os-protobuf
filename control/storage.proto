@@ -165,6 +165,10 @@ message GetModuleInfoReply {
     uint32 index = 2; // Module index
     uint32 version = 3; // Module version
   }
+  message FirmwareModuleAsset {
+    bytes hash = 1; // SHA-256 hash
+    string name = 2; // Asset name
+  }
   message Module {
     FirmwareModuleType type = 1; // Module type
     uint32 index = 2; // Module index
@@ -172,6 +176,8 @@ message GetModuleInfoReply {
     uint32 size = 4; // Module size
     uint32 validity = 5; // Validity flags (see FirmwareModuleValidityFlag)
     repeated Dependency dependencies = 6; // Module dependencies
+    repeated FirmwareModuleAsset asset_dependencies = 7; // Asset dependencies (only for user modules)
   }
   repeated Module modules = 1; // Firmware modules
+  repeated FirmwareModuleAsset assets = 2; // List of valid assets currently present in device storage
 }

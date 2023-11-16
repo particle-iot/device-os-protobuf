@@ -294,7 +294,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 24
+                    "(nanopb).max_length": 24
                   }
                 }
               }
@@ -311,7 +311,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 16
+                    "(nanopb).max_length": 16
                   }
                 }
               }
@@ -371,7 +371,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 64
+                    "(nanopb).max_length": 64
                   }
                 }
               }
@@ -443,7 +443,7 @@
                   "type": "string",
                   "id": 2,
                   "options": {
-                    "(nanopb).max_size": 64
+                    "(nanopb).max_length": 64
                   }
                 },
                 "port": {
@@ -515,14 +515,14 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 32
+                    "(nanopb).max_length": 32
                   }
                 },
                 "suffix": {
                   "type": "string",
                   "id": 2,
                   "options": {
-                    "(nanopb).max_size": 16
+                    "(nanopb).max_length": 16
                   }
                 }
               }
@@ -1530,142 +1530,6 @@
                 }
               }
             },
-            "NetworkGetStatusRequest": {
-              "options": {
-                "(type_id)": 122
-              },
-              "fields": {
-                "interface": {
-                  "type": "int32",
-                  "id": 1
-                }
-              }
-            },
-            "NetworkGetStatusReply": {
-              "fields": {
-                "config": {
-                  "type": "NetworkConfiguration",
-                  "id": 1
-                }
-              }
-            },
-            "NetworkGetConfigurationRequest": {
-              "options": {
-                "(type_id)": 120
-              },
-              "fields": {
-                "interface": {
-                  "type": "int32",
-                  "id": 1
-                }
-              }
-            },
-            "NetworkGetConfigurationReply": {
-              "fields": {
-                "config": {
-                  "type": "NetworkConfiguration",
-                  "id": 1
-                }
-              }
-            },
-            "NetworkSetConfigurationRequest": {
-              "options": {
-                "(type_id)": 121
-              },
-              "fields": {
-                "config": {
-                  "type": "NetworkConfiguration",
-                  "id": 1
-                }
-              }
-            },
-            "NetworkSetConfigurationReply": {
-              "fields": {}
-            },
-            "NetworkState": {
-              "values": {
-                "NETWORK_STATUS_NONE": 0,
-                "DOWN": 1,
-                "UP": 2
-              }
-            },
-            "IPConfiguration": {
-              "fields": {
-                "type": {
-                  "type": "Type",
-                  "id": 1
-                },
-                "address": {
-                  "type": "IPAddress",
-                  "id": 2
-                },
-                "netmask": {
-                  "type": "IPAddress",
-                  "id": 3
-                },
-                "gateway": {
-                  "type": "IPAddress",
-                  "id": 4
-                },
-                "dhcpServer": {
-                  "type": "IPAddress",
-                  "id": 5
-                },
-                "hostname": {
-                  "type": "string",
-                  "id": 6
-                }
-              },
-              "nested": {
-                "Type": {
-                  "values": {
-                    "NONE": 0,
-                    "DHCP": 1,
-                    "STATIC": 2
-                  }
-                }
-              }
-            },
-            "DNSConfiguration": {
-              "fields": {
-                "servers": {
-                  "rule": "repeated",
-                  "type": "IPAddress",
-                  "id": 1
-                }
-              }
-            },
-            "NetworkConfiguration": {
-              "fields": {
-                "interface": {
-                  "type": "int32",
-                  "id": 1
-                },
-                "state": {
-                  "type": "NetworkState",
-                  "id": 2
-                },
-                "name": {
-                  "type": "string",
-                  "id": 3
-                },
-                "mac": {
-                  "type": "bytes",
-                  "id": 4,
-                  "options": {
-                    "(nanopb).max_size": 6
-                  }
-                },
-                "ipconfig": {
-                  "type": "IPConfiguration",
-                  "id": 5
-                },
-                "dnsconfig": {
-                  "type": "DNSConfiguration",
-                  "id": 6
-                }
-              }
-            },
             "InterfaceConfigurationSource": {
               "values": {
                 "NONE": 0,
@@ -1933,6 +1797,142 @@
             },
             "DeleteInterfaceStoredConfigurationReply": {
               "fields": {}
+            },
+            "NetworkGetStatusRequest": {
+              "options": {
+                "(type_id)": 122
+              },
+              "fields": {
+                "interface": {
+                  "type": "int32",
+                  "id": 1
+                }
+              }
+            },
+            "NetworkGetStatusReply": {
+              "fields": {
+                "config": {
+                  "type": "NetworkConfiguration",
+                  "id": 1
+                }
+              }
+            },
+            "NetworkGetConfigurationRequest": {
+              "options": {
+                "(type_id)": 120
+              },
+              "fields": {
+                "interface": {
+                  "type": "int32",
+                  "id": 1
+                }
+              }
+            },
+            "NetworkGetConfigurationReply": {
+              "fields": {
+                "config": {
+                  "type": "NetworkConfiguration",
+                  "id": 1
+                }
+              }
+            },
+            "NetworkSetConfigurationRequest": {
+              "options": {
+                "(type_id)": 121
+              },
+              "fields": {
+                "config": {
+                  "type": "NetworkConfiguration",
+                  "id": 1
+                }
+              }
+            },
+            "NetworkSetConfigurationReply": {
+              "fields": {}
+            },
+            "NetworkState": {
+              "values": {
+                "NETWORK_STATUS_NONE": 0,
+                "DOWN": 1,
+                "UP": 2
+              }
+            },
+            "IPConfiguration": {
+              "fields": {
+                "type": {
+                  "type": "Type",
+                  "id": 1
+                },
+                "address": {
+                  "type": "IPAddress",
+                  "id": 2
+                },
+                "netmask": {
+                  "type": "IPAddress",
+                  "id": 3
+                },
+                "gateway": {
+                  "type": "IPAddress",
+                  "id": 4
+                },
+                "dhcpServer": {
+                  "type": "IPAddress",
+                  "id": 5
+                },
+                "hostname": {
+                  "type": "string",
+                  "id": 6
+                }
+              },
+              "nested": {
+                "Type": {
+                  "values": {
+                    "NONE": 0,
+                    "DHCP": 1,
+                    "STATIC": 2
+                  }
+                }
+              }
+            },
+            "DNSConfiguration": {
+              "fields": {
+                "servers": {
+                  "rule": "repeated",
+                  "type": "IPAddress",
+                  "id": 1
+                }
+              }
+            },
+            "NetworkConfiguration": {
+              "fields": {
+                "interface": {
+                  "type": "int32",
+                  "id": 1
+                },
+                "state": {
+                  "type": "NetworkState",
+                  "id": 2
+                },
+                "name": {
+                  "type": "string",
+                  "id": 3
+                },
+                "mac": {
+                  "type": "bytes",
+                  "id": 4,
+                  "options": {
+                    "(nanopb).max_size": 6
+                  }
+                },
+                "ipconfig": {
+                  "type": "IPConfiguration",
+                  "id": 5
+                },
+                "dnsconfig": {
+                  "type": "DNSConfiguration",
+                  "id": 6
+                }
+              }
             },
             "StorageType": {
               "values": {
@@ -2222,6 +2222,11 @@
                   "rule": "repeated",
                   "type": "Module",
                   "id": 1
+                },
+                "assets": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleAsset",
+                  "id": 2
                 }
               },
               "nested": {
@@ -2238,6 +2243,18 @@
                     "version": {
                       "type": "uint32",
                       "id": 3
+                    }
+                  }
+                },
+                "FirmwareModuleAsset": {
+                  "fields": {
+                    "hash": {
+                      "type": "bytes",
+                      "id": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "id": 2
                     }
                   }
                 },
@@ -2267,216 +2284,11 @@
                       "rule": "repeated",
                       "type": "Dependency",
                       "id": 6
-                    }
-                  }
-                }
-              }
-            },
-            "wifi": {
-              "options": {
-                "java_package": "io.particle.firmwareprotos.ctrl.wifi"
-              },
-              "nested": {
-                "Security": {
-                  "values": {
-                    "NO_SECURITY": 0,
-                    "WEP": 1,
-                    "WPA_PSK": 2,
-                    "WPA2_PSK": 3,
-                    "WPA_WPA2_PSK": 4
-                  }
-                },
-                "CredentialsType": {
-                  "values": {
-                    "NO_CREDENTIALS": 0,
-                    "PASSWORD": 1
-                  }
-                },
-                "Credentials": {
-                  "fields": {
-                    "type": {
-                      "type": "CredentialsType",
-                      "id": 1
                     },
-                    "password": {
-                      "type": "string",
-                      "id": 2
-                    }
-                  }
-                },
-                "JoinNewNetworkRequest": {
-                  "options": {
-                    "(type_id)": 500
-                  },
-                  "fields": {
-                    "ssid": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "bssid": {
-                      "type": "bytes",
-                      "id": 2,
-                      "options": {
-                        "(nanopb).max_size": 6
-                      }
-                    },
-                    "security": {
-                      "type": "Security",
-                      "id": 3
-                    },
-                    "credentials": {
-                      "type": "Credentials",
-                      "id": 4
-                    },
-                    "interfaceConfig": {
-                      "type": "Interface",
-                      "id": 5
-                    }
-                  }
-                },
-                "JoinNewNetworkReply": {
-                  "fields": {}
-                },
-                "JoinKnownNetworkRequest": {
-                  "options": {
-                    "(type_id)": 501
-                  },
-                  "fields": {
-                    "ssid": {
-                      "type": "string",
-                      "id": 1
-                    }
-                  }
-                },
-                "JoinKnownNetworkReply": {
-                  "fields": {}
-                },
-                "GetKnownNetworksRequest": {
-                  "options": {
-                    "(type_id)": 502
-                  },
-                  "fields": {}
-                },
-                "GetKnownNetworksReply": {
-                  "fields": {
-                    "networks": {
+                    "assetDependencies": {
                       "rule": "repeated",
-                      "type": "Network",
-                      "id": 1
-                    }
-                  },
-                  "nested": {
-                    "Network": {
-                      "fields": {
-                        "ssid": {
-                          "type": "string",
-                          "id": 1
-                        },
-                        "security": {
-                          "type": "Security",
-                          "id": 2
-                        },
-                        "credentialsType": {
-                          "type": "CredentialsType",
-                          "id": 3
-                        }
-                      }
-                    }
-                  }
-                },
-                "RemoveKnownNetworkRequest": {
-                  "options": {
-                    "(type_id)": 503
-                  },
-                  "fields": {
-                    "ssid": {
-                      "type": "string",
-                      "id": 1
-                    }
-                  }
-                },
-                "RemoveKnownNetworkReply": {
-                  "fields": {}
-                },
-                "ClearKnownNetworksRequest": {
-                  "options": {
-                    "(type_id)": 504
-                  },
-                  "fields": {}
-                },
-                "ClearKnownNetworksReply": {
-                  "fields": {}
-                },
-                "GetCurrentNetworkRequest": {
-                  "options": {
-                    "(type_id)": 505
-                  },
-                  "fields": {}
-                },
-                "GetCurrentNetworkReply": {
-                  "fields": {
-                    "ssid": {
-                      "type": "string",
-                      "id": 1
-                    },
-                    "bssid": {
-                      "type": "bytes",
-                      "id": 2,
-                      "options": {
-                        "(nanopb).max_size": 6
-                      }
-                    },
-                    "channel": {
-                      "type": "int32",
-                      "id": 3
-                    },
-                    "rssi": {
-                      "type": "int32",
-                      "id": 4
-                    }
-                  }
-                },
-                "ScanNetworksRequest": {
-                  "options": {
-                    "(type_id)": 506
-                  },
-                  "fields": {}
-                },
-                "ScanNetworksReply": {
-                  "fields": {
-                    "networks": {
-                      "rule": "repeated",
-                      "type": "Network",
-                      "id": 1
-                    }
-                  },
-                  "nested": {
-                    "Network": {
-                      "fields": {
-                        "ssid": {
-                          "type": "string",
-                          "id": 1
-                        },
-                        "bssid": {
-                          "type": "bytes",
-                          "id": 2,
-                          "options": {
-                            "(nanopb).max_size": 6
-                          }
-                        },
-                        "security": {
-                          "type": "Security",
-                          "id": 3
-                        },
-                        "channel": {
-                          "type": "int32",
-                          "id": 4
-                        },
-                        "rssi": {
-                          "type": "int32",
-                          "id": 5
-                        }
-                      }
+                      "type": "FirmwareModuleAsset",
+                      "id": 7
                     }
                   }
                 }
@@ -2668,6 +2480,222 @@
                   "rule": "repeated",
                   "type": "WiFiAccessPoint",
                   "id": 1
+                }
+              }
+            },
+            "wifi": {
+              "options": {
+                "java_package": "io.particle.firmwareprotos.ctrl.wifi"
+              },
+              "nested": {
+                "Security": {
+                  "values": {
+                    "NO_SECURITY": 0,
+                    "WEP": 1,
+                    "WPA_PSK": 2,
+                    "WPA2_PSK": 3,
+                    "WPA_WPA2_PSK": 4,
+                    "WPA3_PSK": 5,
+                    "WPA2_WPA3_PSK": 6
+                  }
+                },
+                "CredentialsType": {
+                  "values": {
+                    "NO_CREDENTIALS": 0,
+                    "PASSWORD": 1
+                  }
+                },
+                "Credentials": {
+                  "fields": {
+                    "type": {
+                      "type": "CredentialsType",
+                      "id": 1
+                    },
+                    "password": {
+                      "type": "string",
+                      "id": 2
+                    }
+                  }
+                },
+                "JoinNewNetworkRequest": {
+                  "options": {
+                    "(type_id)": 500
+                  },
+                  "fields": {
+                    "ssid": {
+                      "type": "string",
+                      "id": 1
+                    },
+                    "bssid": {
+                      "type": "bytes",
+                      "id": 2,
+                      "options": {
+                        "(nanopb).max_size": 6
+                      }
+                    },
+                    "security": {
+                      "type": "Security",
+                      "id": 3
+                    },
+                    "credentials": {
+                      "type": "Credentials",
+                      "id": 4
+                    },
+                    "interfaceConfig": {
+                      "type": "Interface",
+                      "id": 5
+                    },
+                    "hidden": {
+                      "type": "bool",
+                      "id": 6
+                    }
+                  }
+                },
+                "JoinNewNetworkReply": {
+                  "fields": {}
+                },
+                "JoinKnownNetworkRequest": {
+                  "options": {
+                    "(type_id)": 501
+                  },
+                  "fields": {
+                    "ssid": {
+                      "type": "string",
+                      "id": 1
+                    }
+                  }
+                },
+                "JoinKnownNetworkReply": {
+                  "fields": {}
+                },
+                "GetKnownNetworksRequest": {
+                  "options": {
+                    "(type_id)": 502
+                  },
+                  "fields": {}
+                },
+                "GetKnownNetworksReply": {
+                  "fields": {
+                    "networks": {
+                      "rule": "repeated",
+                      "type": "Network",
+                      "id": 1
+                    }
+                  },
+                  "nested": {
+                    "Network": {
+                      "fields": {
+                        "ssid": {
+                          "type": "string",
+                          "id": 1
+                        },
+                        "security": {
+                          "type": "Security",
+                          "id": 2
+                        },
+                        "credentialsType": {
+                          "type": "CredentialsType",
+                          "id": 3
+                        }
+                      }
+                    }
+                  }
+                },
+                "RemoveKnownNetworkRequest": {
+                  "options": {
+                    "(type_id)": 503
+                  },
+                  "fields": {
+                    "ssid": {
+                      "type": "string",
+                      "id": 1
+                    }
+                  }
+                },
+                "RemoveKnownNetworkReply": {
+                  "fields": {}
+                },
+                "ClearKnownNetworksRequest": {
+                  "options": {
+                    "(type_id)": 504
+                  },
+                  "fields": {}
+                },
+                "ClearKnownNetworksReply": {
+                  "fields": {}
+                },
+                "GetCurrentNetworkRequest": {
+                  "options": {
+                    "(type_id)": 505
+                  },
+                  "fields": {}
+                },
+                "GetCurrentNetworkReply": {
+                  "fields": {
+                    "ssid": {
+                      "type": "string",
+                      "id": 1
+                    },
+                    "bssid": {
+                      "type": "bytes",
+                      "id": 2,
+                      "options": {
+                        "(nanopb).max_size": 6
+                      }
+                    },
+                    "channel": {
+                      "type": "int32",
+                      "id": 3
+                    },
+                    "rssi": {
+                      "type": "int32",
+                      "id": 4
+                    }
+                  }
+                },
+                "ScanNetworksRequest": {
+                  "options": {
+                    "(type_id)": 506
+                  },
+                  "fields": {}
+                },
+                "ScanNetworksReply": {
+                  "fields": {
+                    "networks": {
+                      "rule": "repeated",
+                      "type": "Network",
+                      "id": 1
+                    }
+                  },
+                  "nested": {
+                    "Network": {
+                      "fields": {
+                        "ssid": {
+                          "type": "string",
+                          "id": 1
+                        },
+                        "bssid": {
+                          "type": "bytes",
+                          "id": 2,
+                          "options": {
+                            "(nanopb).max_size": 6
+                          }
+                        },
+                        "security": {
+                          "type": "Security",
+                          "id": 3
+                        },
+                        "channel": {
+                          "type": "int32",
+                          "id": 4
+                        },
+                        "rssi": {
+                          "type": "int32",
+                          "id": 5
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
