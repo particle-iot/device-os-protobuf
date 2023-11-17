@@ -190,5 +190,6 @@ message GetAssetInfoRequest {
 }
 
 message GetAssetInfoReply {
-  repeated particle.cloud.FirmwareModuleAsset assets = 1; ///< List of valid assets currently present in device storage
+  repeated particle.cloud.FirmwareModuleAsset available = 1; ///< List of valid assets currently present in device storage
+  repeated particle.cloud.FirmwareModuleAsset required = 2; ///< List of valid assets currently present in device storage
 }
