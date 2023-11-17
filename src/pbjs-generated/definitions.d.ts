@@ -8397,8 +8397,11 @@ export namespace particle {
         /** Properties of a GetModuleInfoReply. */
         interface IGetModuleInfoReply {
 
-            /** GetModuleInfoReply modules */
-            modules?: (particle.ctrl.GetModuleInfoReply.IModule[]|null);
+            /** GetModuleInfoReply modulesDeprecated */
+            modulesDeprecated?: (particle.ctrl.GetModuleInfoReply.IModule[]|null);
+
+            /** < Firmware modules */
+            modules?: (particle.cloud.IFirmwareModule[]|null);
         }
 
         /** Represents a GetModuleInfoReply. */
@@ -8410,8 +8413,11 @@ export namespace particle {
              */
             constructor(properties?: particle.ctrl.IGetModuleInfoReply);
 
-            /** GetModuleInfoReply modules. */
-            public modules: particle.ctrl.GetModuleInfoReply.IModule[];
+            /** GetModuleInfoReply modulesDeprecated. */
+            public modulesDeprecated: particle.ctrl.GetModuleInfoReply.IModule[];
+
+            /** < Firmware modules */
+            public modules: particle.cloud.IFirmwareModule[];
 
             /**
              * Creates a new GetModuleInfoReply instance using the specified properties.
@@ -8574,6 +8580,90 @@ export namespace particle {
             }
         }
 
+        /** Properties of a GetAssetInfoRequest. */
+        interface IGetAssetInfoRequest {
+        }
+
+        /** Get asset info. */
+        class GetAssetInfoRequest implements IGetAssetInfoRequest {
+
+            /**
+             * Constructs a new GetAssetInfoRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IGetAssetInfoRequest);
+
+            /**
+             * Creates a new GetAssetInfoRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns GetAssetInfoRequest instance
+             */
+            public static create(properties?: particle.ctrl.IGetAssetInfoRequest): particle.ctrl.GetAssetInfoRequest;
+
+            /**
+             * Encodes the specified GetAssetInfoRequest message. Does not implicitly {@link particle.ctrl.GetAssetInfoRequest.verify|verify} messages.
+             * @param message GetAssetInfoRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IGetAssetInfoRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a GetAssetInfoRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns GetAssetInfoRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.GetAssetInfoRequest;
+        }
+
+        /** Properties of a GetAssetInfoReply. */
+        interface IGetAssetInfoReply {
+
+            /** < List of valid assets currently present in device storage */
+            assets?: (particle.cloud.IFirmwareModuleAsset[]|null);
+        }
+
+        /** Represents a GetAssetInfoReply. */
+        class GetAssetInfoReply implements IGetAssetInfoReply {
+
+            /**
+             * Constructs a new GetAssetInfoReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IGetAssetInfoReply);
+
+            /** < List of valid assets currently present in device storage */
+            public assets: particle.cloud.IFirmwareModuleAsset[];
+
+            /**
+             * Creates a new GetAssetInfoReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns GetAssetInfoReply instance
+             */
+            public static create(properties?: particle.ctrl.IGetAssetInfoReply): particle.ctrl.GetAssetInfoReply;
+
+            /**
+             * Encodes the specified GetAssetInfoReply message. Does not implicitly {@link particle.ctrl.GetAssetInfoReply.verify|verify} messages.
+             * @param message GetAssetInfoReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IGetAssetInfoReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a GetAssetInfoReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns GetAssetInfoReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.GetAssetInfoReply;
+        }
+
         /** Namespace wifi. */
         namespace wifi {
 
@@ -8588,7 +8678,9 @@ export namespace particle {
                 WEP = 1,
                 WPA_PSK = 2,
                 WPA2_PSK = 3,
-                WPA_WPA2_PSK = 4
+                WPA_WPA2_PSK = 4,
+                WPA3_PSK = 5,
+                WPA2_WPA3_PSK = 6
             }
 
             /**
@@ -8670,6 +8762,9 @@ export namespace particle {
 
                 /** JoinNewNetworkRequest interfaceConfig */
                 interfaceConfig?: (particle.ctrl.IInterface|null);
+
+                /** JoinNewNetworkRequest hidden */
+                hidden?: (boolean|null);
             }
 
             /**
@@ -8699,6 +8794,9 @@ export namespace particle {
 
                 /** JoinNewNetworkRequest interfaceConfig. */
                 public interfaceConfig?: (particle.ctrl.IInterface|null);
+
+                /** JoinNewNetworkRequest hidden. */
+                public hidden: boolean;
 
                 /**
                  * Creates a new JoinNewNetworkRequest instance using the specified properties.
@@ -10333,6 +10431,12 @@ export namespace particle {
 
             /** < Asset name */
             name?: (string|null);
+
+            /** < Asset size */
+            size?: (number|null);
+
+            /** < Asset storage size (taking into account compression and metadata) */
+            storageSize?: (number|null);
         }
 
         /** Represents a FirmwareModuleAsset. */
@@ -10349,6 +10453,12 @@ export namespace particle {
 
             /** < Asset name */
             public name: string;
+
+            /** < Asset size */
+            public size: number;
+
+            /** < Asset storage size (taking into account compression and metadata) */
+            public storageSize: number;
 
             /**
              * Creates a new FirmwareModuleAsset instance using the specified properties.
@@ -10408,6 +10518,9 @@ export namespace particle {
 
             /** < Asset dependencies */
             assetDependencies?: (particle.cloud.IFirmwareModuleAsset[]|null);
+
+            /** < Actual module size */
+            size?: (number|null);
         }
 
         /** Firmware module info. */
@@ -10448,6 +10561,9 @@ export namespace particle {
 
             /** < Asset dependencies */
             public assetDependencies: particle.cloud.IFirmwareModuleAsset[];
+
+            /** < Actual module size */
+            public size: number;
 
             /** FirmwareModule _hash. */
             public _hash?: "hash";

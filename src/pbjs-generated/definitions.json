@@ -294,7 +294,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 24
+                    "(nanopb).max_length": 24
                   }
                 }
               }
@@ -311,7 +311,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 16
+                    "(nanopb).max_length": 16
                   }
                 }
               }
@@ -371,7 +371,7 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 64
+                    "(nanopb).max_length": 64
                   }
                 }
               }
@@ -443,7 +443,7 @@
                   "type": "string",
                   "id": 2,
                   "options": {
-                    "(nanopb).max_size": 64
+                    "(nanopb).max_length": 64
                   }
                 },
                 "port": {
@@ -515,14 +515,14 @@
                   "type": "string",
                   "id": 1,
                   "options": {
-                    "(nanopb).max_size": 32
+                    "(nanopb).max_length": 32
                   }
                 },
                 "suffix": {
                   "type": "string",
                   "id": 2,
                   "options": {
-                    "(nanopb).max_size": 16
+                    "(nanopb).max_length": 16
                   }
                 }
               }
@@ -2218,10 +2218,15 @@
             },
             "GetModuleInfoReply": {
               "fields": {
-                "modules": {
+                "modulesDeprecated": {
                   "rule": "repeated",
                   "type": "Module",
                   "id": 1
+                },
+                "modules": {
+                  "rule": "repeated",
+                  "type": "particle.cloud.FirmwareModule",
+                  "id": 2
                 }
               },
               "nested": {
@@ -2272,6 +2277,21 @@
                 }
               }
             },
+            "GetAssetInfoRequest": {
+              "options": {
+                "(type_id)": 91
+              },
+              "fields": {}
+            },
+            "GetAssetInfoReply": {
+              "fields": {
+                "assets": {
+                  "rule": "repeated",
+                  "type": "particle.cloud.FirmwareModuleAsset",
+                  "id": 1
+                }
+              }
+            },
             "wifi": {
               "options": {
                 "java_package": "io.particle.firmwareprotos.ctrl.wifi"
@@ -2283,7 +2303,9 @@
                     "WEP": 1,
                     "WPA_PSK": 2,
                     "WPA2_PSK": 3,
-                    "WPA_WPA2_PSK": 4
+                    "WPA_WPA2_PSK": 4,
+                    "WPA3_PSK": 5,
+                    "WPA2_WPA3_PSK": 6
                   }
                 },
                 "CredentialsType": {
@@ -2331,6 +2353,10 @@
                     "interfaceConfig": {
                       "type": "Interface",
                       "id": 5
+                    },
+                    "hidden": {
+                      "type": "bool",
+                      "id": 6
                     }
                   }
                 },
@@ -2668,6 +2694,212 @@
                   "rule": "repeated",
                   "type": "WiFiAccessPoint",
                   "id": 1
+                }
+              }
+            }
+          }
+        },
+        "cloud": {
+          "nested": {
+            "ServerMovedPermanentlyRequest": {
+              "fields": {
+                "serverAddr": {
+                  "type": "string",
+                  "id": 1
+                },
+                "serverPort": {
+                  "type": "uint32",
+                  "id": 2
+                },
+                "serverPubKey": {
+                  "type": "bytes",
+                  "id": 3
+                },
+                "sign": {
+                  "type": "bytes",
+                  "id": 4
+                }
+              }
+            },
+            "ServerMovedPermanentlyResponse": {
+              "fields": {}
+            },
+            "FirmwareModuleType": {
+              "values": {
+                "INVALID_MODULE": 0,
+                "RESOURCE_MODULE": 1,
+                "BOOTLOADER_MODULE": 2,
+                "MONO_FIRMWARE_MODULE": 3,
+                "SYSTEM_PART_MODULE": 4,
+                "USER_PART_MODULE": 5,
+                "SETTINGS_MODULE": 6,
+                "NCP_FIRMWARE_MODULE": 7,
+                "RADIO_STACK_MODULE": 8,
+                "ASSET_MODULE": 9
+              }
+            },
+            "FirmwareModuleStore": {
+              "values": {
+                "MAIN_MODULE_STORE": 0,
+                "FACTORY_MODULE_STORE": 1,
+                "BACKUP_MODULE_STORE": 2,
+                "SCRATCHPAD_MODULE_STORE": 3
+              }
+            },
+            "FirmwareModuleValidityFlag": {
+              "values": {
+                "MODULE_NO_VALID_FLAGS": 0,
+                "MODULE_INTEGRITY_VALID_FLAG": 2,
+                "MODULE_DEPENDENCIES_VALID_FLAG": 4,
+                "MODULE_RANGE_VALID_FLAG": 8,
+                "MODULE_PLATFORM_VALID_FLAG": 16
+              }
+            },
+            "FirmwareModuleDependency": {
+              "fields": {
+                "type": {
+                  "type": "FirmwareModuleType",
+                  "id": 1
+                },
+                "index": {
+                  "type": "uint32",
+                  "id": 2
+                },
+                "version": {
+                  "type": "uint32",
+                  "id": 3
+                }
+              }
+            },
+            "FirmwareModuleAsset": {
+              "fields": {
+                "hash": {
+                  "type": "bytes",
+                  "id": 1
+                },
+                "name": {
+                  "type": "string",
+                  "id": 2
+                },
+                "size": {
+                  "type": "uint32",
+                  "id": 3
+                },
+                "storageSize": {
+                  "type": "uint32",
+                  "id": 4
+                }
+              }
+            },
+            "FirmwareModule": {
+              "oneofs": {
+                "_hash": {
+                  "oneof": [
+                    "hash"
+                  ]
+                }
+              },
+              "fields": {
+                "type": {
+                  "type": "FirmwareModuleType",
+                  "id": 1
+                },
+                "index": {
+                  "type": "uint32",
+                  "id": 2
+                },
+                "version": {
+                  "type": "uint32",
+                  "id": 3
+                },
+                "store": {
+                  "type": "FirmwareModuleStore",
+                  "id": 4
+                },
+                "maxSize": {
+                  "type": "uint32",
+                  "id": 5
+                },
+                "checkedFlags": {
+                  "type": "fixed32",
+                  "id": 6
+                },
+                "passedFlags": {
+                  "type": "fixed32",
+                  "id": 7
+                },
+                "hash": {
+                  "type": "bytes",
+                  "id": 8,
+                  "options": {
+                    "proto3_optional": true
+                  }
+                },
+                "dependencies": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleDependency",
+                  "id": 9
+                },
+                "assetDependencies": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleAsset",
+                  "id": 10
+                },
+                "size": {
+                  "type": "uint32",
+                  "id": 11
+                }
+              }
+            },
+            "SystemDescribe": {
+              "oneofs": {
+                "_imei": {
+                  "oneof": [
+                    "imei"
+                  ]
+                },
+                "_iccid": {
+                  "oneof": [
+                    "iccid"
+                  ]
+                },
+                "_modemFirmwareVersion": {
+                  "oneof": [
+                    "modemFirmwareVersion"
+                  ]
+                }
+              },
+              "fields": {
+                "firmwareModules": {
+                  "rule": "repeated",
+                  "type": "FirmwareModule",
+                  "id": 1
+                },
+                "imei": {
+                  "type": "string",
+                  "id": 2,
+                  "options": {
+                    "proto3_optional": true
+                  }
+                },
+                "iccid": {
+                  "type": "string",
+                  "id": 3,
+                  "options": {
+                    "proto3_optional": true
+                  }
+                },
+                "modemFirmwareVersion": {
+                  "type": "string",
+                  "id": 4,
+                  "options": {
+                    "proto3_optional": true
+                  }
+                },
+                "assets": {
+                  "rule": "repeated",
+                  "type": "FirmwareModuleAsset",
+                  "id": 5
                 }
               }
             }

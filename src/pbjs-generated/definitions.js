@@ -17585,7 +17585,8 @@
                  * Properties of a GetModuleInfoReply.
                  * @memberof particle.ctrl
                  * @interface IGetModuleInfoReply
-                 * @property {Array.<particle.ctrl.GetModuleInfoReply.IModule>|null} [modules] GetModuleInfoReply modules
+                 * @property {Array.<particle.ctrl.GetModuleInfoReply.IModule>|null} [modulesDeprecated] GetModuleInfoReply modulesDeprecated
+                 * @property {Array.<particle.cloud.IFirmwareModule>|null} [modules] < Firmware modules
                  */
     
                 /**
@@ -17597,6 +17598,7 @@
                  * @param {particle.ctrl.IGetModuleInfoReply=} [properties] Properties to set
                  */
                 function GetModuleInfoReply(properties) {
+                    this.modulesDeprecated = [];
                     this.modules = [];
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -17605,8 +17607,16 @@
                 }
     
                 /**
-                 * GetModuleInfoReply modules.
-                 * @member {Array.<particle.ctrl.GetModuleInfoReply.IModule>} modules
+                 * GetModuleInfoReply modulesDeprecated.
+                 * @member {Array.<particle.ctrl.GetModuleInfoReply.IModule>} modulesDeprecated
+                 * @memberof particle.ctrl.GetModuleInfoReply
+                 * @instance
+                 */
+                GetModuleInfoReply.prototype.modulesDeprecated = $util.emptyArray;
+    
+                /**
+                 * < Firmware modules
+                 * @member {Array.<particle.cloud.IFirmwareModule>} modules
                  * @memberof particle.ctrl.GetModuleInfoReply
                  * @instance
                  */
@@ -17636,9 +17646,12 @@
                 GetModuleInfoReply.encode = function encode(message, writer) {
                     if (!writer)
                         writer = $Writer.create();
+                    if (message.modulesDeprecated != null && message.modulesDeprecated.length)
+                        for (var i = 0; i < message.modulesDeprecated.length; ++i)
+                            $root.particle.ctrl.GetModuleInfoReply.Module.encode(message.modulesDeprecated[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                     if (message.modules != null && message.modules.length)
                         for (var i = 0; i < message.modules.length; ++i)
-                            $root.particle.ctrl.GetModuleInfoReply.Module.encode(message.modules[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                            $root.particle.cloud.FirmwareModule.encode(message.modules[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                     return writer;
                 };
     
@@ -17661,9 +17674,14 @@
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
+                            if (!(message.modulesDeprecated && message.modulesDeprecated.length))
+                                message.modulesDeprecated = [];
+                            message.modulesDeprecated.push($root.particle.ctrl.GetModuleInfoReply.Module.decode(reader, reader.uint32()));
+                            break;
+                        case 2:
                             if (!(message.modules && message.modules.length))
                                 message.modules = [];
-                            message.modules.push($root.particle.ctrl.GetModuleInfoReply.Module.decode(reader, reader.uint32()));
+                            message.modules.push($root.particle.cloud.FirmwareModule.decode(reader, reader.uint32()));
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -17964,6 +17982,182 @@
                 return GetModuleInfoReply;
             })();
     
+            ctrl.GetAssetInfoRequest = (function() {
+    
+                /**
+                 * Properties of a GetAssetInfoRequest.
+                 * @memberof particle.ctrl
+                 * @interface IGetAssetInfoRequest
+                 */
+    
+                /**
+                 * Constructs a new GetAssetInfoRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Get asset info.
+                 * @implements IGetAssetInfoRequest
+                 * @constructor
+                 * @param {particle.ctrl.IGetAssetInfoRequest=} [properties] Properties to set
+                 */
+                function GetAssetInfoRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new GetAssetInfoRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.GetAssetInfoRequest
+                 * @static
+                 * @param {particle.ctrl.IGetAssetInfoRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.GetAssetInfoRequest} GetAssetInfoRequest instance
+                 */
+                GetAssetInfoRequest.create = function create(properties) {
+                    return new GetAssetInfoRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified GetAssetInfoRequest message. Does not implicitly {@link particle.ctrl.GetAssetInfoRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.GetAssetInfoRequest
+                 * @static
+                 * @param {particle.ctrl.IGetAssetInfoRequest} message GetAssetInfoRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                GetAssetInfoRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a GetAssetInfoRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.GetAssetInfoRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.GetAssetInfoRequest} GetAssetInfoRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                GetAssetInfoRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.GetAssetInfoRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return GetAssetInfoRequest;
+            })();
+    
+            ctrl.GetAssetInfoReply = (function() {
+    
+                /**
+                 * Properties of a GetAssetInfoReply.
+                 * @memberof particle.ctrl
+                 * @interface IGetAssetInfoReply
+                 * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assets] < List of valid assets currently present in device storage
+                 */
+    
+                /**
+                 * Constructs a new GetAssetInfoReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a GetAssetInfoReply.
+                 * @implements IGetAssetInfoReply
+                 * @constructor
+                 * @param {particle.ctrl.IGetAssetInfoReply=} [properties] Properties to set
+                 */
+                function GetAssetInfoReply(properties) {
+                    this.assets = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < List of valid assets currently present in device storage
+                 * @member {Array.<particle.cloud.IFirmwareModuleAsset>} assets
+                 * @memberof particle.ctrl.GetAssetInfoReply
+                 * @instance
+                 */
+                GetAssetInfoReply.prototype.assets = $util.emptyArray;
+    
+                /**
+                 * Creates a new GetAssetInfoReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.GetAssetInfoReply
+                 * @static
+                 * @param {particle.ctrl.IGetAssetInfoReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.GetAssetInfoReply} GetAssetInfoReply instance
+                 */
+                GetAssetInfoReply.create = function create(properties) {
+                    return new GetAssetInfoReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified GetAssetInfoReply message. Does not implicitly {@link particle.ctrl.GetAssetInfoReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.GetAssetInfoReply
+                 * @static
+                 * @param {particle.ctrl.IGetAssetInfoReply} message GetAssetInfoReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                GetAssetInfoReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.assets != null && message.assets.length)
+                        for (var i = 0; i < message.assets.length; ++i)
+                            $root.particle.cloud.FirmwareModuleAsset.encode(message.assets[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a GetAssetInfoReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.GetAssetInfoReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.GetAssetInfoReply} GetAssetInfoReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                GetAssetInfoReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.GetAssetInfoReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.assets && message.assets.length))
+                                message.assets = [];
+                            message.assets.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return GetAssetInfoReply;
+            })();
+    
             ctrl.wifi = (function() {
     
                 /**
@@ -17985,6 +18179,8 @@
                  * @property {number} WPA_PSK=2 WPA_PSK value
                  * @property {number} WPA2_PSK=3 WPA2_PSK value
                  * @property {number} WPA_WPA2_PSK=4 WPA_WPA2_PSK value
+                 * @property {number} WPA3_PSK=5 WPA3_PSK value
+                 * @property {number} WPA2_WPA3_PSK=6 WPA2_WPA3_PSK value
                  */
                 wifi.Security = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
@@ -17993,6 +18189,8 @@
                     values[valuesById[2] = "WPA_PSK"] = 2;
                     values[valuesById[3] = "WPA2_PSK"] = 3;
                     values[valuesById[4] = "WPA_WPA2_PSK"] = 4;
+                    values[valuesById[5] = "WPA3_PSK"] = 5;
+                    values[valuesById[6] = "WPA2_WPA3_PSK"] = 6;
                     return values;
                 })();
     
@@ -18131,6 +18329,7 @@
                      * @property {particle.ctrl.wifi.Security|null} [security] JoinNewNetworkRequest security
                      * @property {particle.ctrl.wifi.ICredentials|null} [credentials] JoinNewNetworkRequest credentials
                      * @property {particle.ctrl.IInterface|null} [interfaceConfig] JoinNewNetworkRequest interfaceConfig
+                     * @property {boolean|null} [hidden] JoinNewNetworkRequest hidden
                      */
     
                     /**
@@ -18191,6 +18390,14 @@
                     JoinNewNetworkRequest.prototype.interfaceConfig = null;
     
                     /**
+                     * JoinNewNetworkRequest hidden.
+                     * @member {boolean} hidden
+                     * @memberof particle.ctrl.wifi.JoinNewNetworkRequest
+                     * @instance
+                     */
+                    JoinNewNetworkRequest.prototype.hidden = false;
+    
+                    /**
                      * Creates a new JoinNewNetworkRequest instance using the specified properties.
                      * @function create
                      * @memberof particle.ctrl.wifi.JoinNewNetworkRequest
@@ -18224,6 +18431,8 @@
                             $root.particle.ctrl.wifi.Credentials.encode(message.credentials, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                         if (message.interfaceConfig != null && Object.hasOwnProperty.call(message, "interfaceConfig"))
                             $root.particle.ctrl.Interface.encode(message.interfaceConfig, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                        if (message.hidden != null && Object.hasOwnProperty.call(message, "hidden"))
+                            writer.uint32(/* id 6, wireType 0 =*/48).bool(message.hidden);
                         return writer;
                     };
     
@@ -18259,6 +18468,9 @@
                                 break;
                             case 5:
                                 message.interfaceConfig = $root.particle.ctrl.Interface.decode(reader, reader.uint32());
+                                break;
+                            case 6:
+                                message.hidden = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -21589,6 +21801,8 @@
                  * @interface IFirmwareModuleAsset
                  * @property {Uint8Array|null} [hash] < SHA-256 hash
                  * @property {string|null} [name] < Asset name
+                 * @property {number|null} [size] < Asset size
+                 * @property {number|null} [storageSize] < Asset storage size (taking into account compression and metadata)
                  */
     
                 /**
@@ -21623,6 +21837,22 @@
                 FirmwareModuleAsset.prototype.name = "";
     
                 /**
+                 * < Asset size
+                 * @member {number} size
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @instance
+                 */
+                FirmwareModuleAsset.prototype.size = 0;
+    
+                /**
+                 * < Asset storage size (taking into account compression and metadata)
+                 * @member {number} storageSize
+                 * @memberof particle.cloud.FirmwareModuleAsset
+                 * @instance
+                 */
+                FirmwareModuleAsset.prototype.storageSize = 0;
+    
+                /**
                  * Creates a new FirmwareModuleAsset instance using the specified properties.
                  * @function create
                  * @memberof particle.cloud.FirmwareModuleAsset
@@ -21650,6 +21880,10 @@
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
                     if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                         writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                    if (message.size != null && Object.hasOwnProperty.call(message, "size"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.size);
+                    if (message.storageSize != null && Object.hasOwnProperty.call(message, "storageSize"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.storageSize);
                     return writer;
                 };
     
@@ -21676,6 +21910,12 @@
                             break;
                         case 2:
                             message.name = reader.string();
+                            break;
+                        case 3:
+                            message.size = reader.uint32();
+                            break;
+                        case 4:
+                            message.storageSize = reader.uint32();
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -21704,6 +21944,7 @@
                  * @property {Uint8Array|null} [hash] < SHA-256 hash
                  * @property {Array.<particle.cloud.IFirmwareModuleDependency>|null} [dependencies] < Module dependencies
                  * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assetDependencies] < Asset dependencies
+                 * @property {number|null} [size] < Actual module size
                  */
     
                 /**
@@ -21803,6 +22044,14 @@
                  */
                 FirmwareModule.prototype.assetDependencies = $util.emptyArray;
     
+                /**
+                 * < Actual module size
+                 * @member {number} size
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.size = 0;
+    
                 // OneOf field names bound to virtual getters and setters
                 var $oneOfFields;
     
@@ -21863,6 +22112,8 @@
                     if (message.assetDependencies != null && message.assetDependencies.length)
                         for (var i = 0; i < message.assetDependencies.length; ++i)
                             $root.particle.cloud.FirmwareModuleAsset.encode(message.assetDependencies[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                    if (message.size != null && Object.hasOwnProperty.call(message, "size"))
+                        writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.size);
                     return writer;
                 };
     
@@ -21917,6 +22168,9 @@
                             if (!(message.assetDependencies && message.assetDependencies.length))
                                 message.assetDependencies = [];
                             message.assetDependencies.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            break;
+                        case 11:
+                            message.size = reader.uint32();
                             break;
                         default:
                             reader.skipType(tag & 7);
