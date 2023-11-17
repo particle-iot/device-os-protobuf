@@ -18067,7 +18067,8 @@
                  * Properties of a GetAssetInfoReply.
                  * @memberof particle.ctrl
                  * @interface IGetAssetInfoReply
-                 * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assets] < List of valid assets currently present in device storage
+                 * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [available] < List of valid assets currently present in device storage
+                 * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [required] < List of valid assets currently present in device storage
                  */
     
                 /**
@@ -18079,7 +18080,8 @@
                  * @param {particle.ctrl.IGetAssetInfoReply=} [properties] Properties to set
                  */
                 function GetAssetInfoReply(properties) {
-                    this.assets = [];
+                    this.available = [];
+                    this.required = [];
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -18088,11 +18090,19 @@
     
                 /**
                  * < List of valid assets currently present in device storage
-                 * @member {Array.<particle.cloud.IFirmwareModuleAsset>} assets
+                 * @member {Array.<particle.cloud.IFirmwareModuleAsset>} available
                  * @memberof particle.ctrl.GetAssetInfoReply
                  * @instance
                  */
-                GetAssetInfoReply.prototype.assets = $util.emptyArray;
+                GetAssetInfoReply.prototype.available = $util.emptyArray;
+    
+                /**
+                 * < List of valid assets currently present in device storage
+                 * @member {Array.<particle.cloud.IFirmwareModuleAsset>} required
+                 * @memberof particle.ctrl.GetAssetInfoReply
+                 * @instance
+                 */
+                GetAssetInfoReply.prototype.required = $util.emptyArray;
     
                 /**
                  * Creates a new GetAssetInfoReply instance using the specified properties.
@@ -18118,9 +18128,12 @@
                 GetAssetInfoReply.encode = function encode(message, writer) {
                     if (!writer)
                         writer = $Writer.create();
-                    if (message.assets != null && message.assets.length)
-                        for (var i = 0; i < message.assets.length; ++i)
-                            $root.particle.cloud.FirmwareModuleAsset.encode(message.assets[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.available != null && message.available.length)
+                        for (var i = 0; i < message.available.length; ++i)
+                            $root.particle.cloud.FirmwareModuleAsset.encode(message.available[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.required != null && message.required.length)
+                        for (var i = 0; i < message.required.length; ++i)
+                            $root.particle.cloud.FirmwareModuleAsset.encode(message.required[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                     return writer;
                 };
     
@@ -18143,9 +18156,14 @@
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
                         case 1:
-                            if (!(message.assets && message.assets.length))
-                                message.assets = [];
-                            message.assets.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            if (!(message.available && message.available.length))
+                                message.available = [];
+                            message.available.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            break;
+                        case 2:
+                            if (!(message.required && message.required.length))
+                                message.required = [];
+                            message.required.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
                             break;
                         default:
                             reader.skipType(tag & 7);

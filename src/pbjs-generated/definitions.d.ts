@@ -8623,7 +8623,10 @@ export namespace particle {
         interface IGetAssetInfoReply {
 
             /** < List of valid assets currently present in device storage */
-            assets?: (particle.cloud.IFirmwareModuleAsset[]|null);
+            available?: (particle.cloud.IFirmwareModuleAsset[]|null);
+
+            /** < List of valid assets currently present in device storage */
+            required?: (particle.cloud.IFirmwareModuleAsset[]|null);
         }
 
         /** Represents a GetAssetInfoReply. */
@@ -8636,7 +8639,10 @@ export namespace particle {
             constructor(properties?: particle.ctrl.IGetAssetInfoReply);
 
             /** < List of valid assets currently present in device storage */
-            public assets: particle.cloud.IFirmwareModuleAsset[];
+            public available: particle.cloud.IFirmwareModuleAsset[];
+
+            /** < List of valid assets currently present in device storage */
+            public required: particle.cloud.IFirmwareModuleAsset[];
 
             /**
              * Creates a new GetAssetInfoReply instance using the specified properties.

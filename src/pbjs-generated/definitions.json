@@ -2285,10 +2285,15 @@
             },
             "GetAssetInfoReply": {
               "fields": {
-                "assets": {
+                "available": {
                   "rule": "repeated",
                   "type": "particle.cloud.FirmwareModuleAsset",
                   "id": 1
+                },
+                "required": {
+                  "rule": "repeated",
+                  "type": "particle.cloud.FirmwareModuleAsset",
+                  "id": 2
                 }
               }
             },
