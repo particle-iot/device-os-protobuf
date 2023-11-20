@@ -274,7 +274,7 @@ describe('deviceOSProtobuf', () => {
 				'GetDeviceModeRequest',
 				'GetDeviceModeReply',
 				'GetAssetInfoRequest',
-				'GetAssetInfoReply'
+				'GetAssetInfoReply',
 				'SetDeviceSetupDoneRequest',
 				'SetDeviceSetupDoneReply',
 				'IsDeviceSetupDoneRequest',
