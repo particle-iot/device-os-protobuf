@@ -51,6 +51,8 @@ message FirmwareModuleDependency {
 message FirmwareModuleAsset {
   bytes hash = 1; ///< SHA-256 hash
   string name = 2; ///< Asset name
+  uint32 size = 3; ///< Asset size
+  uint32 storage_size = 4; ///< Asset storage size (taking into account compression and metadata)
 }
 
 /**
@@ -67,6 +69,7 @@ message FirmwareModule {
   optional bytes hash = 8; ///< SHA-256 hash
   repeated FirmwareModuleDependency dependencies = 9; ///< Module dependencies
   repeated FirmwareModuleAsset asset_dependencies = 10; ///< Asset dependencies
+  uint32 size = 11; ///< Actual module size
 }
 
 /**
