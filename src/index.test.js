@@ -273,6 +273,8 @@ describe('deviceOSProtobuf', () => {
 				'StopListeningModeReply',
 				'GetDeviceModeRequest',
 				'GetDeviceModeReply',
+				'GetAssetInfoRequest',
+				'GetAssetInfoReply'
 				'SetDeviceSetupDoneRequest',
 				'SetDeviceSetupDoneReply',
 				'IsDeviceSetupDoneRequest',
