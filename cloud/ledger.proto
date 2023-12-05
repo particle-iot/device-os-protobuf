@@ -1,0 +1,207 @@
+syntax = "proto3";
+
+package particle.cloud.ledger;
+
+import "nanopb.proto";
+
+/**
+ * Scope type.
+ */
+enum ScopeType {
+  SCOPE_TYPE_UNKNOWN = 0; ///< Unknown scope.
+  SCOPE_TYPE_DEVICE = 1; ///< Device scope.
+  SCOPE_TYPE_PRODUCT = 2; ///< Product scope.
+  SCOPE_TYPE_OWNER = 3; ///< Owner scope.
+}
+
+/**
+ * Sync direction.
+ */
+enum SyncDirection {
+  SYNC_DIRECTION_UNKNOWN = 0; ///< Unknown direction.
+  SYNC_DIRECTION_DEVICE_TO_CLOUD = 1; ///< Device to cloud.
+  SYNC_DIRECTION_CLOUD_TO_DEVICE = 2; ///< Cloud to device.
+}
+
+/**
+ * Get the ledger info.
+ *
+ * This request is sent by the device.
+ */
+message GetInfoRequest {
+  /**
+   * Names of the ledgers for which to request the info.
+   */
+  repeated string ledgers = 1;
+}
+
+/**
+ * Response for `GetInfoRequest`.
+ */
+message GetInfoResponse {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
+    ScopeType scope_type = 3; ///< Scope type.
+    SyncDirection sync_direction = 4; ///< Sync direction.
+    /**
+     * Time the ledger was last updated according to the server, in milliseconds since the Unix epoch.
+     *
+     * If not set, the time is unknown or the ledger has not yet been assigned any data.
+     */
+    optional fixed64 last_updated = 5;
+  }
+
+  /**
+   * Ledger info.
+   *
+   * A ledger is omitted in the response if it cannot be found or is not accessible by the device.
+   */
+  repeated Ledger ledgers = 1;
+}
+
+/**
+ * Update the contents of a remote device-to-cloud ledger.
+ *
+ * This request is sent by the device.
+ */
+message SetDataRequest {
+  string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+  bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
+  /**
+   * Time the ledger was last updated, in milliseconds since the Unix epoch.
+   *
+   * If not set, the time is unknown.
+   */
+  optional fixed64 last_updated = 3;
+  /**
+   * Contents of the ledger.
+   */
+  // XXX: Device OS currently requires this field to have the highest field number in the message.
+  bytes data = 10;
+}
+
+/**
+ * Response for `SetDataRequest`.
+ */
+message SetDataResponse {
+}
+
+/**
+ * Get the contents of a remote cloud-to-device ledger.
+ *
+ * This request is sent by the device.
+ */
+message GetDataRequest {
+  string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+  bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
+  /**
+   * Time the ledger was last updated according to the device, in milliseconds since the Unix epoch.
+   *
+   * If set, the response will only contain the contents of the ledger if its last update time as
+   * recorded on the server is greater than the time specified in this field.
+   */
+  optional fixed64 last_updated = 3;
+}
+
+/**
+ * Response for `GetDataRequest`.
+ */
+message GetDataResponse {
+  /**
+   * Time the ledger was last updated, in milliseconds since the Unix epoch.
+   *
+   * If not set, the ledger has not yet been assigned any data.
+   */
+  optional fixed64 last_updated = 1;
+  /**
+   * Contents of the ledger.
+   *
+   * If not set, the device has the most recent version of the ledger data.
+   */
+  // XXX: Device OS currently requires this field to have the highest field number in the message.
+  optional bytes data = 10;
+}
+
+/**
+ * Subscribe to notifications about updates made to one or multiple cloud-to-device ledgers.
+ *
+ * Subscriptions listed in this request will replace all the subscriptions currently registered on
+ * the server.
+ *
+ * This request is sent by the device.
+ */
+message SubscribeRequest {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    bytes scope_id = 2 [(nanopb).max_size = 32]; ///< Scope ID.
+  }
+
+  repeated Ledger ledgers = 1; ///< Ledgers to subscribe to.
+}
+
+/**
+ * Response for `SubscribeRequest`.
+ */
+message SubscribeResponse {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    /**
+     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     *
+     * If not set, the ledger has not yet been assigned any data.
+     */
+    optional fixed64 last_updated = 2;
+  }
+
+  repeated Ledger ledgers = 1; ///< Ledger info.
+}
+
+/**
+ * Notify the device that one or more cloud-to-device ledgers were updated.
+ *
+ * This request is sent by the server.
+ */
+message NotifyUpdateRequest {
+  /**
+   * Ledger info.
+   */
+  message Ledger {
+    string name = 1 [(nanopb).max_length = 32]; ///< Ledger name.
+    /**
+     * Time the ledger was last updated, in milliseconds since the Unix epoch.
+     */
+    fixed64 last_updated = 2;
+  }
+
+  repeated Ledger ledgers = 1; ///< Ledger info.
+}
+
+/**
+ * Response for `NotifyUpdateRequest`.
+ */
+message NotifyUpdateResponse {
+}
+
+/**
+ * Notify the device that it needs to re-request the info about all ledgers in use.
+ *
+ * This request is sent by the server.
+ */
+message ResetInfoRequest {
+}
+
+/**
+ * Response for `ResetInfoRequest`.
+ */
+message ResetInfoResponse {
+}

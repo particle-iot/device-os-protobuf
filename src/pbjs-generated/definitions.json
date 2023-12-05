@@ -2706,6 +2706,132 @@
         },
         "cloud": {
           "nested": {
+            "Request": {
+              "oneofs": {
+                "data": {
+                  "oneof": [
+                    "ledgerGetInfo",
+                    "ledgerSetData",
+                    "ledgerGetData",
+                    "ledgerSubscribe",
+                    "ledgerNotifyUpdate",
+                    "ledgerResetInfo"
+                  ]
+                }
+              },
+              "fields": {
+                "type": {
+                  "type": "Type",
+                  "id": 1
+                },
+                "ledgerGetInfo": {
+                  "type": "ledger.GetInfoRequest",
+                  "id": 2
+                },
+                "ledgerSetData": {
+                  "type": "ledger.SetDataRequest",
+                  "id": 3
+                },
+                "ledgerGetData": {
+                  "type": "ledger.GetDataRequest",
+                  "id": 4
+                },
+                "ledgerSubscribe": {
+                  "type": "ledger.SubscribeRequest",
+                  "id": 5
+                },
+                "ledgerNotifyUpdate": {
+                  "type": "ledger.NotifyUpdateRequest",
+                  "id": 6
+                },
+                "ledgerResetInfo": {
+                  "type": "ledger.ResetInfoRequest",
+                  "id": 7
+                }
+              },
+              "nested": {
+                "Type": {
+                  "values": {
+                    "INVALID": 0,
+                    "LEDGER_GET_INFO": 1,
+                    "LEDGER_SET_DATA": 2,
+                    "LEDGER_GET_DATA": 3,
+                    "LEDGER_SUBSCRIBE": 4,
+                    "LEDGER_NOTIFY_UPDATE": 5,
+                    "LEDGER_RESET_INFO": 6
+                  }
+                }
+              }
+            },
+            "Response": {
+              "oneofs": {
+                "_message": {
+                  "oneof": [
+                    "message"
+                  ]
+                },
+                "data": {
+                  "oneof": [
+                    "ledgerGetInfo",
+                    "ledgerSetData",
+                    "ledgerGetData",
+                    "ledgerSubscribe",
+                    "ledgerNotifyUpdate",
+                    "ledgerResetInfo"
+                  ]
+                }
+              },
+              "fields": {
+                "result": {
+                  "type": "sint32",
+                  "id": 1
+                },
+                "message": {
+                  "type": "string",
+                  "id": 2,
+                  "options": {
+                    "proto3_optional": true
+                  }
+                },
+                "ledgerGetInfo": {
+                  "type": "ledger.GetInfoResponse",
+                  "id": 3
+                },
+                "ledgerSetData": {
+                  "type": "ledger.SetDataResponse",
+                  "id": 4
+                },
+                "ledgerGetData": {
+                  "type": "ledger.GetDataResponse",
+                  "id": 5
+                },
+                "ledgerSubscribe": {
+                  "type": "ledger.SubscribeResponse",
+                  "id": 6
+                },
+                "ledgerNotifyUpdate": {
+                  "type": "ledger.NotifyUpdateResponse",
+                  "id": 7
+                },
+                "ledgerResetInfo": {
+                  "type": "ledger.ResetInfoResponse",
+                  "id": 8
+                }
+              },
+              "nested": {
+                "Result": {
+                  "values": {
+                    "OK": 0,
+                    "ERROR": 1,
+                    "LEDGER_NOT_FOUND": 2,
+                    "LEDGER_INVALID_SYNC_DIRECTION": 3,
+                    "LEDGER_SCOPE_CHANGED": 4,
+                    "LEDGER_INVALID_DATA": 5,
+                    "LEDGER_TOO_LARGE_DATA": 6
+                  }
+                }
+              }
+            },
             "ServerMovedPermanentlyRequest": {
               "fields": {
                 "serverAddr": {
@@ -2728,6 +2854,286 @@
             },
             "ServerMovedPermanentlyResponse": {
               "fields": {}
+            },
+            "ledger": {
+              "nested": {
+                "ScopeType": {
+                  "values": {
+                    "SCOPE_TYPE_UNKNOWN": 0,
+                    "SCOPE_TYPE_DEVICE": 1,
+                    "SCOPE_TYPE_PRODUCT": 2,
+                    "SCOPE_TYPE_OWNER": 3
+                  }
+                },
+                "SyncDirection": {
+                  "values": {
+                    "SYNC_DIRECTION_UNKNOWN": 0,
+                    "SYNC_DIRECTION_DEVICE_TO_CLOUD": 1,
+                    "SYNC_DIRECTION_CLOUD_TO_DEVICE": 2
+                  }
+                },
+                "GetInfoRequest": {
+                  "fields": {
+                    "ledgers": {
+                      "rule": "repeated",
+                      "type": "string",
+                      "id": 1
+                    }
+                  }
+                },
+                "GetInfoResponse": {
+                  "fields": {
+                    "ledgers": {
+                      "rule": "repeated",
+                      "type": "Ledger",
+                      "id": 1
+                    }
+                  },
+                  "nested": {
+                    "Ledger": {
+                      "oneofs": {
+                        "_lastUpdated": {
+                          "oneof": [
+                            "lastUpdated"
+                          ]
+                        }
+                      },
+                      "fields": {
+                        "name": {
+                          "type": "string",
+                          "id": 1,
+                          "options": {
+                            "(nanopb).max_length": 32
+                          }
+                        },
+                        "scopeId": {
+                          "type": "bytes",
+                          "id": 2,
+                          "options": {
+                            "(nanopb).max_size": 32
+                          }
+                        },
+                        "scopeType": {
+                          "type": "ScopeType",
+                          "id": 3
+                        },
+                        "syncDirection": {
+                          "type": "SyncDirection",
+                          "id": 4
+                        },
+                        "lastUpdated": {
+                          "type": "fixed64",
+                          "id": 5,
+                          "options": {
+                            "proto3_optional": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "SetDataRequest": {
+                  "oneofs": {
+                    "_lastUpdated": {
+                      "oneof": [
+                        "lastUpdated"
+                      ]
+                    }
+                  },
+                  "fields": {
+                    "name": {
+                      "type": "string",
+                      "id": 1,
+                      "options": {
+                        "(nanopb).max_length": 32
+                      }
+                    },
+                    "scopeId": {
+                      "type": "bytes",
+                      "id": 2,
+                      "options": {
+                        "(nanopb).max_size": 32
+                      }
+                    },
+                    "lastUpdated": {
+                      "type": "fixed64",
+                      "id": 3,
+                      "options": {
+                        "proto3_optional": true
+                      }
+                    },
+                    "data": {
+                      "type": "bytes",
+                      "id": 10
+                    }
+                  }
+                },
+                "SetDataResponse": {
+                  "fields": {}
+                },
+                "GetDataRequest": {
+                  "oneofs": {
+                    "_lastUpdated": {
+                      "oneof": [
+                        "lastUpdated"
+                      ]
+                    }
+                  },
+                  "fields": {
+                    "name": {
+                      "type": "string",
+                      "id": 1,
+                      "options": {
+                        "(nanopb).max_length": 32
+                      }
+                    },
+                    "scopeId": {
+                      "type": "bytes",
+                      "id": 2,
+                      "options": {
+                        "(nanopb).max_size": 32
+                      }
+                    },
+                    "lastUpdated": {
+                      "type": "fixed64",
+                      "id": 3,
+                      "options": {
+                        "proto3_optional": true
+                      }
+                    }
+                  }
+                },
+                "GetDataResponse": {
+                  "oneofs": {
+                    "_lastUpdated": {
+                      "oneof": [
+                        "lastUpdated"
+                      ]
+                    },
+                    "_data": {
+                      "oneof": [
+                        "data"
+                      ]
+                    }
+                  },
+                  "fields": {
+                    "lastUpdated": {
+                      "type": "fixed64",
+                      "id": 1,
+                      "options": {
+                        "proto3_optional": true
+                      }
+                    },
+                    "data": {
+                      "type": "bytes",
+                      "id": 10,
+                      "options": {
+                        "proto3_optional": true
+                      }
+                    }
+                  }
+                },
+                "SubscribeRequest": {
+                  "fields": {
+                    "ledgers": {
+                      "rule": "repeated",
+                      "type": "Ledger",
+                      "id": 1
+                    }
+                  },
+                  "nested": {
+                    "Ledger": {
+                      "fields": {
+                        "name": {
+                          "type": "string",
+                          "id": 1,
+                          "options": {
+                            "(nanopb).max_length": 32
+                          }
+                        },
+                        "scopeId": {
+                          "type": "bytes",
+                          "id": 2,
+                          "options": {
+                            "(nanopb).max_size": 32
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "SubscribeResponse": {
+                  "fields": {
+                    "ledgers": {
+                      "rule": "repeated",
+                      "type": "Ledger",
+                      "id": 1
+                    }
+                  },
+                  "nested": {
+                    "Ledger": {
+                      "oneofs": {
+                        "_lastUpdated": {
+                          "oneof": [
+                            "lastUpdated"
+                          ]
+                        }
+                      },
+                      "fields": {
+                        "name": {
+                          "type": "string",
+                          "id": 1,
+                          "options": {
+                            "(nanopb).max_length": 32
+                          }
+                        },
+                        "lastUpdated": {
+                          "type": "fixed64",
+                          "id": 2,
+                          "options": {
+                            "proto3_optional": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "NotifyUpdateRequest": {
+                  "fields": {
+                    "ledgers": {
+                      "rule": "repeated",
+                      "type": "Ledger",
+                      "id": 1
+                    }
+                  },
+                  "nested": {
+                    "Ledger": {
+                      "fields": {
+                        "name": {
+                          "type": "string",
+                          "id": 1,
+                          "options": {
+                            "(nanopb).max_length": 32
+                          }
+                        },
+                        "lastUpdated": {
+                          "type": "fixed64",
+                          "id": 2
+                        }
+                      }
+                    }
+                  }
+                },
+                "NotifyUpdateResponse": {
+                  "fields": {}
+                },
+                "ResetInfoRequest": {
+                  "fields": {}
+                },
+                "ResetInfoResponse": {
+                  "fields": {}
+                }
+              }
             },
             "FirmwareModuleType": {
               "values": {

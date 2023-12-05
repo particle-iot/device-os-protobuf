@@ -2,6 +2,75 @@ syntax = "proto3";
 
 package particle.cloud;
 
+import "ledger.proto";
+
+/**
+ * Request message.
+ */
+message Request {
+  /**
+   * Request type.
+   */
+  enum Type {
+    INVALID = 0; ///< Invalid request type.
+    LEDGER_GET_INFO = 1; ///< Get the ledger info.
+    LEDGER_SET_DATA = 2; ///< Update the contents of a remote ledger.
+    LEDGER_GET_DATA = 3; ///< Get the contents of a remote ledger.
+    LEDGER_SUBSCRIBE = 4; ///< Subscribe to ledger updates.
+    LEDGER_NOTIFY_UPDATE = 5; ///< Notify a ledger update.
+    LEDGER_RESET_INFO = 6; ///< Reset ledger info.
+  }
+
+  Type type = 1; ///< Request type.
+
+  oneof data { ///< Request data.
+    ledger.GetInfoRequest ledger_get_info = 2;
+    ledger.SetDataRequest ledger_set_data = 3;
+    ledger.GetDataRequest ledger_get_data = 4;
+    ledger.SubscribeRequest ledger_subscribe = 5;
+    ledger.NotifyUpdateRequest ledger_notify_update = 6;
+    ledger.ResetInfoRequest ledger_reset_info = 7;
+  }
+}
+
+/**
+ * Response message.
+ */
+message Response {
+  /**
+   * Result code.
+   */
+  enum Result {
+    OK = 0; ///< Operation succeeded.
+    ERROR = 1; ///< Operation failed. See the CoAP response code and diagnostic message for details.
+    LEDGER_NOT_FOUND = 2; ///< Requested ledger is not found.
+    LEDGER_INVALID_SYNC_DIRECTION = 3; ///< Sync direction of the ledger is invalid.
+    LEDGER_SCOPE_CHANGED = 4; ///< Ledger scope changed.
+    LEDGER_INVALID_DATA = 5; ///< Invalid format of ledger data.
+    LEDGER_TOO_LARGE_DATA = 6; ///< Ledger data is too large.
+  }
+
+  /**
+   * Result code.
+   *
+   * Possible result codes are defined by the `Result` enum. If the response is sent by the device,
+   * the result code may be negative in which case it indicates a Device OS system error:
+   *
+   * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+   */
+  sint32 result = 1;
+  optional string message = 2; ///< Diagnostic message.
+
+  oneof data { ///< Response data.
+    ledger.GetInfoResponse ledger_get_info = 3;
+    ledger.SetDataResponse ledger_set_data = 4;
+    ledger.GetDataResponse ledger_get_data = 5;
+    ledger.SubscribeResponse ledger_subscribe = 6;
+    ledger.NotifyUpdateResponse ledger_notify_update = 7;
+    ledger.ResetInfoResponse ledger_reset_info = 8;
+  }
+}
+
 /**
  * A request sent to the device to notify it that it must disconnect from the current server and
  * use another server for further connections to the Cloud.
