@@ -23939,6 +23939,127 @@
                 return values;
             })();
     
+            /**
+             * Firmware module security
+             * @name particle.cloud.FirmwareModuleSecurityMode
+             * @enum {number}
+             * @property {number} NONE=0 NONE value
+             * @property {number} PROTECTED=1 PROTECTED value
+             */
+            cloud.FirmwareModuleSecurityMode = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "NONE"] = 0;
+                values[valuesById[1] = "PROTECTED"] = 1;
+                return values;
+            })();
+    
+            cloud.FirmwareModuleSecurity = (function() {
+    
+                /**
+                 * Properties of a FirmwareModuleSecurity.
+                 * @memberof particle.cloud
+                 * @interface IFirmwareModuleSecurity
+                 * @property {particle.cloud.FirmwareModuleSecurityMode|null} [mode] < Security mode
+                 * @property {Uint8Array|null} [certificateFingerprint] < Certificate fingerprint (SHA-256)
+                 */
+    
+                /**
+                 * Constructs a new FirmwareModuleSecurity.
+                 * @memberof particle.cloud
+                 * @classdesc Represents a FirmwareModuleSecurity.
+                 * @implements IFirmwareModuleSecurity
+                 * @constructor
+                 * @param {particle.cloud.IFirmwareModuleSecurity=} [properties] Properties to set
+                 */
+                function FirmwareModuleSecurity(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * < Security mode
+                 * @member {particle.cloud.FirmwareModuleSecurityMode} mode
+                 * @memberof particle.cloud.FirmwareModuleSecurity
+                 * @instance
+                 */
+                FirmwareModuleSecurity.prototype.mode = 0;
+    
+                /**
+                 * < Certificate fingerprint (SHA-256)
+                 * @member {Uint8Array} certificateFingerprint
+                 * @memberof particle.cloud.FirmwareModuleSecurity
+                 * @instance
+                 */
+                FirmwareModuleSecurity.prototype.certificateFingerprint = $util.newBuffer([]);
+    
+                /**
+                 * Creates a new FirmwareModuleSecurity instance using the specified properties.
+                 * @function create
+                 * @memberof particle.cloud.FirmwareModuleSecurity
+                 * @static
+                 * @param {particle.cloud.IFirmwareModuleSecurity=} [properties] Properties to set
+                 * @returns {particle.cloud.FirmwareModuleSecurity} FirmwareModuleSecurity instance
+                 */
+                FirmwareModuleSecurity.create = function create(properties) {
+                    return new FirmwareModuleSecurity(properties);
+                };
+    
+                /**
+                 * Encodes the specified FirmwareModuleSecurity message. Does not implicitly {@link particle.cloud.FirmwareModuleSecurity.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.cloud.FirmwareModuleSecurity
+                 * @static
+                 * @param {particle.cloud.IFirmwareModuleSecurity} message FirmwareModuleSecurity message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FirmwareModuleSecurity.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.mode != null && Object.hasOwnProperty.call(message, "mode"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.mode);
+                    if (message.certificateFingerprint != null && Object.hasOwnProperty.call(message, "certificateFingerprint"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.certificateFingerprint);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a FirmwareModuleSecurity message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.cloud.FirmwareModuleSecurity
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.cloud.FirmwareModuleSecurity} FirmwareModuleSecurity
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FirmwareModuleSecurity.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.cloud.FirmwareModuleSecurity();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.mode = reader.int32();
+                            break;
+                        case 2:
+                            message.certificateFingerprint = reader.bytes();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return FirmwareModuleSecurity;
+            })();
+    
             cloud.FirmwareModuleDependency = (function() {
     
                 /**
@@ -24212,6 +24333,7 @@
                  * @property {Array.<particle.cloud.IFirmwareModuleDependency>|null} [dependencies] < Module dependencies
                  * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assetDependencies] < Asset dependencies
                  * @property {number|null} [size] < Actual module size
+                 * @property {particle.cloud.IFirmwareModuleSecurity|null} [security] < Security mode
                  */
     
                 /**
@@ -24319,6 +24441,14 @@
                  */
                 FirmwareModule.prototype.size = 0;
     
+                /**
+                 * < Security mode
+                 * @member {particle.cloud.IFirmwareModuleSecurity|null|undefined} security
+                 * @memberof particle.cloud.FirmwareModule
+                 * @instance
+                 */
+                FirmwareModule.prototype.security = null;
+    
                 // OneOf field names bound to virtual getters and setters
                 var $oneOfFields;
     
@@ -24381,6 +24511,8 @@
                             $root.particle.cloud.FirmwareModuleAsset.encode(message.assetDependencies[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                     if (message.size != null && Object.hasOwnProperty.call(message, "size"))
                         writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.size);
+                    if (message.security != null && Object.hasOwnProperty.call(message, "security"))
+                        $root.particle.cloud.FirmwareModuleSecurity.encode(message.security, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
                     return writer;
                 };
     
@@ -24439,6 +24571,9 @@
                         case 11:
                             message.size = reader.uint32();
                             break;
+                        case 12:
+                            message.security = $root.particle.cloud.FirmwareModuleSecurity.decode(reader, reader.uint32());
+                            break;
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -24461,6 +24596,7 @@
                  * @property {string|null} [iccid] < ICCID (cellular platforms only)
                  * @property {string|null} [modemFirmwareVersion] < Modem firmware version (cellular platforms only)
                  * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assets] < List of valid assets currently present in device storage
+                 * @property {boolean|null} ["protected"] < Protected state
                  */
     
                 /**
@@ -24519,6 +24655,14 @@
                  * @instance
                  */
                 SystemDescribe.prototype.assets = $util.emptyArray;
+    
+                /**
+                 * < Protected state
+                 * @member {boolean} protected
+                 * @memberof particle.cloud.SystemDescribe
+                 * @instance
+                 */
+                SystemDescribe.prototype["protected"] = false;
     
                 // OneOf field names bound to virtual getters and setters
                 var $oneOfFields;
@@ -24592,6 +24736,8 @@
                     if (message.assets != null && message.assets.length)
                         for (var i = 0; i < message.assets.length; ++i)
                             $root.particle.cloud.FirmwareModuleAsset.encode(message.assets[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message["protected"] != null && Object.hasOwnProperty.call(message, "protected"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).bool(message["protected"]);
                     return writer;
                 };
     
@@ -24631,6 +24777,9 @@
                             if (!(message.assets && message.assets.length))
                                 message.assets = [];
                             message.assets.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
+                            break;
+                        case 6:
+                            message["protected"] = reader.bool();
                             break;
                         default:
                             reader.skipType(tag & 7);

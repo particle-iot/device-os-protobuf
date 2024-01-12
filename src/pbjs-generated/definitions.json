@@ -3166,6 +3166,24 @@
                 "MODULE_PLATFORM_VALID_FLAG": 16
               }
             },
+            "FirmwareModuleSecurityMode": {
+              "values": {
+                "NONE": 0,
+                "PROTECTED": 1
+              }
+            },
+            "FirmwareModuleSecurity": {
+              "fields": {
+                "mode": {
+                  "type": "FirmwareModuleSecurityMode",
+                  "id": 1
+                },
+                "certificateFingerprint": {
+                  "type": "bytes",
+                  "id": 2
+                }
+              }
+            },
             "FirmwareModuleDependency": {
               "fields": {
                 "type": {
@@ -3259,6 +3277,10 @@
                 "size": {
                   "type": "uint32",
                   "id": 11
+                },
+                "security": {
+                  "type": "FirmwareModuleSecurity",
+                  "id": 12
                 }
               }
             },
@@ -3311,6 +3333,10 @@
                   "rule": "repeated",
                   "type": "FirmwareModuleAsset",
                   "id": 5
+                },
+                "protected": {
+                  "type": "bool",
+                  "id": 6
                 }
               }
             }
