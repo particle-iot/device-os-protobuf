@@ -3334,7 +3334,7 @@
                   "type": "FirmwareModuleAsset",
                   "id": 5
                 },
-                "protected": {
+                "protectedState": {
                   "type": "bool",
                   "id": 6
                 }
