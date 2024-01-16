@@ -95,5 +95,5 @@ message SystemDescribe {
   optional string iccid = 3; ///< ICCID (cellular platforms only)
   optional string modem_firmware_version = 4; ///< Modem firmware version (cellular platforms only)
   repeated FirmwareModuleAsset assets = 5; ///< List of valid assets currently present in device storage
-  bool protected = 6; ///< Protected state
+  bool protected_state = 6; ///< Protected state
 }
