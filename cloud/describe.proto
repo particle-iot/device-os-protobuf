@@ -40,6 +40,19 @@ enum FirmwareModuleValidityFlag {
 }
 
 /**
+ * Firmware module security
+ */
+enum FirmwareModuleSecurityMode {
+  NONE = 0;
+  PROTECTED = 1;
+}
+
+message FirmwareModuleSecurity {
+  FirmwareModuleSecurityMode mode = 1; ///< Security mode
+  bytes certificate_fingerprint = 2; ///< Certificate fingerprint (SHA-256)
+}
+
+/**
  * Firmware module dependency.
  */
 message FirmwareModuleDependency {
@@ -70,6 +83,7 @@ message FirmwareModule {
   repeated FirmwareModuleDependency dependencies = 9; ///< Module dependencies
   repeated FirmwareModuleAsset asset_dependencies = 10; ///< Asset dependencies
   uint32 size = 11; ///< Actual module size
+  FirmwareModuleSecurity security = 12; ///< Security mode
 }
 
 /**
@@ -81,4 +95,5 @@ message SystemDescribe {
   optional string iccid = 3; ///< ICCID (cellular platforms only)
   optional string modem_firmware_version = 4; ///< Modem firmware version (cellular platforms only)
   repeated FirmwareModuleAsset assets = 5; ///< List of valid assets currently present in device storage
+  bool protected = 6; ///< Protected state
 }

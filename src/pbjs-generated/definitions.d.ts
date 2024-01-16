@@ -11457,6 +11457,63 @@ export namespace particle {
             MODULE_PLATFORM_VALID_FLAG = 16
         }
 
+        /** Firmware module security */
+        enum FirmwareModuleSecurityMode {
+            NONE = 0,
+            PROTECTED = 1
+        }
+
+        /** Properties of a FirmwareModuleSecurity. */
+        interface IFirmwareModuleSecurity {
+
+            /** < Security mode */
+            mode?: (particle.cloud.FirmwareModuleSecurityMode|null);
+
+            /** < Certificate fingerprint (SHA-256) */
+            certificateFingerprint?: (Uint8Array|null);
+        }
+
+        /** Represents a FirmwareModuleSecurity. */
+        class FirmwareModuleSecurity implements IFirmwareModuleSecurity {
+
+            /**
+             * Constructs a new FirmwareModuleSecurity.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.cloud.IFirmwareModuleSecurity);
+
+            /** < Security mode */
+            public mode: particle.cloud.FirmwareModuleSecurityMode;
+
+            /** < Certificate fingerprint (SHA-256) */
+            public certificateFingerprint: Uint8Array;
+
+            /**
+             * Creates a new FirmwareModuleSecurity instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns FirmwareModuleSecurity instance
+             */
+            public static create(properties?: particle.cloud.IFirmwareModuleSecurity): particle.cloud.FirmwareModuleSecurity;
+
+            /**
+             * Encodes the specified FirmwareModuleSecurity message. Does not implicitly {@link particle.cloud.FirmwareModuleSecurity.verify|verify} messages.
+             * @param message FirmwareModuleSecurity message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.cloud.IFirmwareModuleSecurity, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a FirmwareModuleSecurity message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns FirmwareModuleSecurity
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.cloud.FirmwareModuleSecurity;
+        }
+
         /** Properties of a FirmwareModuleDependency. */
         interface IFirmwareModuleDependency {
 
@@ -11612,6 +11669,9 @@ export namespace particle {
 
             /** < Actual module size */
             size?: (number|null);
+
+            /** < Security mode */
+            security?: (particle.cloud.IFirmwareModuleSecurity|null);
         }
 
         /** Firmware module info. */
@@ -11655,6 +11715,9 @@ export namespace particle {
 
             /** < Actual module size */
             public size: number;
+
+            /** < Security mode */
+            public security?: (particle.cloud.IFirmwareModuleSecurity|null);
 
             /** FirmwareModule _hash. */
             public _hash?: "hash";
@@ -11702,6 +11765,9 @@ export namespace particle {
 
             /** < List of valid assets currently present in device storage */
             assets?: (particle.cloud.IFirmwareModuleAsset[]|null);
+
+            /** < Protected state */
+            "protected"?: (boolean|null);
         }
 
         /** System describe. */
@@ -11727,6 +11793,9 @@ export namespace particle {
 
             /** < List of valid assets currently present in device storage */
             public assets: particle.cloud.IFirmwareModuleAsset[];
+
+            /** < Protected state */
+            public protected: boolean;
 
             /** SystemDescribe _imei. */
             public _imei?: "imei";
