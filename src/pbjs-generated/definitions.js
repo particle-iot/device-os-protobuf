@@ -24596,7 +24596,7 @@
                  * @property {string|null} [iccid] < ICCID (cellular platforms only)
                  * @property {string|null} [modemFirmwareVersion] < Modem firmware version (cellular platforms only)
                  * @property {Array.<particle.cloud.IFirmwareModuleAsset>|null} [assets] < List of valid assets currently present in device storage
-                 * @property {boolean|null} ["protected"] < Protected state
+                 * @property {boolean|null} [protectedState] < Protected state
                  */
     
                 /**
@@ -24658,11 +24658,11 @@
     
                 /**
                  * < Protected state
-                 * @member {boolean} protected
+                 * @member {boolean} protectedState
                  * @memberof particle.cloud.SystemDescribe
                  * @instance
                  */
-                SystemDescribe.prototype["protected"] = false;
+                SystemDescribe.prototype.protectedState = false;
     
                 // OneOf field names bound to virtual getters and setters
                 var $oneOfFields;
@@ -24736,8 +24736,8 @@
                     if (message.assets != null && message.assets.length)
                         for (var i = 0; i < message.assets.length; ++i)
                             $root.particle.cloud.FirmwareModuleAsset.encode(message.assets[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                    if (message["protected"] != null && Object.hasOwnProperty.call(message, "protected"))
-                        writer.uint32(/* id 6, wireType 0 =*/48).bool(message["protected"]);
+                    if (message.protectedState != null && Object.hasOwnProperty.call(message, "protectedState"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).bool(message.protectedState);
                     return writer;
                 };
     
@@ -24779,7 +24779,7 @@
                             message.assets.push($root.particle.cloud.FirmwareModuleAsset.decode(reader, reader.uint32()));
                             break;
                         case 6:
-                            message["protected"] = reader.bool();
+                            message.protectedState = reader.bool();
                             break;
                         default:
                             reader.skipType(tag & 7);

@@ -11767,7 +11767,7 @@ export namespace particle {
             assets?: (particle.cloud.IFirmwareModuleAsset[]|null);
 
             /** < Protected state */
-            "protected"?: (boolean|null);
+            protectedState?: (boolean|null);
         }
 
         /** System describe. */
@@ -11795,7 +11795,7 @@ export namespace particle {
             public assets: particle.cloud.IFirmwareModuleAsset[];
 
             /** < Protected state */
-            public protected: boolean;
+            public protectedState: boolean;
 
             /** SystemDescribe _imei. */
             public _imei?: "imei";
