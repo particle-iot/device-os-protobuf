@@ -85,4 +85,5 @@ message GetIccidRequest {
 
 message GetIccidReply {
   string iccid = 1; // SIM ICCID
+  string imei = 2; // RADIO IMEI
 }

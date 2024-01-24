@@ -1002,6 +1002,7 @@
                      * @memberof particle.ctrl.cellular
                      * @interface IGetIccidReply
                      * @property {string|null} [iccid] GetIccidReply iccid
+                     * @property {string|null} [imei] GetIccidReply imei
                      */
     
                     /**
@@ -1026,6 +1027,14 @@
                      * @instance
                      */
                     GetIccidReply.prototype.iccid = "";
+    
+                    /**
+                     * GetIccidReply imei.
+                     * @member {string} imei
+                     * @memberof particle.ctrl.cellular.GetIccidReply
+                     * @instance
+                     */
+                    GetIccidReply.prototype.imei = "";
     
                     /**
                      * Creates a new GetIccidReply instance using the specified properties.
@@ -1053,6 +1062,8 @@
                             writer = $Writer.create();
                         if (message.iccid != null && Object.hasOwnProperty.call(message, "iccid"))
                             writer.uint32(/* id 1, wireType 2 =*/10).string(message.iccid);
+                        if (message.imei != null && Object.hasOwnProperty.call(message, "imei"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.imei);
                         return writer;
                     };
     
@@ -1076,6 +1087,9 @@
                             switch (tag >>> 3) {
                             case 1:
                                 message.iccid = reader.string();
+                                break;
+                            case 2:
+                                message.imei = reader.string();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -12545,1005 +12559,6 @@
                 return mesh;
             })();
     
-            ctrl.NetworkGetStatusRequest = (function() {
-    
-                /**
-                 * Properties of a NetworkGetStatusRequest.
-                 * @memberof particle.ctrl
-                 * @interface INetworkGetStatusRequest
-                 * @property {number|null} ["interface"] NetworkGetStatusRequest interface
-                 */
-    
-                /**
-                 * Constructs a new NetworkGetStatusRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkGetStatusRequest.
-                 * @implements INetworkGetStatusRequest
-                 * @constructor
-                 * @param {particle.ctrl.INetworkGetStatusRequest=} [properties] Properties to set
-                 */
-                function NetworkGetStatusRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * NetworkGetStatusRequest interface.
-                 * @member {number} interface
-                 * @memberof particle.ctrl.NetworkGetStatusRequest
-                 * @instance
-                 */
-                NetworkGetStatusRequest.prototype["interface"] = 0;
-    
-                /**
-                 * Creates a new NetworkGetStatusRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkGetStatusRequest
-                 * @static
-                 * @param {particle.ctrl.INetworkGetStatusRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkGetStatusRequest} NetworkGetStatusRequest instance
-                 */
-                NetworkGetStatusRequest.create = function create(properties) {
-                    return new NetworkGetStatusRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkGetStatusRequest message. Does not implicitly {@link particle.ctrl.NetworkGetStatusRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkGetStatusRequest
-                 * @static
-                 * @param {particle.ctrl.INetworkGetStatusRequest} message NetworkGetStatusRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkGetStatusRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message["interface"] != null && Object.hasOwnProperty.call(message, "interface"))
-                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message["interface"]);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkGetStatusRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkGetStatusRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkGetStatusRequest} NetworkGetStatusRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkGetStatusRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetStatusRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message["interface"] = reader.int32();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkGetStatusRequest;
-            })();
-    
-            ctrl.NetworkGetStatusReply = (function() {
-    
-                /**
-                 * Properties of a NetworkGetStatusReply.
-                 * @memberof particle.ctrl
-                 * @interface INetworkGetStatusReply
-                 * @property {particle.ctrl.INetworkConfiguration|null} [config] NetworkGetStatusReply config
-                 */
-    
-                /**
-                 * Constructs a new NetworkGetStatusReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkGetStatusReply.
-                 * @implements INetworkGetStatusReply
-                 * @constructor
-                 * @param {particle.ctrl.INetworkGetStatusReply=} [properties] Properties to set
-                 */
-                function NetworkGetStatusReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * NetworkGetStatusReply config.
-                 * @member {particle.ctrl.INetworkConfiguration|null|undefined} config
-                 * @memberof particle.ctrl.NetworkGetStatusReply
-                 * @instance
-                 */
-                NetworkGetStatusReply.prototype.config = null;
-    
-                /**
-                 * Creates a new NetworkGetStatusReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkGetStatusReply
-                 * @static
-                 * @param {particle.ctrl.INetworkGetStatusReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkGetStatusReply} NetworkGetStatusReply instance
-                 */
-                NetworkGetStatusReply.create = function create(properties) {
-                    return new NetworkGetStatusReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkGetStatusReply message. Does not implicitly {@link particle.ctrl.NetworkGetStatusReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkGetStatusReply
-                 * @static
-                 * @param {particle.ctrl.INetworkGetStatusReply} message NetworkGetStatusReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkGetStatusReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
-                        $root.particle.ctrl.NetworkConfiguration.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkGetStatusReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkGetStatusReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkGetStatusReply} NetworkGetStatusReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkGetStatusReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetStatusReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.config = $root.particle.ctrl.NetworkConfiguration.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkGetStatusReply;
-            })();
-    
-            ctrl.NetworkGetConfigurationRequest = (function() {
-    
-                /**
-                 * Properties of a NetworkGetConfigurationRequest.
-                 * @memberof particle.ctrl
-                 * @interface INetworkGetConfigurationRequest
-                 * @property {number|null} ["interface"] NetworkGetConfigurationRequest interface
-                 */
-    
-                /**
-                 * Constructs a new NetworkGetConfigurationRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkGetConfigurationRequest.
-                 * @implements INetworkGetConfigurationRequest
-                 * @constructor
-                 * @param {particle.ctrl.INetworkGetConfigurationRequest=} [properties] Properties to set
-                 */
-                function NetworkGetConfigurationRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * NetworkGetConfigurationRequest interface.
-                 * @member {number} interface
-                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
-                 * @instance
-                 */
-                NetworkGetConfigurationRequest.prototype["interface"] = 0;
-    
-                /**
-                 * Creates a new NetworkGetConfigurationRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
-                 * @static
-                 * @param {particle.ctrl.INetworkGetConfigurationRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkGetConfigurationRequest} NetworkGetConfigurationRequest instance
-                 */
-                NetworkGetConfigurationRequest.create = function create(properties) {
-                    return new NetworkGetConfigurationRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkGetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
-                 * @static
-                 * @param {particle.ctrl.INetworkGetConfigurationRequest} message NetworkGetConfigurationRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkGetConfigurationRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message["interface"] != null && Object.hasOwnProperty.call(message, "interface"))
-                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message["interface"]);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkGetConfigurationRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkGetConfigurationRequest} NetworkGetConfigurationRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkGetConfigurationRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetConfigurationRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message["interface"] = reader.int32();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkGetConfigurationRequest;
-            })();
-    
-            ctrl.NetworkGetConfigurationReply = (function() {
-    
-                /**
-                 * Properties of a NetworkGetConfigurationReply.
-                 * @memberof particle.ctrl
-                 * @interface INetworkGetConfigurationReply
-                 * @property {particle.ctrl.INetworkConfiguration|null} [config] NetworkGetConfigurationReply config
-                 */
-    
-                /**
-                 * Constructs a new NetworkGetConfigurationReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkGetConfigurationReply.
-                 * @implements INetworkGetConfigurationReply
-                 * @constructor
-                 * @param {particle.ctrl.INetworkGetConfigurationReply=} [properties] Properties to set
-                 */
-                function NetworkGetConfigurationReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * NetworkGetConfigurationReply config.
-                 * @member {particle.ctrl.INetworkConfiguration|null|undefined} config
-                 * @memberof particle.ctrl.NetworkGetConfigurationReply
-                 * @instance
-                 */
-                NetworkGetConfigurationReply.prototype.config = null;
-    
-                /**
-                 * Creates a new NetworkGetConfigurationReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkGetConfigurationReply
-                 * @static
-                 * @param {particle.ctrl.INetworkGetConfigurationReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkGetConfigurationReply} NetworkGetConfigurationReply instance
-                 */
-                NetworkGetConfigurationReply.create = function create(properties) {
-                    return new NetworkGetConfigurationReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkGetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkGetConfigurationReply
-                 * @static
-                 * @param {particle.ctrl.INetworkGetConfigurationReply} message NetworkGetConfigurationReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkGetConfigurationReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
-                        $root.particle.ctrl.NetworkConfiguration.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkGetConfigurationReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkGetConfigurationReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkGetConfigurationReply} NetworkGetConfigurationReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkGetConfigurationReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetConfigurationReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.config = $root.particle.ctrl.NetworkConfiguration.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkGetConfigurationReply;
-            })();
-    
-            ctrl.NetworkSetConfigurationRequest = (function() {
-    
-                /**
-                 * Properties of a NetworkSetConfigurationRequest.
-                 * @memberof particle.ctrl
-                 * @interface INetworkSetConfigurationRequest
-                 * @property {particle.ctrl.INetworkConfiguration|null} [config] NetworkSetConfigurationRequest config
-                 */
-    
-                /**
-                 * Constructs a new NetworkSetConfigurationRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkSetConfigurationRequest.
-                 * @implements INetworkSetConfigurationRequest
-                 * @constructor
-                 * @param {particle.ctrl.INetworkSetConfigurationRequest=} [properties] Properties to set
-                 */
-                function NetworkSetConfigurationRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * NetworkSetConfigurationRequest config.
-                 * @member {particle.ctrl.INetworkConfiguration|null|undefined} config
-                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
-                 * @instance
-                 */
-                NetworkSetConfigurationRequest.prototype.config = null;
-    
-                /**
-                 * Creates a new NetworkSetConfigurationRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
-                 * @static
-                 * @param {particle.ctrl.INetworkSetConfigurationRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkSetConfigurationRequest} NetworkSetConfigurationRequest instance
-                 */
-                NetworkSetConfigurationRequest.create = function create(properties) {
-                    return new NetworkSetConfigurationRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkSetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
-                 * @static
-                 * @param {particle.ctrl.INetworkSetConfigurationRequest} message NetworkSetConfigurationRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkSetConfigurationRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
-                        $root.particle.ctrl.NetworkConfiguration.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkSetConfigurationRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkSetConfigurationRequest} NetworkSetConfigurationRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkSetConfigurationRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkSetConfigurationRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.config = $root.particle.ctrl.NetworkConfiguration.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkSetConfigurationRequest;
-            })();
-    
-            ctrl.NetworkSetConfigurationReply = (function() {
-    
-                /**
-                 * Properties of a NetworkSetConfigurationReply.
-                 * @memberof particle.ctrl
-                 * @interface INetworkSetConfigurationReply
-                 */
-    
-                /**
-                 * Constructs a new NetworkSetConfigurationReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkSetConfigurationReply.
-                 * @implements INetworkSetConfigurationReply
-                 * @constructor
-                 * @param {particle.ctrl.INetworkSetConfigurationReply=} [properties] Properties to set
-                 */
-                function NetworkSetConfigurationReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new NetworkSetConfigurationReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkSetConfigurationReply
-                 * @static
-                 * @param {particle.ctrl.INetworkSetConfigurationReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkSetConfigurationReply} NetworkSetConfigurationReply instance
-                 */
-                NetworkSetConfigurationReply.create = function create(properties) {
-                    return new NetworkSetConfigurationReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkSetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkSetConfigurationReply
-                 * @static
-                 * @param {particle.ctrl.INetworkSetConfigurationReply} message NetworkSetConfigurationReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkSetConfigurationReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkSetConfigurationReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkSetConfigurationReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkSetConfigurationReply} NetworkSetConfigurationReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkSetConfigurationReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkSetConfigurationReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkSetConfigurationReply;
-            })();
-    
-            /**
-             * NetworkState enum.
-             * @name particle.ctrl.NetworkState
-             * @enum {number}
-             * @property {number} NETWORK_STATUS_NONE=0 NETWORK_STATUS_NONE value
-             * @property {number} DOWN=1 DOWN value
-             * @property {number} UP=2 UP value
-             */
-            ctrl.NetworkState = (function() {
-                var valuesById = {}, values = Object.create(valuesById);
-                values[valuesById[0] = "NETWORK_STATUS_NONE"] = 0;
-                values[valuesById[1] = "DOWN"] = 1;
-                values[valuesById[2] = "UP"] = 2;
-                return values;
-            })();
-    
-            ctrl.IPConfiguration = (function() {
-    
-                /**
-                 * Properties of a IPConfiguration.
-                 * @memberof particle.ctrl
-                 * @interface IIPConfiguration
-                 * @property {particle.ctrl.IPConfiguration.Type|null} [type] IPConfiguration type
-                 * @property {particle.ctrl.IIPAddress|null} [address] IPConfiguration address
-                 * @property {particle.ctrl.IIPAddress|null} [netmask] IPConfiguration netmask
-                 * @property {particle.ctrl.IIPAddress|null} [gateway] IPConfiguration gateway
-                 * @property {particle.ctrl.IIPAddress|null} [dhcpServer] IPConfiguration dhcpServer
-                 * @property {string|null} [hostname] IPConfiguration hostname
-                 */
-    
-                /**
-                 * Constructs a new IPConfiguration.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a IPConfiguration.
-                 * @implements IIPConfiguration
-                 * @constructor
-                 * @param {particle.ctrl.IIPConfiguration=} [properties] Properties to set
-                 */
-                function IPConfiguration(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * IPConfiguration type.
-                 * @member {particle.ctrl.IPConfiguration.Type} type
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @instance
-                 */
-                IPConfiguration.prototype.type = 0;
-    
-                /**
-                 * IPConfiguration address.
-                 * @member {particle.ctrl.IIPAddress|null|undefined} address
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @instance
-                 */
-                IPConfiguration.prototype.address = null;
-    
-                /**
-                 * IPConfiguration netmask.
-                 * @member {particle.ctrl.IIPAddress|null|undefined} netmask
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @instance
-                 */
-                IPConfiguration.prototype.netmask = null;
-    
-                /**
-                 * IPConfiguration gateway.
-                 * @member {particle.ctrl.IIPAddress|null|undefined} gateway
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @instance
-                 */
-                IPConfiguration.prototype.gateway = null;
-    
-                /**
-                 * IPConfiguration dhcpServer.
-                 * @member {particle.ctrl.IIPAddress|null|undefined} dhcpServer
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @instance
-                 */
-                IPConfiguration.prototype.dhcpServer = null;
-    
-                /**
-                 * IPConfiguration hostname.
-                 * @member {string} hostname
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @instance
-                 */
-                IPConfiguration.prototype.hostname = "";
-    
-                /**
-                 * Creates a new IPConfiguration instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @static
-                 * @param {particle.ctrl.IIPConfiguration=} [properties] Properties to set
-                 * @returns {particle.ctrl.IPConfiguration} IPConfiguration instance
-                 */
-                IPConfiguration.create = function create(properties) {
-                    return new IPConfiguration(properties);
-                };
-    
-                /**
-                 * Encodes the specified IPConfiguration message. Does not implicitly {@link particle.ctrl.IPConfiguration.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @static
-                 * @param {particle.ctrl.IIPConfiguration} message IPConfiguration message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                IPConfiguration.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.type != null && Object.hasOwnProperty.call(message, "type"))
-                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
-                    if (message.address != null && Object.hasOwnProperty.call(message, "address"))
-                        $root.particle.ctrl.IPAddress.encode(message.address, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                    if (message.netmask != null && Object.hasOwnProperty.call(message, "netmask"))
-                        $root.particle.ctrl.IPAddress.encode(message.netmask, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                    if (message.gateway != null && Object.hasOwnProperty.call(message, "gateway"))
-                        $root.particle.ctrl.IPAddress.encode(message.gateway, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                    if (message.dhcpServer != null && Object.hasOwnProperty.call(message, "dhcpServer"))
-                        $root.particle.ctrl.IPAddress.encode(message.dhcpServer, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                    if (message.hostname != null && Object.hasOwnProperty.call(message, "hostname"))
-                        writer.uint32(/* id 6, wireType 2 =*/50).string(message.hostname);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a IPConfiguration message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.IPConfiguration
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.IPConfiguration} IPConfiguration
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                IPConfiguration.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.IPConfiguration();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.type = reader.int32();
-                            break;
-                        case 2:
-                            message.address = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
-                            break;
-                        case 3:
-                            message.netmask = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
-                            break;
-                        case 4:
-                            message.gateway = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
-                            break;
-                        case 5:
-                            message.dhcpServer = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
-                            break;
-                        case 6:
-                            message.hostname = reader.string();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                /**
-                 * Type enum.
-                 * @name particle.ctrl.IPConfiguration.Type
-                 * @enum {number}
-                 * @property {number} NONE=0 NONE value
-                 * @property {number} DHCP=1 DHCP value
-                 * @property {number} STATIC=2 STATIC value
-                 */
-                IPConfiguration.Type = (function() {
-                    var valuesById = {}, values = Object.create(valuesById);
-                    values[valuesById[0] = "NONE"] = 0;
-                    values[valuesById[1] = "DHCP"] = 1;
-                    values[valuesById[2] = "STATIC"] = 2;
-                    return values;
-                })();
-    
-                return IPConfiguration;
-            })();
-    
-            ctrl.DNSConfiguration = (function() {
-    
-                /**
-                 * Properties of a DNSConfiguration.
-                 * @memberof particle.ctrl
-                 * @interface IDNSConfiguration
-                 * @property {Array.<particle.ctrl.IIPAddress>|null} [servers] DNSConfiguration servers
-                 */
-    
-                /**
-                 * Constructs a new DNSConfiguration.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a DNSConfiguration.
-                 * @implements IDNSConfiguration
-                 * @constructor
-                 * @param {particle.ctrl.IDNSConfiguration=} [properties] Properties to set
-                 */
-                function DNSConfiguration(properties) {
-                    this.servers = [];
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * DNSConfiguration servers.
-                 * @member {Array.<particle.ctrl.IIPAddress>} servers
-                 * @memberof particle.ctrl.DNSConfiguration
-                 * @instance
-                 */
-                DNSConfiguration.prototype.servers = $util.emptyArray;
-    
-                /**
-                 * Creates a new DNSConfiguration instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.DNSConfiguration
-                 * @static
-                 * @param {particle.ctrl.IDNSConfiguration=} [properties] Properties to set
-                 * @returns {particle.ctrl.DNSConfiguration} DNSConfiguration instance
-                 */
-                DNSConfiguration.create = function create(properties) {
-                    return new DNSConfiguration(properties);
-                };
-    
-                /**
-                 * Encodes the specified DNSConfiguration message. Does not implicitly {@link particle.ctrl.DNSConfiguration.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.DNSConfiguration
-                 * @static
-                 * @param {particle.ctrl.IDNSConfiguration} message DNSConfiguration message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DNSConfiguration.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.servers != null && message.servers.length)
-                        for (var i = 0; i < message.servers.length; ++i)
-                            $root.particle.ctrl.IPAddress.encode(message.servers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a DNSConfiguration message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.DNSConfiguration
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.DNSConfiguration} DNSConfiguration
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DNSConfiguration.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.DNSConfiguration();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            if (!(message.servers && message.servers.length))
-                                message.servers = [];
-                            message.servers.push($root.particle.ctrl.IPAddress.decode(reader, reader.uint32()));
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return DNSConfiguration;
-            })();
-    
-            ctrl.NetworkConfiguration = (function() {
-    
-                /**
-                 * Properties of a NetworkConfiguration.
-                 * @memberof particle.ctrl
-                 * @interface INetworkConfiguration
-                 * @property {number|null} ["interface"] NetworkConfiguration interface
-                 * @property {particle.ctrl.NetworkState|null} [state] NetworkConfiguration state
-                 * @property {string|null} [name] NetworkConfiguration name
-                 * @property {Uint8Array|null} [mac] NetworkConfiguration mac
-                 * @property {particle.ctrl.IIPConfiguration|null} [ipconfig] NetworkConfiguration ipconfig
-                 * @property {particle.ctrl.IDNSConfiguration|null} [dnsconfig] NetworkConfiguration dnsconfig
-                 */
-    
-                /**
-                 * Constructs a new NetworkConfiguration.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a NetworkConfiguration.
-                 * @implements INetworkConfiguration
-                 * @constructor
-                 * @param {particle.ctrl.INetworkConfiguration=} [properties] Properties to set
-                 */
-                function NetworkConfiguration(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * NetworkConfiguration interface.
-                 * @member {number} interface
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @instance
-                 */
-                NetworkConfiguration.prototype["interface"] = 0;
-    
-                /**
-                 * NetworkConfiguration state.
-                 * @member {particle.ctrl.NetworkState} state
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @instance
-                 */
-                NetworkConfiguration.prototype.state = 0;
-    
-                /**
-                 * NetworkConfiguration name.
-                 * @member {string} name
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @instance
-                 */
-                NetworkConfiguration.prototype.name = "";
-    
-                /**
-                 * NetworkConfiguration mac.
-                 * @member {Uint8Array} mac
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @instance
-                 */
-                NetworkConfiguration.prototype.mac = $util.newBuffer([]);
-    
-                /**
-                 * NetworkConfiguration ipconfig.
-                 * @member {particle.ctrl.IIPConfiguration|null|undefined} ipconfig
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @instance
-                 */
-                NetworkConfiguration.prototype.ipconfig = null;
-    
-                /**
-                 * NetworkConfiguration dnsconfig.
-                 * @member {particle.ctrl.IDNSConfiguration|null|undefined} dnsconfig
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @instance
-                 */
-                NetworkConfiguration.prototype.dnsconfig = null;
-    
-                /**
-                 * Creates a new NetworkConfiguration instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @static
-                 * @param {particle.ctrl.INetworkConfiguration=} [properties] Properties to set
-                 * @returns {particle.ctrl.NetworkConfiguration} NetworkConfiguration instance
-                 */
-                NetworkConfiguration.create = function create(properties) {
-                    return new NetworkConfiguration(properties);
-                };
-    
-                /**
-                 * Encodes the specified NetworkConfiguration message. Does not implicitly {@link particle.ctrl.NetworkConfiguration.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @static
-                 * @param {particle.ctrl.INetworkConfiguration} message NetworkConfiguration message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                NetworkConfiguration.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message["interface"] != null && Object.hasOwnProperty.call(message, "interface"))
-                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message["interface"]);
-                    if (message.state != null && Object.hasOwnProperty.call(message, "state"))
-                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.state);
-                    if (message.name != null && Object.hasOwnProperty.call(message, "name"))
-                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
-                    if (message.mac != null && Object.hasOwnProperty.call(message, "mac"))
-                        writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.mac);
-                    if (message.ipconfig != null && Object.hasOwnProperty.call(message, "ipconfig"))
-                        $root.particle.ctrl.IPConfiguration.encode(message.ipconfig, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                    if (message.dnsconfig != null && Object.hasOwnProperty.call(message, "dnsconfig"))
-                        $root.particle.ctrl.DNSConfiguration.encode(message.dnsconfig, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a NetworkConfiguration message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.NetworkConfiguration
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.NetworkConfiguration} NetworkConfiguration
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                NetworkConfiguration.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkConfiguration();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message["interface"] = reader.int32();
-                            break;
-                        case 2:
-                            message.state = reader.int32();
-                            break;
-                        case 3:
-                            message.name = reader.string();
-                            break;
-                        case 4:
-                            message.mac = reader.bytes();
-                            break;
-                        case 5:
-                            message.ipconfig = $root.particle.ctrl.IPConfiguration.decode(reader, reader.uint32());
-                            break;
-                        case 6:
-                            message.dnsconfig = $root.particle.ctrl.DNSConfiguration.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return NetworkConfiguration;
-            })();
-    
             /**
              * InterfaceConfigurationSource enum.
              * @name particle.ctrl.InterfaceConfigurationSource
@@ -15313,6 +14328,1005 @@
                 };
     
                 return DeleteInterfaceStoredConfigurationReply;
+            })();
+    
+            ctrl.NetworkGetStatusRequest = (function() {
+    
+                /**
+                 * Properties of a NetworkGetStatusRequest.
+                 * @memberof particle.ctrl
+                 * @interface INetworkGetStatusRequest
+                 * @property {number|null} ["interface"] NetworkGetStatusRequest interface
+                 */
+    
+                /**
+                 * Constructs a new NetworkGetStatusRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkGetStatusRequest.
+                 * @implements INetworkGetStatusRequest
+                 * @constructor
+                 * @param {particle.ctrl.INetworkGetStatusRequest=} [properties] Properties to set
+                 */
+                function NetworkGetStatusRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * NetworkGetStatusRequest interface.
+                 * @member {number} interface
+                 * @memberof particle.ctrl.NetworkGetStatusRequest
+                 * @instance
+                 */
+                NetworkGetStatusRequest.prototype["interface"] = 0;
+    
+                /**
+                 * Creates a new NetworkGetStatusRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkGetStatusRequest
+                 * @static
+                 * @param {particle.ctrl.INetworkGetStatusRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkGetStatusRequest} NetworkGetStatusRequest instance
+                 */
+                NetworkGetStatusRequest.create = function create(properties) {
+                    return new NetworkGetStatusRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkGetStatusRequest message. Does not implicitly {@link particle.ctrl.NetworkGetStatusRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkGetStatusRequest
+                 * @static
+                 * @param {particle.ctrl.INetworkGetStatusRequest} message NetworkGetStatusRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkGetStatusRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message["interface"] != null && Object.hasOwnProperty.call(message, "interface"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message["interface"]);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkGetStatusRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkGetStatusRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkGetStatusRequest} NetworkGetStatusRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkGetStatusRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetStatusRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message["interface"] = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkGetStatusRequest;
+            })();
+    
+            ctrl.NetworkGetStatusReply = (function() {
+    
+                /**
+                 * Properties of a NetworkGetStatusReply.
+                 * @memberof particle.ctrl
+                 * @interface INetworkGetStatusReply
+                 * @property {particle.ctrl.INetworkConfiguration|null} [config] NetworkGetStatusReply config
+                 */
+    
+                /**
+                 * Constructs a new NetworkGetStatusReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkGetStatusReply.
+                 * @implements INetworkGetStatusReply
+                 * @constructor
+                 * @param {particle.ctrl.INetworkGetStatusReply=} [properties] Properties to set
+                 */
+                function NetworkGetStatusReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * NetworkGetStatusReply config.
+                 * @member {particle.ctrl.INetworkConfiguration|null|undefined} config
+                 * @memberof particle.ctrl.NetworkGetStatusReply
+                 * @instance
+                 */
+                NetworkGetStatusReply.prototype.config = null;
+    
+                /**
+                 * Creates a new NetworkGetStatusReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkGetStatusReply
+                 * @static
+                 * @param {particle.ctrl.INetworkGetStatusReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkGetStatusReply} NetworkGetStatusReply instance
+                 */
+                NetworkGetStatusReply.create = function create(properties) {
+                    return new NetworkGetStatusReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkGetStatusReply message. Does not implicitly {@link particle.ctrl.NetworkGetStatusReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkGetStatusReply
+                 * @static
+                 * @param {particle.ctrl.INetworkGetStatusReply} message NetworkGetStatusReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkGetStatusReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
+                        $root.particle.ctrl.NetworkConfiguration.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkGetStatusReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkGetStatusReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkGetStatusReply} NetworkGetStatusReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkGetStatusReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetStatusReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.config = $root.particle.ctrl.NetworkConfiguration.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkGetStatusReply;
+            })();
+    
+            ctrl.NetworkGetConfigurationRequest = (function() {
+    
+                /**
+                 * Properties of a NetworkGetConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @interface INetworkGetConfigurationRequest
+                 * @property {number|null} ["interface"] NetworkGetConfigurationRequest interface
+                 */
+    
+                /**
+                 * Constructs a new NetworkGetConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkGetConfigurationRequest.
+                 * @implements INetworkGetConfigurationRequest
+                 * @constructor
+                 * @param {particle.ctrl.INetworkGetConfigurationRequest=} [properties] Properties to set
+                 */
+                function NetworkGetConfigurationRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * NetworkGetConfigurationRequest interface.
+                 * @member {number} interface
+                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
+                 * @instance
+                 */
+                NetworkGetConfigurationRequest.prototype["interface"] = 0;
+    
+                /**
+                 * Creates a new NetworkGetConfigurationRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.INetworkGetConfigurationRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkGetConfigurationRequest} NetworkGetConfigurationRequest instance
+                 */
+                NetworkGetConfigurationRequest.create = function create(properties) {
+                    return new NetworkGetConfigurationRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkGetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.INetworkGetConfigurationRequest} message NetworkGetConfigurationRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkGetConfigurationRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message["interface"] != null && Object.hasOwnProperty.call(message, "interface"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message["interface"]);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkGetConfigurationRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkGetConfigurationRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkGetConfigurationRequest} NetworkGetConfigurationRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkGetConfigurationRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetConfigurationRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message["interface"] = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkGetConfigurationRequest;
+            })();
+    
+            ctrl.NetworkGetConfigurationReply = (function() {
+    
+                /**
+                 * Properties of a NetworkGetConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @interface INetworkGetConfigurationReply
+                 * @property {particle.ctrl.INetworkConfiguration|null} [config] NetworkGetConfigurationReply config
+                 */
+    
+                /**
+                 * Constructs a new NetworkGetConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkGetConfigurationReply.
+                 * @implements INetworkGetConfigurationReply
+                 * @constructor
+                 * @param {particle.ctrl.INetworkGetConfigurationReply=} [properties] Properties to set
+                 */
+                function NetworkGetConfigurationReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * NetworkGetConfigurationReply config.
+                 * @member {particle.ctrl.INetworkConfiguration|null|undefined} config
+                 * @memberof particle.ctrl.NetworkGetConfigurationReply
+                 * @instance
+                 */
+                NetworkGetConfigurationReply.prototype.config = null;
+    
+                /**
+                 * Creates a new NetworkGetConfigurationReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkGetConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.INetworkGetConfigurationReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkGetConfigurationReply} NetworkGetConfigurationReply instance
+                 */
+                NetworkGetConfigurationReply.create = function create(properties) {
+                    return new NetworkGetConfigurationReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkGetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkGetConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.INetworkGetConfigurationReply} message NetworkGetConfigurationReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkGetConfigurationReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
+                        $root.particle.ctrl.NetworkConfiguration.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkGetConfigurationReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkGetConfigurationReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkGetConfigurationReply} NetworkGetConfigurationReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkGetConfigurationReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkGetConfigurationReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.config = $root.particle.ctrl.NetworkConfiguration.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkGetConfigurationReply;
+            })();
+    
+            ctrl.NetworkSetConfigurationRequest = (function() {
+    
+                /**
+                 * Properties of a NetworkSetConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @interface INetworkSetConfigurationRequest
+                 * @property {particle.ctrl.INetworkConfiguration|null} [config] NetworkSetConfigurationRequest config
+                 */
+    
+                /**
+                 * Constructs a new NetworkSetConfigurationRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkSetConfigurationRequest.
+                 * @implements INetworkSetConfigurationRequest
+                 * @constructor
+                 * @param {particle.ctrl.INetworkSetConfigurationRequest=} [properties] Properties to set
+                 */
+                function NetworkSetConfigurationRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * NetworkSetConfigurationRequest config.
+                 * @member {particle.ctrl.INetworkConfiguration|null|undefined} config
+                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
+                 * @instance
+                 */
+                NetworkSetConfigurationRequest.prototype.config = null;
+    
+                /**
+                 * Creates a new NetworkSetConfigurationRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.INetworkSetConfigurationRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkSetConfigurationRequest} NetworkSetConfigurationRequest instance
+                 */
+                NetworkSetConfigurationRequest.create = function create(properties) {
+                    return new NetworkSetConfigurationRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkSetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
+                 * @static
+                 * @param {particle.ctrl.INetworkSetConfigurationRequest} message NetworkSetConfigurationRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkSetConfigurationRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.config != null && Object.hasOwnProperty.call(message, "config"))
+                        $root.particle.ctrl.NetworkConfiguration.encode(message.config, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkSetConfigurationRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkSetConfigurationRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkSetConfigurationRequest} NetworkSetConfigurationRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkSetConfigurationRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkSetConfigurationRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.config = $root.particle.ctrl.NetworkConfiguration.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkSetConfigurationRequest;
+            })();
+    
+            ctrl.NetworkSetConfigurationReply = (function() {
+    
+                /**
+                 * Properties of a NetworkSetConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @interface INetworkSetConfigurationReply
+                 */
+    
+                /**
+                 * Constructs a new NetworkSetConfigurationReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkSetConfigurationReply.
+                 * @implements INetworkSetConfigurationReply
+                 * @constructor
+                 * @param {particle.ctrl.INetworkSetConfigurationReply=} [properties] Properties to set
+                 */
+                function NetworkSetConfigurationReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new NetworkSetConfigurationReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkSetConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.INetworkSetConfigurationReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkSetConfigurationReply} NetworkSetConfigurationReply instance
+                 */
+                NetworkSetConfigurationReply.create = function create(properties) {
+                    return new NetworkSetConfigurationReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkSetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkSetConfigurationReply
+                 * @static
+                 * @param {particle.ctrl.INetworkSetConfigurationReply} message NetworkSetConfigurationReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkSetConfigurationReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkSetConfigurationReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkSetConfigurationReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkSetConfigurationReply} NetworkSetConfigurationReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkSetConfigurationReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkSetConfigurationReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkSetConfigurationReply;
+            })();
+    
+            /**
+             * NetworkState enum.
+             * @name particle.ctrl.NetworkState
+             * @enum {number}
+             * @property {number} NETWORK_STATUS_NONE=0 NETWORK_STATUS_NONE value
+             * @property {number} DOWN=1 DOWN value
+             * @property {number} UP=2 UP value
+             */
+            ctrl.NetworkState = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "NETWORK_STATUS_NONE"] = 0;
+                values[valuesById[1] = "DOWN"] = 1;
+                values[valuesById[2] = "UP"] = 2;
+                return values;
+            })();
+    
+            ctrl.IPConfiguration = (function() {
+    
+                /**
+                 * Properties of a IPConfiguration.
+                 * @memberof particle.ctrl
+                 * @interface IIPConfiguration
+                 * @property {particle.ctrl.IPConfiguration.Type|null} [type] IPConfiguration type
+                 * @property {particle.ctrl.IIPAddress|null} [address] IPConfiguration address
+                 * @property {particle.ctrl.IIPAddress|null} [netmask] IPConfiguration netmask
+                 * @property {particle.ctrl.IIPAddress|null} [gateway] IPConfiguration gateway
+                 * @property {particle.ctrl.IIPAddress|null} [dhcpServer] IPConfiguration dhcpServer
+                 * @property {string|null} [hostname] IPConfiguration hostname
+                 */
+    
+                /**
+                 * Constructs a new IPConfiguration.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a IPConfiguration.
+                 * @implements IIPConfiguration
+                 * @constructor
+                 * @param {particle.ctrl.IIPConfiguration=} [properties] Properties to set
+                 */
+                function IPConfiguration(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * IPConfiguration type.
+                 * @member {particle.ctrl.IPConfiguration.Type} type
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @instance
+                 */
+                IPConfiguration.prototype.type = 0;
+    
+                /**
+                 * IPConfiguration address.
+                 * @member {particle.ctrl.IIPAddress|null|undefined} address
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @instance
+                 */
+                IPConfiguration.prototype.address = null;
+    
+                /**
+                 * IPConfiguration netmask.
+                 * @member {particle.ctrl.IIPAddress|null|undefined} netmask
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @instance
+                 */
+                IPConfiguration.prototype.netmask = null;
+    
+                /**
+                 * IPConfiguration gateway.
+                 * @member {particle.ctrl.IIPAddress|null|undefined} gateway
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @instance
+                 */
+                IPConfiguration.prototype.gateway = null;
+    
+                /**
+                 * IPConfiguration dhcpServer.
+                 * @member {particle.ctrl.IIPAddress|null|undefined} dhcpServer
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @instance
+                 */
+                IPConfiguration.prototype.dhcpServer = null;
+    
+                /**
+                 * IPConfiguration hostname.
+                 * @member {string} hostname
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @instance
+                 */
+                IPConfiguration.prototype.hostname = "";
+    
+                /**
+                 * Creates a new IPConfiguration instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @static
+                 * @param {particle.ctrl.IIPConfiguration=} [properties] Properties to set
+                 * @returns {particle.ctrl.IPConfiguration} IPConfiguration instance
+                 */
+                IPConfiguration.create = function create(properties) {
+                    return new IPConfiguration(properties);
+                };
+    
+                /**
+                 * Encodes the specified IPConfiguration message. Does not implicitly {@link particle.ctrl.IPConfiguration.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @static
+                 * @param {particle.ctrl.IIPConfiguration} message IPConfiguration message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                IPConfiguration.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                    if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                        $root.particle.ctrl.IPAddress.encode(message.address, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.netmask != null && Object.hasOwnProperty.call(message, "netmask"))
+                        $root.particle.ctrl.IPAddress.encode(message.netmask, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.gateway != null && Object.hasOwnProperty.call(message, "gateway"))
+                        $root.particle.ctrl.IPAddress.encode(message.gateway, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    if (message.dhcpServer != null && Object.hasOwnProperty.call(message, "dhcpServer"))
+                        $root.particle.ctrl.IPAddress.encode(message.dhcpServer, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.hostname != null && Object.hasOwnProperty.call(message, "hostname"))
+                        writer.uint32(/* id 6, wireType 2 =*/50).string(message.hostname);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a IPConfiguration message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.IPConfiguration
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.IPConfiguration} IPConfiguration
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                IPConfiguration.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.IPConfiguration();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.type = reader.int32();
+                            break;
+                        case 2:
+                            message.address = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
+                            break;
+                        case 3:
+                            message.netmask = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
+                            break;
+                        case 4:
+                            message.gateway = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
+                            break;
+                        case 5:
+                            message.dhcpServer = $root.particle.ctrl.IPAddress.decode(reader, reader.uint32());
+                            break;
+                        case 6:
+                            message.hostname = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Type enum.
+                 * @name particle.ctrl.IPConfiguration.Type
+                 * @enum {number}
+                 * @property {number} NONE=0 NONE value
+                 * @property {number} DHCP=1 DHCP value
+                 * @property {number} STATIC=2 STATIC value
+                 */
+                IPConfiguration.Type = (function() {
+                    var valuesById = {}, values = Object.create(valuesById);
+                    values[valuesById[0] = "NONE"] = 0;
+                    values[valuesById[1] = "DHCP"] = 1;
+                    values[valuesById[2] = "STATIC"] = 2;
+                    return values;
+                })();
+    
+                return IPConfiguration;
+            })();
+    
+            ctrl.DNSConfiguration = (function() {
+    
+                /**
+                 * Properties of a DNSConfiguration.
+                 * @memberof particle.ctrl
+                 * @interface IDNSConfiguration
+                 * @property {Array.<particle.ctrl.IIPAddress>|null} [servers] DNSConfiguration servers
+                 */
+    
+                /**
+                 * Constructs a new DNSConfiguration.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a DNSConfiguration.
+                 * @implements IDNSConfiguration
+                 * @constructor
+                 * @param {particle.ctrl.IDNSConfiguration=} [properties] Properties to set
+                 */
+                function DNSConfiguration(properties) {
+                    this.servers = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * DNSConfiguration servers.
+                 * @member {Array.<particle.ctrl.IIPAddress>} servers
+                 * @memberof particle.ctrl.DNSConfiguration
+                 * @instance
+                 */
+                DNSConfiguration.prototype.servers = $util.emptyArray;
+    
+                /**
+                 * Creates a new DNSConfiguration instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.DNSConfiguration
+                 * @static
+                 * @param {particle.ctrl.IDNSConfiguration=} [properties] Properties to set
+                 * @returns {particle.ctrl.DNSConfiguration} DNSConfiguration instance
+                 */
+                DNSConfiguration.create = function create(properties) {
+                    return new DNSConfiguration(properties);
+                };
+    
+                /**
+                 * Encodes the specified DNSConfiguration message. Does not implicitly {@link particle.ctrl.DNSConfiguration.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.DNSConfiguration
+                 * @static
+                 * @param {particle.ctrl.IDNSConfiguration} message DNSConfiguration message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DNSConfiguration.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.servers != null && message.servers.length)
+                        for (var i = 0; i < message.servers.length; ++i)
+                            $root.particle.ctrl.IPAddress.encode(message.servers[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a DNSConfiguration message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.DNSConfiguration
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.DNSConfiguration} DNSConfiguration
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DNSConfiguration.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.DNSConfiguration();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.servers && message.servers.length))
+                                message.servers = [];
+                            message.servers.push($root.particle.ctrl.IPAddress.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return DNSConfiguration;
+            })();
+    
+            ctrl.NetworkConfiguration = (function() {
+    
+                /**
+                 * Properties of a NetworkConfiguration.
+                 * @memberof particle.ctrl
+                 * @interface INetworkConfiguration
+                 * @property {number|null} ["interface"] NetworkConfiguration interface
+                 * @property {particle.ctrl.NetworkState|null} [state] NetworkConfiguration state
+                 * @property {string|null} [name] NetworkConfiguration name
+                 * @property {Uint8Array|null} [mac] NetworkConfiguration mac
+                 * @property {particle.ctrl.IIPConfiguration|null} [ipconfig] NetworkConfiguration ipconfig
+                 * @property {particle.ctrl.IDNSConfiguration|null} [dnsconfig] NetworkConfiguration dnsconfig
+                 */
+    
+                /**
+                 * Constructs a new NetworkConfiguration.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a NetworkConfiguration.
+                 * @implements INetworkConfiguration
+                 * @constructor
+                 * @param {particle.ctrl.INetworkConfiguration=} [properties] Properties to set
+                 */
+                function NetworkConfiguration(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * NetworkConfiguration interface.
+                 * @member {number} interface
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @instance
+                 */
+                NetworkConfiguration.prototype["interface"] = 0;
+    
+                /**
+                 * NetworkConfiguration state.
+                 * @member {particle.ctrl.NetworkState} state
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @instance
+                 */
+                NetworkConfiguration.prototype.state = 0;
+    
+                /**
+                 * NetworkConfiguration name.
+                 * @member {string} name
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @instance
+                 */
+                NetworkConfiguration.prototype.name = "";
+    
+                /**
+                 * NetworkConfiguration mac.
+                 * @member {Uint8Array} mac
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @instance
+                 */
+                NetworkConfiguration.prototype.mac = $util.newBuffer([]);
+    
+                /**
+                 * NetworkConfiguration ipconfig.
+                 * @member {particle.ctrl.IIPConfiguration|null|undefined} ipconfig
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @instance
+                 */
+                NetworkConfiguration.prototype.ipconfig = null;
+    
+                /**
+                 * NetworkConfiguration dnsconfig.
+                 * @member {particle.ctrl.IDNSConfiguration|null|undefined} dnsconfig
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @instance
+                 */
+                NetworkConfiguration.prototype.dnsconfig = null;
+    
+                /**
+                 * Creates a new NetworkConfiguration instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @static
+                 * @param {particle.ctrl.INetworkConfiguration=} [properties] Properties to set
+                 * @returns {particle.ctrl.NetworkConfiguration} NetworkConfiguration instance
+                 */
+                NetworkConfiguration.create = function create(properties) {
+                    return new NetworkConfiguration(properties);
+                };
+    
+                /**
+                 * Encodes the specified NetworkConfiguration message. Does not implicitly {@link particle.ctrl.NetworkConfiguration.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @static
+                 * @param {particle.ctrl.INetworkConfiguration} message NetworkConfiguration message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                NetworkConfiguration.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message["interface"] != null && Object.hasOwnProperty.call(message, "interface"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message["interface"]);
+                    if (message.state != null && Object.hasOwnProperty.call(message, "state"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.state);
+                    if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+                    if (message.mac != null && Object.hasOwnProperty.call(message, "mac"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.mac);
+                    if (message.ipconfig != null && Object.hasOwnProperty.call(message, "ipconfig"))
+                        $root.particle.ctrl.IPConfiguration.encode(message.ipconfig, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.dnsconfig != null && Object.hasOwnProperty.call(message, "dnsconfig"))
+                        $root.particle.ctrl.DNSConfiguration.encode(message.dnsconfig, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a NetworkConfiguration message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.NetworkConfiguration
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.NetworkConfiguration} NetworkConfiguration
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                NetworkConfiguration.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.NetworkConfiguration();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message["interface"] = reader.int32();
+                            break;
+                        case 2:
+                            message.state = reader.int32();
+                            break;
+                        case 3:
+                            message.name = reader.string();
+                            break;
+                        case 4:
+                            message.mac = reader.bytes();
+                            break;
+                        case 5:
+                            message.ipconfig = $root.particle.ctrl.IPConfiguration.decode(reader, reader.uint32());
+                            break;
+                        case 6:
+                            message.dnsconfig = $root.particle.ctrl.DNSConfiguration.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return NetworkConfiguration;
             })();
     
             /**
@@ -18176,6 +18190,1472 @@
                 return GetAssetInfoReply;
             })();
     
+            ctrl.WiFiGetAntennaRequest = (function() {
+    
+                /**
+                 * Properties of a WiFiGetAntennaRequest.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiGetAntennaRequest
+                 */
+    
+                /**
+                 * Constructs a new WiFiGetAntennaRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiGetAntennaRequest.
+                 * @implements IWiFiGetAntennaRequest
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiGetAntennaRequest=} [properties] Properties to set
+                 */
+                function WiFiGetAntennaRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiGetAntennaRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiGetAntennaRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetAntennaRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiGetAntennaRequest} WiFiGetAntennaRequest instance
+                 */
+                WiFiGetAntennaRequest.create = function create(properties) {
+                    return new WiFiGetAntennaRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiGetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiGetAntennaRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetAntennaRequest} message WiFiGetAntennaRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiGetAntennaRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiGetAntennaRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiGetAntennaRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiGetAntennaRequest} WiFiGetAntennaRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiGetAntennaRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetAntennaRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiGetAntennaRequest;
+            })();
+    
+            ctrl.WiFiGetAntennaReply = (function() {
+    
+                /**
+                 * Properties of a WiFiGetAntennaReply.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiGetAntennaReply
+                 * @property {particle.ctrl.WiFiAntenna|null} [antenna] WiFiGetAntennaReply antenna
+                 */
+    
+                /**
+                 * Constructs a new WiFiGetAntennaReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiGetAntennaReply.
+                 * @implements IWiFiGetAntennaReply
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiGetAntennaReply=} [properties] Properties to set
+                 */
+                function WiFiGetAntennaReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiGetAntennaReply antenna.
+                 * @member {particle.ctrl.WiFiAntenna} antenna
+                 * @memberof particle.ctrl.WiFiGetAntennaReply
+                 * @instance
+                 */
+                WiFiGetAntennaReply.prototype.antenna = 0;
+    
+                /**
+                 * Creates a new WiFiGetAntennaReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiGetAntennaReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetAntennaReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiGetAntennaReply} WiFiGetAntennaReply instance
+                 */
+                WiFiGetAntennaReply.create = function create(properties) {
+                    return new WiFiGetAntennaReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiGetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiGetAntennaReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetAntennaReply} message WiFiGetAntennaReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiGetAntennaReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.antenna != null && Object.hasOwnProperty.call(message, "antenna"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.antenna);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiGetAntennaReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiGetAntennaReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiGetAntennaReply} WiFiGetAntennaReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiGetAntennaReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetAntennaReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.antenna = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiGetAntennaReply;
+            })();
+    
+            ctrl.WiFiSetAntennaRequest = (function() {
+    
+                /**
+                 * Properties of a WiFiSetAntennaRequest.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiSetAntennaRequest
+                 * @property {particle.ctrl.WiFiAntenna|null} [antenna] WiFiSetAntennaRequest antenna
+                 */
+    
+                /**
+                 * Constructs a new WiFiSetAntennaRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiSetAntennaRequest.
+                 * @implements IWiFiSetAntennaRequest
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiSetAntennaRequest=} [properties] Properties to set
+                 */
+                function WiFiSetAntennaRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiSetAntennaRequest antenna.
+                 * @member {particle.ctrl.WiFiAntenna} antenna
+                 * @memberof particle.ctrl.WiFiSetAntennaRequest
+                 * @instance
+                 */
+                WiFiSetAntennaRequest.prototype.antenna = 0;
+    
+                /**
+                 * Creates a new WiFiSetAntennaRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiSetAntennaRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetAntennaRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiSetAntennaRequest} WiFiSetAntennaRequest instance
+                 */
+                WiFiSetAntennaRequest.create = function create(properties) {
+                    return new WiFiSetAntennaRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiSetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiSetAntennaRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetAntennaRequest} message WiFiSetAntennaRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiSetAntennaRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.antenna != null && Object.hasOwnProperty.call(message, "antenna"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.antenna);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiSetAntennaRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiSetAntennaRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiSetAntennaRequest} WiFiSetAntennaRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiSetAntennaRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetAntennaRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.antenna = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiSetAntennaRequest;
+            })();
+    
+            ctrl.WiFiSetAntennaReply = (function() {
+    
+                /**
+                 * Properties of a WiFiSetAntennaReply.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiSetAntennaReply
+                 */
+    
+                /**
+                 * Constructs a new WiFiSetAntennaReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiSetAntennaReply.
+                 * @implements IWiFiSetAntennaReply
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiSetAntennaReply=} [properties] Properties to set
+                 */
+                function WiFiSetAntennaReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiSetAntennaReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiSetAntennaReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetAntennaReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiSetAntennaReply} WiFiSetAntennaReply instance
+                 */
+                WiFiSetAntennaReply.create = function create(properties) {
+                    return new WiFiSetAntennaReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiSetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiSetAntennaReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetAntennaReply} message WiFiSetAntennaReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiSetAntennaReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiSetAntennaReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiSetAntennaReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiSetAntennaReply} WiFiSetAntennaReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiSetAntennaReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetAntennaReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiSetAntennaReply;
+            })();
+    
+            ctrl.WiFiScanRequest = (function() {
+    
+                /**
+                 * Properties of a WiFiScanRequest.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiScanRequest
+                 */
+    
+                /**
+                 * Constructs a new WiFiScanRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiScanRequest.
+                 * @implements IWiFiScanRequest
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiScanRequest=} [properties] Properties to set
+                 */
+                function WiFiScanRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiScanRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiScanRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiScanRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiScanRequest} WiFiScanRequest instance
+                 */
+                WiFiScanRequest.create = function create(properties) {
+                    return new WiFiScanRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiScanRequest message. Does not implicitly {@link particle.ctrl.WiFiScanRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiScanRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiScanRequest} message WiFiScanRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiScanRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiScanRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiScanRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiScanRequest} WiFiScanRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiScanRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiScanRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiScanRequest;
+            })();
+    
+            ctrl.WiFiScanReply = (function() {
+    
+                /**
+                 * Properties of a WiFiScanReply.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiScanReply
+                 * @property {particle.ctrl.IWiFiAccessPointList|null} [list] WiFiScanReply list
+                 */
+    
+                /**
+                 * Constructs a new WiFiScanReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiScanReply.
+                 * @implements IWiFiScanReply
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiScanReply=} [properties] Properties to set
+                 */
+                function WiFiScanReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiScanReply list.
+                 * @member {particle.ctrl.IWiFiAccessPointList|null|undefined} list
+                 * @memberof particle.ctrl.WiFiScanReply
+                 * @instance
+                 */
+                WiFiScanReply.prototype.list = null;
+    
+                /**
+                 * Creates a new WiFiScanReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiScanReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiScanReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiScanReply} WiFiScanReply instance
+                 */
+                WiFiScanReply.create = function create(properties) {
+                    return new WiFiScanReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiScanReply message. Does not implicitly {@link particle.ctrl.WiFiScanReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiScanReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiScanReply} message WiFiScanReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiScanReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.list != null && Object.hasOwnProperty.call(message, "list"))
+                        $root.particle.ctrl.WiFiAccessPointList.encode(message.list, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiScanReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiScanReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiScanReply} WiFiScanReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiScanReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiScanReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.list = $root.particle.ctrl.WiFiAccessPointList.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiScanReply;
+            })();
+    
+            ctrl.WiFiGetCredentialsRequest = (function() {
+    
+                /**
+                 * Properties of a WiFiGetCredentialsRequest.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiGetCredentialsRequest
+                 */
+    
+                /**
+                 * Constructs a new WiFiGetCredentialsRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiGetCredentialsRequest.
+                 * @implements IWiFiGetCredentialsRequest
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiGetCredentialsRequest=} [properties] Properties to set
+                 */
+                function WiFiGetCredentialsRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiGetCredentialsRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiGetCredentialsRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetCredentialsRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiGetCredentialsRequest} WiFiGetCredentialsRequest instance
+                 */
+                WiFiGetCredentialsRequest.create = function create(properties) {
+                    return new WiFiGetCredentialsRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiGetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiGetCredentialsRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetCredentialsRequest} message WiFiGetCredentialsRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiGetCredentialsRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiGetCredentialsRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiGetCredentialsRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiGetCredentialsRequest} WiFiGetCredentialsRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiGetCredentialsRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetCredentialsRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiGetCredentialsRequest;
+            })();
+    
+            ctrl.WiFiGetCredentialsReply = (function() {
+    
+                /**
+                 * Properties of a WiFiGetCredentialsReply.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiGetCredentialsReply
+                 * @property {particle.ctrl.IWiFiAccessPointList|null} [list] WiFiGetCredentialsReply list
+                 */
+    
+                /**
+                 * Constructs a new WiFiGetCredentialsReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiGetCredentialsReply.
+                 * @implements IWiFiGetCredentialsReply
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiGetCredentialsReply=} [properties] Properties to set
+                 */
+                function WiFiGetCredentialsReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiGetCredentialsReply list.
+                 * @member {particle.ctrl.IWiFiAccessPointList|null|undefined} list
+                 * @memberof particle.ctrl.WiFiGetCredentialsReply
+                 * @instance
+                 */
+                WiFiGetCredentialsReply.prototype.list = null;
+    
+                /**
+                 * Creates a new WiFiGetCredentialsReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiGetCredentialsReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetCredentialsReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiGetCredentialsReply} WiFiGetCredentialsReply instance
+                 */
+                WiFiGetCredentialsReply.create = function create(properties) {
+                    return new WiFiGetCredentialsReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiGetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiGetCredentialsReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiGetCredentialsReply} message WiFiGetCredentialsReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiGetCredentialsReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.list != null && Object.hasOwnProperty.call(message, "list"))
+                        $root.particle.ctrl.WiFiAccessPointList.encode(message.list, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiGetCredentialsReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiGetCredentialsReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiGetCredentialsReply} WiFiGetCredentialsReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiGetCredentialsReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetCredentialsReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.list = $root.particle.ctrl.WiFiAccessPointList.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiGetCredentialsReply;
+            })();
+    
+            ctrl.WiFiSetCredentialsRequest = (function() {
+    
+                /**
+                 * Properties of a WiFiSetCredentialsRequest.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiSetCredentialsRequest
+                 * @property {particle.ctrl.IWiFiAccessPoint|null} [ap] WiFiSetCredentialsRequest ap
+                 */
+    
+                /**
+                 * Constructs a new WiFiSetCredentialsRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiSetCredentialsRequest.
+                 * @implements IWiFiSetCredentialsRequest
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiSetCredentialsRequest=} [properties] Properties to set
+                 */
+                function WiFiSetCredentialsRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiSetCredentialsRequest ap.
+                 * @member {particle.ctrl.IWiFiAccessPoint|null|undefined} ap
+                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
+                 * @instance
+                 */
+                WiFiSetCredentialsRequest.prototype.ap = null;
+    
+                /**
+                 * Creates a new WiFiSetCredentialsRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetCredentialsRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiSetCredentialsRequest} WiFiSetCredentialsRequest instance
+                 */
+                WiFiSetCredentialsRequest.create = function create(properties) {
+                    return new WiFiSetCredentialsRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiSetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetCredentialsRequest} message WiFiSetCredentialsRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiSetCredentialsRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.ap != null && Object.hasOwnProperty.call(message, "ap"))
+                        $root.particle.ctrl.WiFiAccessPoint.encode(message.ap, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiSetCredentialsRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiSetCredentialsRequest} WiFiSetCredentialsRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiSetCredentialsRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetCredentialsRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.ap = $root.particle.ctrl.WiFiAccessPoint.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiSetCredentialsRequest;
+            })();
+    
+            ctrl.WiFiSetCredentialsReply = (function() {
+    
+                /**
+                 * Properties of a WiFiSetCredentialsReply.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiSetCredentialsReply
+                 */
+    
+                /**
+                 * Constructs a new WiFiSetCredentialsReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiSetCredentialsReply.
+                 * @implements IWiFiSetCredentialsReply
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiSetCredentialsReply=} [properties] Properties to set
+                 */
+                function WiFiSetCredentialsReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiSetCredentialsReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiSetCredentialsReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetCredentialsReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiSetCredentialsReply} WiFiSetCredentialsReply instance
+                 */
+                WiFiSetCredentialsReply.create = function create(properties) {
+                    return new WiFiSetCredentialsReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiSetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiSetCredentialsReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiSetCredentialsReply} message WiFiSetCredentialsReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiSetCredentialsReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiSetCredentialsReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiSetCredentialsReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiSetCredentialsReply} WiFiSetCredentialsReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiSetCredentialsReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetCredentialsReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiSetCredentialsReply;
+            })();
+    
+            ctrl.WiFiClearCredentialsRequest = (function() {
+    
+                /**
+                 * Properties of a WiFiClearCredentialsRequest.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiClearCredentialsRequest
+                 */
+    
+                /**
+                 * Constructs a new WiFiClearCredentialsRequest.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiClearCredentialsRequest.
+                 * @implements IWiFiClearCredentialsRequest
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiClearCredentialsRequest=} [properties] Properties to set
+                 */
+                function WiFiClearCredentialsRequest(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiClearCredentialsRequest instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiClearCredentialsRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiClearCredentialsRequest=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiClearCredentialsRequest} WiFiClearCredentialsRequest instance
+                 */
+                WiFiClearCredentialsRequest.create = function create(properties) {
+                    return new WiFiClearCredentialsRequest(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiClearCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiClearCredentialsRequest
+                 * @static
+                 * @param {particle.ctrl.IWiFiClearCredentialsRequest} message WiFiClearCredentialsRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiClearCredentialsRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiClearCredentialsRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiClearCredentialsRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiClearCredentialsRequest} WiFiClearCredentialsRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiClearCredentialsRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiClearCredentialsRequest();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiClearCredentialsRequest;
+            })();
+    
+            ctrl.WiFiClearCredentialsReply = (function() {
+    
+                /**
+                 * Properties of a WiFiClearCredentialsReply.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiClearCredentialsReply
+                 */
+    
+                /**
+                 * Constructs a new WiFiClearCredentialsReply.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiClearCredentialsReply.
+                 * @implements IWiFiClearCredentialsReply
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiClearCredentialsReply=} [properties] Properties to set
+                 */
+                function WiFiClearCredentialsReply(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * Creates a new WiFiClearCredentialsReply instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiClearCredentialsReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiClearCredentialsReply=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiClearCredentialsReply} WiFiClearCredentialsReply instance
+                 */
+                WiFiClearCredentialsReply.create = function create(properties) {
+                    return new WiFiClearCredentialsReply(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiClearCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsReply.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiClearCredentialsReply
+                 * @static
+                 * @param {particle.ctrl.IWiFiClearCredentialsReply} message WiFiClearCredentialsReply message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiClearCredentialsReply.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiClearCredentialsReply message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiClearCredentialsReply
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiClearCredentialsReply} WiFiClearCredentialsReply
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiClearCredentialsReply.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiClearCredentialsReply();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiClearCredentialsReply;
+            })();
+    
+            /**
+             * WiFiAntenna enum.
+             * @name particle.ctrl.WiFiAntenna
+             * @enum {number}
+             * @property {number} ANTENNA_NONE=0 ANTENNA_NONE value
+             * @property {number} INTERNAL=1 INTERNAL value
+             * @property {number} EXTERNAL=2 EXTERNAL value
+             * @property {number} AUTO=3 AUTO value
+             */
+            ctrl.WiFiAntenna = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "ANTENNA_NONE"] = 0;
+                values[valuesById[1] = "INTERNAL"] = 1;
+                values[valuesById[2] = "EXTERNAL"] = 2;
+                values[valuesById[3] = "AUTO"] = 3;
+                return values;
+            })();
+    
+            /**
+             * WiFiSecurityType enum.
+             * @name particle.ctrl.WiFiSecurityType
+             * @enum {number}
+             * @property {number} UNSEC=0 UNSEC value
+             * @property {number} WEP=1 WEP value
+             * @property {number} WPA=2 WPA value
+             * @property {number} WPA2=3 WPA2 value
+             * @property {number} WPA_ENTERPRISE=4 WPA_ENTERPRISE value
+             * @property {number} WPA2_ENTERPRISE=5 WPA2_ENTERPRISE value
+             * @property {number} UNKNOWN=255 UNKNOWN value
+             */
+            ctrl.WiFiSecurityType = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "UNSEC"] = 0;
+                values[valuesById[1] = "WEP"] = 1;
+                values[valuesById[2] = "WPA"] = 2;
+                values[valuesById[3] = "WPA2"] = 3;
+                values[valuesById[4] = "WPA_ENTERPRISE"] = 4;
+                values[valuesById[5] = "WPA2_ENTERPRISE"] = 5;
+                values[valuesById[255] = "UNKNOWN"] = 255;
+                return values;
+            })();
+    
+            /**
+             * WiFiSecurityCipher enum.
+             * @name particle.ctrl.WiFiSecurityCipher
+             * @enum {number}
+             * @property {number} CIPHER_NONE=0 CIPHER_NONE value
+             * @property {number} AES=1 AES value
+             * @property {number} TKIP=2 TKIP value
+             * @property {number} AES_TKIP=3 AES_TKIP value
+             */
+            ctrl.WiFiSecurityCipher = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "CIPHER_NONE"] = 0;
+                values[valuesById[1] = "AES"] = 1;
+                values[valuesById[2] = "TKIP"] = 2;
+                values[valuesById[3] = "AES_TKIP"] = 3;
+                return values;
+            })();
+    
+            /**
+             * EapType enum.
+             * @name particle.ctrl.EapType
+             * @enum {number}
+             * @property {number} EAP_TYPE_NONE=0 EAP_TYPE_NONE value
+             * @property {number} TLS=13 TLS value
+             * @property {number} PEAP=25 PEAP value
+             */
+            ctrl.EapType = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "EAP_TYPE_NONE"] = 0;
+                values[valuesById[13] = "TLS"] = 13;
+                values[valuesById[25] = "PEAP"] = 25;
+                return values;
+            })();
+    
+            ctrl.WiFiAccessPoint = (function() {
+    
+                /**
+                 * Properties of a WiFiAccessPoint.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiAccessPoint
+                 * @property {string|null} [ssid] WiFiAccessPoint ssid
+                 * @property {Uint8Array|null} [bssid] WiFiAccessPoint bssid
+                 * @property {particle.ctrl.WiFiSecurityType|null} [security] WiFiAccessPoint security
+                 * @property {particle.ctrl.WiFiSecurityCipher|null} [cipher] WiFiAccessPoint cipher
+                 * @property {number|null} [channel] WiFiAccessPoint channel
+                 * @property {number|null} [maxDataRate] WiFiAccessPoint maxDataRate
+                 * @property {number|null} [rssi] WiFiAccessPoint rssi
+                 * @property {string|null} [password] WiFiAccessPoint password
+                 * @property {particle.ctrl.EapType|null} [eapType] WiFiAccessPoint eapType
+                 * @property {string|null} [innerIdentity] WiFiAccessPoint innerIdentity
+                 * @property {string|null} [outerIdentity] WiFiAccessPoint outerIdentity
+                 * @property {Uint8Array|null} [privateKey] WiFiAccessPoint privateKey
+                 * @property {Uint8Array|null} [clientCertificate] WiFiAccessPoint clientCertificate
+                 * @property {Uint8Array|null} [caCertificate] WiFiAccessPoint caCertificate
+                 */
+    
+                /**
+                 * Constructs a new WiFiAccessPoint.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiAccessPoint.
+                 * @implements IWiFiAccessPoint
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiAccessPoint=} [properties] Properties to set
+                 */
+                function WiFiAccessPoint(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiAccessPoint ssid.
+                 * @member {string} ssid
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.ssid = "";
+    
+                /**
+                 * WiFiAccessPoint bssid.
+                 * @member {Uint8Array} bssid
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.bssid = $util.newBuffer([]);
+    
+                /**
+                 * WiFiAccessPoint security.
+                 * @member {particle.ctrl.WiFiSecurityType} security
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.security = 0;
+    
+                /**
+                 * WiFiAccessPoint cipher.
+                 * @member {particle.ctrl.WiFiSecurityCipher} cipher
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.cipher = 0;
+    
+                /**
+                 * WiFiAccessPoint channel.
+                 * @member {number} channel
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.channel = 0;
+    
+                /**
+                 * WiFiAccessPoint maxDataRate.
+                 * @member {number} maxDataRate
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.maxDataRate = 0;
+    
+                /**
+                 * WiFiAccessPoint rssi.
+                 * @member {number} rssi
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.rssi = 0;
+    
+                /**
+                 * WiFiAccessPoint password.
+                 * @member {string} password
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.password = "";
+    
+                /**
+                 * WiFiAccessPoint eapType.
+                 * @member {particle.ctrl.EapType} eapType
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.eapType = 0;
+    
+                /**
+                 * WiFiAccessPoint innerIdentity.
+                 * @member {string} innerIdentity
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.innerIdentity = "";
+    
+                /**
+                 * WiFiAccessPoint outerIdentity.
+                 * @member {string} outerIdentity
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.outerIdentity = "";
+    
+                /**
+                 * WiFiAccessPoint privateKey.
+                 * @member {Uint8Array} privateKey
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.privateKey = $util.newBuffer([]);
+    
+                /**
+                 * WiFiAccessPoint clientCertificate.
+                 * @member {Uint8Array} clientCertificate
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.clientCertificate = $util.newBuffer([]);
+    
+                /**
+                 * WiFiAccessPoint caCertificate.
+                 * @member {Uint8Array} caCertificate
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @instance
+                 */
+                WiFiAccessPoint.prototype.caCertificate = $util.newBuffer([]);
+    
+                /**
+                 * Creates a new WiFiAccessPoint instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @static
+                 * @param {particle.ctrl.IWiFiAccessPoint=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiAccessPoint} WiFiAccessPoint instance
+                 */
+                WiFiAccessPoint.create = function create(properties) {
+                    return new WiFiAccessPoint(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiAccessPoint message. Does not implicitly {@link particle.ctrl.WiFiAccessPoint.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @static
+                 * @param {particle.ctrl.IWiFiAccessPoint} message WiFiAccessPoint message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiAccessPoint.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.ssid != null && Object.hasOwnProperty.call(message, "ssid"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.ssid);
+                    if (message.bssid != null && Object.hasOwnProperty.call(message, "bssid"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.bssid);
+                    if (message.security != null && Object.hasOwnProperty.call(message, "security"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.security);
+                    if (message.cipher != null && Object.hasOwnProperty.call(message, "cipher"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.cipher);
+                    if (message.channel != null && Object.hasOwnProperty.call(message, "channel"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.channel);
+                    if (message.maxDataRate != null && Object.hasOwnProperty.call(message, "maxDataRate"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).int32(message.maxDataRate);
+                    if (message.rssi != null && Object.hasOwnProperty.call(message, "rssi"))
+                        writer.uint32(/* id 7, wireType 0 =*/56).int32(message.rssi);
+                    if (message.password != null && Object.hasOwnProperty.call(message, "password"))
+                        writer.uint32(/* id 8, wireType 2 =*/66).string(message.password);
+                    if (message.eapType != null && Object.hasOwnProperty.call(message, "eapType"))
+                        writer.uint32(/* id 9, wireType 0 =*/72).int32(message.eapType);
+                    if (message.innerIdentity != null && Object.hasOwnProperty.call(message, "innerIdentity"))
+                        writer.uint32(/* id 10, wireType 2 =*/82).string(message.innerIdentity);
+                    if (message.outerIdentity != null && Object.hasOwnProperty.call(message, "outerIdentity"))
+                        writer.uint32(/* id 11, wireType 2 =*/90).string(message.outerIdentity);
+                    if (message.privateKey != null && Object.hasOwnProperty.call(message, "privateKey"))
+                        writer.uint32(/* id 12, wireType 2 =*/98).bytes(message.privateKey);
+                    if (message.clientCertificate != null && Object.hasOwnProperty.call(message, "clientCertificate"))
+                        writer.uint32(/* id 13, wireType 2 =*/106).bytes(message.clientCertificate);
+                    if (message.caCertificate != null && Object.hasOwnProperty.call(message, "caCertificate"))
+                        writer.uint32(/* id 14, wireType 2 =*/114).bytes(message.caCertificate);
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiAccessPoint message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiAccessPoint
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiAccessPoint} WiFiAccessPoint
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiAccessPoint.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiAccessPoint();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.ssid = reader.string();
+                            break;
+                        case 2:
+                            message.bssid = reader.bytes();
+                            break;
+                        case 3:
+                            message.security = reader.int32();
+                            break;
+                        case 4:
+                            message.cipher = reader.int32();
+                            break;
+                        case 5:
+                            message.channel = reader.uint32();
+                            break;
+                        case 6:
+                            message.maxDataRate = reader.int32();
+                            break;
+                        case 7:
+                            message.rssi = reader.int32();
+                            break;
+                        case 8:
+                            message.password = reader.string();
+                            break;
+                        case 9:
+                            message.eapType = reader.int32();
+                            break;
+                        case 10:
+                            message.innerIdentity = reader.string();
+                            break;
+                        case 11:
+                            message.outerIdentity = reader.string();
+                            break;
+                        case 12:
+                            message.privateKey = reader.bytes();
+                            break;
+                        case 13:
+                            message.clientCertificate = reader.bytes();
+                            break;
+                        case 14:
+                            message.caCertificate = reader.bytes();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiAccessPoint;
+            })();
+    
+            ctrl.WiFiAccessPointList = (function() {
+    
+                /**
+                 * Properties of a WiFiAccessPointList.
+                 * @memberof particle.ctrl
+                 * @interface IWiFiAccessPointList
+                 * @property {Array.<particle.ctrl.IWiFiAccessPoint>|null} [aps] WiFiAccessPointList aps
+                 */
+    
+                /**
+                 * Constructs a new WiFiAccessPointList.
+                 * @memberof particle.ctrl
+                 * @classdesc Represents a WiFiAccessPointList.
+                 * @implements IWiFiAccessPointList
+                 * @constructor
+                 * @param {particle.ctrl.IWiFiAccessPointList=} [properties] Properties to set
+                 */
+                function WiFiAccessPointList(properties) {
+                    this.aps = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * WiFiAccessPointList aps.
+                 * @member {Array.<particle.ctrl.IWiFiAccessPoint>} aps
+                 * @memberof particle.ctrl.WiFiAccessPointList
+                 * @instance
+                 */
+                WiFiAccessPointList.prototype.aps = $util.emptyArray;
+    
+                /**
+                 * Creates a new WiFiAccessPointList instance using the specified properties.
+                 * @function create
+                 * @memberof particle.ctrl.WiFiAccessPointList
+                 * @static
+                 * @param {particle.ctrl.IWiFiAccessPointList=} [properties] Properties to set
+                 * @returns {particle.ctrl.WiFiAccessPointList} WiFiAccessPointList instance
+                 */
+                WiFiAccessPointList.create = function create(properties) {
+                    return new WiFiAccessPointList(properties);
+                };
+    
+                /**
+                 * Encodes the specified WiFiAccessPointList message. Does not implicitly {@link particle.ctrl.WiFiAccessPointList.verify|verify} messages.
+                 * @function encode
+                 * @memberof particle.ctrl.WiFiAccessPointList
+                 * @static
+                 * @param {particle.ctrl.IWiFiAccessPointList} message WiFiAccessPointList message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                WiFiAccessPointList.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.aps != null && message.aps.length)
+                        for (var i = 0; i < message.aps.length; ++i)
+                            $root.particle.ctrl.WiFiAccessPoint.encode(message.aps[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+    
+                /**
+                 * Decodes a WiFiAccessPointList message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof particle.ctrl.WiFiAccessPointList
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {particle.ctrl.WiFiAccessPointList} WiFiAccessPointList
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                WiFiAccessPointList.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiAccessPointList();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.aps && message.aps.length))
+                                message.aps = [];
+                            message.aps.push($root.particle.ctrl.WiFiAccessPoint.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                return WiFiAccessPointList;
+            })();
+    
             ctrl.wifi = (function() {
     
                 /**
@@ -19921,1472 +21401,6 @@
                 })();
     
                 return wifi;
-            })();
-    
-            ctrl.WiFiGetAntennaRequest = (function() {
-    
-                /**
-                 * Properties of a WiFiGetAntennaRequest.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiGetAntennaRequest
-                 */
-    
-                /**
-                 * Constructs a new WiFiGetAntennaRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiGetAntennaRequest.
-                 * @implements IWiFiGetAntennaRequest
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiGetAntennaRequest=} [properties] Properties to set
-                 */
-                function WiFiGetAntennaRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiGetAntennaRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiGetAntennaRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetAntennaRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiGetAntennaRequest} WiFiGetAntennaRequest instance
-                 */
-                WiFiGetAntennaRequest.create = function create(properties) {
-                    return new WiFiGetAntennaRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiGetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiGetAntennaRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetAntennaRequest} message WiFiGetAntennaRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiGetAntennaRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiGetAntennaRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiGetAntennaRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiGetAntennaRequest} WiFiGetAntennaRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiGetAntennaRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetAntennaRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiGetAntennaRequest;
-            })();
-    
-            ctrl.WiFiGetAntennaReply = (function() {
-    
-                /**
-                 * Properties of a WiFiGetAntennaReply.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiGetAntennaReply
-                 * @property {particle.ctrl.WiFiAntenna|null} [antenna] WiFiGetAntennaReply antenna
-                 */
-    
-                /**
-                 * Constructs a new WiFiGetAntennaReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiGetAntennaReply.
-                 * @implements IWiFiGetAntennaReply
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiGetAntennaReply=} [properties] Properties to set
-                 */
-                function WiFiGetAntennaReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiGetAntennaReply antenna.
-                 * @member {particle.ctrl.WiFiAntenna} antenna
-                 * @memberof particle.ctrl.WiFiGetAntennaReply
-                 * @instance
-                 */
-                WiFiGetAntennaReply.prototype.antenna = 0;
-    
-                /**
-                 * Creates a new WiFiGetAntennaReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiGetAntennaReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetAntennaReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiGetAntennaReply} WiFiGetAntennaReply instance
-                 */
-                WiFiGetAntennaReply.create = function create(properties) {
-                    return new WiFiGetAntennaReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiGetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiGetAntennaReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetAntennaReply} message WiFiGetAntennaReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiGetAntennaReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.antenna != null && Object.hasOwnProperty.call(message, "antenna"))
-                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.antenna);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiGetAntennaReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiGetAntennaReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiGetAntennaReply} WiFiGetAntennaReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiGetAntennaReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetAntennaReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.antenna = reader.int32();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiGetAntennaReply;
-            })();
-    
-            ctrl.WiFiSetAntennaRequest = (function() {
-    
-                /**
-                 * Properties of a WiFiSetAntennaRequest.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiSetAntennaRequest
-                 * @property {particle.ctrl.WiFiAntenna|null} [antenna] WiFiSetAntennaRequest antenna
-                 */
-    
-                /**
-                 * Constructs a new WiFiSetAntennaRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiSetAntennaRequest.
-                 * @implements IWiFiSetAntennaRequest
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiSetAntennaRequest=} [properties] Properties to set
-                 */
-                function WiFiSetAntennaRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiSetAntennaRequest antenna.
-                 * @member {particle.ctrl.WiFiAntenna} antenna
-                 * @memberof particle.ctrl.WiFiSetAntennaRequest
-                 * @instance
-                 */
-                WiFiSetAntennaRequest.prototype.antenna = 0;
-    
-                /**
-                 * Creates a new WiFiSetAntennaRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiSetAntennaRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetAntennaRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiSetAntennaRequest} WiFiSetAntennaRequest instance
-                 */
-                WiFiSetAntennaRequest.create = function create(properties) {
-                    return new WiFiSetAntennaRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiSetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiSetAntennaRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetAntennaRequest} message WiFiSetAntennaRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiSetAntennaRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.antenna != null && Object.hasOwnProperty.call(message, "antenna"))
-                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.antenna);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiSetAntennaRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiSetAntennaRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiSetAntennaRequest} WiFiSetAntennaRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiSetAntennaRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetAntennaRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.antenna = reader.int32();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiSetAntennaRequest;
-            })();
-    
-            ctrl.WiFiSetAntennaReply = (function() {
-    
-                /**
-                 * Properties of a WiFiSetAntennaReply.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiSetAntennaReply
-                 */
-    
-                /**
-                 * Constructs a new WiFiSetAntennaReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiSetAntennaReply.
-                 * @implements IWiFiSetAntennaReply
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiSetAntennaReply=} [properties] Properties to set
-                 */
-                function WiFiSetAntennaReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiSetAntennaReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiSetAntennaReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetAntennaReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiSetAntennaReply} WiFiSetAntennaReply instance
-                 */
-                WiFiSetAntennaReply.create = function create(properties) {
-                    return new WiFiSetAntennaReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiSetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiSetAntennaReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetAntennaReply} message WiFiSetAntennaReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiSetAntennaReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiSetAntennaReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiSetAntennaReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiSetAntennaReply} WiFiSetAntennaReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiSetAntennaReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetAntennaReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiSetAntennaReply;
-            })();
-    
-            ctrl.WiFiScanRequest = (function() {
-    
-                /**
-                 * Properties of a WiFiScanRequest.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiScanRequest
-                 */
-    
-                /**
-                 * Constructs a new WiFiScanRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiScanRequest.
-                 * @implements IWiFiScanRequest
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiScanRequest=} [properties] Properties to set
-                 */
-                function WiFiScanRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiScanRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiScanRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiScanRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiScanRequest} WiFiScanRequest instance
-                 */
-                WiFiScanRequest.create = function create(properties) {
-                    return new WiFiScanRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiScanRequest message. Does not implicitly {@link particle.ctrl.WiFiScanRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiScanRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiScanRequest} message WiFiScanRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiScanRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiScanRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiScanRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiScanRequest} WiFiScanRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiScanRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiScanRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiScanRequest;
-            })();
-    
-            ctrl.WiFiScanReply = (function() {
-    
-                /**
-                 * Properties of a WiFiScanReply.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiScanReply
-                 * @property {particle.ctrl.IWiFiAccessPointList|null} [list] WiFiScanReply list
-                 */
-    
-                /**
-                 * Constructs a new WiFiScanReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiScanReply.
-                 * @implements IWiFiScanReply
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiScanReply=} [properties] Properties to set
-                 */
-                function WiFiScanReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiScanReply list.
-                 * @member {particle.ctrl.IWiFiAccessPointList|null|undefined} list
-                 * @memberof particle.ctrl.WiFiScanReply
-                 * @instance
-                 */
-                WiFiScanReply.prototype.list = null;
-    
-                /**
-                 * Creates a new WiFiScanReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiScanReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiScanReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiScanReply} WiFiScanReply instance
-                 */
-                WiFiScanReply.create = function create(properties) {
-                    return new WiFiScanReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiScanReply message. Does not implicitly {@link particle.ctrl.WiFiScanReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiScanReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiScanReply} message WiFiScanReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiScanReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.list != null && Object.hasOwnProperty.call(message, "list"))
-                        $root.particle.ctrl.WiFiAccessPointList.encode(message.list, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiScanReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiScanReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiScanReply} WiFiScanReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiScanReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiScanReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.list = $root.particle.ctrl.WiFiAccessPointList.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiScanReply;
-            })();
-    
-            ctrl.WiFiGetCredentialsRequest = (function() {
-    
-                /**
-                 * Properties of a WiFiGetCredentialsRequest.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiGetCredentialsRequest
-                 */
-    
-                /**
-                 * Constructs a new WiFiGetCredentialsRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiGetCredentialsRequest.
-                 * @implements IWiFiGetCredentialsRequest
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiGetCredentialsRequest=} [properties] Properties to set
-                 */
-                function WiFiGetCredentialsRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiGetCredentialsRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiGetCredentialsRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetCredentialsRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiGetCredentialsRequest} WiFiGetCredentialsRequest instance
-                 */
-                WiFiGetCredentialsRequest.create = function create(properties) {
-                    return new WiFiGetCredentialsRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiGetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiGetCredentialsRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetCredentialsRequest} message WiFiGetCredentialsRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiGetCredentialsRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiGetCredentialsRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiGetCredentialsRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiGetCredentialsRequest} WiFiGetCredentialsRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiGetCredentialsRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetCredentialsRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiGetCredentialsRequest;
-            })();
-    
-            ctrl.WiFiGetCredentialsReply = (function() {
-    
-                /**
-                 * Properties of a WiFiGetCredentialsReply.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiGetCredentialsReply
-                 * @property {particle.ctrl.IWiFiAccessPointList|null} [list] WiFiGetCredentialsReply list
-                 */
-    
-                /**
-                 * Constructs a new WiFiGetCredentialsReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiGetCredentialsReply.
-                 * @implements IWiFiGetCredentialsReply
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiGetCredentialsReply=} [properties] Properties to set
-                 */
-                function WiFiGetCredentialsReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiGetCredentialsReply list.
-                 * @member {particle.ctrl.IWiFiAccessPointList|null|undefined} list
-                 * @memberof particle.ctrl.WiFiGetCredentialsReply
-                 * @instance
-                 */
-                WiFiGetCredentialsReply.prototype.list = null;
-    
-                /**
-                 * Creates a new WiFiGetCredentialsReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiGetCredentialsReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetCredentialsReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiGetCredentialsReply} WiFiGetCredentialsReply instance
-                 */
-                WiFiGetCredentialsReply.create = function create(properties) {
-                    return new WiFiGetCredentialsReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiGetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiGetCredentialsReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiGetCredentialsReply} message WiFiGetCredentialsReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiGetCredentialsReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.list != null && Object.hasOwnProperty.call(message, "list"))
-                        $root.particle.ctrl.WiFiAccessPointList.encode(message.list, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiGetCredentialsReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiGetCredentialsReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiGetCredentialsReply} WiFiGetCredentialsReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiGetCredentialsReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiGetCredentialsReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.list = $root.particle.ctrl.WiFiAccessPointList.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiGetCredentialsReply;
-            })();
-    
-            ctrl.WiFiSetCredentialsRequest = (function() {
-    
-                /**
-                 * Properties of a WiFiSetCredentialsRequest.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiSetCredentialsRequest
-                 * @property {particle.ctrl.IWiFiAccessPoint|null} [ap] WiFiSetCredentialsRequest ap
-                 */
-    
-                /**
-                 * Constructs a new WiFiSetCredentialsRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiSetCredentialsRequest.
-                 * @implements IWiFiSetCredentialsRequest
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiSetCredentialsRequest=} [properties] Properties to set
-                 */
-                function WiFiSetCredentialsRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiSetCredentialsRequest ap.
-                 * @member {particle.ctrl.IWiFiAccessPoint|null|undefined} ap
-                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
-                 * @instance
-                 */
-                WiFiSetCredentialsRequest.prototype.ap = null;
-    
-                /**
-                 * Creates a new WiFiSetCredentialsRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetCredentialsRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiSetCredentialsRequest} WiFiSetCredentialsRequest instance
-                 */
-                WiFiSetCredentialsRequest.create = function create(properties) {
-                    return new WiFiSetCredentialsRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiSetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetCredentialsRequest} message WiFiSetCredentialsRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiSetCredentialsRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.ap != null && Object.hasOwnProperty.call(message, "ap"))
-                        $root.particle.ctrl.WiFiAccessPoint.encode(message.ap, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiSetCredentialsRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiSetCredentialsRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiSetCredentialsRequest} WiFiSetCredentialsRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiSetCredentialsRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetCredentialsRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.ap = $root.particle.ctrl.WiFiAccessPoint.decode(reader, reader.uint32());
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiSetCredentialsRequest;
-            })();
-    
-            ctrl.WiFiSetCredentialsReply = (function() {
-    
-                /**
-                 * Properties of a WiFiSetCredentialsReply.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiSetCredentialsReply
-                 */
-    
-                /**
-                 * Constructs a new WiFiSetCredentialsReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiSetCredentialsReply.
-                 * @implements IWiFiSetCredentialsReply
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiSetCredentialsReply=} [properties] Properties to set
-                 */
-                function WiFiSetCredentialsReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiSetCredentialsReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiSetCredentialsReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetCredentialsReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiSetCredentialsReply} WiFiSetCredentialsReply instance
-                 */
-                WiFiSetCredentialsReply.create = function create(properties) {
-                    return new WiFiSetCredentialsReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiSetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiSetCredentialsReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiSetCredentialsReply} message WiFiSetCredentialsReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiSetCredentialsReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiSetCredentialsReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiSetCredentialsReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiSetCredentialsReply} WiFiSetCredentialsReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiSetCredentialsReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiSetCredentialsReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiSetCredentialsReply;
-            })();
-    
-            ctrl.WiFiClearCredentialsRequest = (function() {
-    
-                /**
-                 * Properties of a WiFiClearCredentialsRequest.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiClearCredentialsRequest
-                 */
-    
-                /**
-                 * Constructs a new WiFiClearCredentialsRequest.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiClearCredentialsRequest.
-                 * @implements IWiFiClearCredentialsRequest
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiClearCredentialsRequest=} [properties] Properties to set
-                 */
-                function WiFiClearCredentialsRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiClearCredentialsRequest instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiClearCredentialsRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiClearCredentialsRequest=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiClearCredentialsRequest} WiFiClearCredentialsRequest instance
-                 */
-                WiFiClearCredentialsRequest.create = function create(properties) {
-                    return new WiFiClearCredentialsRequest(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiClearCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiClearCredentialsRequest
-                 * @static
-                 * @param {particle.ctrl.IWiFiClearCredentialsRequest} message WiFiClearCredentialsRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiClearCredentialsRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiClearCredentialsRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiClearCredentialsRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiClearCredentialsRequest} WiFiClearCredentialsRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiClearCredentialsRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiClearCredentialsRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiClearCredentialsRequest;
-            })();
-    
-            ctrl.WiFiClearCredentialsReply = (function() {
-    
-                /**
-                 * Properties of a WiFiClearCredentialsReply.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiClearCredentialsReply
-                 */
-    
-                /**
-                 * Constructs a new WiFiClearCredentialsReply.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiClearCredentialsReply.
-                 * @implements IWiFiClearCredentialsReply
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiClearCredentialsReply=} [properties] Properties to set
-                 */
-                function WiFiClearCredentialsReply(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * Creates a new WiFiClearCredentialsReply instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiClearCredentialsReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiClearCredentialsReply=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiClearCredentialsReply} WiFiClearCredentialsReply instance
-                 */
-                WiFiClearCredentialsReply.create = function create(properties) {
-                    return new WiFiClearCredentialsReply(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiClearCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsReply.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiClearCredentialsReply
-                 * @static
-                 * @param {particle.ctrl.IWiFiClearCredentialsReply} message WiFiClearCredentialsReply message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiClearCredentialsReply.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiClearCredentialsReply message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiClearCredentialsReply
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiClearCredentialsReply} WiFiClearCredentialsReply
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiClearCredentialsReply.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiClearCredentialsReply();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiClearCredentialsReply;
-            })();
-    
-            /**
-             * WiFiAntenna enum.
-             * @name particle.ctrl.WiFiAntenna
-             * @enum {number}
-             * @property {number} ANTENNA_NONE=0 ANTENNA_NONE value
-             * @property {number} INTERNAL=1 INTERNAL value
-             * @property {number} EXTERNAL=2 EXTERNAL value
-             * @property {number} AUTO=3 AUTO value
-             */
-            ctrl.WiFiAntenna = (function() {
-                var valuesById = {}, values = Object.create(valuesById);
-                values[valuesById[0] = "ANTENNA_NONE"] = 0;
-                values[valuesById[1] = "INTERNAL"] = 1;
-                values[valuesById[2] = "EXTERNAL"] = 2;
-                values[valuesById[3] = "AUTO"] = 3;
-                return values;
-            })();
-    
-            /**
-             * WiFiSecurityType enum.
-             * @name particle.ctrl.WiFiSecurityType
-             * @enum {number}
-             * @property {number} UNSEC=0 UNSEC value
-             * @property {number} WEP=1 WEP value
-             * @property {number} WPA=2 WPA value
-             * @property {number} WPA2=3 WPA2 value
-             * @property {number} WPA_ENTERPRISE=4 WPA_ENTERPRISE value
-             * @property {number} WPA2_ENTERPRISE=5 WPA2_ENTERPRISE value
-             * @property {number} UNKNOWN=255 UNKNOWN value
-             */
-            ctrl.WiFiSecurityType = (function() {
-                var valuesById = {}, values = Object.create(valuesById);
-                values[valuesById[0] = "UNSEC"] = 0;
-                values[valuesById[1] = "WEP"] = 1;
-                values[valuesById[2] = "WPA"] = 2;
-                values[valuesById[3] = "WPA2"] = 3;
-                values[valuesById[4] = "WPA_ENTERPRISE"] = 4;
-                values[valuesById[5] = "WPA2_ENTERPRISE"] = 5;
-                values[valuesById[255] = "UNKNOWN"] = 255;
-                return values;
-            })();
-    
-            /**
-             * WiFiSecurityCipher enum.
-             * @name particle.ctrl.WiFiSecurityCipher
-             * @enum {number}
-             * @property {number} CIPHER_NONE=0 CIPHER_NONE value
-             * @property {number} AES=1 AES value
-             * @property {number} TKIP=2 TKIP value
-             * @property {number} AES_TKIP=3 AES_TKIP value
-             */
-            ctrl.WiFiSecurityCipher = (function() {
-                var valuesById = {}, values = Object.create(valuesById);
-                values[valuesById[0] = "CIPHER_NONE"] = 0;
-                values[valuesById[1] = "AES"] = 1;
-                values[valuesById[2] = "TKIP"] = 2;
-                values[valuesById[3] = "AES_TKIP"] = 3;
-                return values;
-            })();
-    
-            /**
-             * EapType enum.
-             * @name particle.ctrl.EapType
-             * @enum {number}
-             * @property {number} EAP_TYPE_NONE=0 EAP_TYPE_NONE value
-             * @property {number} TLS=13 TLS value
-             * @property {number} PEAP=25 PEAP value
-             */
-            ctrl.EapType = (function() {
-                var valuesById = {}, values = Object.create(valuesById);
-                values[valuesById[0] = "EAP_TYPE_NONE"] = 0;
-                values[valuesById[13] = "TLS"] = 13;
-                values[valuesById[25] = "PEAP"] = 25;
-                return values;
-            })();
-    
-            ctrl.WiFiAccessPoint = (function() {
-    
-                /**
-                 * Properties of a WiFiAccessPoint.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiAccessPoint
-                 * @property {string|null} [ssid] WiFiAccessPoint ssid
-                 * @property {Uint8Array|null} [bssid] WiFiAccessPoint bssid
-                 * @property {particle.ctrl.WiFiSecurityType|null} [security] WiFiAccessPoint security
-                 * @property {particle.ctrl.WiFiSecurityCipher|null} [cipher] WiFiAccessPoint cipher
-                 * @property {number|null} [channel] WiFiAccessPoint channel
-                 * @property {number|null} [maxDataRate] WiFiAccessPoint maxDataRate
-                 * @property {number|null} [rssi] WiFiAccessPoint rssi
-                 * @property {string|null} [password] WiFiAccessPoint password
-                 * @property {particle.ctrl.EapType|null} [eapType] WiFiAccessPoint eapType
-                 * @property {string|null} [innerIdentity] WiFiAccessPoint innerIdentity
-                 * @property {string|null} [outerIdentity] WiFiAccessPoint outerIdentity
-                 * @property {Uint8Array|null} [privateKey] WiFiAccessPoint privateKey
-                 * @property {Uint8Array|null} [clientCertificate] WiFiAccessPoint clientCertificate
-                 * @property {Uint8Array|null} [caCertificate] WiFiAccessPoint caCertificate
-                 */
-    
-                /**
-                 * Constructs a new WiFiAccessPoint.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiAccessPoint.
-                 * @implements IWiFiAccessPoint
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiAccessPoint=} [properties] Properties to set
-                 */
-                function WiFiAccessPoint(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiAccessPoint ssid.
-                 * @member {string} ssid
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.ssid = "";
-    
-                /**
-                 * WiFiAccessPoint bssid.
-                 * @member {Uint8Array} bssid
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.bssid = $util.newBuffer([]);
-    
-                /**
-                 * WiFiAccessPoint security.
-                 * @member {particle.ctrl.WiFiSecurityType} security
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.security = 0;
-    
-                /**
-                 * WiFiAccessPoint cipher.
-                 * @member {particle.ctrl.WiFiSecurityCipher} cipher
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.cipher = 0;
-    
-                /**
-                 * WiFiAccessPoint channel.
-                 * @member {number} channel
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.channel = 0;
-    
-                /**
-                 * WiFiAccessPoint maxDataRate.
-                 * @member {number} maxDataRate
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.maxDataRate = 0;
-    
-                /**
-                 * WiFiAccessPoint rssi.
-                 * @member {number} rssi
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.rssi = 0;
-    
-                /**
-                 * WiFiAccessPoint password.
-                 * @member {string} password
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.password = "";
-    
-                /**
-                 * WiFiAccessPoint eapType.
-                 * @member {particle.ctrl.EapType} eapType
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.eapType = 0;
-    
-                /**
-                 * WiFiAccessPoint innerIdentity.
-                 * @member {string} innerIdentity
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.innerIdentity = "";
-    
-                /**
-                 * WiFiAccessPoint outerIdentity.
-                 * @member {string} outerIdentity
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.outerIdentity = "";
-    
-                /**
-                 * WiFiAccessPoint privateKey.
-                 * @member {Uint8Array} privateKey
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.privateKey = $util.newBuffer([]);
-    
-                /**
-                 * WiFiAccessPoint clientCertificate.
-                 * @member {Uint8Array} clientCertificate
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.clientCertificate = $util.newBuffer([]);
-    
-                /**
-                 * WiFiAccessPoint caCertificate.
-                 * @member {Uint8Array} caCertificate
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @instance
-                 */
-                WiFiAccessPoint.prototype.caCertificate = $util.newBuffer([]);
-    
-                /**
-                 * Creates a new WiFiAccessPoint instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @static
-                 * @param {particle.ctrl.IWiFiAccessPoint=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiAccessPoint} WiFiAccessPoint instance
-                 */
-                WiFiAccessPoint.create = function create(properties) {
-                    return new WiFiAccessPoint(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiAccessPoint message. Does not implicitly {@link particle.ctrl.WiFiAccessPoint.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @static
-                 * @param {particle.ctrl.IWiFiAccessPoint} message WiFiAccessPoint message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiAccessPoint.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.ssid != null && Object.hasOwnProperty.call(message, "ssid"))
-                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.ssid);
-                    if (message.bssid != null && Object.hasOwnProperty.call(message, "bssid"))
-                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.bssid);
-                    if (message.security != null && Object.hasOwnProperty.call(message, "security"))
-                        writer.uint32(/* id 3, wireType 0 =*/24).int32(message.security);
-                    if (message.cipher != null && Object.hasOwnProperty.call(message, "cipher"))
-                        writer.uint32(/* id 4, wireType 0 =*/32).int32(message.cipher);
-                    if (message.channel != null && Object.hasOwnProperty.call(message, "channel"))
-                        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.channel);
-                    if (message.maxDataRate != null && Object.hasOwnProperty.call(message, "maxDataRate"))
-                        writer.uint32(/* id 6, wireType 0 =*/48).int32(message.maxDataRate);
-                    if (message.rssi != null && Object.hasOwnProperty.call(message, "rssi"))
-                        writer.uint32(/* id 7, wireType 0 =*/56).int32(message.rssi);
-                    if (message.password != null && Object.hasOwnProperty.call(message, "password"))
-                        writer.uint32(/* id 8, wireType 2 =*/66).string(message.password);
-                    if (message.eapType != null && Object.hasOwnProperty.call(message, "eapType"))
-                        writer.uint32(/* id 9, wireType 0 =*/72).int32(message.eapType);
-                    if (message.innerIdentity != null && Object.hasOwnProperty.call(message, "innerIdentity"))
-                        writer.uint32(/* id 10, wireType 2 =*/82).string(message.innerIdentity);
-                    if (message.outerIdentity != null && Object.hasOwnProperty.call(message, "outerIdentity"))
-                        writer.uint32(/* id 11, wireType 2 =*/90).string(message.outerIdentity);
-                    if (message.privateKey != null && Object.hasOwnProperty.call(message, "privateKey"))
-                        writer.uint32(/* id 12, wireType 2 =*/98).bytes(message.privateKey);
-                    if (message.clientCertificate != null && Object.hasOwnProperty.call(message, "clientCertificate"))
-                        writer.uint32(/* id 13, wireType 2 =*/106).bytes(message.clientCertificate);
-                    if (message.caCertificate != null && Object.hasOwnProperty.call(message, "caCertificate"))
-                        writer.uint32(/* id 14, wireType 2 =*/114).bytes(message.caCertificate);
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiAccessPoint message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiAccessPoint
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiAccessPoint} WiFiAccessPoint
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiAccessPoint.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiAccessPoint();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.ssid = reader.string();
-                            break;
-                        case 2:
-                            message.bssid = reader.bytes();
-                            break;
-                        case 3:
-                            message.security = reader.int32();
-                            break;
-                        case 4:
-                            message.cipher = reader.int32();
-                            break;
-                        case 5:
-                            message.channel = reader.uint32();
-                            break;
-                        case 6:
-                            message.maxDataRate = reader.int32();
-                            break;
-                        case 7:
-                            message.rssi = reader.int32();
-                            break;
-                        case 8:
-                            message.password = reader.string();
-                            break;
-                        case 9:
-                            message.eapType = reader.int32();
-                            break;
-                        case 10:
-                            message.innerIdentity = reader.string();
-                            break;
-                        case 11:
-                            message.outerIdentity = reader.string();
-                            break;
-                        case 12:
-                            message.privateKey = reader.bytes();
-                            break;
-                        case 13:
-                            message.clientCertificate = reader.bytes();
-                            break;
-                        case 14:
-                            message.caCertificate = reader.bytes();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiAccessPoint;
-            })();
-    
-            ctrl.WiFiAccessPointList = (function() {
-    
-                /**
-                 * Properties of a WiFiAccessPointList.
-                 * @memberof particle.ctrl
-                 * @interface IWiFiAccessPointList
-                 * @property {Array.<particle.ctrl.IWiFiAccessPoint>|null} [aps] WiFiAccessPointList aps
-                 */
-    
-                /**
-                 * Constructs a new WiFiAccessPointList.
-                 * @memberof particle.ctrl
-                 * @classdesc Represents a WiFiAccessPointList.
-                 * @implements IWiFiAccessPointList
-                 * @constructor
-                 * @param {particle.ctrl.IWiFiAccessPointList=} [properties] Properties to set
-                 */
-                function WiFiAccessPointList(properties) {
-                    this.aps = [];
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-    
-                /**
-                 * WiFiAccessPointList aps.
-                 * @member {Array.<particle.ctrl.IWiFiAccessPoint>} aps
-                 * @memberof particle.ctrl.WiFiAccessPointList
-                 * @instance
-                 */
-                WiFiAccessPointList.prototype.aps = $util.emptyArray;
-    
-                /**
-                 * Creates a new WiFiAccessPointList instance using the specified properties.
-                 * @function create
-                 * @memberof particle.ctrl.WiFiAccessPointList
-                 * @static
-                 * @param {particle.ctrl.IWiFiAccessPointList=} [properties] Properties to set
-                 * @returns {particle.ctrl.WiFiAccessPointList} WiFiAccessPointList instance
-                 */
-                WiFiAccessPointList.create = function create(properties) {
-                    return new WiFiAccessPointList(properties);
-                };
-    
-                /**
-                 * Encodes the specified WiFiAccessPointList message. Does not implicitly {@link particle.ctrl.WiFiAccessPointList.verify|verify} messages.
-                 * @function encode
-                 * @memberof particle.ctrl.WiFiAccessPointList
-                 * @static
-                 * @param {particle.ctrl.IWiFiAccessPointList} message WiFiAccessPointList message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                WiFiAccessPointList.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.aps != null && message.aps.length)
-                        for (var i = 0; i < message.aps.length; ++i)
-                            $root.particle.ctrl.WiFiAccessPoint.encode(message.aps[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                    return writer;
-                };
-    
-                /**
-                 * Decodes a WiFiAccessPointList message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof particle.ctrl.WiFiAccessPointList
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {particle.ctrl.WiFiAccessPointList} WiFiAccessPointList
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                WiFiAccessPointList.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.particle.ctrl.WiFiAccessPointList();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            if (!(message.aps && message.aps.length))
-                                message.aps = [];
-                            message.aps.push($root.particle.ctrl.WiFiAccessPoint.decode(reader, reader.uint32()));
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-    
-                return WiFiAccessPointList;
             })();
     
             return ctrl;

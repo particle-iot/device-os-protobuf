@@ -480,6 +480,9 @@ export namespace particle {
 
                 /** GetIccidReply iccid */
                 iccid?: (string|null);
+
+                /** GetIccidReply imei */
+                imei?: (string|null);
             }
 
             /** Represents a GetIccidReply. */
@@ -493,6 +496,9 @@ export namespace particle {
 
                 /** GetIccidReply iccid. */
                 public iccid: string;
+
+                /** GetIccidReply imei. */
+                public imei: string;
 
                 /**
                  * Creates a new GetIccidReply instance using the specified properties.
@@ -6001,482 +6007,6 @@ export namespace particle {
             }
         }
 
-        /** Properties of a NetworkGetStatusRequest. */
-        interface INetworkGetStatusRequest {
-
-            /** NetworkGetStatusRequest interface */
-            "interface"?: (number|null);
-        }
-
-        /** Represents a NetworkGetStatusRequest. */
-        class NetworkGetStatusRequest implements INetworkGetStatusRequest {
-
-            /**
-             * Constructs a new NetworkGetStatusRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkGetStatusRequest);
-
-            /** NetworkGetStatusRequest interface. */
-            public interface: number;
-
-            /**
-             * Creates a new NetworkGetStatusRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkGetStatusRequest instance
-             */
-            public static create(properties?: particle.ctrl.INetworkGetStatusRequest): particle.ctrl.NetworkGetStatusRequest;
-
-            /**
-             * Encodes the specified NetworkGetStatusRequest message. Does not implicitly {@link particle.ctrl.NetworkGetStatusRequest.verify|verify} messages.
-             * @param message NetworkGetStatusRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkGetStatusRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkGetStatusRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkGetStatusRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetStatusRequest;
-        }
-
-        /** Properties of a NetworkGetStatusReply. */
-        interface INetworkGetStatusReply {
-
-            /** NetworkGetStatusReply config */
-            config?: (particle.ctrl.INetworkConfiguration|null);
-        }
-
-        /** Represents a NetworkGetStatusReply. */
-        class NetworkGetStatusReply implements INetworkGetStatusReply {
-
-            /**
-             * Constructs a new NetworkGetStatusReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkGetStatusReply);
-
-            /** NetworkGetStatusReply config. */
-            public config?: (particle.ctrl.INetworkConfiguration|null);
-
-            /**
-             * Creates a new NetworkGetStatusReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkGetStatusReply instance
-             */
-            public static create(properties?: particle.ctrl.INetworkGetStatusReply): particle.ctrl.NetworkGetStatusReply;
-
-            /**
-             * Encodes the specified NetworkGetStatusReply message. Does not implicitly {@link particle.ctrl.NetworkGetStatusReply.verify|verify} messages.
-             * @param message NetworkGetStatusReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkGetStatusReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkGetStatusReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkGetStatusReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetStatusReply;
-        }
-
-        /** Properties of a NetworkGetConfigurationRequest. */
-        interface INetworkGetConfigurationRequest {
-
-            /** NetworkGetConfigurationRequest interface */
-            "interface"?: (number|null);
-        }
-
-        /** Represents a NetworkGetConfigurationRequest. */
-        class NetworkGetConfigurationRequest implements INetworkGetConfigurationRequest {
-
-            /**
-             * Constructs a new NetworkGetConfigurationRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkGetConfigurationRequest);
-
-            /** NetworkGetConfigurationRequest interface. */
-            public interface: number;
-
-            /**
-             * Creates a new NetworkGetConfigurationRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkGetConfigurationRequest instance
-             */
-            public static create(properties?: particle.ctrl.INetworkGetConfigurationRequest): particle.ctrl.NetworkGetConfigurationRequest;
-
-            /**
-             * Encodes the specified NetworkGetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationRequest.verify|verify} messages.
-             * @param message NetworkGetConfigurationRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkGetConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkGetConfigurationRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkGetConfigurationRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetConfigurationRequest;
-        }
-
-        /** Properties of a NetworkGetConfigurationReply. */
-        interface INetworkGetConfigurationReply {
-
-            /** NetworkGetConfigurationReply config */
-            config?: (particle.ctrl.INetworkConfiguration|null);
-        }
-
-        /** Represents a NetworkGetConfigurationReply. */
-        class NetworkGetConfigurationReply implements INetworkGetConfigurationReply {
-
-            /**
-             * Constructs a new NetworkGetConfigurationReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkGetConfigurationReply);
-
-            /** NetworkGetConfigurationReply config. */
-            public config?: (particle.ctrl.INetworkConfiguration|null);
-
-            /**
-             * Creates a new NetworkGetConfigurationReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkGetConfigurationReply instance
-             */
-            public static create(properties?: particle.ctrl.INetworkGetConfigurationReply): particle.ctrl.NetworkGetConfigurationReply;
-
-            /**
-             * Encodes the specified NetworkGetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationReply.verify|verify} messages.
-             * @param message NetworkGetConfigurationReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkGetConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkGetConfigurationReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkGetConfigurationReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetConfigurationReply;
-        }
-
-        /** Properties of a NetworkSetConfigurationRequest. */
-        interface INetworkSetConfigurationRequest {
-
-            /** NetworkSetConfigurationRequest config */
-            config?: (particle.ctrl.INetworkConfiguration|null);
-        }
-
-        /** Represents a NetworkSetConfigurationRequest. */
-        class NetworkSetConfigurationRequest implements INetworkSetConfigurationRequest {
-
-            /**
-             * Constructs a new NetworkSetConfigurationRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkSetConfigurationRequest);
-
-            /** NetworkSetConfigurationRequest config. */
-            public config?: (particle.ctrl.INetworkConfiguration|null);
-
-            /**
-             * Creates a new NetworkSetConfigurationRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkSetConfigurationRequest instance
-             */
-            public static create(properties?: particle.ctrl.INetworkSetConfigurationRequest): particle.ctrl.NetworkSetConfigurationRequest;
-
-            /**
-             * Encodes the specified NetworkSetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationRequest.verify|verify} messages.
-             * @param message NetworkSetConfigurationRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkSetConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkSetConfigurationRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkSetConfigurationRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkSetConfigurationRequest;
-        }
-
-        /** Properties of a NetworkSetConfigurationReply. */
-        interface INetworkSetConfigurationReply {
-        }
-
-        /** Represents a NetworkSetConfigurationReply. */
-        class NetworkSetConfigurationReply implements INetworkSetConfigurationReply {
-
-            /**
-             * Constructs a new NetworkSetConfigurationReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkSetConfigurationReply);
-
-            /**
-             * Creates a new NetworkSetConfigurationReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkSetConfigurationReply instance
-             */
-            public static create(properties?: particle.ctrl.INetworkSetConfigurationReply): particle.ctrl.NetworkSetConfigurationReply;
-
-            /**
-             * Encodes the specified NetworkSetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationReply.verify|verify} messages.
-             * @param message NetworkSetConfigurationReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkSetConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkSetConfigurationReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkSetConfigurationReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkSetConfigurationReply;
-        }
-
-        /** NetworkState enum. */
-        enum NetworkState {
-            NETWORK_STATUS_NONE = 0,
-            DOWN = 1,
-            UP = 2
-        }
-
-        /** Properties of a IPConfiguration. */
-        interface IIPConfiguration {
-
-            /** IPConfiguration type */
-            type?: (particle.ctrl.IPConfiguration.Type|null);
-
-            /** IPConfiguration address */
-            address?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration netmask */
-            netmask?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration gateway */
-            gateway?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration dhcpServer */
-            dhcpServer?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration hostname */
-            hostname?: (string|null);
-        }
-
-        /** Represents a IPConfiguration. */
-        class IPConfiguration implements IIPConfiguration {
-
-            /**
-             * Constructs a new IPConfiguration.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IIPConfiguration);
-
-            /** IPConfiguration type. */
-            public type: particle.ctrl.IPConfiguration.Type;
-
-            /** IPConfiguration address. */
-            public address?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration netmask. */
-            public netmask?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration gateway. */
-            public gateway?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration dhcpServer. */
-            public dhcpServer?: (particle.ctrl.IIPAddress|null);
-
-            /** IPConfiguration hostname. */
-            public hostname: string;
-
-            /**
-             * Creates a new IPConfiguration instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns IPConfiguration instance
-             */
-            public static create(properties?: particle.ctrl.IIPConfiguration): particle.ctrl.IPConfiguration;
-
-            /**
-             * Encodes the specified IPConfiguration message. Does not implicitly {@link particle.ctrl.IPConfiguration.verify|verify} messages.
-             * @param message IPConfiguration message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IIPConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a IPConfiguration message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns IPConfiguration
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.IPConfiguration;
-        }
-
-        namespace IPConfiguration {
-
-            /** Type enum. */
-            enum Type {
-                NONE = 0,
-                DHCP = 1,
-                STATIC = 2
-            }
-        }
-
-        /** Properties of a DNSConfiguration. */
-        interface IDNSConfiguration {
-
-            /** DNSConfiguration servers */
-            servers?: (particle.ctrl.IIPAddress[]|null);
-        }
-
-        /** Represents a DNSConfiguration. */
-        class DNSConfiguration implements IDNSConfiguration {
-
-            /**
-             * Constructs a new DNSConfiguration.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IDNSConfiguration);
-
-            /** DNSConfiguration servers. */
-            public servers: particle.ctrl.IIPAddress[];
-
-            /**
-             * Creates a new DNSConfiguration instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns DNSConfiguration instance
-             */
-            public static create(properties?: particle.ctrl.IDNSConfiguration): particle.ctrl.DNSConfiguration;
-
-            /**
-             * Encodes the specified DNSConfiguration message. Does not implicitly {@link particle.ctrl.DNSConfiguration.verify|verify} messages.
-             * @param message DNSConfiguration message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IDNSConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a DNSConfiguration message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns DNSConfiguration
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.DNSConfiguration;
-        }
-
-        /** Properties of a NetworkConfiguration. */
-        interface INetworkConfiguration {
-
-            /** NetworkConfiguration interface */
-            "interface"?: (number|null);
-
-            /** NetworkConfiguration state */
-            state?: (particle.ctrl.NetworkState|null);
-
-            /** NetworkConfiguration name */
-            name?: (string|null);
-
-            /** NetworkConfiguration mac */
-            mac?: (Uint8Array|null);
-
-            /** NetworkConfiguration ipconfig */
-            ipconfig?: (particle.ctrl.IIPConfiguration|null);
-
-            /** NetworkConfiguration dnsconfig */
-            dnsconfig?: (particle.ctrl.IDNSConfiguration|null);
-        }
-
-        /** Represents a NetworkConfiguration. */
-        class NetworkConfiguration implements INetworkConfiguration {
-
-            /**
-             * Constructs a new NetworkConfiguration.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.INetworkConfiguration);
-
-            /** NetworkConfiguration interface. */
-            public interface: number;
-
-            /** NetworkConfiguration state. */
-            public state: particle.ctrl.NetworkState;
-
-            /** NetworkConfiguration name. */
-            public name: string;
-
-            /** NetworkConfiguration mac. */
-            public mac: Uint8Array;
-
-            /** NetworkConfiguration ipconfig. */
-            public ipconfig?: (particle.ctrl.IIPConfiguration|null);
-
-            /** NetworkConfiguration dnsconfig. */
-            public dnsconfig?: (particle.ctrl.IDNSConfiguration|null);
-
-            /**
-             * Creates a new NetworkConfiguration instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns NetworkConfiguration instance
-             */
-            public static create(properties?: particle.ctrl.INetworkConfiguration): particle.ctrl.NetworkConfiguration;
-
-            /**
-             * Encodes the specified NetworkConfiguration message. Does not implicitly {@link particle.ctrl.NetworkConfiguration.verify|verify} messages.
-             * @param message NetworkConfiguration message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.INetworkConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a NetworkConfiguration message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns NetworkConfiguration
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkConfiguration;
-        }
-
         /** InterfaceConfigurationSource enum. */
         enum InterfaceConfigurationSource {
             NONE = 0,
@@ -7304,6 +6834,482 @@ export namespace particle {
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
             public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.DeleteInterfaceStoredConfigurationReply;
+        }
+
+        /** Properties of a NetworkGetStatusRequest. */
+        interface INetworkGetStatusRequest {
+
+            /** NetworkGetStatusRequest interface */
+            "interface"?: (number|null);
+        }
+
+        /** Represents a NetworkGetStatusRequest. */
+        class NetworkGetStatusRequest implements INetworkGetStatusRequest {
+
+            /**
+             * Constructs a new NetworkGetStatusRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkGetStatusRequest);
+
+            /** NetworkGetStatusRequest interface. */
+            public interface: number;
+
+            /**
+             * Creates a new NetworkGetStatusRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkGetStatusRequest instance
+             */
+            public static create(properties?: particle.ctrl.INetworkGetStatusRequest): particle.ctrl.NetworkGetStatusRequest;
+
+            /**
+             * Encodes the specified NetworkGetStatusRequest message. Does not implicitly {@link particle.ctrl.NetworkGetStatusRequest.verify|verify} messages.
+             * @param message NetworkGetStatusRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkGetStatusRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkGetStatusRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkGetStatusRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetStatusRequest;
+        }
+
+        /** Properties of a NetworkGetStatusReply. */
+        interface INetworkGetStatusReply {
+
+            /** NetworkGetStatusReply config */
+            config?: (particle.ctrl.INetworkConfiguration|null);
+        }
+
+        /** Represents a NetworkGetStatusReply. */
+        class NetworkGetStatusReply implements INetworkGetStatusReply {
+
+            /**
+             * Constructs a new NetworkGetStatusReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkGetStatusReply);
+
+            /** NetworkGetStatusReply config. */
+            public config?: (particle.ctrl.INetworkConfiguration|null);
+
+            /**
+             * Creates a new NetworkGetStatusReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkGetStatusReply instance
+             */
+            public static create(properties?: particle.ctrl.INetworkGetStatusReply): particle.ctrl.NetworkGetStatusReply;
+
+            /**
+             * Encodes the specified NetworkGetStatusReply message. Does not implicitly {@link particle.ctrl.NetworkGetStatusReply.verify|verify} messages.
+             * @param message NetworkGetStatusReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkGetStatusReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkGetStatusReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkGetStatusReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetStatusReply;
+        }
+
+        /** Properties of a NetworkGetConfigurationRequest. */
+        interface INetworkGetConfigurationRequest {
+
+            /** NetworkGetConfigurationRequest interface */
+            "interface"?: (number|null);
+        }
+
+        /** Represents a NetworkGetConfigurationRequest. */
+        class NetworkGetConfigurationRequest implements INetworkGetConfigurationRequest {
+
+            /**
+             * Constructs a new NetworkGetConfigurationRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkGetConfigurationRequest);
+
+            /** NetworkGetConfigurationRequest interface. */
+            public interface: number;
+
+            /**
+             * Creates a new NetworkGetConfigurationRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkGetConfigurationRequest instance
+             */
+            public static create(properties?: particle.ctrl.INetworkGetConfigurationRequest): particle.ctrl.NetworkGetConfigurationRequest;
+
+            /**
+             * Encodes the specified NetworkGetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationRequest.verify|verify} messages.
+             * @param message NetworkGetConfigurationRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkGetConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkGetConfigurationRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkGetConfigurationRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetConfigurationRequest;
+        }
+
+        /** Properties of a NetworkGetConfigurationReply. */
+        interface INetworkGetConfigurationReply {
+
+            /** NetworkGetConfigurationReply config */
+            config?: (particle.ctrl.INetworkConfiguration|null);
+        }
+
+        /** Represents a NetworkGetConfigurationReply. */
+        class NetworkGetConfigurationReply implements INetworkGetConfigurationReply {
+
+            /**
+             * Constructs a new NetworkGetConfigurationReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkGetConfigurationReply);
+
+            /** NetworkGetConfigurationReply config. */
+            public config?: (particle.ctrl.INetworkConfiguration|null);
+
+            /**
+             * Creates a new NetworkGetConfigurationReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkGetConfigurationReply instance
+             */
+            public static create(properties?: particle.ctrl.INetworkGetConfigurationReply): particle.ctrl.NetworkGetConfigurationReply;
+
+            /**
+             * Encodes the specified NetworkGetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkGetConfigurationReply.verify|verify} messages.
+             * @param message NetworkGetConfigurationReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkGetConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkGetConfigurationReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkGetConfigurationReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkGetConfigurationReply;
+        }
+
+        /** Properties of a NetworkSetConfigurationRequest. */
+        interface INetworkSetConfigurationRequest {
+
+            /** NetworkSetConfigurationRequest config */
+            config?: (particle.ctrl.INetworkConfiguration|null);
+        }
+
+        /** Represents a NetworkSetConfigurationRequest. */
+        class NetworkSetConfigurationRequest implements INetworkSetConfigurationRequest {
+
+            /**
+             * Constructs a new NetworkSetConfigurationRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkSetConfigurationRequest);
+
+            /** NetworkSetConfigurationRequest config. */
+            public config?: (particle.ctrl.INetworkConfiguration|null);
+
+            /**
+             * Creates a new NetworkSetConfigurationRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkSetConfigurationRequest instance
+             */
+            public static create(properties?: particle.ctrl.INetworkSetConfigurationRequest): particle.ctrl.NetworkSetConfigurationRequest;
+
+            /**
+             * Encodes the specified NetworkSetConfigurationRequest message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationRequest.verify|verify} messages.
+             * @param message NetworkSetConfigurationRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkSetConfigurationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkSetConfigurationRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkSetConfigurationRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkSetConfigurationRequest;
+        }
+
+        /** Properties of a NetworkSetConfigurationReply. */
+        interface INetworkSetConfigurationReply {
+        }
+
+        /** Represents a NetworkSetConfigurationReply. */
+        class NetworkSetConfigurationReply implements INetworkSetConfigurationReply {
+
+            /**
+             * Constructs a new NetworkSetConfigurationReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkSetConfigurationReply);
+
+            /**
+             * Creates a new NetworkSetConfigurationReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkSetConfigurationReply instance
+             */
+            public static create(properties?: particle.ctrl.INetworkSetConfigurationReply): particle.ctrl.NetworkSetConfigurationReply;
+
+            /**
+             * Encodes the specified NetworkSetConfigurationReply message. Does not implicitly {@link particle.ctrl.NetworkSetConfigurationReply.verify|verify} messages.
+             * @param message NetworkSetConfigurationReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkSetConfigurationReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkSetConfigurationReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkSetConfigurationReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkSetConfigurationReply;
+        }
+
+        /** NetworkState enum. */
+        enum NetworkState {
+            NETWORK_STATUS_NONE = 0,
+            DOWN = 1,
+            UP = 2
+        }
+
+        /** Properties of a IPConfiguration. */
+        interface IIPConfiguration {
+
+            /** IPConfiguration type */
+            type?: (particle.ctrl.IPConfiguration.Type|null);
+
+            /** IPConfiguration address */
+            address?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration netmask */
+            netmask?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration gateway */
+            gateway?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration dhcpServer */
+            dhcpServer?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration hostname */
+            hostname?: (string|null);
+        }
+
+        /** Represents a IPConfiguration. */
+        class IPConfiguration implements IIPConfiguration {
+
+            /**
+             * Constructs a new IPConfiguration.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IIPConfiguration);
+
+            /** IPConfiguration type. */
+            public type: particle.ctrl.IPConfiguration.Type;
+
+            /** IPConfiguration address. */
+            public address?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration netmask. */
+            public netmask?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration gateway. */
+            public gateway?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration dhcpServer. */
+            public dhcpServer?: (particle.ctrl.IIPAddress|null);
+
+            /** IPConfiguration hostname. */
+            public hostname: string;
+
+            /**
+             * Creates a new IPConfiguration instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns IPConfiguration instance
+             */
+            public static create(properties?: particle.ctrl.IIPConfiguration): particle.ctrl.IPConfiguration;
+
+            /**
+             * Encodes the specified IPConfiguration message. Does not implicitly {@link particle.ctrl.IPConfiguration.verify|verify} messages.
+             * @param message IPConfiguration message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IIPConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a IPConfiguration message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns IPConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.IPConfiguration;
+        }
+
+        namespace IPConfiguration {
+
+            /** Type enum. */
+            enum Type {
+                NONE = 0,
+                DHCP = 1,
+                STATIC = 2
+            }
+        }
+
+        /** Properties of a DNSConfiguration. */
+        interface IDNSConfiguration {
+
+            /** DNSConfiguration servers */
+            servers?: (particle.ctrl.IIPAddress[]|null);
+        }
+
+        /** Represents a DNSConfiguration. */
+        class DNSConfiguration implements IDNSConfiguration {
+
+            /**
+             * Constructs a new DNSConfiguration.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IDNSConfiguration);
+
+            /** DNSConfiguration servers. */
+            public servers: particle.ctrl.IIPAddress[];
+
+            /**
+             * Creates a new DNSConfiguration instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns DNSConfiguration instance
+             */
+            public static create(properties?: particle.ctrl.IDNSConfiguration): particle.ctrl.DNSConfiguration;
+
+            /**
+             * Encodes the specified DNSConfiguration message. Does not implicitly {@link particle.ctrl.DNSConfiguration.verify|verify} messages.
+             * @param message DNSConfiguration message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IDNSConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a DNSConfiguration message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns DNSConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.DNSConfiguration;
+        }
+
+        /** Properties of a NetworkConfiguration. */
+        interface INetworkConfiguration {
+
+            /** NetworkConfiguration interface */
+            "interface"?: (number|null);
+
+            /** NetworkConfiguration state */
+            state?: (particle.ctrl.NetworkState|null);
+
+            /** NetworkConfiguration name */
+            name?: (string|null);
+
+            /** NetworkConfiguration mac */
+            mac?: (Uint8Array|null);
+
+            /** NetworkConfiguration ipconfig */
+            ipconfig?: (particle.ctrl.IIPConfiguration|null);
+
+            /** NetworkConfiguration dnsconfig */
+            dnsconfig?: (particle.ctrl.IDNSConfiguration|null);
+        }
+
+        /** Represents a NetworkConfiguration. */
+        class NetworkConfiguration implements INetworkConfiguration {
+
+            /**
+             * Constructs a new NetworkConfiguration.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.INetworkConfiguration);
+
+            /** NetworkConfiguration interface. */
+            public interface: number;
+
+            /** NetworkConfiguration state. */
+            public state: particle.ctrl.NetworkState;
+
+            /** NetworkConfiguration name. */
+            public name: string;
+
+            /** NetworkConfiguration mac. */
+            public mac: Uint8Array;
+
+            /** NetworkConfiguration ipconfig. */
+            public ipconfig?: (particle.ctrl.IIPConfiguration|null);
+
+            /** NetworkConfiguration dnsconfig. */
+            public dnsconfig?: (particle.ctrl.IDNSConfiguration|null);
+
+            /**
+             * Creates a new NetworkConfiguration instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns NetworkConfiguration instance
+             */
+            public static create(properties?: particle.ctrl.INetworkConfiguration): particle.ctrl.NetworkConfiguration;
+
+            /**
+             * Encodes the specified NetworkConfiguration message. Does not implicitly {@link particle.ctrl.NetworkConfiguration.verify|verify} messages.
+             * @param message NetworkConfiguration message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.INetworkConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a NetworkConfiguration message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NetworkConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.NetworkConfiguration;
         }
 
         /** StorageType enum. */
@@ -8670,6 +8676,706 @@ export namespace particle {
             public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.GetAssetInfoReply;
         }
 
+        /** Properties of a WiFiGetAntennaRequest. */
+        interface IWiFiGetAntennaRequest {
+        }
+
+        /** Represents a WiFiGetAntennaRequest. */
+        class WiFiGetAntennaRequest implements IWiFiGetAntennaRequest {
+
+            /**
+             * Constructs a new WiFiGetAntennaRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiGetAntennaRequest);
+
+            /**
+             * Creates a new WiFiGetAntennaRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiGetAntennaRequest instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiGetAntennaRequest): particle.ctrl.WiFiGetAntennaRequest;
+
+            /**
+             * Encodes the specified WiFiGetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaRequest.verify|verify} messages.
+             * @param message WiFiGetAntennaRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiGetAntennaRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiGetAntennaRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiGetAntennaRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetAntennaRequest;
+        }
+
+        /** Properties of a WiFiGetAntennaReply. */
+        interface IWiFiGetAntennaReply {
+
+            /** WiFiGetAntennaReply antenna */
+            antenna?: (particle.ctrl.WiFiAntenna|null);
+        }
+
+        /** Represents a WiFiGetAntennaReply. */
+        class WiFiGetAntennaReply implements IWiFiGetAntennaReply {
+
+            /**
+             * Constructs a new WiFiGetAntennaReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiGetAntennaReply);
+
+            /** WiFiGetAntennaReply antenna. */
+            public antenna: particle.ctrl.WiFiAntenna;
+
+            /**
+             * Creates a new WiFiGetAntennaReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiGetAntennaReply instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiGetAntennaReply): particle.ctrl.WiFiGetAntennaReply;
+
+            /**
+             * Encodes the specified WiFiGetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaReply.verify|verify} messages.
+             * @param message WiFiGetAntennaReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiGetAntennaReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiGetAntennaReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiGetAntennaReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetAntennaReply;
+        }
+
+        /** Properties of a WiFiSetAntennaRequest. */
+        interface IWiFiSetAntennaRequest {
+
+            /** WiFiSetAntennaRequest antenna */
+            antenna?: (particle.ctrl.WiFiAntenna|null);
+        }
+
+        /** Represents a WiFiSetAntennaRequest. */
+        class WiFiSetAntennaRequest implements IWiFiSetAntennaRequest {
+
+            /**
+             * Constructs a new WiFiSetAntennaRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiSetAntennaRequest);
+
+            /** WiFiSetAntennaRequest antenna. */
+            public antenna: particle.ctrl.WiFiAntenna;
+
+            /**
+             * Creates a new WiFiSetAntennaRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiSetAntennaRequest instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiSetAntennaRequest): particle.ctrl.WiFiSetAntennaRequest;
+
+            /**
+             * Encodes the specified WiFiSetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaRequest.verify|verify} messages.
+             * @param message WiFiSetAntennaRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiSetAntennaRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiSetAntennaRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiSetAntennaRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetAntennaRequest;
+        }
+
+        /** Properties of a WiFiSetAntennaReply. */
+        interface IWiFiSetAntennaReply {
+        }
+
+        /** Represents a WiFiSetAntennaReply. */
+        class WiFiSetAntennaReply implements IWiFiSetAntennaReply {
+
+            /**
+             * Constructs a new WiFiSetAntennaReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiSetAntennaReply);
+
+            /**
+             * Creates a new WiFiSetAntennaReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiSetAntennaReply instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiSetAntennaReply): particle.ctrl.WiFiSetAntennaReply;
+
+            /**
+             * Encodes the specified WiFiSetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaReply.verify|verify} messages.
+             * @param message WiFiSetAntennaReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiSetAntennaReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiSetAntennaReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiSetAntennaReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetAntennaReply;
+        }
+
+        /** Properties of a WiFiScanRequest. */
+        interface IWiFiScanRequest {
+        }
+
+        /** Represents a WiFiScanRequest. */
+        class WiFiScanRequest implements IWiFiScanRequest {
+
+            /**
+             * Constructs a new WiFiScanRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiScanRequest);
+
+            /**
+             * Creates a new WiFiScanRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiScanRequest instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiScanRequest): particle.ctrl.WiFiScanRequest;
+
+            /**
+             * Encodes the specified WiFiScanRequest message. Does not implicitly {@link particle.ctrl.WiFiScanRequest.verify|verify} messages.
+             * @param message WiFiScanRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiScanRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiScanRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiScanRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiScanRequest;
+        }
+
+        /** Properties of a WiFiScanReply. */
+        interface IWiFiScanReply {
+
+            /** WiFiScanReply list */
+            list?: (particle.ctrl.IWiFiAccessPointList|null);
+        }
+
+        /** Represents a WiFiScanReply. */
+        class WiFiScanReply implements IWiFiScanReply {
+
+            /**
+             * Constructs a new WiFiScanReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiScanReply);
+
+            /** WiFiScanReply list. */
+            public list?: (particle.ctrl.IWiFiAccessPointList|null);
+
+            /**
+             * Creates a new WiFiScanReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiScanReply instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiScanReply): particle.ctrl.WiFiScanReply;
+
+            /**
+             * Encodes the specified WiFiScanReply message. Does not implicitly {@link particle.ctrl.WiFiScanReply.verify|verify} messages.
+             * @param message WiFiScanReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiScanReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiScanReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiScanReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiScanReply;
+        }
+
+        /** Properties of a WiFiGetCredentialsRequest. */
+        interface IWiFiGetCredentialsRequest {
+        }
+
+        /** Represents a WiFiGetCredentialsRequest. */
+        class WiFiGetCredentialsRequest implements IWiFiGetCredentialsRequest {
+
+            /**
+             * Constructs a new WiFiGetCredentialsRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiGetCredentialsRequest);
+
+            /**
+             * Creates a new WiFiGetCredentialsRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiGetCredentialsRequest instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiGetCredentialsRequest): particle.ctrl.WiFiGetCredentialsRequest;
+
+            /**
+             * Encodes the specified WiFiGetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsRequest.verify|verify} messages.
+             * @param message WiFiGetCredentialsRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiGetCredentialsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiGetCredentialsRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiGetCredentialsRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetCredentialsRequest;
+        }
+
+        /** Properties of a WiFiGetCredentialsReply. */
+        interface IWiFiGetCredentialsReply {
+
+            /** WiFiGetCredentialsReply list */
+            list?: (particle.ctrl.IWiFiAccessPointList|null);
+        }
+
+        /** Represents a WiFiGetCredentialsReply. */
+        class WiFiGetCredentialsReply implements IWiFiGetCredentialsReply {
+
+            /**
+             * Constructs a new WiFiGetCredentialsReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiGetCredentialsReply);
+
+            /** WiFiGetCredentialsReply list. */
+            public list?: (particle.ctrl.IWiFiAccessPointList|null);
+
+            /**
+             * Creates a new WiFiGetCredentialsReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiGetCredentialsReply instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiGetCredentialsReply): particle.ctrl.WiFiGetCredentialsReply;
+
+            /**
+             * Encodes the specified WiFiGetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsReply.verify|verify} messages.
+             * @param message WiFiGetCredentialsReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiGetCredentialsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiGetCredentialsReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiGetCredentialsReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetCredentialsReply;
+        }
+
+        /** Properties of a WiFiSetCredentialsRequest. */
+        interface IWiFiSetCredentialsRequest {
+
+            /** WiFiSetCredentialsRequest ap */
+            ap?: (particle.ctrl.IWiFiAccessPoint|null);
+        }
+
+        /** Represents a WiFiSetCredentialsRequest. */
+        class WiFiSetCredentialsRequest implements IWiFiSetCredentialsRequest {
+
+            /**
+             * Constructs a new WiFiSetCredentialsRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiSetCredentialsRequest);
+
+            /** WiFiSetCredentialsRequest ap. */
+            public ap?: (particle.ctrl.IWiFiAccessPoint|null);
+
+            /**
+             * Creates a new WiFiSetCredentialsRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiSetCredentialsRequest instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiSetCredentialsRequest): particle.ctrl.WiFiSetCredentialsRequest;
+
+            /**
+             * Encodes the specified WiFiSetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsRequest.verify|verify} messages.
+             * @param message WiFiSetCredentialsRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiSetCredentialsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiSetCredentialsRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiSetCredentialsRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetCredentialsRequest;
+        }
+
+        /** Properties of a WiFiSetCredentialsReply. */
+        interface IWiFiSetCredentialsReply {
+        }
+
+        /** Represents a WiFiSetCredentialsReply. */
+        class WiFiSetCredentialsReply implements IWiFiSetCredentialsReply {
+
+            /**
+             * Constructs a new WiFiSetCredentialsReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiSetCredentialsReply);
+
+            /**
+             * Creates a new WiFiSetCredentialsReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiSetCredentialsReply instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiSetCredentialsReply): particle.ctrl.WiFiSetCredentialsReply;
+
+            /**
+             * Encodes the specified WiFiSetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsReply.verify|verify} messages.
+             * @param message WiFiSetCredentialsReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiSetCredentialsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiSetCredentialsReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiSetCredentialsReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetCredentialsReply;
+        }
+
+        /** Properties of a WiFiClearCredentialsRequest. */
+        interface IWiFiClearCredentialsRequest {
+        }
+
+        /** Represents a WiFiClearCredentialsRequest. */
+        class WiFiClearCredentialsRequest implements IWiFiClearCredentialsRequest {
+
+            /**
+             * Constructs a new WiFiClearCredentialsRequest.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiClearCredentialsRequest);
+
+            /**
+             * Creates a new WiFiClearCredentialsRequest instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiClearCredentialsRequest instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiClearCredentialsRequest): particle.ctrl.WiFiClearCredentialsRequest;
+
+            /**
+             * Encodes the specified WiFiClearCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsRequest.verify|verify} messages.
+             * @param message WiFiClearCredentialsRequest message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiClearCredentialsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiClearCredentialsRequest message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiClearCredentialsRequest
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiClearCredentialsRequest;
+        }
+
+        /** Properties of a WiFiClearCredentialsReply. */
+        interface IWiFiClearCredentialsReply {
+        }
+
+        /** Represents a WiFiClearCredentialsReply. */
+        class WiFiClearCredentialsReply implements IWiFiClearCredentialsReply {
+
+            /**
+             * Constructs a new WiFiClearCredentialsReply.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiClearCredentialsReply);
+
+            /**
+             * Creates a new WiFiClearCredentialsReply instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiClearCredentialsReply instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiClearCredentialsReply): particle.ctrl.WiFiClearCredentialsReply;
+
+            /**
+             * Encodes the specified WiFiClearCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsReply.verify|verify} messages.
+             * @param message WiFiClearCredentialsReply message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiClearCredentialsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiClearCredentialsReply message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiClearCredentialsReply
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiClearCredentialsReply;
+        }
+
+        /** WiFiAntenna enum. */
+        enum WiFiAntenna {
+            ANTENNA_NONE = 0,
+            INTERNAL = 1,
+            EXTERNAL = 2,
+            AUTO = 3
+        }
+
+        /** WiFiSecurityType enum. */
+        enum WiFiSecurityType {
+            UNSEC = 0,
+            WEP = 1,
+            WPA = 2,
+            WPA2 = 3,
+            WPA_ENTERPRISE = 4,
+            WPA2_ENTERPRISE = 5,
+            UNKNOWN = 255
+        }
+
+        /** WiFiSecurityCipher enum. */
+        enum WiFiSecurityCipher {
+            CIPHER_NONE = 0,
+            AES = 1,
+            TKIP = 2,
+            AES_TKIP = 3
+        }
+
+        /** EapType enum. */
+        enum EapType {
+            EAP_TYPE_NONE = 0,
+            TLS = 13,
+            PEAP = 25
+        }
+
+        /** Properties of a WiFiAccessPoint. */
+        interface IWiFiAccessPoint {
+
+            /** WiFiAccessPoint ssid */
+            ssid?: (string|null);
+
+            /** WiFiAccessPoint bssid */
+            bssid?: (Uint8Array|null);
+
+            /** WiFiAccessPoint security */
+            security?: (particle.ctrl.WiFiSecurityType|null);
+
+            /** WiFiAccessPoint cipher */
+            cipher?: (particle.ctrl.WiFiSecurityCipher|null);
+
+            /** WiFiAccessPoint channel */
+            channel?: (number|null);
+
+            /** WiFiAccessPoint maxDataRate */
+            maxDataRate?: (number|null);
+
+            /** WiFiAccessPoint rssi */
+            rssi?: (number|null);
+
+            /** WiFiAccessPoint password */
+            password?: (string|null);
+
+            /** WiFiAccessPoint eapType */
+            eapType?: (particle.ctrl.EapType|null);
+
+            /** WiFiAccessPoint innerIdentity */
+            innerIdentity?: (string|null);
+
+            /** WiFiAccessPoint outerIdentity */
+            outerIdentity?: (string|null);
+
+            /** WiFiAccessPoint privateKey */
+            privateKey?: (Uint8Array|null);
+
+            /** WiFiAccessPoint clientCertificate */
+            clientCertificate?: (Uint8Array|null);
+
+            /** WiFiAccessPoint caCertificate */
+            caCertificate?: (Uint8Array|null);
+        }
+
+        /** Represents a WiFiAccessPoint. */
+        class WiFiAccessPoint implements IWiFiAccessPoint {
+
+            /**
+             * Constructs a new WiFiAccessPoint.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiAccessPoint);
+
+            /** WiFiAccessPoint ssid. */
+            public ssid: string;
+
+            /** WiFiAccessPoint bssid. */
+            public bssid: Uint8Array;
+
+            /** WiFiAccessPoint security. */
+            public security: particle.ctrl.WiFiSecurityType;
+
+            /** WiFiAccessPoint cipher. */
+            public cipher: particle.ctrl.WiFiSecurityCipher;
+
+            /** WiFiAccessPoint channel. */
+            public channel: number;
+
+            /** WiFiAccessPoint maxDataRate. */
+            public maxDataRate: number;
+
+            /** WiFiAccessPoint rssi. */
+            public rssi: number;
+
+            /** WiFiAccessPoint password. */
+            public password: string;
+
+            /** WiFiAccessPoint eapType. */
+            public eapType: particle.ctrl.EapType;
+
+            /** WiFiAccessPoint innerIdentity. */
+            public innerIdentity: string;
+
+            /** WiFiAccessPoint outerIdentity. */
+            public outerIdentity: string;
+
+            /** WiFiAccessPoint privateKey. */
+            public privateKey: Uint8Array;
+
+            /** WiFiAccessPoint clientCertificate. */
+            public clientCertificate: Uint8Array;
+
+            /** WiFiAccessPoint caCertificate. */
+            public caCertificate: Uint8Array;
+
+            /**
+             * Creates a new WiFiAccessPoint instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiAccessPoint instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiAccessPoint): particle.ctrl.WiFiAccessPoint;
+
+            /**
+             * Encodes the specified WiFiAccessPoint message. Does not implicitly {@link particle.ctrl.WiFiAccessPoint.verify|verify} messages.
+             * @param message WiFiAccessPoint message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiAccessPoint, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiAccessPoint message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiAccessPoint
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiAccessPoint;
+        }
+
+        /** Properties of a WiFiAccessPointList. */
+        interface IWiFiAccessPointList {
+
+            /** WiFiAccessPointList aps */
+            aps?: (particle.ctrl.IWiFiAccessPoint[]|null);
+        }
+
+        /** Represents a WiFiAccessPointList. */
+        class WiFiAccessPointList implements IWiFiAccessPointList {
+
+            /**
+             * Constructs a new WiFiAccessPointList.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: particle.ctrl.IWiFiAccessPointList);
+
+            /** WiFiAccessPointList aps. */
+            public aps: particle.ctrl.IWiFiAccessPoint[];
+
+            /**
+             * Creates a new WiFiAccessPointList instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns WiFiAccessPointList instance
+             */
+            public static create(properties?: particle.ctrl.IWiFiAccessPointList): particle.ctrl.WiFiAccessPointList;
+
+            /**
+             * Encodes the specified WiFiAccessPointList message. Does not implicitly {@link particle.ctrl.WiFiAccessPointList.verify|verify} messages.
+             * @param message WiFiAccessPointList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: particle.ctrl.IWiFiAccessPointList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a WiFiAccessPointList message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns WiFiAccessPointList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiAccessPointList;
+        }
+
         /** Namespace wifi. */
         namespace wifi {
 
@@ -9520,706 +10226,6 @@ export namespace particle {
                     public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.wifi.ScanNetworksReply.Network;
                 }
             }
-        }
-
-        /** Properties of a WiFiGetAntennaRequest. */
-        interface IWiFiGetAntennaRequest {
-        }
-
-        /** Represents a WiFiGetAntennaRequest. */
-        class WiFiGetAntennaRequest implements IWiFiGetAntennaRequest {
-
-            /**
-             * Constructs a new WiFiGetAntennaRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiGetAntennaRequest);
-
-            /**
-             * Creates a new WiFiGetAntennaRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiGetAntennaRequest instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiGetAntennaRequest): particle.ctrl.WiFiGetAntennaRequest;
-
-            /**
-             * Encodes the specified WiFiGetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaRequest.verify|verify} messages.
-             * @param message WiFiGetAntennaRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiGetAntennaRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiGetAntennaRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiGetAntennaRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetAntennaRequest;
-        }
-
-        /** Properties of a WiFiGetAntennaReply. */
-        interface IWiFiGetAntennaReply {
-
-            /** WiFiGetAntennaReply antenna */
-            antenna?: (particle.ctrl.WiFiAntenna|null);
-        }
-
-        /** Represents a WiFiGetAntennaReply. */
-        class WiFiGetAntennaReply implements IWiFiGetAntennaReply {
-
-            /**
-             * Constructs a new WiFiGetAntennaReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiGetAntennaReply);
-
-            /** WiFiGetAntennaReply antenna. */
-            public antenna: particle.ctrl.WiFiAntenna;
-
-            /**
-             * Creates a new WiFiGetAntennaReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiGetAntennaReply instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiGetAntennaReply): particle.ctrl.WiFiGetAntennaReply;
-
-            /**
-             * Encodes the specified WiFiGetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiGetAntennaReply.verify|verify} messages.
-             * @param message WiFiGetAntennaReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiGetAntennaReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiGetAntennaReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiGetAntennaReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetAntennaReply;
-        }
-
-        /** Properties of a WiFiSetAntennaRequest. */
-        interface IWiFiSetAntennaRequest {
-
-            /** WiFiSetAntennaRequest antenna */
-            antenna?: (particle.ctrl.WiFiAntenna|null);
-        }
-
-        /** Represents a WiFiSetAntennaRequest. */
-        class WiFiSetAntennaRequest implements IWiFiSetAntennaRequest {
-
-            /**
-             * Constructs a new WiFiSetAntennaRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiSetAntennaRequest);
-
-            /** WiFiSetAntennaRequest antenna. */
-            public antenna: particle.ctrl.WiFiAntenna;
-
-            /**
-             * Creates a new WiFiSetAntennaRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiSetAntennaRequest instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiSetAntennaRequest): particle.ctrl.WiFiSetAntennaRequest;
-
-            /**
-             * Encodes the specified WiFiSetAntennaRequest message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaRequest.verify|verify} messages.
-             * @param message WiFiSetAntennaRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiSetAntennaRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiSetAntennaRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiSetAntennaRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetAntennaRequest;
-        }
-
-        /** Properties of a WiFiSetAntennaReply. */
-        interface IWiFiSetAntennaReply {
-        }
-
-        /** Represents a WiFiSetAntennaReply. */
-        class WiFiSetAntennaReply implements IWiFiSetAntennaReply {
-
-            /**
-             * Constructs a new WiFiSetAntennaReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiSetAntennaReply);
-
-            /**
-             * Creates a new WiFiSetAntennaReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiSetAntennaReply instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiSetAntennaReply): particle.ctrl.WiFiSetAntennaReply;
-
-            /**
-             * Encodes the specified WiFiSetAntennaReply message. Does not implicitly {@link particle.ctrl.WiFiSetAntennaReply.verify|verify} messages.
-             * @param message WiFiSetAntennaReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiSetAntennaReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiSetAntennaReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiSetAntennaReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetAntennaReply;
-        }
-
-        /** Properties of a WiFiScanRequest. */
-        interface IWiFiScanRequest {
-        }
-
-        /** Represents a WiFiScanRequest. */
-        class WiFiScanRequest implements IWiFiScanRequest {
-
-            /**
-             * Constructs a new WiFiScanRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiScanRequest);
-
-            /**
-             * Creates a new WiFiScanRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiScanRequest instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiScanRequest): particle.ctrl.WiFiScanRequest;
-
-            /**
-             * Encodes the specified WiFiScanRequest message. Does not implicitly {@link particle.ctrl.WiFiScanRequest.verify|verify} messages.
-             * @param message WiFiScanRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiScanRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiScanRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiScanRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiScanRequest;
-        }
-
-        /** Properties of a WiFiScanReply. */
-        interface IWiFiScanReply {
-
-            /** WiFiScanReply list */
-            list?: (particle.ctrl.IWiFiAccessPointList|null);
-        }
-
-        /** Represents a WiFiScanReply. */
-        class WiFiScanReply implements IWiFiScanReply {
-
-            /**
-             * Constructs a new WiFiScanReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiScanReply);
-
-            /** WiFiScanReply list. */
-            public list?: (particle.ctrl.IWiFiAccessPointList|null);
-
-            /**
-             * Creates a new WiFiScanReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiScanReply instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiScanReply): particle.ctrl.WiFiScanReply;
-
-            /**
-             * Encodes the specified WiFiScanReply message. Does not implicitly {@link particle.ctrl.WiFiScanReply.verify|verify} messages.
-             * @param message WiFiScanReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiScanReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiScanReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiScanReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiScanReply;
-        }
-
-        /** Properties of a WiFiGetCredentialsRequest. */
-        interface IWiFiGetCredentialsRequest {
-        }
-
-        /** Represents a WiFiGetCredentialsRequest. */
-        class WiFiGetCredentialsRequest implements IWiFiGetCredentialsRequest {
-
-            /**
-             * Constructs a new WiFiGetCredentialsRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiGetCredentialsRequest);
-
-            /**
-             * Creates a new WiFiGetCredentialsRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiGetCredentialsRequest instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiGetCredentialsRequest): particle.ctrl.WiFiGetCredentialsRequest;
-
-            /**
-             * Encodes the specified WiFiGetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsRequest.verify|verify} messages.
-             * @param message WiFiGetCredentialsRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiGetCredentialsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiGetCredentialsRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiGetCredentialsRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetCredentialsRequest;
-        }
-
-        /** Properties of a WiFiGetCredentialsReply. */
-        interface IWiFiGetCredentialsReply {
-
-            /** WiFiGetCredentialsReply list */
-            list?: (particle.ctrl.IWiFiAccessPointList|null);
-        }
-
-        /** Represents a WiFiGetCredentialsReply. */
-        class WiFiGetCredentialsReply implements IWiFiGetCredentialsReply {
-
-            /**
-             * Constructs a new WiFiGetCredentialsReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiGetCredentialsReply);
-
-            /** WiFiGetCredentialsReply list. */
-            public list?: (particle.ctrl.IWiFiAccessPointList|null);
-
-            /**
-             * Creates a new WiFiGetCredentialsReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiGetCredentialsReply instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiGetCredentialsReply): particle.ctrl.WiFiGetCredentialsReply;
-
-            /**
-             * Encodes the specified WiFiGetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiGetCredentialsReply.verify|verify} messages.
-             * @param message WiFiGetCredentialsReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiGetCredentialsReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiGetCredentialsReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiGetCredentialsReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiGetCredentialsReply;
-        }
-
-        /** Properties of a WiFiSetCredentialsRequest. */
-        interface IWiFiSetCredentialsRequest {
-
-            /** WiFiSetCredentialsRequest ap */
-            ap?: (particle.ctrl.IWiFiAccessPoint|null);
-        }
-
-        /** Represents a WiFiSetCredentialsRequest. */
-        class WiFiSetCredentialsRequest implements IWiFiSetCredentialsRequest {
-
-            /**
-             * Constructs a new WiFiSetCredentialsRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiSetCredentialsRequest);
-
-            /** WiFiSetCredentialsRequest ap. */
-            public ap?: (particle.ctrl.IWiFiAccessPoint|null);
-
-            /**
-             * Creates a new WiFiSetCredentialsRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiSetCredentialsRequest instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiSetCredentialsRequest): particle.ctrl.WiFiSetCredentialsRequest;
-
-            /**
-             * Encodes the specified WiFiSetCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsRequest.verify|verify} messages.
-             * @param message WiFiSetCredentialsRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiSetCredentialsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiSetCredentialsRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiSetCredentialsRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetCredentialsRequest;
-        }
-
-        /** Properties of a WiFiSetCredentialsReply. */
-        interface IWiFiSetCredentialsReply {
-        }
-
-        /** Represents a WiFiSetCredentialsReply. */
-        class WiFiSetCredentialsReply implements IWiFiSetCredentialsReply {
-
-            /**
-             * Constructs a new WiFiSetCredentialsReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiSetCredentialsReply);
-
-            /**
-             * Creates a new WiFiSetCredentialsReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiSetCredentialsReply instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiSetCredentialsReply): particle.ctrl.WiFiSetCredentialsReply;
-
-            /**
-             * Encodes the specified WiFiSetCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiSetCredentialsReply.verify|verify} messages.
-             * @param message WiFiSetCredentialsReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiSetCredentialsReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiSetCredentialsReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiSetCredentialsReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiSetCredentialsReply;
-        }
-
-        /** Properties of a WiFiClearCredentialsRequest. */
-        interface IWiFiClearCredentialsRequest {
-        }
-
-        /** Represents a WiFiClearCredentialsRequest. */
-        class WiFiClearCredentialsRequest implements IWiFiClearCredentialsRequest {
-
-            /**
-             * Constructs a new WiFiClearCredentialsRequest.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiClearCredentialsRequest);
-
-            /**
-             * Creates a new WiFiClearCredentialsRequest instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiClearCredentialsRequest instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiClearCredentialsRequest): particle.ctrl.WiFiClearCredentialsRequest;
-
-            /**
-             * Encodes the specified WiFiClearCredentialsRequest message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsRequest.verify|verify} messages.
-             * @param message WiFiClearCredentialsRequest message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiClearCredentialsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiClearCredentialsRequest message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiClearCredentialsRequest
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiClearCredentialsRequest;
-        }
-
-        /** Properties of a WiFiClearCredentialsReply. */
-        interface IWiFiClearCredentialsReply {
-        }
-
-        /** Represents a WiFiClearCredentialsReply. */
-        class WiFiClearCredentialsReply implements IWiFiClearCredentialsReply {
-
-            /**
-             * Constructs a new WiFiClearCredentialsReply.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiClearCredentialsReply);
-
-            /**
-             * Creates a new WiFiClearCredentialsReply instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiClearCredentialsReply instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiClearCredentialsReply): particle.ctrl.WiFiClearCredentialsReply;
-
-            /**
-             * Encodes the specified WiFiClearCredentialsReply message. Does not implicitly {@link particle.ctrl.WiFiClearCredentialsReply.verify|verify} messages.
-             * @param message WiFiClearCredentialsReply message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiClearCredentialsReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiClearCredentialsReply message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiClearCredentialsReply
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiClearCredentialsReply;
-        }
-
-        /** WiFiAntenna enum. */
-        enum WiFiAntenna {
-            ANTENNA_NONE = 0,
-            INTERNAL = 1,
-            EXTERNAL = 2,
-            AUTO = 3
-        }
-
-        /** WiFiSecurityType enum. */
-        enum WiFiSecurityType {
-            UNSEC = 0,
-            WEP = 1,
-            WPA = 2,
-            WPA2 = 3,
-            WPA_ENTERPRISE = 4,
-            WPA2_ENTERPRISE = 5,
-            UNKNOWN = 255
-        }
-
-        /** WiFiSecurityCipher enum. */
-        enum WiFiSecurityCipher {
-            CIPHER_NONE = 0,
-            AES = 1,
-            TKIP = 2,
-            AES_TKIP = 3
-        }
-
-        /** EapType enum. */
-        enum EapType {
-            EAP_TYPE_NONE = 0,
-            TLS = 13,
-            PEAP = 25
-        }
-
-        /** Properties of a WiFiAccessPoint. */
-        interface IWiFiAccessPoint {
-
-            /** WiFiAccessPoint ssid */
-            ssid?: (string|null);
-
-            /** WiFiAccessPoint bssid */
-            bssid?: (Uint8Array|null);
-
-            /** WiFiAccessPoint security */
-            security?: (particle.ctrl.WiFiSecurityType|null);
-
-            /** WiFiAccessPoint cipher */
-            cipher?: (particle.ctrl.WiFiSecurityCipher|null);
-
-            /** WiFiAccessPoint channel */
-            channel?: (number|null);
-
-            /** WiFiAccessPoint maxDataRate */
-            maxDataRate?: (number|null);
-
-            /** WiFiAccessPoint rssi */
-            rssi?: (number|null);
-
-            /** WiFiAccessPoint password */
-            password?: (string|null);
-
-            /** WiFiAccessPoint eapType */
-            eapType?: (particle.ctrl.EapType|null);
-
-            /** WiFiAccessPoint innerIdentity */
-            innerIdentity?: (string|null);
-
-            /** WiFiAccessPoint outerIdentity */
-            outerIdentity?: (string|null);
-
-            /** WiFiAccessPoint privateKey */
-            privateKey?: (Uint8Array|null);
-
-            /** WiFiAccessPoint clientCertificate */
-            clientCertificate?: (Uint8Array|null);
-
-            /** WiFiAccessPoint caCertificate */
-            caCertificate?: (Uint8Array|null);
-        }
-
-        /** Represents a WiFiAccessPoint. */
-        class WiFiAccessPoint implements IWiFiAccessPoint {
-
-            /**
-             * Constructs a new WiFiAccessPoint.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiAccessPoint);
-
-            /** WiFiAccessPoint ssid. */
-            public ssid: string;
-
-            /** WiFiAccessPoint bssid. */
-            public bssid: Uint8Array;
-
-            /** WiFiAccessPoint security. */
-            public security: particle.ctrl.WiFiSecurityType;
-
-            /** WiFiAccessPoint cipher. */
-            public cipher: particle.ctrl.WiFiSecurityCipher;
-
-            /** WiFiAccessPoint channel. */
-            public channel: number;
-
-            /** WiFiAccessPoint maxDataRate. */
-            public maxDataRate: number;
-
-            /** WiFiAccessPoint rssi. */
-            public rssi: number;
-
-            /** WiFiAccessPoint password. */
-            public password: string;
-
-            /** WiFiAccessPoint eapType. */
-            public eapType: particle.ctrl.EapType;
-
-            /** WiFiAccessPoint innerIdentity. */
-            public innerIdentity: string;
-
-            /** WiFiAccessPoint outerIdentity. */
-            public outerIdentity: string;
-
-            /** WiFiAccessPoint privateKey. */
-            public privateKey: Uint8Array;
-
-            /** WiFiAccessPoint clientCertificate. */
-            public clientCertificate: Uint8Array;
-
-            /** WiFiAccessPoint caCertificate. */
-            public caCertificate: Uint8Array;
-
-            /**
-             * Creates a new WiFiAccessPoint instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiAccessPoint instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiAccessPoint): particle.ctrl.WiFiAccessPoint;
-
-            /**
-             * Encodes the specified WiFiAccessPoint message. Does not implicitly {@link particle.ctrl.WiFiAccessPoint.verify|verify} messages.
-             * @param message WiFiAccessPoint message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiAccessPoint, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiAccessPoint message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiAccessPoint
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiAccessPoint;
-        }
-
-        /** Properties of a WiFiAccessPointList. */
-        interface IWiFiAccessPointList {
-
-            /** WiFiAccessPointList aps */
-            aps?: (particle.ctrl.IWiFiAccessPoint[]|null);
-        }
-
-        /** Represents a WiFiAccessPointList. */
-        class WiFiAccessPointList implements IWiFiAccessPointList {
-
-            /**
-             * Constructs a new WiFiAccessPointList.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: particle.ctrl.IWiFiAccessPointList);
-
-            /** WiFiAccessPointList aps. */
-            public aps: particle.ctrl.IWiFiAccessPoint[];
-
-            /**
-             * Creates a new WiFiAccessPointList instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns WiFiAccessPointList instance
-             */
-            public static create(properties?: particle.ctrl.IWiFiAccessPointList): particle.ctrl.WiFiAccessPointList;
-
-            /**
-             * Encodes the specified WiFiAccessPointList message. Does not implicitly {@link particle.ctrl.WiFiAccessPointList.verify|verify} messages.
-             * @param message WiFiAccessPointList message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: particle.ctrl.IWiFiAccessPointList, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a WiFiAccessPointList message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns WiFiAccessPointList
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): particle.ctrl.WiFiAccessPointList;
         }
     }
 
