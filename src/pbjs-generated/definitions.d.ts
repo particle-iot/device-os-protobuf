@@ -480,6 +480,9 @@ export namespace particle {
 
                 /** GetIccidReply iccid */
                 iccid?: (string|null);
+
+                /** GetIccidReply imei */
+                imei?: (string|null);
             }
 
             /** Represents a GetIccidReply. */
@@ -493,6 +496,9 @@ export namespace particle {
 
                 /** GetIccidReply iccid. */
                 public iccid: string;
+
+                /** GetIccidReply imei. */
+                public imei: string;
 
                 /**
                  * Creates a new GetIccidReply instance using the specified properties.

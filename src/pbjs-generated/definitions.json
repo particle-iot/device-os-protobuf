@@ -118,6 +118,10 @@
                     "iccid": {
                       "type": "string",
                       "id": 1
+                    },
+                    "imei": {
+                      "type": "string",
+                      "id": 2
                     }
                   }
                 }

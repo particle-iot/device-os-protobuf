@@ -1002,6 +1002,7 @@
                      * @memberof particle.ctrl.cellular
                      * @interface IGetIccidReply
                      * @property {string|null} [iccid] GetIccidReply iccid
+                     * @property {string|null} [imei] GetIccidReply imei
                      */
     
                     /**
@@ -1026,6 +1027,14 @@
                      * @instance
                      */
                     GetIccidReply.prototype.iccid = "";
+    
+                    /**
+                     * GetIccidReply imei.
+                     * @member {string} imei
+                     * @memberof particle.ctrl.cellular.GetIccidReply
+                     * @instance
+                     */
+                    GetIccidReply.prototype.imei = "";
     
                     /**
                      * Creates a new GetIccidReply instance using the specified properties.
@@ -1053,6 +1062,8 @@
                             writer = $Writer.create();
                         if (message.iccid != null && Object.hasOwnProperty.call(message, "iccid"))
                             writer.uint32(/* id 1, wireType 2 =*/10).string(message.iccid);
+                        if (message.imei != null && Object.hasOwnProperty.call(message, "imei"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.imei);
                         return writer;
                     };
     
@@ -1076,6 +1087,9 @@
                             switch (tag >>> 3) {
                             case 1:
                                 message.iccid = reader.string();
+                                break;
+                            case 2:
+                                message.imei = reader.string();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
