@@ -1,6 +1,6 @@
 {
   "name": "@particle/device-os-protobuf",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Particle Device OS Protobuf Definitions",
   "main": "src/index.js",
   "types": "src/index.d.ts",
