@@ -40,6 +40,10 @@
     "url": "https://github.com/particle-iot/firmware-protobuf/issues"
   },
   "homepage": "https://github.com/particle-iot/firmware-protobuf#readme",
+  "engines": {
+    "node": ">=16.x",
+    "npm": "8.x"
+  },
   "dependencies": {
     "protobufjs": "^6.11.2"
   },
