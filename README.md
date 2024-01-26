@@ -46,7 +46,6 @@ Packages are only released from the `main` branch after peer review via the foll
 	* `$ npm test:ci`
 1. Tag a new version:
     * `npm version` 
-    * `$ git add` + `commit`
 1. Cut the release:
     * `$ git push origin main --follow-tags`
     * CircleCI will publish the package to npm.
