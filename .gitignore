@@ -38,4 +38,4 @@ node_modules
 .nyc_output
 
 # Generated files
-dist/
+/src/pbjs-generated/
