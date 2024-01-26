@@ -4,7 +4,7 @@ jobs:
   run-tests:
     working_directory: ~/repo
     docker:
-      - image: cimg/node:12.22.7 # Primary execution image
+      - image: cimg/node:16.20.2 # Primary execution image
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
@@ -22,7 +22,7 @@ jobs:
   publish-npm:
     working_directory: ~/repo
     docker:
-      - image: cimg/node:12.22.7 # Primary execution image
+      - image: cimg/node:16.20.2 # Primary execution image
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
