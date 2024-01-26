@@ -47,6 +47,9 @@
     "npm": "8.x"
   },
   "files": [
+    "cloud",
+    "control",
+    "nanopb",
     "src"
   ],
   "dependencies": {
