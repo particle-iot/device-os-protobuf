@@ -39,3 +39,4 @@ node_modules
 
 # Generated files
 /src/pbjs-generated/
+/src/**/*.d.ts
