@@ -468,6 +468,38 @@ describe('deviceOSProtobuf', () => {
 			expect(decodedReplyMsg.serial).to.eql(mockExpectedSerialNumber);
 		});
 	});
+
+	it('serializes message fields in order of their field numbers', () => {
+		// Device OS requires the fields of a ledger request or response message to be encoded in the
+		// order of their numbers, which is not guaranteed by the Protobuf spec in general
+		const { schema } = DeviceOSProtobuf;
+		const req = schema.cloud.Request.create({
+			// All object properties are specified in reversed order
+			ledgerNotifyUpdate: {
+				ledgers: [
+					{
+						lastUpdated: 123,
+						name: 'abc'
+					}
+				]
+			},
+			type: schema.cloud.Request.Type.LEDGER_NOTIFY_UPDATE
+		});
+		let buf = schema.cloud.Request.encode(req).finish();
+		expect(buf.toString('hex')).to.equal('080532100a0e0a03616263117b00000000000000');
+
+		const resp = schema.cloud.Response.create({
+			// All object properties are specified in reversed order
+			ledgerGetData: {
+				data: Buffer.from('aabbcc', 'hex'),
+				lastUpdated: 123,
+			},
+			message: 'abc',
+			result: schema.cloud.Response.Result.LEDGER_TOO_LARGE_DATA // Just so that `result` is non-zero
+		});
+		buf = schema.cloud.Response.encode(resp).finish();
+		expect(buf.toString('hex')).to.equal('080c12036162632a0e097b000000000000005203aabbcc');
+	});
 });
 
 
