@@ -418,7 +418,9 @@ describe('deviceOSProtobuf', () => {
 				'SetInterfaceStoredConfigurationRequest',
 				'SetInterfaceStoredConfigurationReply',
 				'DeleteInterfaceStoredConfigurationRequest',
-				'DeleteInterfaceStoredConfigurationReply'
+				'DeleteInterfaceStoredConfigurationReply',
+				'GetProtectedStateRequest',
+				'GetProtectedStateReply'
 			]);
 
 			const missingDefs = [];
