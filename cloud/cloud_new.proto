@@ -1,0 +1,114 @@
+/**
+ * A request sent by the device when it starts or resumes a session with the server.
+ */
+message HelloRequest {
+  /**
+   * Flags.
+   */
+  enum Flag {
+    FLAG_NONE = 0;
+    FLAG_SAFE_MODE = 0x01; ///< Device is in safe mode.
+    FLAG_UPDATE_ENABLED = 0x02; ///< Firmware updates disabled.
+  }
+
+  uint32 system_version = 1; ///< Module version of the system firmware.
+  uint32 product_version = 2; ///< Product firmware version.
+  fixed32 flags = 3;
+  bytes system_description_hash = 4 [(nanopb).max_size = 20]; ///< SHA-1 hash of the system description
+  bytes app_state_hash = 5 [(nanopb).max_size = 20]; ///< SHA-1 hash of the application state
+  bytes constrained_app_state_hash = 6 [(nanopb).max_size = 20]; ///< SHA-1 hash of the constrained application state
+}
+
+message HelloResponse {
+  enum Flag {
+    FLAG_NONE = 0;
+    FLAG_UPDATE_PENDING = 0x01;
+    FLAG_UPDATE_CHECK_PENDING = 0x02;
+  }
+
+  fixed32 flags = 1;
+}
+
+message SystemDescriptionRequest {
+  enum Flag {
+    FLAG_ALL = 0;
+    FLAG_MODULE_ALL = 0x0001;
+    FLAG_MODULE_DEPENDENCIES = 0x0002;
+    FLAG_MODULE_SYSTEM_HASH = 0x0004;
+    FLAG_MODULE_APP_HASH = 0x0008;
+    FLAG_MODULE_CERTIFICATE_FINGERPRINT = 0x0010;
+    FLAG_ASSET_ALL = 0x0020;
+    FLAG_ASSET_HASH = 0x0040;
+    FLAG_CELLULAR_ALL = 0x0080;
+    FLAG_CELLULAR_IMEI = 0x0100;
+    FLAG_CELLULAR_ICCID = 0x0200;
+    FLAG_CELLULAR_MODEM_FIRMWARE_VERSION = 0x0400;
+  }
+
+  fixed32 flags = 1;
+}
+
+message SystemDescriptionResponse {
+  bytes system_state_hash = 1 [(nanopb).max_size = 20];
+  // TODO: Describe data...
+}
+
+message DiagnosticsRequest {
+  enum Flag {
+    FLAG_NONE = 0;
+    FLAG_NETWORK_ALL = 0x0001;
+    FLAG_NETWORK_CELLULAR_ALL = 0x0002;
+    FLAG_NETWORK_CELLULAR_SETTINGS = 0x0004;
+    FLAG_NETWORK_CELLULAR_SIGNAL = 0x0008;
+  }
+
+  fixed32 flags = 1;
+}
+
+message DiagnosticsResponse {
+  // TODO: Diagnostic data...
+}
+
+message AppStateRequest {
+  enum Flag {
+    FLAG_NONE = 0;
+    FLAG_LEGACY_FUNCTIONS = 0x0001;
+    FLAG_LEGACY_VARIABLES = 0x0002;
+    FLAG_SUBSCRIPTIONS = 0x0004;
+    FLAG_CONSTRAINED_SUBSCRIPTIONS = 0x0008;
+  }
+
+  fixed32 flags = 1;
+}
+
+message AppStateResponse {
+  message Subscription {
+    string prefix = 1;
+  }
+
+  message ConstrainedSubscription {
+    string prefix = 1;
+  }
+
+  message LegacyFunction {
+    string name = 1;
+  }
+
+  message LegacyVariable {
+    enum Type {
+      TYPE_INVALID = 0;
+      TYPE_BOOL = 1;
+      TYPE_INT32 = 2;
+      TYPE_DOUBLE = 3;
+      TYPE_STRING = 4;
+    }
+
+    string name = 1;
+    Type type = 2;
+  }
+
+  repeated Subscription subscriptions = 1;
+  repeated ConstrainedSubscription constrained_subscriptions = 2;
+  repeated LegacyFunction legacy_functions = 3;
+  repeated LegacyVariable legacy_variables = 4;
+}
