@@ -142,3 +142,22 @@ message ScanNetworksReply {
 
   repeated Network networks = 1; // All found networks
 }
+
+/**
+ * Store network credential but do not attempt to power on wifi or connect.
+ *
+ * On success, the network credentials get saved to a persistent storage.
+ * On failure, there was not enough room to store the credentials
+ */
+message SetNetworkCredentialsRequest {
+  option (type_id) = 507; // CTRL_REQUEST_WIFI_SET_NETWORK_CREDENTIALS
+  string ssid = 1; // Network SSID
+  bytes bssid = 2 [(nanopb).max_size = 6]; // Network address
+  Security security = 3; // Network security
+  Credentials credentials = 4; // Network credentials
+  Interface interface_config = 5; // Network interface configuration (IP, mask, DNS etc)
+  bool hidden = 6;
+}
+
+message SetNetworkCredentialsReply {
+}
