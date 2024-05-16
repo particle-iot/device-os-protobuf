@@ -348,6 +348,8 @@ describe('deviceOSProtobuf', () => {
 				'wifi.GetCurrentNetworkReply',
 				'wifi.ScanNetworksRequest',
 				'wifi.ScanNetworksReply',
+				'wifi.SetNetworkCredentialsRequest',
+				'wifi.SetNetworkCredentialsReply',
 				'logging.LogLevel',
 				'logging.LogHandlerType',
 				'logging.StreamType',
