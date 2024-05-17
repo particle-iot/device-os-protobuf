@@ -239,9 +239,9 @@ message SetProtectedStateRequest {
   option (type_id) = 77; // CTRL_REQUEST_SET_PROTECTED_STATE
 
   enum Action {
-    ENABLE = 0,
-    DISABLE_REQUEST = 1,
-    DISABLE_CONFIRM = 2
+    ENABLE = 0;
+    DISABLE_REQUEST = 1;
+    DISABLE_CONFIRM = 2;
   }
 
   Action action = 1;
