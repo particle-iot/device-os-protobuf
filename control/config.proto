@@ -233,8 +233,27 @@ message GetProtectedStateRequest {
 
 message GetProtectedStateReply {
   bool state = 1;
+  bool overridden = 2;
 }
 
+message SetProtectedStateRequest {
+  option (type_id) = 77; // CTRL_REQUEST_SET_PROTECTED_STATE
+
+  enum Action {
+    RESET = 0;
+    DISABLE_REQUEST = 1;
+    DISABLE_CONFIRM = 2;
+  }
+
+  Action action = 1;
+  optional bytes server_nonce = 2 [(nanopb).max_size = 32];
+  optional bytes server_signature = 3;
+}
+
+message SetProtectedStateReply {
+  optional bytes client_nonce = 1 [(nanopb).max_size = 32];
+  optional bytes client_signature = 2;
+}
 
 // Resets the device, just like hitting the reset button or powering down and back up
 message SystemResetRequest {
