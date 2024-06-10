@@ -238,21 +238,39 @@ message GetProtectedStateReply {
 
 message SetProtectedStateRequest {
   option (type_id) = 77; // CTRL_REQUEST_SET_PROTECTED_STATE
+  option (nanopb_msgopt).no_unions = true;
 
   enum Action {
     RESET = 0;
-    DISABLE_REQUEST = 1;
-    DISABLE_CONFIRM = 2;
+    PREPARE_CHANGE = 1;
+    CONFIRM_CHANGE = 2;
+  }
+
+  message PrepareChange {
+    bytes server_nonce = 1 [(nanopb).max_size = 32];
+  }
+
+  message ConfirmChange {
+    bytes server_signature = 1;
+    bytes server_public_key_fingerprint = 2 [(nanopb).max_size = 32];
   }
 
   Action action = 1;
-  optional bytes server_nonce = 2 [(nanopb).max_size = 32];
-  optional bytes server_signature = 3;
+
+  oneof data {
+    PrepareChange prepare_change = 2;
+    ConfirmChange confirm_change = 3;
+  }
 }
 
 message SetProtectedStateReply {
-  optional bytes client_nonce = 1 [(nanopb).max_size = 32];
-  optional bytes client_signature = 2;
+  message PrepareChange {
+    bytes device_nonce = 1 [(nanopb).max_size = 32];
+    bytes device_signature = 2;
+    bytes device_public_key_fingerprint = 3 [(nanopb).max_size = 32];
+  }
+
+  PrepareChange prepare_change = 1;
 }
 
 // Resets the device, just like hitting the reset button or powering down and back up
