@@ -238,6 +238,7 @@ message GetProtectedStateReply {
 
 message SetProtectedStateRequest {
   option (type_id) = 77; // CTRL_REQUEST_SET_PROTECTED_STATE
+  option (nanopb_msgopt).no_unions = true;
 
   enum Action {
     RESET = 0;
