@@ -159,7 +159,7 @@ Type: [Object][20]
 
 [16]: #properties-1
 
-[17]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L15-L20 "Source code on GitHub"
+[17]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L15-L20 "Source code on GitHub"
 
 [18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
@@ -169,26 +169,26 @@ Type: [Object][20]
 
 [21]: https://nodejs.org/api/buffer.html
 
-[22]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L45-L48 "Source code on GitHub"
+[22]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L45-L48 "Source code on GitHub"
 
-[23]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L54-L71 "Source code on GitHub"
+[23]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L54-L71 "Source code on GitHub"
 
 [24]: #protobufdefinition
 
-[25]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L93-L107 "Source code on GitHub"
+[25]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L93-L107 "Source code on GitHub"
 
 [26]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[27]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L112-L120 "Source code on GitHub"
+[27]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L112-L120 "Source code on GitHub"
 
-[28]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L173-L173 "Source code on GitHub"
+[28]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L173-L173 "Source code on GitHub"
 
-[29]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L179-L179 "Source code on GitHub"
+[29]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L179-L179 "Source code on GitHub"
 
-[30]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L73-L78 "Source code on GitHub"
+[30]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L73-L78 "Source code on GitHub"
 
 [31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
 [32]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[33]: https://github.com/particle-iot/device-os-protobuf/blob/6d35e1a9bf24342e03acb4e5ff1febd980d09d01/src/index.js#L81-L87 "Source code on GitHub"
+[33]: https://github.com/particle-iot/device-os-protobuf/blob/6f399930be7e9d5c01d4ffe3699364a243798270/src/index.js#L81-L87 "Source code on GitHub"
