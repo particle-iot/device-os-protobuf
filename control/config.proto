@@ -242,15 +242,15 @@ message SetProtectedStateRequest {
 
   enum Action {
     RESET = 0;
-    PREPARE_CHANGE = 1;
-    CONFIRM_CHANGE = 2;
+    PREPARE = 1;
+    CONFIRM = 2;
   }
 
-  message PrepareChange {
+  message Prepare {
     bytes server_nonce = 1 [(nanopb).max_size = 32];
   }
 
-  message ConfirmChange {
+  message Confirm {
     bytes server_signature = 1;
     bytes server_public_key_fingerprint = 2 [(nanopb).max_size = 32];
   }
@@ -258,19 +258,19 @@ message SetProtectedStateRequest {
   Action action = 1;
 
   oneof data {
-    PrepareChange prepare_change = 2;
-    ConfirmChange confirm_change = 3;
+    Prepare prepare = 2;
+    Confirm confirm = 3;
   }
 }
 
 message SetProtectedStateReply {
-  message PrepareChange {
+  message Prepare {
     bytes device_nonce = 1 [(nanopb).max_size = 32];
     bytes device_signature = 2;
     bytes device_public_key_fingerprint = 3 [(nanopb).max_size = 32];
   }
 
-  PrepareChange prepare_change = 1;
+  optional Prepare prepare = 1;
 }
 
 // Resets the device, just like hitting the reset button or powering down and back up
