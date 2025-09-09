@@ -53,7 +53,7 @@
     "src"
   ],
   "dependencies": {
-    "protobufjs": "^6.11.2"
+    "protobufjs": "^6.11.4"
   },
   "devDependencies": {
     "chai": "^4.3.4",
