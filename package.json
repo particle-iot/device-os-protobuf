@@ -19,7 +19,7 @@
     "test": "mocha './src/**/*.test.js' --color",
     "test:ci": "npm run lint && npm run test && npm run coverage",
     "coverage": "nyc --check-coverage --exclude src/pbjs-generated/*.js --exclude 'src/**/*.test.js' -- mocha --forbid-only 'src/**/*.test.js'",
-    "lint": "eslint . --ext .js --ignore-path .gitignore --ignore-pattern src/pbjs-generated/*.js",
+    "lint": "eslint",
     "lint:fix": "npm run lint -- --fix",
     "version": "npm run build:docs && git add docs"
   },
@@ -64,6 +64,6 @@
     "mocha": "^9.1.4",
     "nyc": "^15.1.0",
     "sinon": "^12.0.1",
-    "typescript": "^4.5.5"
+    "typescript": "^5.9.3"
   }
 }

@@ -1,3 +1,4 @@
+'use strict';
 const pbjsGeneratedProtobufCode = require('./pbjs-generated/definitions');
 
 class DeviceOSProtobuf {
@@ -132,7 +133,7 @@ class DeviceOSProtobuf {
 
 		try {
 			return rootJSONObject.options['(type_id)'];
-		} catch (e) {
+		} catch (_err) {
 			throw new Error(`Could not extract request type id from pbjs json where protobufMessageName=${protobufMessageName}`);
 		}
 	}
