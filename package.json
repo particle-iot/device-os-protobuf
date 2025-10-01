@@ -43,8 +43,8 @@
   },
   "homepage": "https://github.com/particle-iot/firmware-protobuf#readme",
   "engines": {
-    "node": ">=16.x",
-    "npm": "8.x"
+    "node": ">=22.18",
+    "npm": ">=10"
   },
   "files": [
     "cloud",
