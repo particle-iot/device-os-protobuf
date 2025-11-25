@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package particle.system;
+
+import "nanopb.proto";
+
+/**
+ * A snapshot of environment variables.
+ */
+message EnvVars {
+  message Var {
+    string name = 1 [(nanopb).max_length = 128]; ///< Variable name.
+    string value = 2; ///< Variable value.
+  }
+
+  repeated Var vars = 1; ///< Variable values.
+  bytes hash = 2 [(nanopb).max_size = 32]; ///< Snapshot hash.
+  fixed64 updated_at = 3; ///< Time the snapshot was created, in milliseconds since the Unix epoch.
+}
