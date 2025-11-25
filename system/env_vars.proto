@@ -14,6 +14,6 @@ message EnvVars {
   }
 
   repeated Var vars = 1; ///< Variable values.
-  bytes hash = 2; ///< Snapshot hash.
+  bytes hash = 2 [(nanopb).max_size = 32]; ///< Snapshot hash.
   fixed64 updated_at = 3; ///< Time the snapshot was created, in milliseconds since the Unix epoch.
 }
