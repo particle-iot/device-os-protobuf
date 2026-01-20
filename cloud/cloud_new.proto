@@ -1,0 +1,252 @@
+syntax = "proto3";
+
+package particle.cloud;
+
+import "describe.proto";
+import "nanopb.proto";
+
+/**
+ * A request sent by the device when it starts or resumes a session with the server.
+ */
+message HelloRequest {
+  /**
+   * Flags.
+   */
+  enum Flag {
+    FLAG_NONE = 0;
+    FLAG_SAFE_MODE = 0x01; ///< The device is in safe mode.
+    FLAG_UPDATE_DISABLED = 0x02; ///< Firmware updates disabled.
+  }
+
+  /**
+   * Module version of the system firmware.
+   */
+  uint32 system_version = 1;
+  /**
+   * Product firmware version.
+   *
+   * If not set, the device is not running a product firmware.
+   */
+  optional uint32 product_version = 2;
+  /**
+   * Combination of flags defined by the `Flag` enum.
+   */
+  fixed32 flags = 3;
+  /**
+   * SHA-1 hash of the system description.
+   */
+  bytes system_description_hash = 4 [(nanopb).max_size = 20];
+  /**
+   * SHA-1 hash of the application description.
+   *
+   * If not set, the device is not running an application firmware.
+   */
+  optional bytes app_description_hash = 5 [(nanopb).max_size = 20];
+}
+
+/**
+ * A response for `HelloRequest`.
+ */
+message HelloResponse {
+  /**
+   * Flags.
+   */
+  enum Flag {
+    FLAG_NONE = 0;
+    /**
+     * Product firmware update is available for the device.
+     */
+    FLAG_UPDATE_PENDING = 0x01;
+    /**
+     * The server is checking if a product firmware update is available for the device.
+     */
+    FLAG_UPDATE_CHECK_PENDING = 0x02;
+  }
+
+  /**
+   * Combination of flags defined by the `Flag` enum.
+   */
+  fixed32 flags = 1;
+}
+
+message DescriptionRequest {
+  enum SystemFlag {
+    SYSTEM_FLAG_NONE = 0;
+    SYSTEM_FLAG_MODULE_ALL = 0x0001;
+    SYSTEM_FLAG_MODULE_DEPENDENCIES = 0x0002;
+    SYSTEM_FLAG_MODULE_SYSTEM_HASH = 0x0004;
+    SYSTEM_FLAG_MODULE_APP_HASH = 0x0008;
+    SYSTEM_FLAG_MODULE_CERTIFICATE_INFO = 0x0010;
+    SYSTEM_FLAG_ASSET_ALL = 0x0020;
+    SYSTEM_FLAG_ASSET_HASH = 0x0040;
+    SYSTEM_FLAG_CELLULAR_ALL = 0x0080;
+    SYSTEM_FLAG_CELLULAR_IMEI_ICCID = 0x0100;
+    SYSTEM_FLAG_CELLULAR_MODEM_FIRMWARE_VERSION = 0x0200;
+    SYSTEM_FLAG_ALL = 0x7fffffff;
+  }
+
+  enum AppFlag {
+    APP_FLAG_NONE = 0;
+    APP_FLAG_LEGACY_FUNCTIONS = 0x01;
+    APP_FLAG_LEGACY_VARIABLES = 0x02;
+    APP_FLAG_SUBSCRIPTIONS = 0x04;
+    APP_FLAG_CONSTRAINED_SUBSCRIPTIONS = 0x08;
+    APP_FLAG_ALL = 0x7fffffff;
+  }
+
+  optional fixed32 system_flags = 1;
+  optional fixed32 app_flags = 2;
+}
+
+message DescriptionResponse {
+  message AppDescription {
+    message Subscription {
+      string prefix = 1;
+      bool constrained = 2;
+    }
+
+    message LegacyFunction {
+      string name = 1;
+    }
+
+    message LegacyVariable {
+      enum Type {
+        TYPE_INVALID = 0;
+        TYPE_BOOL = 1;
+        TYPE_INT32 = 2;
+        TYPE_DOUBLE = 3;
+        TYPE_STRING = 4;
+      }
+
+      string name = 1;
+      Type type = 2;
+    }
+
+    repeated Subscription subscriptions = 1;
+    repeated LegacyFunction legacy_functions = 2;
+    repeated LegacyVariable legacy_variables = 3;
+  }
+
+  optional SystemDescribe system_description = 1;
+  optional AppDescription app_description = 2;
+  optional bytes system_description_hash = 3 [(nanopb).max_size = 20];
+  optional bytes app_description_hash = 4 [(nanopb).max_size = 20];
+}
+
+message DiagnosticsRequest {
+  /**
+   * Source category flags.
+   */
+  enum Category {
+    CATEGORY_NONE = 0;
+    /**
+     * Includes diagnostics from the following categories:
+     *
+     * - `CATEGORY_NETWORK_ALL`
+     */
+    CATEGORY_ALL = 0x01;
+    /**
+     * Includes diagnostics from the following categories:
+     *
+     * - `CATEGORY_NETWORK_STATUS`
+     * - `CATEGORY_NETWORK_PRIMARY_SIGNAL`
+     * - `CATEGORY_NETWORK_ALTERNATE_SIGNAL`
+     * - `CATEGORY_NETWORK_CELLULAR_IDENTITY`
+     */
+    CATEGORY_NETWORK_ALL = 0x02;
+    /**
+     * Includes the following diagnostics:
+     *
+     * - `network.connection.status` (8)
+     * - `network.connection.error` (9)
+     * - `network.connection.disconnects` (12)
+     * - `network.connection.attempts` (27)
+     * - `network.connection.disconnect_reason` (28)
+     */
+    CATEGORY_NETWORK_STATUS = 0x04;
+    /**
+     * Includes the following diagnostics:
+     *
+     * - `network.signal.strength` (33)
+     * - `network.signal.quality` (34)
+     * - `network.signal.qualityv` (35)
+     * - `network.signal.at` (36)
+     * - `network.signal.strengthv` (37)
+     */
+    CATEGORY_NETWORK_PRIMARY_SIGNAL = 0x08;
+    /**
+     * Includes the following diagnostics:
+     *
+     * - `network.alternate_signal.strengthv` (45)
+     * - `network.alternate_signal.strength` (46)
+     * - `network.alternate_signal.quality` (47)
+     * - `network.alternate_signal.qualityv` (48)
+     * - `network.alternate_signal.at` (49)
+     */
+    CATEGORY_NETWORK_ALTERNATE_SIGNAL = 0x10;
+    /**
+     * Includes the following diagnostics:
+     *
+     * - `network.cellular.cell_global_identity.mobile_country_code` (40)
+     * - `network.cellular.cell_global_identity.mobile_network_code` (41)
+     * - `network.cellular.cell_global_identity.location_area_code` (42)
+     * - `network.cellular.cell_global_identity.cell_id` (43)
+     */
+    CATEGORY_NETWORK_CELLULAR_IDENTITY = 0x20;
+  }
+
+  /**
+   * Categories of diagnostic sources to query.
+   *
+   * The value is a combination of flags defined by the `Category` enum.
+   */
+  optional fixed32 categories = 1;
+  /**
+   * IDs of diagnostic sources to query.
+   */
+  repeated uint32 ids = 2;
+}
+
+message DiagnosticsResponse {
+  /**
+   * Diagnostic source.
+   */
+  message Source {
+    /**
+     * Source ID.
+     */
+    uint32 id = 1;
+    /**
+     * CBOR-encoded diagnostic data.
+     */
+    bytes data = 2;
+  }
+
+  /**
+   * Diagnostic sources.
+   */
+  repeated Source sources = 1;
+}
+
+message EventRequest {
+  oneof type {
+    /**
+     * Event name.
+     */
+    string name = 1;
+    /**
+     * Event code.
+     */
+    uint32 code = 2;
+  }
+
+  /**
+   * CBOR-encoded event data.
+   *
+   * If not set, the event has no payload data.
+   */
+  optional bytes data = 3;
+}
+
+message EventResponse {
+}
