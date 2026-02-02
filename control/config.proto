@@ -347,7 +347,7 @@ message GetEnvReply {
     /**
      * Variable value.
      *
-     * Set unless the request has the `get_value` option explicitly set to `false`.
+     * Populated unless the request explicitly sets the `get_value` option to `false`.
      */
     optional string value = 3;
     bool is_app = 4; ///< Whether this is an application variable.
