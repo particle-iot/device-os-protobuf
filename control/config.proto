@@ -316,3 +316,57 @@ message StopNyanSignalRequest {
 
 message StopNyanSignalReply {
 }
+
+/**
+ * Get defined environment variables.
+ */
+message GetEnvRequest {
+  option (type_id) = 600; // CTRL_REQUEST_ENV_GET
+
+  /**
+   * Name of the variable to get.
+   *
+   * If set, gets only the specified variable, otherwise gets all variables.
+   */
+  optional string name = 1;
+  /**
+   * Whether to include the variable values in the response.
+   *
+   * If not set, includes the values.
+   */
+  optional bool get_value = 2;
+}
+
+/**
+ * Response for a `GetEnvRequest`.
+ */
+message GetEnvReply {
+  message Var {
+    string name = 1 [(nanopb).max_length = 128]; ///< Variable name.
+    uint32 size = 2; ///< Size of the variable value.
+    /**
+     * Variable value.
+     *
+     * Set unless the request has the `get_value` option explicitly set to `false`.
+     */
+    optional string value = 3;
+    bool is_app = 4; ///< Whether this is an application variable.
+  }
+
+  repeated Var vars = 1; ///< List of variables.
+  optional bytes snapshot_hash = 2 [(nanopb).max_size = 32]; ///< Snapshot hash.
+}
+
+/**
+ * Clear all defined environment variables.
+ */
+message ClearEnvRequest {
+  option (type_id) = 601; // CTRL_REQUEST_ENV_CLEAR
+}
+
+/**
+ * Response for a `ClearEnvRequest`.
+ */
+message ClearEnvReply {
+  bool need_reset = 1; ///< Whether a system reset is needed to apply the changes.
+}
