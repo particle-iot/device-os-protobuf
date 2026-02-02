@@ -328,7 +328,7 @@ message GetEnvRequest {
    *
    * If set, gets only the specified variable, otherwise gets all variables.
    */
-  optional string name = 1;
+  optional string name = 1 [(nanopb).max_length = 128];
   /**
    * Whether to include the variable values in the response.
    *
