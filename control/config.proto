@@ -322,19 +322,6 @@ message StopNyanSignalReply {
  */
 message GetEnvRequest {
   option (type_id) = 600; // CTRL_REQUEST_ENV_GET
-
-  /**
-   * Name of the variable to get.
-   *
-   * If set, gets only the specified variable, otherwise gets all variables.
-   */
-  optional string name = 1 [(nanopb).max_length = 128];
-  /**
-   * Whether to include the variable values in the response.
-   *
-   * If not set, includes the values.
-   */
-  optional bool get_value = 2;
 }
 
 /**
@@ -343,14 +330,8 @@ message GetEnvRequest {
 message GetEnvReply {
   message Var {
     string name = 1 [(nanopb).max_length = 128]; ///< Variable name.
-    uint32 size = 2; ///< Size of the variable value.
-    /**
-     * Variable value.
-     *
-     * Populated unless the request explicitly sets the `get_value` option to `false`.
-     */
-    optional string value = 3;
-    bool is_app = 4; ///< Whether this is an application variable.
+    string value = 2; ///< Variable value.
+    bool is_app = 3; ///< Whether this is an application variable.
   }
 
   repeated Var vars = 1; ///< List of variables.
