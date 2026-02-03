@@ -425,7 +425,11 @@ describe('deviceOSProtobuf', () => {
 				'GetProtectedStateRequest',
 				'GetProtectedStateReply',
 				'SetProtectedStateRequest',
-				'SetProtectedStateReply'
+				'SetProtectedStateReply',
+				'GetEnvRequest',
+				'GetEnvReply',
+				'ClearEnvRequest',
+				'ClearEnvReply'
 			]);
 
 			const missingDefs = [];
