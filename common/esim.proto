@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package particle.esim;
+
+message EuiccRequest {
+  enum Type {
+    INVALID = 0;
+
+    // Profile provisioning
+    GET_EUICC_CHALLENGE = 1;
+    GET_EUICC_INFO1 = 2;
+    AUTHENTICATE_SERVER = 3;
+    PREPARE_DOWNLOAD = 4;
+    LOAD_BOUND_PROFILE_PACKAGE = 5;
+
+    // Profile management
+    GET_PROFILES_INFO = 10;
+    ENABLE_PROFILE = 11;
+    DISABLE_PROFILE = 12;
+    DELETE_PROFILE = 13;
+
+    // Notifications
+    LIST_NOTIFICATION = 20;
+    RETRIEVE_NOTIFICATIONS_LIST = 21;
+    REMOVE_NOTIFICATION_FROM_LIST = 22;
+  }
+
+  Type type = 1; // Request type
+  bytes data = 2; // ASN.1-encoded request data
+}
+
+message EuiccResponse {
+  bytes data = 1; // ASN.1-encoded response data
+}
