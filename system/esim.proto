@@ -1,34 +1,93 @@
 syntax = "proto3";
 
-package particle.system;
+package particle.system.esim;
 
+/**
+ * Payload of a `EUICC` request.
+ *
+ * See `ManagerRequest`.
+ */
 message EuiccRequest {
+  bytes data = 1; // ASN.1-encoded request data.
+}
+
+/**
+ * Payload of a `EUICC` response.
+ *
+ * See `ManagerResponse`.
+ */
+message EuiccResponse {
+  bytes data = 1; // ASN.1-encoded response data.
+}
+
+/**
+ * Payload of a `GET_LOG` request.
+ *
+ * See `ManagerRequest`.
+ */
+message GetLogRequest {
+}
+
+/**
+ * Payload of a `GET_LOG` response.
+ *
+ * See `ManagerResponse`.
+ */
+message GetLogResponse {
+  string log = 1; // Log data.
+}
+
+/**
+ * eSIM manager request.
+ */
+message ManagerRequest {
+  /**
+   * Request type.
+   */
   enum Type {
-    INVALID = 0;
-
-    // Profile provisioning
-    GET_EUICC_CHALLENGE = 1;
-    GET_EUICC_INFO1 = 2;
-    AUTHENTICATE_SERVER = 3;
-    PREPARE_DOWNLOAD = 4;
-    LOAD_BOUND_PROFILE_PACKAGE = 5;
-
-    // Profile management
-    GET_PROFILES_INFO = 10;
-    ENABLE_PROFILE = 11;
-    DISABLE_PROFILE = 12;
-    DELETE_PROFILE = 13;
-
-    // Notifications
-    LIST_NOTIFICATION = 20;
-    RETRIEVE_NOTIFICATIONS_LIST = 21;
-    REMOVE_NOTIFICATION_FROM_LIST = 22;
+    INVALID = 0; // Invalid request type.
+    EUICC = 1; // Send a request to the eUICC.
+    GET_LOG = 2; // Get the log of the last operation.
   }
 
   Type type = 1; // Request type
-  bytes data = 2; // ASN.1-encoded request data
+
+  /**
+   * Request data.
+   */
+  oneof data {
+    EuiccRequest euicc = 10;
+    GetLogRequest get_log = 11;
+  }
 }
 
-message EuiccResponse {
-  bytes data = 1; // ASN.1-encoded response data
+/**
+ * eSIM manager response.
+ */
+message ManagerResponse {
+  /**
+   * Result code.
+   */
+  enum Result {
+    OK = 0;
+  };
+
+  /**
+   * Result code.
+   *
+   * Protocol-specific codes are defined by the `Result` enum.
+   *
+   * A negative value indicates a Device OS system error:
+   *
+   * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+   */
+  sint32 result = 1;
+
+  /**
+   * Response data.
+   */
+  oneof data {
+    EuiccResponse euicc = 10;
+    GetLogResponse get_log = 11;
+  }
 }
