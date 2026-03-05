@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package particle.system.esim;
+
+/**
+ * Payload of a `EUICC` request.
+ *
+ * See `ManagerRequest`.
+ */
+message EuiccRequest {
+  enum Type {
+    // Profile provisioning
+    GET_EUICC_CHALLENGE = 0;
+    GET_EUICC_INFO1 = 1;
+    AUTHENTICATE_SERVER = 2;
+    PREPARE_DOWNLOAD = 3;
+    LOAD_BOUND_PROFILE_PACKAGE = 4;
+
+    // Profile management
+    GET_PROFILES_INFO = 10;
+    ENABLE_PROFILE = 11;
+    DISABLE_PROFILE = 12;
+    DELETE_PROFILE = 13;
+
+    // Notifications
+    LIST_NOTIFICATION = 20;
+    RETRIEVE_NOTIFICATIONS_LIST = 21;
+    REMOVE_NOTIFICATION_FROM_LIST = 22;
+  }
+
+  Type type = 1; // Request type as defined by the `Request` enum.
+  bytes data = 2; // Request data in the format specified by SGP.22.
+}
+
+/**
+ * Payload of a `EUICC` response.
+ *
+ * See `ManagerResponse`.
+ */
+message EuiccResponse {
+  bytes data = 1; // Response data in the format specified by SGP.22.
+}
+
+/**
+ * Payload of a `LOG` request.
+ *
+ * See `ManagerRequest`.
+ */
+message LogRequest {
+}
+
+/**
+ * Payload of a `LOG` response.
+ *
+ * See `ManagerResponse`.
+ */
+message LogResponse {
+  string data = 1; // Log data.
+}
+
+/**
+ * eSIM manager request.
+ */
+message ManagerRequest {
+  /**
+   * Request type.
+   */
+  enum Type {
+    EUICC = 0; // Send a request to the eUICC.
+    LOG = 10; // Get the log of the last operation.
+  }
+
+  Type type = 1; // Request type as defined by the `Type` enum.
+
+  /**
+   * Request data.
+   */
+  oneof data {
+    EuiccRequest euicc = 10;
+    LogRequest log = 11;
+  }
+}
+
+/**
+ * eSIM manager response.
+ */
+message ManagerResponse {
+  /**
+   * Result code.
+   */
+  enum Result {
+    OK = 0;
+  };
+
+  /**
+   * Result code.
+   *
+   * Protocol-specific codes are defined by the `Result` enum.
+   *
+   * A negative value indicates a Device OS system error:
+   * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+   */
+  sint32 result = 1;
+
+  /**
+   * Response data.
+   */
+  oneof data {
+    EuiccResponse euicc = 10;
+    LogResponse log = 11;
+  }
+}
