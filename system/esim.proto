@@ -8,7 +8,28 @@ package particle.system.esim;
  * See `ManagerRequest`.
  */
 message EuiccRequest {
-  bytes data = 1; // ASN.1-encoded request data.
+  enum Type {
+    // Profile provisioning
+    GET_EUICC_CHALLENGE = 0;
+    GET_EUICC_INFO1 = 1;
+    AUTHENTICATE_SERVER = 2;
+    PREPARE_DOWNLOAD = 3;
+    LOAD_BOUND_PROFILE_PACKAGE = 4;
+
+    // Profile management
+    GET_PROFILES_INFO = 10;
+    ENABLE_PROFILE = 11;
+    DISABLE_PROFILE = 12;
+    DELETE_PROFILE = 13;
+
+    // Notifications
+    LIST_NOTIFICATION = 20;
+    RETRIEVE_NOTIFICATIONS_LIST = 21;
+    REMOVE_NOTIFICATION_FROM_LIST = 22;
+  }
+
+  Type type = 1; // Request type as defined by the `Request` enum.
+  bytes data = 2; // Request data in the format specified by SGP.22.
 }
 
 /**
@@ -17,24 +38,24 @@ message EuiccRequest {
  * See `ManagerResponse`.
  */
 message EuiccResponse {
-  bytes data = 1; // ASN.1-encoded response data.
+  bytes data = 1; // Response data in the format specified by SGP.22.
 }
 
 /**
- * Payload of a `GET_LOG` request.
+ * Payload of a `LOG` request.
  *
  * See `ManagerRequest`.
  */
-message GetLogRequest {
+message LogRequest {
 }
 
 /**
- * Payload of a `GET_LOG` response.
+ * Payload of a `LOG` response.
  *
  * See `ManagerResponse`.
  */
-message GetLogResponse {
-  string log = 1; // Log data.
+message LogResponse {
+  string data = 1; // Log data.
 }
 
 /**
@@ -45,19 +66,18 @@ message ManagerRequest {
    * Request type.
    */
   enum Type {
-    INVALID = 0; // Invalid request type.
-    EUICC = 1; // Send a request to the eUICC.
-    GET_LOG = 2; // Get the log of the last operation.
+    EUICC = 0; // Send a request to the eUICC.
+    LOG = 10; // Get the log of the last operation.
   }
 
-  Type type = 1; // Request type
+  Type type = 1; // Request type as defined by the `Type` enum.
 
   /**
    * Request data.
    */
   oneof data {
     EuiccRequest euicc = 10;
-    GetLogRequest get_log = 11;
+    LogRequest log = 11;
   }
 }
 
@@ -78,7 +98,6 @@ message ManagerResponse {
    * Protocol-specific codes are defined by the `Result` enum.
    *
    * A negative value indicates a Device OS system error:
-   *
    * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
    */
   sint32 result = 1;
@@ -88,6 +107,6 @@ message ManagerResponse {
    */
   oneof data {
     EuiccResponse euicc = 10;
-    GetLogResponse get_log = 11;
+    LogResponse log = 11;
   }
 }
