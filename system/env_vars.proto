@@ -9,7 +9,7 @@ import "nanopb.proto";
  */
 message EnvVars {
   message Var {
-    string name = 1 [(nanopb).max_length = 128]; ///< Variable name.
+    string name = 1; ///< Variable name.
     string value = 2; ///< Variable value.
   }
 
