@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package particle.system.esim;
+
+/**
+ * Payload of an `APDU` request.
+ *
+ * Carries a single APDU command to be sent to the eUICC.
+ *
+ * See `ManagerRequest`.
+ */
+message ApduRequest {
+  bytes data = 1; // APDU command bytes.
+}
+
+/**
+ * Payload of an `APDU` response.
+ *
+ * Carries the APDU response from the eUICC, including SW1 SW2.
+ *
+ * See `ManagerResponse`.
+ */
+message ApduResponse {
+  bytes data = 1; // APDU response bytes (data + SW1 SW2).
+}
+
+/**
+ * eSIM manager request.
+ */
+message ManagerRequest {
+  ApduRequest apdu = 1; // APDU command to send to the eUICC.
+}
+
+/**
+ * eSIM manager response.
+ */
+message ManagerResponse {
+  /**
+   * Result code.
+   */
+  enum Result {
+    OK = 0;
+  };
+
+  /**
+   * Result code.
+   *
+   * Protocol-specific codes are defined by the `Result` enum.
+   *
+   * A negative value indicates a Device OS system error:
+   * https://github.com/particle-iot/device-os/blob/develop/services/inc/system_error.h
+   */
+  sint32 result = 1;
+
+  ApduResponse apdu = 2; // APDU response from the eUICC.
+}
