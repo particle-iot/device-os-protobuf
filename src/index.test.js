@@ -223,6 +223,8 @@ describe('deviceOSProtobuf', () => {
 				'cellular.GetActiveSimReply',
 				'cellular.GetIccidRequest',
 				'cellular.GetIccidReply',
+				'cellular.ApduRequest',
+				'cellular.ApduReply',
 				'ResultCode',
 				'Ipv4Address',
 				'Ipv6Address',
