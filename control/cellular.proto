@@ -87,3 +87,15 @@ message GetIccidReply {
   string iccid = 1; // SIM ICCID
   string imei = 2; // RADIO IMEI
 }
+
+/**
+ * Send a command APDU to the UICC.
+ */
+message ApduRequest {
+  option (type_id) = 555; // CTRL_REQUEST_CELLULAR_APDU
+  bytes data = 1;
+}
+
+message ApduReply {
+  bytes data = 1;
+}
