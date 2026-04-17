@@ -92,7 +92,7 @@ message GetIccidReply {
  * Send a command APDU to the UICC.
  */
 message ApduRequest {
-  option (type_id) = 555; // CTRL_REQUEST_CELLULAR_APDU
+  option (type_id) = 555; // CTRL_REQUEST_CELLULAR_SEND_APDU
   bytes data = 1;
 }
 
