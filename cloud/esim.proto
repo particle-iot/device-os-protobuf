@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package particle.cloud.esim;
+
+import "nanopb.proto";
+
+/**
+ * Profile type.
+ */
+enum ProfileType {
+  UNKNOWN_PROFILE_TYPE = 0;
+  TEST = 1, ///< Test profile.
+  PROVISIONING = 2, ///< Provisioning profile.
+  OPERATIONAL = 3 ///< Operational profile.
+}
+
+/**
+ * List the installed profiles.
+ *
+ * Sent by: server.
+ */
+message ListProfilesRequest {
+}
+
+/**
+ * Response for `ListProfilesRequest`.
+ */
+message ListProfilesResponse {
+  /**
+   * Profile info.
+   */
+  message Profile {
+    string iccid = 1; ///< ICCID.
+    string name = 2; ///< Profile name.
+    ProfileType type = 3; ///< Profile type.
+    bool enabled = 4; ///< Whether the profile is enabled.
+  }
+
+  repeated Profile profiles = 1; ///< List of profiles.
+}
+
+/**
+ * Install a profile.
+ *
+ * Sent by: server.
+ */
+message InstallProfileRequest {
+  string activation_code = 1; ///< Activation code.
+
+  /**
+   * ICCID of the new profile.
+   *
+   * The installation will fail if the ICCID of the profile fetched from the SM-DP+ doesn't match
+   * this ICCID.
+   */
+  optional string iccid = 2;
+
+  /**
+   * Whether to enable the profile if the installation succeeds.
+   *
+   * By default, the profile will be enabled automatically.
+   */
+  optional bool enable = 3;
+}
+
+/**
+ * Response for `InstallProfileRequest`.
+ */
+message InstallProfileResponse {
+  bytes install_id = 1 [(nanopb).max_size = 16]; ///< Opaque installation ID.
+}
+
+/**
+ * Notify the result of a profile installation.
+ */
+message NotifyProfileInstallRequest {
+  /**
+   * Result code.
+   *
+   * If 0, the installation succeeded, otherwise the field contains a Device OS error code.
+   */
+  sint32 result = 1;
+
+  /**
+   * Installation ID.
+   */
+  bytes install_id = 2 [(nanopb).max_size = 16];
+
+  /**
+   * ICCID.
+   *
+   * If not set, the ICCID is unknown, which is possible if the installation failed too early in
+   * the process.
+   */
+  optional string iccid = 3 [(nanopb).max_length = 20];
+
+  /**
+   * Additional context for debugging.
+   */
+  optional string error_context = 4;
+}
+
+/**
+ * Response for `NotifyProfileInstallRequest`.
+ */
+message NotifyProfileInstallResponse {
+}
+
+/**
+ * Delete a profile.
+ */
+message DeleteProfileRequest {
+  string iccid = 1; ///< ICCID.
+}
+
+/**
+ * Response for `DeleteProfileRequest`.
+ */
+message DeleteProfileResponse {
+}
+
+/**
+ * Enable/disable a profile.
+ */
+message SetProfileStateRequest {
+  string iccid = 1; ///< ICCID.
+  bool enabled = 2; ///< Whether to enable or disable the profile.
+}
+
+/**
+ * Response for `SetProfileStateRequest`.
+ */
+message SetProfileStateResponse {
+}
