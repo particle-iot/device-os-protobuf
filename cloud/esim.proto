@@ -17,7 +17,7 @@ enum ProfileType {
 /**
  * List the installed profiles.
  *
- * Sent by: server.
+ * Sent by the server.
  */
 message ListProfilesRequest {
 }
@@ -42,7 +42,7 @@ message ListProfilesResponse {
 /**
  * Install a profile.
  *
- * Sent by: server.
+ * Sent by the server.
  */
 message InstallProfileRequest {
   string activation_code = 1; ///< Activation code.
@@ -50,13 +50,13 @@ message InstallProfileRequest {
   /**
    * ICCID of the new profile.
    *
-   * The installation will fail if the ICCID of the profile fetched from the SM-DP+ doesn't match
-   * this ICCID.
+   * If set, the installation will fail if the ICCID of the profile fetched from the SM-DP+ doesn't
+   * match this ICCID.
    */
   optional string iccid = 2;
 
   /**
-   * Whether to enable the profile if the installation succeeds.
+   * Whether to enable the profile after the installation.
    *
    * By default, the profile will be enabled automatically.
    */
@@ -72,12 +72,14 @@ message InstallProfileResponse {
 
 /**
  * Notify the result of a profile installation.
+ *
+ * Sent by the device.
  */
 message NotifyProfileInstallRequest {
   /**
    * Result code.
    *
-   * If 0, the installation succeeded, otherwise the field contains a Device OS error code.
+   * If 0, the installation succeeded, otherwise the field would contain a Device OS error code.
    */
   sint32 result = 1;
 
@@ -89,8 +91,7 @@ message NotifyProfileInstallRequest {
   /**
    * ICCID.
    *
-   * If not set, the ICCID is unknown, which is possible if the installation failed too early in
-   * the process.
+   * If not set, the ICCID is unknown, which is possible if the installation failed early in process.
    */
   optional string iccid = 3 [(nanopb).max_length = 20];
 
@@ -108,6 +109,8 @@ message NotifyProfileInstallResponse {
 
 /**
  * Delete a profile.
+ *
+ * Sent by the server.
  */
 message DeleteProfileRequest {
   string iccid = 1; ///< ICCID.
@@ -120,11 +123,17 @@ message DeleteProfileResponse {
 }
 
 /**
- * Enable/disable a profile.
+ * Set the profile state.
+ *
+ * Sent by the server.
  */
 message SetProfileStateRequest {
   string iccid = 1; ///< ICCID.
-  bool enabled = 2; ///< Whether to enable or disable the profile.
+
+  /**
+   * If set, enables or disables the profile.
+   */
+  optional bool enabled = 2;
 }
 
 /**
