@@ -58,9 +58,14 @@ message InstallProfileRequest {
   /**
    * Whether to enable the profile after the installation.
    *
-   * By default, the profile will be enabled automatically.
+   * By default, the profile will be enabled.
    */
   optional bool enable = 3;
+
+  /**
+   * If set, overrides the default value of the refresh flag.
+   */
+  optional bool refresh_flag = 4;
 }
 
 /**
@@ -134,6 +139,11 @@ message SetProfileStateRequest {
    * If set, enables or disables the profile.
    */
   optional bool enabled = 2;
+
+  /**
+   * If set, overrides the default value of the refresh flag.
+   */
+  optional bool refresh_flag = 3;
 }
 
 /**
