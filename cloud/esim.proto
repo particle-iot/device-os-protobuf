@@ -5,10 +5,10 @@ package particle.cloud.esim;
 import "nanopb.proto";
 
 /**
- * Profile type.
+ * Profile class.
  */
-enum ProfileType {
-  UNKNOWN_PROFILE_TYPE = 0;
+enum ProfileClass {
+  UNKNOWN_PROFILE_CLASS = 0; ///< Unknown profile class.
   TEST = 1; ///< Test profile.
   PROVISIONING = 2; ///< Provisioning profile.
   OPERATIONAL = 3; ///< Operational profile.
@@ -32,7 +32,7 @@ message ListProfilesResponse {
   message Profile {
     string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
     string name = 2 [(nanopb).max_length = 64]; ///< Profile name.
-    ProfileType type = 3; ///< Profile type.
+    ProfileClass cls = 3; ///< Profile class.
     bool enabled = 4; ///< Whether the profile is enabled.
   }
 
