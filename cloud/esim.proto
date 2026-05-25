@@ -30,8 +30,8 @@ message ListProfilesResponse {
    * Profile info.
    */
   message Profile {
-    string iccid = 1; ///< ICCID.
-    string name = 2; ///< Profile name.
+    string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
+    string name = 2 [(nanopb).max_length = 64]; ///< Profile name.
     ProfileType type = 3; ///< Profile type.
     bool enabled = 4; ///< Whether the profile is enabled.
   }
@@ -53,7 +53,7 @@ message InstallProfileRequest {
    * If set, the installation will fail if the ICCID of the profile fetched from the SM-DP+ doesn't
    * match this ICCID.
    */
-  optional string iccid = 2;
+  optional string iccid = 2 [(nanopb).max_length = 20];
 
   /**
    * Whether to enable the profile after the installation.
@@ -79,7 +79,7 @@ message NotifyProfileInstallRequest {
   /**
    * Result code.
    *
-   * If 0, the installation succeeded, otherwise the field would contain a Device OS error code.
+   * If 0, the installation succeeded.
    */
   sint32 result = 1;
 
@@ -91,7 +91,7 @@ message NotifyProfileInstallRequest {
   /**
    * ICCID.
    *
-   * If not set, the ICCID is unknown, which is possible if the installation failed early in process.
+   * If not set, the ICCID is unknown, which is possible if the installation failed early.
    */
   optional string iccid = 3 [(nanopb).max_length = 20];
 
@@ -113,7 +113,7 @@ message NotifyProfileInstallResponse {
  * Sent by the server.
  */
 message DeleteProfileRequest {
-  string iccid = 1; ///< ICCID.
+  string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
 }
 
 /**
@@ -128,7 +128,7 @@ message DeleteProfileResponse {
  * Sent by the server.
  */
 message SetProfileStateRequest {
-  string iccid = 1; ///< ICCID.
+  string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
 
   /**
    * If set, enables or disables the profile.
