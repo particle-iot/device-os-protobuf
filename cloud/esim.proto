@@ -63,7 +63,7 @@ message InstallProfileRequest {
   optional bool enable = 3;
 
   /**
-   * If set, overrides the default value of the refresh flag.
+   * If set, overrides the default value of the refresh flag (`true`).
    */
   optional bool refresh_flag = 4;
 }
@@ -141,7 +141,7 @@ message SetProfileStateRequest {
   optional bool enabled = 2;
 
   /**
-   * If set, overrides the default value of the refresh flag.
+   * If set, overrides the default value of the refresh flag (`true`).
    */
   optional bool refresh_flag = 3;
 }
