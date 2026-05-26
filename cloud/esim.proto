@@ -20,6 +20,12 @@ enum ProfileClass {
  * Sent by the server.
  */
 message ListProfilesRequest {
+  /**
+   * Whether to include test profiles in the results.
+   *
+   * Default value: `false`.
+   */
+  optional bool include_test = 1;
 }
 
 /**
@@ -58,12 +64,14 @@ message InstallProfileRequest {
   /**
    * Whether to enable the profile after the installation.
    *
-   * By default, the profile will be enabled.
+   * Default value: `true`.
    */
   optional bool enable = 3;
 
   /**
-   * If set, overrides the default value of the refresh flag (`true`).
+   * Value of the `refreshFlag` (SGP.22, 3.2.1).
+   *
+   * Default value: `true`.
    */
   optional bool refresh_flag = 4;
 }
@@ -94,9 +102,7 @@ message NotifyProfileInstallRequest {
   bytes install_id = 2 [(nanopb).max_size = 16];
 
   /**
-   * ICCID.
-   *
-   * If not set, the ICCID is unknown, which is possible if the installation failed early.
+   * ICCID (if known).
    */
   optional string iccid = 3 [(nanopb).max_length = 20];
 
@@ -141,7 +147,9 @@ message SetProfileStateRequest {
   optional bool enabled = 2;
 
   /**
-   * If set, overrides the default value of the refresh flag (`true`).
+   * Value of the `refreshFlag` (SGP.22, 3.2.1, 3.2.2).
+   *
+   * Default value: `true`.
    */
   optional bool refresh_flag = 3;
 }
