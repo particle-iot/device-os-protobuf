@@ -250,3 +250,53 @@ message EventRequest {
 
 message EventResponse {
 }
+
+/**
+ * UDP transport envelope. Uplink-only — service-to-device packets are bare
+ * constrained-protocol frames with no envelope.
+ */
+message UdpEnvelope {
+  /**
+   * Envelope version. Must be 1 for this design.
+   */
+  uint32 ver = 1;
+  /**
+   * NTN UDP ID — per-device identifier provisioned in the device DB. Acts as
+   * a lightweight gate (unknown IDs are dropped).
+   */
+  bytes id = 2;
+  /**
+   * Wrapped constrained-protocol frame.
+   */
+  bytes data = 3;
+}
+
+/**
+ * Probe how long the carrier's NAT keeps the device's UDP source mapping
+ * alive. The service waits `delay_ms` before replying; if the response
+ * arrives, the binding survived ≥ `delay_ms`.
+ */
+message NatProbeRequest {
+  /**
+   * Requested delay before the service replies (milliseconds).
+   */
+  uint32 delay_ms = 1;
+  /**
+   * Echoed back so the device can match request to reply.
+   */
+  bytes nonce = 2;
+}
+
+message NatProbeResponse {
+  /**
+   * Echoed from the request.
+   */
+  bytes nonce = 1;
+  /**
+   * Delay the service actually held the reply for. Differs from the
+   * request's `delay_ms` when the service clamped it. Firmware MUST use
+   * this value, not its own requested delay, when concluding "NAT binding
+   * survived ≥ X".
+   */
+  uint32 actual_delay_ms = 2;
+}
