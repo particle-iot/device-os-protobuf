@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+package particle.cloud.esim;
+
+import "nanopb.proto";
+
+/**
+ * Profile class.
+ */
+enum ProfileClass {
+  UNKNOWN_PROFILE_CLASS = 0; ///< Unknown profile class.
+  TEST = 1; ///< Test profile.
+  PROVISIONING = 2; ///< Provisioning profile.
+  OPERATIONAL = 3; ///< Operational profile.
+}
+
+/**
+ * List the installed profiles.
+ *
+ * Sent by the server.
+ */
+message ListProfilesRequest {
+  /**
+   * Whether to include test profiles in the results.
+   *
+   * Default value: `false`.
+   */
+  optional bool include_test = 1;
+}
+
+/**
+ * Response for `ListProfilesRequest`.
+ */
+message ListProfilesResponse {
+  /**
+   * Profile info.
+   */
+  message Profile {
+    string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
+    string name = 2 [(nanopb).max_length = 64]; ///< Profile name.
+    ProfileClass cls = 3; ///< Profile class.
+    bool enabled = 4; ///< Whether the profile is enabled.
+  }
+
+  repeated Profile profiles = 1; ///< List of profiles.
+}
+
+/**
+ * Install a profile.
+ *
+ * Sent by the server.
+ */
+message InstallProfileRequest {
+  string activation_code = 1; ///< Activation code.
+
+  /**
+   * ICCID of the new profile.
+   *
+   * If set, the installation will fail if the ICCID of the profile fetched from the SM-DP+ doesn't
+   * match this ICCID.
+   */
+  optional string iccid = 2 [(nanopb).max_length = 20];
+
+  /**
+   * Whether to enable the profile after the installation.
+   *
+   * Default value: `true`.
+   */
+  optional bool enable = 3;
+
+  /**
+   * Value of the `refreshFlag` (SGP.22, 3.2.1).
+   *
+   * Default value: `true`.
+   */
+  optional bool refresh_flag = 4;
+}
+
+/**
+ * Response for `InstallProfileRequest`.
+ */
+message InstallProfileResponse {
+  bytes install_id = 1 [(nanopb).max_size = 16]; ///< Opaque installation ID.
+}
+
+/**
+ * Notify the result of a profile installation.
+ *
+ * Sent by the device.
+ */
+message NotifyProfileInstallRequest {
+  /**
+   * Result code.
+   *
+   * If 0, the installation succeeded.
+   */
+  sint32 result = 1;
+
+  /**
+   * Installation ID.
+   */
+  bytes install_id = 2 [(nanopb).max_size = 16];
+
+  /**
+   * ICCID (if known).
+   */
+  optional string iccid = 3 [(nanopb).max_length = 20];
+
+  /**
+   * Additional context for debugging.
+   */
+  optional string error_context = 4;
+}
+
+/**
+ * Response for `NotifyProfileInstallRequest`.
+ */
+message NotifyProfileInstallResponse {
+}
+
+/**
+ * Delete a profile.
+ *
+ * Sent by the server.
+ */
+message DeleteProfileRequest {
+  string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
+}
+
+/**
+ * Response for `DeleteProfileRequest`.
+ */
+message DeleteProfileResponse {
+}
+
+/**
+ * Set the profile state.
+ *
+ * Sent by the server.
+ */
+message SetProfileStateRequest {
+  string iccid = 1 [(nanopb).max_length = 20]; ///< ICCID.
+
+  /**
+   * If set, enables or disables the profile.
+   */
+  optional bool enabled = 2;
+
+  /**
+   * Value of the `refreshFlag` (SGP.22, 3.2.1, 3.2.2).
+   *
+   * Default value: `true`.
+   */
+  optional bool refresh_flag = 3;
+}
+
+/**
+ * Response for `SetProfileStateRequest`.
+ */
+message SetProfileStateResponse {
+}

@@ -3,6 +3,7 @@ syntax = "proto3";
 package particle.cloud;
 
 import "ledger.proto";
+import "esim.proto";
 
 /**
  * Request message.
@@ -13,12 +14,19 @@ message Request {
    */
   enum Type {
     INVALID = 0; ///< Invalid request type.
+
     LEDGER_GET_INFO = 1; ///< Get the ledger info.
     LEDGER_SET_DATA = 2; ///< Update the contents of a remote ledger.
     LEDGER_GET_DATA = 3; ///< Get the contents of a remote ledger.
     LEDGER_SUBSCRIBE = 4; ///< Subscribe to ledger updates.
     LEDGER_NOTIFY_UPDATE = 5; ///< Notify a ledger update.
     LEDGER_RESET_INFO = 6; ///< Reset ledger info.
+
+    ESIM_LIST_PROFILES = 10; ///< List profiles.
+    ESIM_INSTALL_PROFILE = 11; ///< Install a profile.
+    ESIM_NOTIFY_PROFILE_INSTALL = 12; ///< Notify the result of a profile installation.
+    ESIM_DELETE_PROFILE = 13; ///< Delete a profile.
+    ESIM_SET_PROFILE_STATE = 14; ///< Enable/disable a profile.
   }
 
   Type type = 1; ///< Request type.
@@ -30,6 +38,12 @@ message Request {
     ledger.SubscribeRequest ledger_subscribe = 5;
     ledger.NotifyUpdateRequest ledger_notify_update = 6;
     ledger.ResetInfoRequest ledger_reset_info = 7;
+
+    esim.ListProfilesRequest esim_list_profiles = 10;
+    esim.InstallProfileRequest esim_install_profile = 11;
+    esim.NotifyProfileInstallRequest esim_notify_profile_install = 12;
+    esim.DeleteProfileRequest esim_delete_profile = 13;
+    esim.SetProfileStateRequest esim_set_profile_state = 14;
   }
 }
 
@@ -68,6 +82,12 @@ message Response {
     ledger.SubscribeResponse ledger_subscribe = 6;
     ledger.NotifyUpdateResponse ledger_notify_update = 7;
     ledger.ResetInfoResponse ledger_reset_info = 8;
+
+    esim.ListProfilesResponse esim_list_profiles = 10;
+    esim.InstallProfileResponse esim_install_profile = 11;
+    esim.NotifyProfileInstallResponse esim_notify_profile_install = 12;
+    esim.DeleteProfileResponse esim_delete_profile = 13;
+    esim.SetProfileStateResponse esim_set_profile_state = 14;
   }
 }
 
