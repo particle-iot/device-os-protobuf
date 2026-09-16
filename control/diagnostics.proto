@@ -1,0 +1,28 @@
+syntax = "proto3";
+package particle.ctrl;
+
+import "control/extensions.proto";
+
+option java_package = "io.particle.firmwareprotos.ctrl";
+
+// Get the information about the last panic
+message GetLastPanicInfoRequest {
+  option (type_id) = 101; // CTRL_REQUEST_GET_LAST_PANIC_INFO
+}
+
+message GetLastPanicInfoReply {
+  uint32 code = 1; // Panic code (see ePanicCode)
+  uint32 pc = 2; // Program counter
+  uint32 lr = 3; // Link register
+  uint32 extra_code = 4; // Platform-specific code, such as the fault status register
+  string text = 5; // Assertion text, empty if not available
+  repeated uint32 registers = 6 [(nanopb).max_count = 16]; // Saved CPU registers
+}
+
+// Clear the information about the last panic
+message ClearLastPanicInfoRequest {
+  option (type_id) = 102; // CTRL_REQUEST_CLEAR_LAST_PANIC_INFO
+}
+
+message ClearLastPanicInfoReply {
+}
