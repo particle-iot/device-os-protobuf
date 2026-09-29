@@ -4,6 +4,7 @@ package particle.cloud;
 
 import "ledger.proto";
 import "esim.proto";
+import "config.proto";
 
 /**
  * Request message.
@@ -27,6 +28,8 @@ message Request {
     ESIM_NOTIFY_PROFILE_INSTALL = 12; ///< Notify the result of a profile installation.
     ESIM_DELETE_PROFILE = 13; ///< Delete a profile.
     ESIM_SET_PROFILE_STATE = 14; ///< Enable/disable a profile.
+
+    CONFIG_CHANGE_DEVICE_KEY = 20; ///< Change the device key.
   }
 
   Type type = 1; ///< Request type.
@@ -44,6 +47,8 @@ message Request {
     esim.NotifyProfileInstallRequest esim_notify_profile_install = 12;
     esim.DeleteProfileRequest esim_delete_profile = 13;
     esim.SetProfileStateRequest esim_set_profile_state = 14;
+
+    config.ChangeDeviceKeyRequest config_change_device_key = 20;
   }
 }
 
@@ -88,6 +93,8 @@ message Response {
     esim.NotifyProfileInstallResponse esim_notify_profile_install = 12;
     esim.DeleteProfileResponse esim_delete_profile = 13;
     esim.SetProfileStateResponse esim_set_profile_state = 14;
+
+    config.ChangeDeviceKeyResponse config_change_device_key = 20;
   }
 }
 
@@ -121,20 +128,4 @@ message ServerMovedPermanentlyRequest {
  * A response for a ServerMovedPermanentlyRequest.
  */
 message ServerMovedPermanentlyResponse {
-}
-
-/**
- * Request the device to change its client key used to authenticate with the server.
- */
-message ChangeDeviceKeyRequest {
-}
-
-/**
- * A response for ChangeDeviceKeyRequest.
- */
-message ChangeDeviceKeyResponse {
-  /**
-   * The new public key.
-   */
-  bytes pub_key = 1;
 }
