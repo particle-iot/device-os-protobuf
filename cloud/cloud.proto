@@ -122,3 +122,19 @@ message ServerMovedPermanentlyRequest {
  */
 message ServerMovedPermanentlyResponse {
 }
+
+/**
+ * Request the device to change its client key used to authenticate with the server.
+ */
+message ChangeDeviceKeyRequest {
+}
+
+/**
+ * A response for ChangeDeviceKeyRequest.
+ */
+message ChangeDeviceKeyResponse {
+  /**
+   * The new public key.
+   */
+  bytes pub_key = 1;
+}
