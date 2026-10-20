@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package particle.cloud.config;
+
+import "nanopb.proto";
+
+/**
+ * Request the device to change its client key used to authenticate with the server.
+ */
+message ChangeDeviceKeyRequest {
+  /**
+   * If `true` (default), the device will reset immediately to load the new key. If `false`, the
+   * device will stay connected to the server.
+   */
+  optional bool reset_device = 1;
+}
+
+/**
+ * A response for ChangeDeviceKeyRequest.
+ */
+message ChangeDeviceKeyResponse {
+  /**
+   * The new public key.
+   */
+  bytes pub_key = 1;
+}
