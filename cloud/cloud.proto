@@ -29,7 +29,8 @@ message Request {
     ESIM_DELETE_PROFILE = 13; ///< Delete a profile.
     ESIM_SET_PROFILE_STATE = 14; ///< Enable/disable a profile.
 
-    CONFIG_CHANGE_DEVICE_KEY = 20; ///< Change the device key.
+    CONFIG_PREPARE_DEVICE_KEY_CHANGE = 20; ///< Request the device to generate a new device key.
+    CONFIG_FINALIZE_DEVICE_KEY_CHANGE = 21; ///< Send the new device key to the server.
   }
 
   Type type = 1; ///< Request type.
@@ -48,7 +49,8 @@ message Request {
     esim.DeleteProfileRequest esim_delete_profile = 13;
     esim.SetProfileStateRequest esim_set_profile_state = 14;
 
-    config.ChangeDeviceKeyRequest config_change_device_key = 20;
+    config.PrepareDeviceKeyChangeRequest prepare_device_key_change = 20;
+    config.FinalizeDeviceKeyChangeRequest finalize_device_key_change = 21;
   }
 }
 
@@ -94,7 +96,8 @@ message Response {
     esim.DeleteProfileResponse esim_delete_profile = 13;
     esim.SetProfileStateResponse esim_set_profile_state = 14;
 
-    config.ChangeDeviceKeyResponse config_change_device_key = 20;
+    config.PrepareDeviceKeyChangeResponse prepare_device_key_change = 20;
+    config.FinalizeDeviceKeyChangeResponse finalize_device_key_change = 21;
   }
 }
 
