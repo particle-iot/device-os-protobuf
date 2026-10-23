@@ -49,8 +49,8 @@ message Request {
     esim.DeleteProfileRequest esim_delete_profile = 13;
     esim.SetProfileStateRequest esim_set_profile_state = 14;
 
-    config.PrepareDeviceKeyChangeRequest prepare_device_key_change = 20;
-    config.FinalizeDeviceKeyChangeRequest finalize_device_key_change = 21;
+    config.PrepareDeviceKeyChangeRequest config_prepare_device_key_change = 20;
+    config.FinalizeDeviceKeyChangeRequest config_finalize_device_key_change = 21;
   }
 }
 
@@ -96,8 +96,8 @@ message Response {
     esim.DeleteProfileResponse esim_delete_profile = 13;
     esim.SetProfileStateResponse esim_set_profile_state = 14;
 
-    config.PrepareDeviceKeyChangeResponse prepare_device_key_change = 20;
-    config.FinalizeDeviceKeyChangeResponse finalize_device_key_change = 21;
+    config.PrepareDeviceKeyChangeResponse config_prepare_device_key_change = 20;
+    config.FinalizeDeviceKeyChangeResponse config_finalize_device_key_change = 21;
   }
 }
 
