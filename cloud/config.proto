@@ -5,22 +5,39 @@ package particle.cloud.config;
 import "nanopb.proto";
 
 /**
- * Request the device to change its client key used to authenticate with the server.
+ * Request the device to generate a new device key.
  */
-message ChangeDeviceKeyRequest {
-  /**
-   * If `true` (default), the device will reset immediately to load the new key. If `false`, the
-   * device will stay connected to the server.
-   */
-  optional bool reset_device = 1;
+message PrepareDeviceKeyChangeRequest {
 }
 
 /**
- * A response for ChangeDeviceKeyRequest.
+ * A response for `PrepareDeviceKeyChangeRequest`.
  */
-message ChangeDeviceKeyResponse {
+message PrepareDeviceKeyChangeResponse {
   /**
-   * The new public key.
+   * Opaque key ID.
+   *
+   * The actual key is sent by the device in a separate `FinalizeDeviceKeyChangeRequest`.
    */
-  bytes pub_key = 1;
+  bytes key_id = 1 [(nanopb).max_size = 16];
+}
+
+/**
+ * Send the new device key to the server.
+ */
+message FinalizeDeviceKeyChangeRequest {
+  /**
+   * Opaque key ID.
+   */
+  bytes key_id = 1 [(nanopb).max_size = 16];
+  /**
+   * New public key in DER format.
+   */
+  bytes public_key = 2;
+}
+
+/**
+ * A response for `FinalizeDeviceKeyChangeRequest`.
+ */
+message FinalizeDeviceKeyChangeResponse {
 }
